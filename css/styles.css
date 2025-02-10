@@ -10865,7 +10865,7 @@ p.lead {
   text-transform: uppercase;
   font-weight: 500;
   font-size: 1.5rem;
-  color: #8cabff;
+  color: #5f89e0;
 }
 
 .subheading-mail {
@@ -10874,7 +10874,6 @@ p.lead {
   font-weight: 500;
   font-size: 1.5rem;
   margin-bottom: 3rem !important;
-  /* color: #4477ce; */
 }
 
 #sideNav {
