@@ -3983,7 +3983,7 @@ fieldset:disabled .btn {
 	--bs-dropdown-link-hover-color: #1e2125;
 	--bs-dropdown-link-hover-bg: #e9ecef;
 	--bs-dropdown-link-active-color: #fff;
-	--bs-dropdown-link-active-bg: #bd5d38;
+	--bs-dropdown-link-active-bg: #5f89e0;
 	--bs-dropdown-link-disabled-color: #adb5bd;
 	--bs-dropdown-item-padding-x: 1rem;
 	--bs-dropdown-item-padding-y: 0.25rem;
@@ -11909,6 +11909,61 @@ p.lead {
     border-color: #5f89e0; 
 	background-color: rgba(95, 137, 224, 0.1); 
     transition: background-color 0.3s ease;
+}
+
+.project-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+	cursor: pointer;
+}
+
+.project-card:hover {
+	border-color: #5f89e0; 
+    background-color: rgba(95, 137, 224, 0.1);
+	transition: background-color 0.3s ease;
+}
+
+.project-info {
+    font-size: 16px;
+}
+
+.project-date {
+    align-self: flex-end;
+    font-size: 14px;
+    color: #888;
+}
+
+.active-project-button {
+    background-color: #5f89e0 !important;
+    border-color: #5f89e0 !important;
+    color: #fff !important;
+}
+
+.dropdown-menu {
+    background-color: #333; 
+    border: none; 
+}
+
+.dropdown-item {
+    color: #fff; 
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #444; 
+    color: #fff; 
+}
+
+.custom-img-size {
+    width: auto; 
+    height: auto; 
+    margin: 0 auto; 
+    display: block; 
 }
 
 @media (min-width: 992px) {

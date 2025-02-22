@@ -125,8 +125,7 @@
 					<p class="lead mb-5">
 						Endless journey of exploring code, exploits, and everything in
 						between. I transition easily between Cybersecurity, Mathematics,
-						Cloud Computing, Software Engineering, IT Systems Administration,
-						Physics and Electronics.
+						IT with Cloud Computing, Software Engineering, Physics and Electronics.
 					</p>
 					<div class="social-icons">
 						<a
@@ -147,25 +146,117 @@
 				<section class="resume-section" id="projects">
 					<div class="resume-section-content">
 						<h2 class="mb-5">Projects</h2>
+						<!-- Filter Buttons -->
+						<!-- <div class="dropdown mb-4">
+							<button
+								class="btn btn-secondary dropdown-toggle"
+								type="button"
+								id="categoryDropdown"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								All
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+								<li>
+									<button
+										class="dropdown-item active-project-button"
+										onclick="filterProjects('all', 'All', this)"
+									>
+										All
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('cybersecurity', 'Cybersecurity', this)"
+									>
+										Cybersecurity
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('cloud-computing', 'Cloud Computing', this)"
+									>
+										Cloud Computing
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('software-engineering', 'Software Engineering', this)"
+									>
+										Software Engineering
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('mathematics', 'Mathematics', this)"
+									>
+										Mathematics
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('it', 'IT', this)"
+									>
+										IT
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('electronics', 'Electronics', this)"
+									>
+										Electronics
+									</button>
+								</li>
+								<li>
+									<button
+										class="dropdown-item"
+										onclick="filterProjects('physics', 'Physics', this)"
+									>
+										Physics
+									</button>
+								</li>
+							</ul>
+						</div> -->
+
+						<!-- Repeat for other projects -->
 						<div
-							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+							class="project-card d-flex flex-column flex-md-row justify-content-between mb-5"
+							data-category="cloud-computing"
 						>
-							<div class="flex-grow-1">
-								<h3 class="mb-0">
-									AWS Lightsail LAMP Stack Web App Deployment
-								</h3>
-								<div class="subheading">Cloud Computing</div>
-								<div>
-									Deployed PHP web app with CRUD functionality onto AWS
-									Lightsail instance and configured static public IP address
-									with SSL certificate.
+							<a
+								href="https://github.com/aaronamran/AWS-Lightsail-LAMP-Stack-Web-App-Deployment?tab=readme-ov-file#aws-lightsail-lamp-stack-web-application-deployment"
+								target="_blank"
+								class="certification-link"
+							>
+								<div class="project-info flex-grow-1">
+									<h3 class="mb-2">
+										AWS Lightsail LAMP Stack Web App Deployment
+									</h3>
+									<div class="subheading mb-3">Cloud Computing</div>
+									<!-- Insert image carousel here -->
+									<img
+										src="./assets/projects/aws_lightsail_lamp/AWS_Lightsail_LAMP_Instance.png"
+										class="d-block w-100 custom-img-size"
+										alt="AWS Lightsail Instance"
+									/>
+									<br />
+									<div>
+										Deployed PHP web app with CRUD functionality onto AWS
+										Lightsail instance and configured static public IP address
+										with SSL certificate.
+									</div>
 								</div>
-								<div></div>
-								<p></p>
-							</div>
-							<div class="flex-shrink-0">
-								<span class="text-primary">February 2025</span>
-							</div>
+								<!-- <div class="flex-shrink-0">
+								<span class="text-primary">Date Year</span>
+							</div> -->
+							</a>
 						</div>
 					</div>
 				</section>
@@ -392,7 +483,9 @@
 											class="certification-badge"
 										/>
 										<div class="certification-info">
-											<div class="certification-name">INE Certified Cloud Associate</div>
+											<div class="certification-name">
+												INE Certified Cloud Associate
+											</div>
 											<div class="certification-year">January 2025</div>
 										</div>
 									</div>
