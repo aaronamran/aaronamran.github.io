@@ -36,7 +36,7 @@
 			id="sideNav"
 		>
 			<a class="navbar-brand js-scroll-trigger" href="#page-top">
-				<span class="d-block d-lg-none">Aaron Amran</span>
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
 				<span class="d-none d-lg-block"
 					><img
 						class="img-fluid img-profile rounded-circle mx-auto mb-2"
@@ -60,38 +60,38 @@
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="#about">About</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#experience"
 							>Experience</a
 						>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#internships"
 							>Internships</a
 						>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#education"
 							>Education</a
 						>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
-					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#certifications"
 							>Certifications</a
 						>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#activities"
 							>Activities</a
 						>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item resume-nav-item">
 						<a class="nav-link js-scroll-trigger" href="#interests"
 							>Interests</a
 						>
@@ -104,6 +104,15 @@
 			<!-- About-->
 			<section class="resume-section" id="about">
 				<div class="resume-section-content">
+					<div class="button-group">
+						<button id="showPortfolio" class="btn btn-secondary active-button">
+							Portfolio
+						</button>
+						<button id="showResume" class="btn btn-secondary">Resume</button>
+					</div>
+					<br />
+					<br />
+					<br />
 					<div class="myname-div">
 						<h1 class="myname-text mb-3">Aaron Amran</h1>
 					</div>
@@ -128,440 +137,500 @@
 						<a class="social-icon" href="https://github.com/aaronamran"
 							><i class="fab fa-github"></i
 						></a>
-						<!-- <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a> -->
 					</div>
 				</div>
 			</section>
 			<hr class="m-0" />
-			<!-- Experience-->
-			<section class="resume-section" id="experience">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Experience</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Mathematical Software Developer</h3>
-							<div class="subheading mb-2">
-								BlueStem Group Sdn Bhd • Part time (Remote)
+			<!-- Portfolio Container -->
+			<div id="portfolioContainer">
+				<!-- Projects-->
+				<section class="resume-section" id="projects">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Projects</h2>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">
+									AWS Lightsail LAMP Stack Web App Deployment
+								</h3>
+								<div class="subheading">Cloud Computing</div>
+								<div>
+									Deployed PHP web app with CRUD functionality onto AWS
+									Lightsail instance and configured static public IP address
+									with SSL certificate.
+								</div>
+								<div></div>
+								<p></p>
 							</div>
-							<ul>
-								<li>
-									Used Jupyter Notebook to convert PHD level mathematical
-									equations into Python codes for complex calculations and
-									visualisations.
-								</li>
-							</ul>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">February 2025 - Present</span>
+							<div class="flex-shrink-0">
+								<span class="text-primary">February 2025</span>
+							</div>
 						</div>
 					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">ICT Technician</h3>
-							<div class="subheading mb-2">
-								Ori Pasti Ori (Kuching) Sdn Bhd • Full time (On-site)
-							</div>
-							<ul>
-								<li>
-									Resolved over 250 technical issues on-site and remotely by
-									installing new products and troubleshooting PCs, laptops,
-									multifunctional printers, projector screens, and enterprise
-									software.
-								</li>
-								<li>
-									Diagnosed LAN connectivity issues, installed UPS to minimise
-									server and operational downtime, and deployed 3 Synology NAS
-									systems for secure backup and data security.
-								</li>
-								<li>
-									Verified ICT product specifications for 9 tenders, ensuring
-									technical accuracy for competitive bid submissions.
-								</li>
-							</ul>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">May 2024 - Present</span>
-						</div>
-					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Coding Teacher</h3>
-							<div class="subheading mb-2">
-								Coding School (Angsamas Media Marketing Sdn Bhd) • Contract
-								(Remote)
-							</div>
-							<ul>
-								<li>
-									Taught programming and game development (Roblox Studio (Lua),
-									Python, and Scratch) to students aged 6-18.
-								</li>
-								<li>
-									Monitored progress of students and provided ongoing support
-									and feedback to students and parents.
-								</li>
-							</ul>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">July 2024 - September 2024</span>
-						</div>
-					</div>
-					<div class="d-flex flex-column flex-md-row justify-content-between">
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Software Engineer</h3>
-							<div class="subheading mb-2">
-								Startup (NDA Signed) • Freelance (Remote)
-							</div>
-							<ul>
-								<li>
-									Prototyped a mobile app with 7 core features using no-code
-									tools and cloud-based database for MVP iteration, and
-									transitioned to full-stack coding for final production.
-								</li>
-								<li>
-									Participated in Agile Scrum methodology to ensure timely
-									delivery of bi-weekly project phases.
-								</li>
-							</ul>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">March 2024 - Present</span>
-						</div>
-					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 			<hr class="m-0" />
-			<!-- Internships -->
-			<section class="resume-section" id="internships">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Internships</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Remote Cybersecurity Intern</h3>
-							<div class="subheading mb-2">
-								Mossé Cybersecurity Institute • Part time (Remote)
+			<!-- Resume Container -->
+			<div id="resumeContainer">
+				<!-- Experience-->
+				<section class="resume-section" id="experience">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Experience</h2>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Mathematical Software Developer</h3>
+								<div class="subheading mb-2">
+									BlueStem Group Sdn Bhd • Part time (Remote)
+								</div>
+								<ul>
+									<li>
+										Used Jupyter Notebook to convert PHD level mathematical
+										equations into Python codes for complex calculations and
+										visualisations.
+									</li>
+								</ul>
 							</div>
-							<ul>
-								<li>
-									Performed vulnerability assessments, used Metasploit to
-									exploit MS17-010 and Mimikatz to escalate privileges.
-								</li>
-								<li>
-									Automated tasks by developing PowerShell scripts for Windows
-									services, registry edits and improved security.
-								</li>
-								<li>
-									Tested PHP web applications to identify vulnerabilities like
-									web shells and XSS filter bypass, and implemented strong
-									password policies, CSRF protection, brute-force prevention and
-									clickjacking prevention.
-								</li>
-								<li>
-									Created YARA rules for malware detection and conducted threat
-									hunting across multiple machines.
-								</li>
-							</ul>
+							<div class="flex-shrink-0">
+								<span class="text-primary">February 2025 - Present</span>
+							</div>
 						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">September 2024 - December 2024</span>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">ICT Technician</h3>
+								<div class="subheading mb-2">
+									Ori Pasti Ori (Kuching) Sdn Bhd • Full time (On-site)
+								</div>
+								<ul>
+									<li>
+										Resolved over 250 technical issues on-site and remotely by
+										installing new products and troubleshooting PCs, laptops,
+										multifunctional printers, projector screens, and enterprise
+										software.
+									</li>
+									<li>
+										Diagnosed LAN connectivity issues, installed UPS to minimise
+										server and operational downtime, and deployed 3 Synology NAS
+										systems for secure backup and data security.
+									</li>
+									<li>
+										Verified ICT product specifications for 9 tenders, ensuring
+										technical accuracy for competitive bid submissions.
+									</li>
+								</ul>
+							</div>
+							<div class="flex-shrink-0">
+								<span class="text-primary">May 2024 - Present</span>
+							</div>
+						</div>
+						<div class="d-flex flex-column flex-md-row justify-content-between">
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Software Engineer</h3>
+								<div class="subheading mb-2">
+									Startup (NDA Signed) • Freelance (Remote)
+								</div>
+								<ul>
+									<li>
+										Prototyped a mobile app with 7 core features using no-code
+										tools and cloud-based database for MVP iteration, and
+										transitioned to full-stack coding for final production.
+									</li>
+									<li>
+										Conducted functional and UI/UX testing to ensure quality
+										user experience.
+									</li>
+								</ul>
+							</div>
+							<div class="flex-shrink-0">
+								<span class="text-primary">March 2024 - Present</span>
+							</div>
 						</div>
 					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Electronics Engineer</h3>
-							<div class="subheading mb-2">
-								CEM Tuning Unternehmen • Full time (On-site)
+				</section>
+				<hr class="m-0" />
+				<!-- Internships -->
+				<section class="resume-section" id="internships">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Internships</h2>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Remote Cybersecurity Intern</h3>
+								<div class="subheading mb-2">
+									Mossé Cybersecurity Institute • Part time (Remote)
+								</div>
+								<ul>
+									<li>
+										Performed vulnerability assessments, used Metasploit to
+										exploit MS17-010 and Mimikatz to escalate privileges.
+									</li>
+									<li>
+										Automated tasks by developing PowerShell scripts for Windows
+										services, registry edits and improved security.
+									</li>
+									<li>
+										Tested PHP web applications to identify vulnerabilities like
+										web shells and XSS filter bypass, and implemented strong
+										password policies, CSRF protection, brute-force prevention
+										and clickjacking prevention.
+									</li>
+									<li>
+										Created YARA rules for malware detection and conducted
+										threat hunting across multiple machines.
+									</li>
+								</ul>
 							</div>
-							<ul>
-								<li>
-									Optimised and tested EEPROM and Flash memory files,
-									successfully cloning and testing over 60 electronic control
-									units (ECUs) for Audi, BMW, Renault, Škoda, and Volkswagen
-									vehicles.
-								</li>
-								<li>
-									Performed soldering on SMD, processor, and memory chips using
-									contact, hot-air, and infrared methods and manufactured wire
-									harness and loop for ECU test benches.
-								</li>
-							</ul>
+							<div class="flex-shrink-0">
+								<span class="text-primary">September 2024 - December 2024</span>
+							</div>
 						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">August 2019 - November 2019</span>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Electronics Engineer</h3>
+								<div class="subheading mb-2">
+									CEM Tuning Unternehmen • Full time (On-site)
+								</div>
+								<ul>
+									<li>
+										Optimised and tested EEPROM and Flash memory files,
+										successfully cloning and testing over 60 electronic control
+										units (ECUs) for Audi, BMW, Renault, Škoda, and Volkswagen
+										vehicles.
+									</li>
+									<li>
+										Performed soldering on SMD, processor, and memory chips
+										using contact, hot-air, and infrared methods and
+										manufactured wire harness and loop for ECU test benches.
+									</li>
+								</ul>
+							</div>
+							<div class="flex-shrink-0">
+								<span class="text-primary">August 2019 - November 2019</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Education-->
-			<section class="resume-section" id="education">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Education</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">
-								Master of Engineering (Energy Efficiency in Technical Systems)
-							</h3>
-							<div class="subheading mb-2">
-								Technische Hochschule Brandenburg, Germany
+				</section>
+				<hr class="m-0" />
+				<!-- Education-->
+				<section class="resume-section" id="education">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Education</h2>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">
+									Master of Engineering (Energy Efficiency in Technical Systems)
+								</h3>
+								<div class="subheading mb-2">
+									Technische Hochschule Brandenburg, Germany
+								</div>
+								<div>
+									Thesis title:
+									<b
+										>Further Development of a JavaScript Library for Interactive
+										Moodle Exercises in Engineering Subjects</b
+									>
+								</div>
+								<div>Specialisation: Electrical and Information Systems</div>
+								<p>Gesamtnote: 1,7</p>
 							</div>
-							<div>
-								Thesis title:
-								<b
-									>Further Development of a JavaScript Library for Interactive
-									Moodle Exercises in Engineering Subjects</b
+							<div class="flex-shrink-0">
+								<span class="text-primary">May 2021 - November 2023</span>
+							</div>
+						</div>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">
+									Bachelor of Engineering (Electrical and Information Systems)
+								</h3>
+								<div class="subheading mb-2">
+									Technische Hochschule Brandenburg, Germany
+								</div>
+								<div>
+									Thesis title:
+									<b
+										>Implementation of Sensor Fusion in Acoustic Source
+										Localisation</b
+									>
+								</div>
+								<p>Gesamtnote: 2,2</p>
+							</div>
+							<div class="flex-shrink-0">
+								<span class="text-primary">October 2017 - April 2021</span>
+							</div>
+						</div>
+					</div>
+				</section>
+				<hr class="m-0" />
+				<!-- Certifications -->
+				<section class="resume-section" id="certifications">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Certifications</h2>
+						<!-- Repeat for latest certifications here -->
+						<!-- To add new row of certifications, use a new div element with row class -->
+						<div class="row">
+							<div class="col-6 col-md-2">
+								<a
+									href="https://certs.ine.com/fb44cd9e-6c97-4057-8f3d-4cb40b92ebc0"
+									target="_blank"
+									class="certification-link"
 								>
+									<div class="certification-card">
+										<img
+											src="./assets/badges/INE_ICCA_Badge.png"
+											alt="INE ICCA"
+											class="certification-badge"
+										/>
+										<div class="certification-info">
+											<div class="certification-name">INE Certified Cloud Associate</div>
+											<div class="certification-year">January 2025</div>
+										</div>
+									</div>
+								</a>
 							</div>
-							<div>Specialisation: Electrical and Information Systems</div>
-							<p>Gesamtnote: 1,7</p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">May 2021 - November 2023</span>
-						</div>
-					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">
-								Bachelor of Engineering (Electrical and Information Systems)
-							</h3>
-							<div class="subheading mb-2">
-								Technische Hochschule Brandenburg, Germany
-							</div>
-							<div>
-								Thesis title:
-								<b
-									>Implementation of Sensor Fusion in Acoustic Source
-									Localisation</b
+							<div class="col-6 col-md-2">
+								<a
+									href="https://coursera.org/verify/professional-cert/BINXG1X7OF8W"
+									target="_blank"
+									class="certification-link"
 								>
+									<div class="certification-card">
+										<img
+											src="./assets/badges/Google_Cybersecurity_Badge.png"
+											alt="Google Cybersecurity"
+											class="certification-badge"
+										/>
+										<div class="certification-info">
+											<div class="certification-name">Google Cybersecurity</div>
+											<div class="certification-year">August 2024</div>
+										</div>
+									</div>
+								</a>
 							</div>
-							<p>Gesamtnote: 2,2</p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">October 2017 - April 2021</span>
+							<div class="col-6 col-md-2">
+								<a
+									href="https://coursera.org/verify/professional-cert/LLQAC264PMTT"
+									target="_blank"
+									class="certification-link"
+								>
+									<div class="certification-card">
+										<img
+											src="./assets/badges/Google_IT_Support_Badge.png"
+											alt="Google IT Support"
+											class="certification-badge"
+										/>
+										<div class="certification-info">
+											<div class="certification-name">Google IT Support</div>
+											<div class="certification-year">July 2024</div>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="col-6 col-md-2">
+								<a
+									href="https://coursera.org/verify/professional-cert/HM53EFGYZJWT"
+									target="_blank"
+									class="certification-link"
+								>
+									<div class="certification-card">
+										<img
+											src="./assets/badges/IBM_Cybersecurity_Specialist_Badge.png"
+											alt="IBM and ISC2 Cybersecurity Specialist"
+											class="certification-badge"
+										/>
+										<div class="certification-info">
+											<div class="certification-name">
+												IBM and ISC2 Cybersecurity Specialist
+											</div>
+											<div class="certification-year">June 2024</div>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="col-6 col-md-2">
+								<a
+									href="https://coursera.org/verify/professional-cert/94UHH3X6YL6E"
+									target="_blank"
+									class="certification-link"
+								>
+									<div class="certification-card">
+										<img
+											src="./assets/badges/IBM_IT_Support_Badge.png"
+											alt="IBM IT Support"
+											class="certification-badge"
+										/>
+										<div class="certification-info">
+											<div class="certification-name">IBM IT Support</div>
+											<div class="certification-year">April 2024</div>
+										</div>
+									</div>
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Projects-->
-			<section class="resume-section" id="projects">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Projects</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">AWS Lightsail LAMP Stack Web App Deployment</h3>
-							<div class="subheading">Cloud Computing</div>
-							<div>
-								Deployed PHP web app with CRUD functionality onto AWS Lightsail
-								instance and configured static public IP address with SSL
-								certificate.
+				</section>
+				<hr class="m-0" />
+				<!-- Skills-->
+				<section class="resume-section" id="skills">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Skills</h2>
+						<div class="subheading">Cybersecurity</div>
+						<ul class="list-inline">
+							<li class="list-inline-item"><p>Google Dorking</p></li>
+							<li class="list-inline-item"><p>Nmap</p></li>
+							<li class="list-inline-item"><p>OpenVAS</p></li>
+							<li class="list-inline-item"><p>Metasploit</p></li>
+							<li class="list-inline-item"><p>Burp Suite</p></li>
+							<li class="list-inline-item"><p>Mimikatz</p></li>
+							<li class="list-inline-item"><p>Wireshark</p></li>
+							<li class="list-inline-item"><p>YARA</p></li>
+						</ul>
+						<div class="subheading">Software Development</div>
+						<ul class="list-inline">
+							<li class="list-inline-item"><p>HTML</p></li>
+							<li class="list-inline-item"><p>CSS</p></li>
+							<li class="list-inline-item"><p>JavaScript</p></li>
+							<li class="list-inline-item"><p>XML</p></li>
+							<li class="list-inline-item"><p>PHP</p></li>
+							<li class="list-inline-item"><p>SQL</p></li>
+							<li class="list-inline-item"><p>Python</p></li>
+							<li class="list-inline-item"><p>Java</p></li>
+							<li class="list-inline-item"><p>C++</p></li>
+							<li class="list-inline-item"><p>Lua</p></li>
+						</ul>
+						<div class="subheading">IT & Cloud Computing</div>
+						<ul class="list-inline">
+							<li class="list-inline-item"><p>AWS</p></li>
+							<li class="list-inline-item"><p>Azure</p></li>
+							<li class="list-inline-item"><p>PowerShell</p></li>
+							<li class="list-inline-item"><p>Bash Scripting</p></li>
+							<li class="list-inline-item"><p>Git</p></li>
+							<li class="list-inline-item"><p>Docker</p></li>
+							<li class="list-inline-item"><p>VirtualBox</p></li>
+							<li class="list-inline-item"><p>VMWare</p></li>
+							<li class="list-inline-item"><p>MSSQL</p></li>
+							<li class="list-inline-item"><p>XAMPP</p></li>
+						</ul>
+						<div class="subheading">Mathematics</div>
+						<ul class="list-inline">
+							<li class="list-inline-item"><p>Algebra</p></li>
+							<li class="list-inline-item"><p>Number Theory</p></li>
+							<li class="list-inline-item"><p>Set Theory</p></li>
+							<li class="list-inline-item"><p>Differential Calculus</p></li>
+							<li class="list-inline-item"><p>Integral Calculus</p></li>
+							<li class="list-inline-item"><p>Trigonometry</p></li>
+							<li class="list-inline-item"><p>Statistics & Probability</p></li>
+							<li class="list-inline-item"><p>Combinatorics</p></li>
+							<li class="list-inline-item"><p>Mathematical Logic</p></li>
+						</ul>
+					</div>
+				</section>
+				<hr class="m-0" />
+				<!-- Activities -->
+				<section class="resume-section" id="activities">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Activities</h2>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Conference Presenter</h3>
+								<div class="subheading mb-2">
+									4th International JSXGraph Conference 2023 in Germany
+								</div>
+								<p>
+									Presented alongside Prof. Dr. -Ing. Martin Kraska on the
+									topic: "MecLib: A library of objects for dynamic and
+									interactive sketches of mechanical systems. Recent
+									developments."
+								</p>
 							</div>
-							<div></div>
-							<p></p>
+							<div class="flex-shrink-0">
+								<span class="text-primary">October 2023</span>
+							</div>
 						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">February 2025</span>
+						<div
+							class="d-flex flex-column flex-md-row justify-content-between mb-5"
+						>
+							<div class="flex-grow-1">
+								<h3 class="mb-0">Assistant Translator</h3>
+								<div class="subheading mb-2">
+									Special Olympics World Games Host Town Program
+								</div>
+								<div>
+									Volunteered as student assistant with Lebenshilfe Brandenburg
+									- Postdam e.V. for the Host Town Program (13.06.2023 to
+									15.06.2023) in Brandenburg an der Havel, Germany before the
+									Special Olympics World Games Berlin 2023.
+								</div>
+								<ul>
+									<li>
+										Introduced Malaysia as a country and its culture to the
+										German event organisers during meeting preparations for the
+										purpose of hospitability.
+									</li>
+									<li>
+										Translated German to English / Bahasa Melayu and vice-versa
+										in real-time during the event.
+									</li>
+									<li>Helped out during the event where needed.</li>
+								</ul>
+							</div>
+							<div class="flex-shrink-0">
+								<span class="text-primary">June 2023</span>
+							</div>
 						</div>
 					</div>
-					<!-- <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">AWS Lightsail LAMP Stack Web App Deployment</h3>
-                            <div class="subheading mb-3">Cloud Computing</div>
-                            <div> Deployed PHP web app with CRUD functionality onto AWS 
-                                Lightsail instance and configured static public IP address with SSL certificate.</div>
-                            <div></div>
-                            <p></p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">February 2025</span></div>
-                    </div> -->
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Certifications -->
-			<section class="resume-section" id="certifications">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Certifications</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">INE Certified Cloud Associate (ICCA)</h3>
-							<div class="subheading mb-3">Internetwork Expert, LLC</div>
-							<p></p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">January 2025</span>
-						</div>
+				</section>
+				<!-- Interests-->
+				<section class="resume-section" id="interests">
+					<div class="resume-section-content">
+						<h2 class="mb-5">Interests</h2>
+						<p>
+							In addition to my work in tech (or STEM), I enjoy engaging in
+							practical projects to expand my IT knowledge, practicing
+							calisthenics, solving IQ puzzles and mathematical challenges, and
+							playing games like Genshin Impact and Honkai Starrail.
+						</p>
+						<p>
+							Here are some things I often wonder if I will ever get to witness
+							in my lifetime: a Dyson Sphere, commercialised quantum computers,
+							AGI running on minimal hardware, humanoid robotic citizens, a time
+							machine, and the edge of the universe.
+						</p>
+						<p class="mb-0"></p>
+						<br />
+						<hr />
+						<br />
+						<strong>Design Credits:</strong> This website’s design is adapted
+						from a combination of the
+						<a
+							href="https://startbootstrap.com/theme/resume"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Start Bootstrap Resume theme</a
+						>
+						and
+						<a
+							href="https://codepen.io/malouli/pen/qBqBgee"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Lyeos Maouli’s CrewLink Borgne on CodePen</a
+						>. I have modified and merged these designs to create a unique
+						layout for my portfolio.
 					</div>
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Skills-->
-			<section class="resume-section" id="skills">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Skills</h2>
-					<div class="subheading">Cybersecurity</div>
-					<ul class="list-inline">
-						<li class="list-inline-item"><p>Google Dorking</p></li>
-						<li class="list-inline-item"><p>Nmap</p></li>
-						<li class="list-inline-item"><p>OpenVAS</p></li>
-						<li class="list-inline-item"><p>Metasploit</p></li>
-						<li class="list-inline-item"><p>Burp Suite</p></li>
-						<li class="list-inline-item"><p>Mimikatz</p></li>
-						<li class="list-inline-item"><p>Wireshark</p></li>
-						<li class="list-inline-item"><p>YARA</p></li>
-					</ul>
-					<div class="subheading">Software Development</div>
-					<ul class="list-inline">
-						<li class="list-inline-item"><p>HTML</p></li>
-						<li class="list-inline-item"><p>CSS</p></li>
-						<li class="list-inline-item"><p>JavaScript</p></li>
-						<li class="list-inline-item"><p>XML</p></li>
-						<li class="list-inline-item"><p>PHP</p></li>
-						<li class="list-inline-item"><p>SQL</p></li>
-						<li class="list-inline-item"><p>Python</p></li>
-						<li class="list-inline-item"><p>Java</p></li>
-						<li class="list-inline-item"><p>C++</p></li>
-						<li class="list-inline-item"><p>Lua</p></li>
-					</ul>
-					<div class="subheading">IT & Cloud Computing</div>
-					<ul class="list-inline">
-						<li class="list-inline-item"><p>AWS</p></li>
-						<li class="list-inline-item"><p>Azure</p></li>
-						<li class="list-inline-item"><p>PowerShell</p></li>
-						<li class="list-inline-item"><p>Bash Scripting</p></li>
-						<li class="list-inline-item"><p>Git</p></li>
-						<li class="list-inline-item"><p>Docker</p></li>
-						<li class="list-inline-item"><p>VirtualBox</p></li>
-						<li class="list-inline-item"><p>VMWare</p></li>
-						<li class="list-inline-item"><p>MSSQL</p></li>
-						<li class="list-inline-item"><p>XAMPP</p></li>
-					</ul>
-					<div class="subheading">Mathematics</div>
-					<ul class="list-inline">
-						<li class="list-inline-item"><p>Algebra</p></li>
-						<li class="list-inline-item"><p>Number Theory</p></li>
-						<li class="list-inline-item"><p>Set Theory</p></li>
-						<li class="list-inline-item"><p>Differential Calculus</p></li>
-						<li class="list-inline-item"><p>Integral Calculus</p></li>
-						<li class="list-inline-item"><p>Trigonometry</p></li>
-						<li class="list-inline-item"><p>Statistics & Probability</p></li>
-						<li class="list-inline-item"><p>Combinatorics</p></li>
-						<li class="list-inline-item"><p>Mathematical Logic</p></li>
-					</ul>
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Activities -->
-			<section class="resume-section" id="activities">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Activities</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Conference Presenter</h3>
-							<div class="subheading mb-2">
-								4th International JSXGraph Conference 2023 in Germany
-							</div>
-							<p>
-								Presented alongside Prof. Dr. -Ing. Martin Kraska on the topic:
-								"MecLib: A library of objects for dynamic and interactive
-								sketches of mechanical systems. Recent developments."
-							</p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">October 2023</span>
-						</div>
-					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">Assistant Translator</h3>
-							<div class="subheading mb-2">
-								Special Olympics World Games Host Town Program
-							</div>
-							<div>
-								Volunteered as student assistant with Lebenshilfe Brandenburg -
-								Postdam e.V. for the Host Town Program (13.06.2023 to
-								15.06.2023) in Brandenburg an der Havel, Germany before the
-								Special Olympics World Games Berlin 2023.
-							</div>
-							<ul>
-								<li>
-									Introduced Malaysia as a country and its culture to the German
-									event organisers during meeting preparations for the purpose
-									of hospitability.
-								</li>
-								<li>
-									Translated German to English / Bahasa Melayu and vice-versa in
-									real-time during the event.
-								</li>
-								<li>Helped out during the event where needed.</li>
-							</ul>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">June 2023</span>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- Interests-->
-			<section class="resume-section" id="interests">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Interests</h2>
-					<p>
-						In addition to my work in tech (or STEM), I enjoy engaging in
-						practical projects to expand my IT knowledge, practicing
-						calisthenics, solving IQ puzzles and mathematical challenges, and
-						playing games like Genshin Impact and Honkai Starrail.
-					</p>
-					<p>
-						Here are some things I often wonder if I will ever get to witness in
-						my lifetime: a Dyson Sphere, commercialised quantum computers, AGI
-						running on minimal hardware, humanoid robotic citizens, a time
-						machine, and the edge of the universe.
-					</p>
-					<p class="mb-0"></p>
-					<br>
-					<hr>
-					<br>
-					<strong>Design Credits:</strong> This website’s design is adapted from
-					a combination of the
-					<a
-						href="https://startbootstrap.com/theme/resume"
-						target="_blank"
-						rel="noopener noreferrer"
-						>Start Bootstrap Resume theme</a
-					>
-					and
-					<a
-						href="https://codepen.io/malouli/pen/qBqBgee"
-						target="_blank"
-						rel="noopener noreferrer"
-						>Lyeos Maouli’s CrewLink Borgne on CodePen</a
-					>. I have modified and merged these designs to create a unique layout
-					for my portfolio.
-				</div>
-			</section>
-			<hr class="m-0" />
+				</section>
+			</div>
 		</div>
 		<div id="stars"></div>
 		<div id="stars2"></div>

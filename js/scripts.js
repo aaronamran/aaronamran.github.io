@@ -29,6 +29,44 @@ window.addEventListener("DOMContentLoaded", (event) => {
 			}
 		});
 	});
-
-	
 });
+
+document.getElementById("showPortfolio").addEventListener("click", function () {
+	document.getElementById("portfolioContainer").style.display = "block";
+	document.getElementById("resumeContainer").style.display = "none";
+	document.querySelectorAll(".portfolio-nav-item").forEach(function (item) {
+		item.style.display = "block";
+	});
+	document.querySelectorAll(".resume-nav-item").forEach(function (item) {
+		item.style.display = "none";
+	});
+	document.getElementById("showPortfolio").classList.add("active-button");
+	document.getElementById("showResume").classList.remove("active-button");
+	document.getElementById("navText").textContent = "Portfolio";
+});
+
+document.getElementById("showResume").addEventListener("click", function () {
+	document.getElementById("portfolioContainer").style.display = "none";
+	document.getElementById("resumeContainer").style.display = "block";
+	document.querySelectorAll(".portfolio-nav-item").forEach(function (item) {
+		item.style.display = "none";
+	});
+	document.querySelectorAll(".resume-nav-item").forEach(function (item) {
+		item.style.display = "block";
+	});
+	document.getElementById("showResume").classList.add("active-button");
+	document.getElementById("showPortfolio").classList.remove("active-button");
+	document.getElementById("navText").textContent = "Resume";
+});
+
+// Initially show only the Portfolio container and hide resume nav items
+document.getElementById("portfolioContainer").style.display = "block";
+document.getElementById("resumeContainer").style.display = "none";
+document.querySelectorAll(".portfolio-nav-item").forEach(function (item) {
+	item.style.display = "block";
+});
+document.querySelectorAll(".resume-nav-item").forEach(function (item) {
+	item.style.display = "none";
+});
+document.getElementById("showPortfolio").classList.add("active-button");
+document.getElementById("navText").textContent = "Portfolio";

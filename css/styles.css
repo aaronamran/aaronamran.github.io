@@ -11861,6 +11861,56 @@ p.lead {
 	outline-color: #d48a6e;
 }
 
+.active-button {
+    background-color: #5f89e0 !important;
+    border-color: #5f89e0 !important;
+}
+
+.certification-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+	width: 175px; 
+    height: 225px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	cursor: pointer;
+}
+
+.certification-badge {
+    width: 100px; 
+    height: 100px; 
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.certification-info {
+    font-size: 14px;
+}
+
+.certification-name {
+    font-weight: bold;
+}
+
+.certification-year {
+    color: #888;
+}
+
+.certification-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.certification-link:hover .certification-card {
+    border-color: #5f89e0; 
+	background-color: rgba(95, 137, 224, 0.1); 
+    transition: background-color 0.3s ease;
+}
+
 @media (min-width: 992px) {
 	#sideNav {
 		padding-left: 0;
