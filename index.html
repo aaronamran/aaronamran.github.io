@@ -57,6 +57,22 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav">
+					<br />
+					<li class="nav-item">
+						<span id="currentState">Current: Portfolio</span>
+					</li>
+					<br />
+					<li class="nav-item">
+						<label class="switch">
+							<input
+								type="checkbox"
+								onclick="toggleContent()"
+								id="toggleButton"
+							/>
+							<span class="slider round"></span>
+						</label>
+					</li>
+					<br />
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="#about">About</a>
 					</li>
@@ -104,12 +120,6 @@
 			<!-- About-->
 			<section class="resume-section" id="about">
 				<div class="resume-section-content">
-					<div class="button-group">
-						<button id="showPortfolio" class="btn btn-secondary active-button">
-							Portfolio
-						</button>
-						<button id="showResume" class="btn btn-secondary">Resume</button>
-					</div>
 					<br />
 					<br />
 					<br />
@@ -124,9 +134,13 @@
 					</div>
 					<p class="lead mb-5">
 						Endless journey of exploring code, exploits, and everything in
-						between. I transition easily between Cybersecurity, Mathematics,
-						IT with Cloud Computing, Software Engineering, Physics and Electronics.
+						between. I transition easily between Cybersecurity, Mathematics, IT
+						with Cloud Computing, Software Engineering, Physics and Electronics.
 					</p>
+					<p>
+						"In a multidimensional world, why confine yourself to one domain?"
+					</p>
+					<br />
 					<div class="social-icons">
 						<a
 							class="social-icon"
@@ -728,7 +742,11 @@
 		<div id="stars"></div>
 		<div id="stars2"></div>
 		<!-- Bootstrap core JS-->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"
+		></script>
 		<!-- Core theme JS-->
 		<script src="./js/scripts.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
