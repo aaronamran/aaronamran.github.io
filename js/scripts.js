@@ -32,42 +32,50 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // for Projects section
-function filterProjects(category, categoryName, elem) {
-	var projects = document.querySelectorAll(".project-card");
-	var dropdownItems = document.querySelectorAll(
-		".dropdown-menu .dropdown-item"
-	);
-	var dropdownButton = document.getElementById("categoryDropdown");
-
-	// Remove active class from all dropdown items
-	dropdownItems.forEach(function (item) {
-		item.classList.remove("active-project-button");
-	});
-
-	// If an element is provided, add the active class to it
-	if (elem) {
-		elem.classList.add("active-project-button");
+filterProjects("all");
+function filterProjects(c) {
+	var x, i;
+	x = document.getElementsByClassName("project-card");
+	if (c == "all") c = "";
+	// Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+	for (i = 0; i < x.length; i++) {
+		removeClass(x[i], "show");
+		if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
 	}
-
-	// Update the dropdown button text
-	dropdownButton.textContent = categoryName;
-
-	// Show or hide projects based on the selected category
-	projects.forEach(function (project) {
-		// Trim any extra spaces from the attribute value
-		var projectCategory = project.getAttribute("data-category").trim();
-
-		if (category === "all" || projectCategory === category) {
-			// Use 'flex' to preserve your d-flex layout
-			project.style.display = "flex";
-		} else {
-			project.style.display = "none";
-		}
-	});
 }
 
-// Set default filter to 'all' when the page loads
-document.addEventListener("DOMContentLoaded", function () {
-	filterProjects("all", "All");
-});
+// Show filtered elements
+function addClass(element, name) {
+	var i, arr1, arr2;
+	arr1 = element.className.split(" ");
+	arr2 = name.split(" ");
+	for (i = 0; i < arr2.length; i++) {
+		if (arr1.indexOf(arr2[i]) == -1) {
+			element.className += " " + arr2[i];
+		}
+	}
+}
 
+// Hide elements that are not selected
+function removeClass(element, name) {
+	var i, arr1, arr2;
+	arr1 = element.className.split(" ");
+	arr2 = name.split(" ");
+	for (i = 0; i < arr2.length; i++) {
+		while (arr1.indexOf(arr2[i]) > -1) {
+			arr1.splice(arr1.indexOf(arr2[i]), 1);
+		}
+	}
+	element.className = arr1.join(" ");
+}
+
+// Add active class to the current control button (highlight it)
+var btnContainer = document.getElementById("radioButtonContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+	btns[i].addEventListener("click", function () {
+		var current = document.getElementsByClassName("active");
+		current[0].className = current[0].className.replace(" active", "");
+		this.className += " active";
+	});
+}

@@ -74,13 +74,13 @@
 						>
 					</li>
 					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="#education"
-							>Education</a
+						<a class="nav-link js-scroll-trigger" href="#certifications"
+							>Certifications</a
 						>
 					</li>
 					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="#certifications"
-							>Certifications</a
+						<a class="nav-link js-scroll-trigger" href="#education"
+							>Education</a
 						>
 					</li>
 					<li class="nav-item resume-nav-item">
@@ -112,7 +112,8 @@
 						>
 					</div>
 					<p class="lead mb-5">
-						Endless journey of exploring code, circuits, networks, exploits—fueled by insatiable curiosity.
+						Endless journey of exploring code, circuits, networks, exploits — a
+						side effect of insatiable curiosity.
 					</p>
 					<br />
 					<div class="social-icons">
@@ -132,91 +133,61 @@
 			<!-- <div id="portfolioContainer"> -->
 			<!-- Projects-->
 			<section class="resume-section" id="projects">
-				<div class="resume-section-content">
+				<div class="resume-section-content row">
 					<h2 class="mb-5">Projects</h2>
-					<!-- Filter Buttons -->
-					<!-- <div class="dropdown mb-4">
-							<button
-								class="btn btn-secondary dropdown-toggle"
-								type="button"
-								id="categoryDropdown"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								All
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-								<li>
-									<button
-										class="dropdown-item active-project-button"
-										onclick="filterProjects('all', 'All', this)"
-									>
-										All
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('cybersecurity', 'Cybersecurity', this)"
-									>
-										Cybersecurity
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('cloud-computing', 'Cloud Computing', this)"
-									>
-										Cloud Computing
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('software-engineering', 'Software Engineering', this)"
-									>
-										Software Engineering
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('mathematics', 'Mathematics', this)"
-									>
-										Mathematics
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('it', 'IT', this)"
-									>
-										IT
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('electronics', 'Electronics', this)"
-									>
-										Electronics
-									</button>
-								</li>
-								<li>
-									<button
-										class="dropdown-item"
-										onclick="filterProjects('physics', 'Physics', this)"
-									>
-										Physics
-									</button>
-								</li>
-							</ul>
-						</div> -->
+					<!-- Radio Buttons for Categories -->
+					<div id="radioButtonContainer" class="mb-4">
+						<label>
+							<input
+								type="radio"
+								name="category"
+								value="all"
+								onclick="filterProjects('all')"
+								checked
+							/>
+							<span></span><span>All</span>
+						</label>
+						<label>
+							<input
+								type="radio"
+								name="category"
+								value="cybersecurity"
+								onclick="filterProjects('cybersecurity')"
+							/>
+							<span></span><span>Cybersecurity</span>
+						</label>
+						<label>
+							<input
+								type="radio"
+								name="category"
+								value="information-technology"
+								onclick="filterProjects('information-technology')"
+							/>
+							<span></span><span>Information Technology</span>
+						</label>
+						<label>
+							<input
+								type="radio"
+								name="category"
+								value="software-engineering"
+								onclick="filterProjects('software-engineering')"
+							/>
+							<span></span><span>Software Engineering</span>
+						</label>
+						<label>
+							<input
+								type="radio"
+								name="category"
+								value="electronics"
+								onclick="filterProjects('electronics')"
+							/>
+							<span></span><span>Electronics</span>
+						</label>
+					</div>
 
-					<!-- Repeat for other projects -->
+					<!-- Project Cards -->
 					<div
-						class="project-card d-flex flex-column flex-md-row justify-content-between mb-5"
-						data-category="cloud-computing"
+						class="project-card information-technology col-md-5 flex-column flex-md-row justify-content-between mb-5"
 					>
 						<a
 							href="https://github.com/aaronamran/AWS-Lightsail-LAMP-Stack-Web-App-Deployment?tab=readme-ov-file#aws-lightsail-lamp-stack-web-application-deployment"
@@ -227,8 +198,7 @@
 								<h3 class="mb-2">
 									AWS Lightsail LAMP Stack Web App Deployment
 								</h3>
-								<div class="subheading mb-3">Cloud Computing</div>
-								<!-- Insert image carousel here -->
+								<div class="subheading mb-3">IT - Cloud Computing</div>
 								<img
 									src="./assets/projects/aws_lightsail_lamp/AWS_Lightsail_LAMP_Instance.png"
 									class="d-block w-100 custom-img-size"
@@ -241,11 +211,36 @@
 									with SSL certificate.
 								</div>
 							</div>
-							<!-- <div class="flex-shrink-0">
-								<span class="text-primary">Date Year</span>
-							</div> -->
 						</a>
 					</div>
+					<!-- <div
+						class="col-md-5 project-card d-flex flex-column flex-md-row justify-content-between mb-5"
+						data-category="cloud-computing"
+					>
+						<a
+							href="https://github.com/aaronamran/AWS-Lightsail-LAMP-Stack-Web-App-Deployment?tab=readme-ov-file#aws-lightsail-lamp-stack-web-application-deployment"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									AWS Lightsail LAMP Stack Web App Deployment
+								</h3>
+								<div class="subheading mb-3">Cloud Computing</div>
+								<img
+									src="./assets/projects/aws_lightsail_lamp/AWS_Lightsail_LAMP_Instance.png"
+									class="d-block w-100 custom-img-size"
+									alt="AWS Lightsail Instance"
+								/>
+								<br />
+								<div>
+									Deployed PHP web app with CRUD functionality onto AWS
+									Lightsail instance and configured static public IP address
+									with SSL certificate.
+								</div>
+							</div>
+						</a>
+					</div> -->
 				</div>
 			</section>
 			<!-- </div> -->
@@ -262,7 +257,7 @@
 						<div class="flex-grow-1">
 							<h3 class="mb-0">Mathematical Software Developer</h3>
 							<div class="subheading mb-2">
-								BlueStem Group Sdn Bhd • Part time (Remote)
+								BlueStem Group Sdn Bhd • Part time (Remote - Malaysia)
 							</div>
 							<ul>
 								<li>
@@ -287,7 +282,8 @@
 						<div class="flex-grow-1">
 							<h3 class="mb-0">ICT Technician</h3>
 							<div class="subheading mb-2">
-								Ori Pasti Ori (Kuching) Sdn Bhd • Full time (On-site)
+								Ori Pasti Ori (Kuching) Sdn Bhd • Full time (On-site - Kuching,
+								Sarawak)
 							</div>
 							<ul>
 								<li>
@@ -315,18 +311,20 @@
 						<div class="flex-grow-1">
 							<h3 class="mb-0">Software Engineer</h3>
 							<div class="subheading mb-2">
-								Startup (NDA Signed) • Freelance (Remote)
+								Startup (NDA Signed) • Freelance (Remote - Malaysia)
 							</div>
 							<ul>
 								<li>
-									Prototyped a mobile app MVP with 7 core features using no-code tools, cloud database and React Native.
+									Prototyped a mobile app MVP with 7 core features using no-code
+									tools, cloud database and React Native.
 								</li>
 								<li>
 									Conducted functional and UI/UX testing to ensure quality user
 									experience.
 								</li>
 								<li>
-									Contributed as backend developer for testing APIs with Postman to ensure secure data exchange.
+									Contributed as backend developer for testing APIs with Postman
+									to ensure secure data exchange.
 								</li>
 							</ul>
 						</div>
@@ -347,7 +345,7 @@
 						<div class="flex-grow-1">
 							<h3 class="mb-0">Remote Cybersecurity Intern</h3>
 							<div class="subheading mb-2">
-								Mossé Cybersecurity Institute • Part time (Remote)
+								Mossé Cybersecurity Institute • Part time (Remote - Australia)
 							</div>
 							<ul>
 								<li>
@@ -380,7 +378,8 @@
 						<div class="flex-grow-1">
 							<h3 class="mb-0">Electronics Engineer</h3>
 							<div class="subheading mb-2">
-								CEM Tuning Unternehmen • Full time (On-site)
+								CEM Tuning Unternehmen • Full time (On-site - Brandenburg,
+								Germany)
 							</div>
 							<ul>
 								<li>
@@ -398,60 +397,6 @@
 						</div>
 						<div class="flex-shrink-0">
 							<span class="text-primary">August 2019 - November 2019</span>
-						</div>
-					</div>
-				</div>
-			</section>
-			<hr class="m-0" />
-			<!-- Education-->
-			<section class="resume-section" id="education">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Education</h2>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">
-								Master of Engineering (Energy Efficiency in Technical Systems)
-							</h3>
-							<div class="subheading mb-2">
-								Technische Hochschule Brandenburg, Germany
-							</div>
-							<div>
-								Thesis title:
-								<b
-									>Further Development of a JavaScript Library for Interactive
-									Moodle Exercises in Engineering Subjects</b
-								>
-							</div>
-							<div>Specialisation: Electrical and Information Systems</div>
-							<p>Gesamtnote: 1,7</p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">May 2021 - November 2023</span>
-						</div>
-					</div>
-					<div
-						class="d-flex flex-column flex-md-row justify-content-between mb-5"
-					>
-						<div class="flex-grow-1">
-							<h3 class="mb-0">
-								Bachelor of Engineering (Electrical and Information Systems)
-							</h3>
-							<div class="subheading mb-2">
-								Technische Hochschule Brandenburg, Germany
-							</div>
-							<div>
-								Thesis title:
-								<b
-									>Implementation of Sensor Fusion in Acoustic Source
-									Localisation</b
-								>
-							</div>
-							<p>Gesamtnote: 2,2</p>
-						</div>
-						<div class="flex-shrink-0">
-							<span class="text-primary">October 2017 - April 2021</span>
 						</div>
 					</div>
 				</div>
@@ -477,9 +422,7 @@
 										class="certification-badge"
 									/>
 									<div class="certification-info">
-										<div class="certification-name">
-											CompTIA Security+
-										</div>
+										<div class="certification-name">CompTIA Security+</div>
 										<div class="certification-year">March 2025</div>
 									</div>
 								</div>
@@ -667,6 +610,60 @@
 									</div>
 								</div>
 							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+			<hr class="m-0" />
+			<!-- Education-->
+			<section class="resume-section" id="education">
+				<div class="resume-section-content">
+					<h2 class="mb-5">Education</h2>
+					<div
+						class="d-flex flex-column flex-md-row justify-content-between mb-5"
+					>
+						<div class="flex-grow-1">
+							<h3 class="mb-0">
+								Master of Engineering (Energy Efficiency in Technical Systems)
+							</h3>
+							<div class="subheading mb-2">
+								Technische Hochschule Brandenburg, Germany
+							</div>
+							<div>
+								Thesis title:
+								<b
+									>Further Development of a JavaScript Library for Interactive
+									Moodle Exercises in Engineering Subjects</b
+								>
+							</div>
+							<div>Specialisation: Electrical and Information Systems</div>
+							<p>Gesamtnote: 1,7</p>
+						</div>
+						<div class="flex-shrink-0">
+							<span class="text-primary">May 2021 - November 2023</span>
+						</div>
+					</div>
+					<div
+						class="d-flex flex-column flex-md-row justify-content-between mb-5"
+					>
+						<div class="flex-grow-1">
+							<h3 class="mb-0">
+								Bachelor of Engineering (Electrical and Information Systems)
+							</h3>
+							<div class="subheading mb-2">
+								Technische Hochschule Brandenburg, Germany
+							</div>
+							<div>
+								Thesis title:
+								<b
+									>Implementation of Sensor Fusion in Acoustic Source
+									Localisation</b
+								>
+							</div>
+							<p>Gesamtnote: 2,2</p>
+						</div>
+						<div class="flex-shrink-0">
+							<span class="text-primary">October 2017 - April 2021</span>
 						</div>
 					</div>
 				</div>

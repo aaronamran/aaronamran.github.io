@@ -11982,16 +11982,72 @@ border-radius: 50%;
     transition: background-color 0.3s ease;
 }
 
+/* Style the container for the radio buttons */
+#radioButtonContainer label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#radioButtonContainer label:hover {
+    color: #5f89e0; 
+}
+
+/* Hide the default radio button */
+#radioButtonContainer input[type="radio"] {
+    display: none;
+}
+
+/* Custom radio button styling */
+#radioButtonContainer input[type="radio"] + span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border: 2px solid #007bff; 
+    border-radius: 50%;
+    background-color: transparent;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Checked state */
+#radioButtonContainer input[type="radio"]:checked + span {
+    background-color: #5f89e0; 
+    border-color: #0056b3; 
+}
+
+#radioButtonContainer input[type="radio"]:checked + span::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #5f89e0;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .project-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: background-color 0.3s ease;
 	cursor: pointer;
+	display: none;
+}
+
+.show {
+	display: block; 
 }
 
 .project-card:hover {
