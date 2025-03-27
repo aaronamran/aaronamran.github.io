@@ -11932,6 +11932,14 @@ border-radius: 50%;
     display: none;
 }
 
+.profile-badge {
+    width: 100%; 
+    max-width: 600px;
+    height: auto; 
+	object-fit: contain;
+    display: block;
+}
+
 .active-button {
     background-color: #5f89e0 !important;
     border-color: #5f89e0 !important;
