@@ -11932,14 +11932,14 @@ border-radius: 50%;
     display: none;
 }
 
-.leetcode-badge-card {
+.profile-badge-card {
 	width: 90%;
 	height: 90%;
 }
 
 .profile-badge {
     width: 100%; 
-    max-width: 600px;
+    max-width: 400px;
     height: auto; 
 	object-fit: contain;
     display: block;
