@@ -11932,7 +11932,8 @@ border-radius: 50%;
     display: none;
 }
 
-.profile-badge-card {
+.profile-badge-card,
+.custom-profile-badge-card{
 	width: 90%;
 	height: 90%;
 }
@@ -11943,6 +11944,33 @@ border-radius: 50%;
     height: auto; 
 	object-fit: contain;
     display: block;
+}
+
+.custom-profile-badge-card {
+	text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px;
+    cursor: pointer;
+	background-color: rgba(14, 14, 14, 0.5);
+}
+
+.custom-profile-badge-card:hover {
+    border-color: #5f89e0; 
+	background-color: rgba(95, 137, 224, 0.1); 
+    transition: background-color 0.3s ease;
+}
+
+.badge-info {
+    text-align: left; 
+    font-size: 70%;
+}
+
+.badge-info p {
+    margin: 0; 
 }
 
 .active-button {
