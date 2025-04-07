@@ -12087,17 +12087,34 @@ border-radius: 50%;
 	display: none;
 }
 
+.virtual-event-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: background-color 0.3s ease;
+}
+
 .show {
 	display: block; 
 }
 
-.project-card:hover {
+.btn:hover {
+    opacity: 0.9;
+}
+
+.project-card:hover, 
+.virtual-event-card:hover {
 	border-color: #5f89e0; 
     background-color: rgba(95, 137, 224, 0.1);
 	transition: background-color 0.3s ease;
 }
 
-.project-info {
+.project-info,
+.virtual-event-info {
     font-size: 16px;
 }
 
@@ -12122,7 +12139,8 @@ border-radius: 50%;
     color: #fff; 
 }
 
-.dropdown-item:hover, .dropdown-item:focus {
+.dropdown-item:hover, 
+.dropdown-item:focus {
     background-color: #444; 
     color: #fff; 
 }
