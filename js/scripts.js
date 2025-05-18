@@ -33,15 +33,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 // for Projects section
 filterProjects("all");
-function filterProjects(c) {
+function filterProjects(category) {
 	var x, i;
 	x = document.getElementsByClassName("project-card");
-	if (c == "all") c = "";
+	if (category == "all") category = "";
 	// Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
 	for (i = 0; i < x.length; i++) {
 		removeClass(x[i], "show");
-		if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
+		if (x[i].className.indexOf(category) > -1) addClass(x[i], "show");
 	}
+
+	// Change quote text based on category
+    const quote = document.getElementById('quoteText');
+    if (!quote) return;
+    if (category === 'cybersecurity') {
+        quote.textContent = 'Cybersecurity = Offensive Security / Security Analysis / Malware Analysis';
+    } else if (category === 'information-technology') {
+        quote.textContent = 'Information Technology = System Administration / Networking / Cloud Computing';
+    } else if (category === 'computer-science') {
+        quote.textContent = 'Computer Science = Operating Systems / Data Structures & Algorithms / Software Engineering / Machine Learning & Artificial Intelligence';
+    } else if (category === 'electronics') {
+        quote.textContent = 'Electronics = PCB & Circuit Design / Microcontrollers / Robotics';
+    } else {
+        quote.textContent = 'Homelab Projects = Building + Connecting + Breaking + Troubleshooting + Understanding';
+    }
 }
 
 // Show filtered elements
