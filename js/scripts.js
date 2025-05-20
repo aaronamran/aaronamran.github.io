@@ -47,15 +47,15 @@ function filterProjects(category) {
     const quote = document.getElementById('quoteText');
     if (!quote) return;
     if (category === 'cybersecurity') {
-        quote.textContent = 'Cybersecurity = Offensive Security / Security Analysis / Malware Analysis';
+        quote.textContent = 'Cybersecurity = Offensive Security x Defensive Security x Malware Analysis';
     } else if (category === 'information-technology') {
-        quote.textContent = 'Information Technology = System Administration / Networking / Cloud Computing';
+        quote.textContent = 'Information Technology = System Administration x Networking x Cloud Computing';
     } else if (category === 'computer-science') {
-        quote.textContent = 'Computer Science = Operating Systems / Data Structures & Algorithms / Software Engineering / Machine Learning & Artificial Intelligence';
+        quote.textContent = 'Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering x Machine Learning & AI';
     } else if (category === 'electronics') {
-        quote.textContent = 'Electronics = PCB & Circuit Design / Microcontrollers / Robotics';
+        quote.textContent = 'Electronics = PCB & Circuit Design x Microcontrollers x Robotics';
     } else {
-        quote.textContent = 'Homelab Projects = Building + Connecting + Breaking + Troubleshooting + Understanding';
+        quote.textContent = 'Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding';
     }
 }
 
