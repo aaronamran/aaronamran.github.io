@@ -51,7 +51,9 @@ function filterProjects(category) {
     } else if (category === 'information-technology') {
         quote.textContent = 'Information Technology = System Administration x Networking x Cloud Computing';
     } else if (category === 'computer-science') {
-        quote.textContent = 'Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering x Machine Learning & AI';
+        quote.textContent = 'Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering';
+    } else if (category === 'machine-learning') {
+        quote.textContent = 'Machine Learning = Core Models x Applied ML x Autonomous Agents';
     } else if (category === 'electronics') {
         quote.textContent = 'Electronics = PCB & Circuit Design x Microcontrollers x Robotics';
     } else {
