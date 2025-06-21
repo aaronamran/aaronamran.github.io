@@ -32,34 +32,132 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // for Projects section
-filterProjects("all");
-function filterProjects(category) {
-	var x, i;
-	x = document.getElementsByClassName("project-card");
-	if (category == "all") category = "";
-	// Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-	for (i = 0; i < x.length; i++) {
-		removeClass(x[i], "show");
-		if (x[i].className.indexOf(category) > -1) addClass(x[i], "show");
+let currentCategory = "all";
+
+// Helper: Highlight search term in a string (case-insensitive)
+function highlightText(text, searchText) {
+	if (!searchText) return text;
+	// Escape regex special chars in searchText
+	const escaped = searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	const regex = new RegExp(escaped, "gi");
+	return text.replace(regex, (match) => `<mark>${match}</mark>`);
+}
+
+function filterProjects(category, searchText = "") {
+	currentCategory = category || currentCategory;
+	searchText = searchText.toLowerCase();
+
+	const cards = document.getElementsByClassName("project-card");
+	for (let i = 0; i < cards.length; i++) {
+		const card = cards[i];
+		// Category filter
+		const matchesCategory =
+			currentCategory === "all" || card.className.indexOf(currentCategory) > -1;
+
+		// Get elements
+		const titleElem = card.querySelector("h3");
+		const descElem = card.querySelector("div.project-info > div:last-child");
+		const subheadingElem = card.querySelector(".subheading");
+
+		// Get text
+		const title = titleElem?.textContent || "";
+		const desc = descElem?.textContent || "";
+		const subheading = subheadingElem?.textContent || "";
+
+		// Search filter
+		const matchesSearch =
+			title.toLowerCase().includes(searchText) ||
+			desc.toLowerCase().includes(searchText) ||
+			subheading.toLowerCase().includes(searchText);
+
+		if (matchesCategory && matchesSearch) {
+			addClass(card, "show");
+			// Highlight matches
+			if (searchText) {
+				if (titleElem) titleElem.innerHTML = highlightText(title, searchText);
+				if (descElem) descElem.innerHTML = highlightText(desc, searchText);
+				if (subheadingElem)
+					subheadingElem.innerHTML = highlightText(subheading, searchText);
+			} else {
+				// Remove highlights (reset to original text)
+				if (titleElem) titleElem.innerHTML = title;
+				if (descElem) descElem.innerHTML = desc;
+				if (subheadingElem) subheadingElem.innerHTML = subheading;
+			}
+		} else {
+			removeClass(card, "show");
+			// Remove highlights if card is hidden
+			if (titleElem) titleElem.innerHTML = title;
+			if (descElem) descElem.innerHTML = desc;
+			if (subheadingElem) subheadingElem.innerHTML = subheading;
+		}
 	}
 
 	// Change quote text based on category
-    const quote = document.getElementById('quoteText');
-    if (!quote) return;
-    if (category === 'cybersecurity') {
-        quote.textContent = 'Cybersecurity = Offensive Security x Defensive Security x Malware Analysis';
-    } else if (category === 'information-technology') {
-        quote.textContent = 'Information Technology = System Administration x Networking x Cloud Computing';
-    } else if (category === 'computer-science') {
-        quote.textContent = 'Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering';
-    } else if (category === 'machine-learning') {
-        quote.textContent = 'Machine Learning = Core Models x Applied ML x Autonomous Agents';
-    } else if (category === 'electronics') {
-        quote.textContent = 'Electronics = PCB & Circuit Design x Microcontrollers x Robotics';
-    } else {
-        quote.textContent = 'Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding';
-    }
+	const quote = document.getElementById("quoteText");
+	if (!quote) return;
+	if (category === "cybersecurity") {
+		quote.textContent =
+			"Cybersecurity = Offensive Security x Defensive Security x Malware Analysis";
+	} else if (category === "information-technology") {
+		quote.textContent =
+			"Information Technology = System Administration x Networking x Cloud Computing";
+	} else if (category === "computer-science") {
+		quote.textContent =
+			"Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering";
+	} else if (category === "machine-learning") {
+		quote.textContent =
+			"Machine Learning = Core Models x Applied ML x Autonomous Agents";
+	} else if (category === "electronics") {
+		quote.textContent =
+			"Electronics = PCB & Circuit Design x Microcontrollers x Robotics";
+	} else {
+		quote.textContent =
+			"Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding";
+	}
 }
+
+// Listen for radio button changes
+document.addEventListener("DOMContentLoaded", function () {
+	// Initial filter
+	filterProjects("all", "");
+
+	// Radio buttons
+	const radios = document.querySelectorAll(
+		'#radioButtonContainer input[type="radio"]'
+	);
+	radios.forEach((radio) => {
+		radio.addEventListener("change", function () {
+			const searchText = document.getElementById("project-search").value || "";
+			filterProjects(this.value, searchText);
+		});
+	});
+
+	// Search input
+	const searchInput = document.getElementById("project-search");
+	if (searchInput) {
+		searchInput.addEventListener("input", function () {
+			filterProjects(currentCategory, this.value);
+			// Show/hide clear button
+			document.getElementById("clear-search").style.display = this.value
+				? "block"
+				: "none";
+		});
+	}
+
+	// Clear button
+	const clearBtn = document.getElementById("clear-search");
+	if (clearBtn && searchInput) {
+		clearBtn.addEventListener("click", function () {
+			searchInput.value = "";
+			filterProjects(currentCategory, "");
+			searchInput.focus();
+			clearBtn.style.display = "none";
+		});
+		// Hide clear button initially
+		clearBtn.style.display = "none";
+	}
+});
 
 // Show filtered elements
 function addClass(element, name) {

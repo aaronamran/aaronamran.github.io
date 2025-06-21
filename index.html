@@ -269,19 +269,19 @@
 							<input
 								type="radio"
 								name="category"
-								value="cybersecurity"
-								onclick="filterProjects('cybersecurity')"
+								value="information-technology"
+								onclick="filterProjects('information-technology')"
 							/>
-							<span></span><span>Cybersecurity</span>
+							<span></span><span>Information Technology</span>
 						</label>
 						<label>
 							<input
 								type="radio"
 								name="category"
-								value="information-technology"
-								onclick="filterProjects('information-technology')"
+								value="cybersecurity"
+								onclick="filterProjects('cybersecurity')"
 							/>
-							<span></span><span>Information Technology</span>
+							<span></span><span>Cybersecurity</span>
 						</label>
 						<label>
 							<input
@@ -311,7 +311,26 @@
 							<span></span><span>Electronics</span>
 						</label>
 					</div>
-
+					<!-- Search field -->
+					<div class="row">
+						<div class="col-12">
+							<div class="search-container mb-4">
+								<input
+									type="text"
+									id="project-search"
+									placeholder="Search projects..."
+									autocomplete="off"
+								/>
+								<button
+									type="button"
+									id="clear-search"
+									aria-label="Clear search"
+								>
+									<span>&times;</span>
+								</button>
+							</div>
+						</div>
+					</div>
 					<!-- Project Cards -->
 					<div
 						class="project-card machine-learning col-md-5 flex-column flex-md-row justify-content-between mb-4"
@@ -891,9 +910,7 @@
 						</div>
 					</div>
 					<!-- Microsoft Certifications -->
-					<h3 class="mb-3">
-						Microsoft
-					</h3>
+					<h3 class="mb-3">Microsoft</h3>
 					<div class="row mb-5">
 						<div class="col-6 col-md-2">
 							<a
@@ -909,7 +926,9 @@
 										loading="lazy"
 									/>
 									<div class="certification-info">
-										<div class="certification-name">Microsoft AZ-900 Azure Fundamentals</div>
+										<div class="certification-name">
+											Microsoft AZ-900 Azure Fundamentals
+										</div>
 										<div class="certification-year">June 2025</div>
 									</div>
 								</div>
