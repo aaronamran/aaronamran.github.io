@@ -12293,6 +12293,31 @@ section.resume-section .resume-section-content {
 	width: 100%;
 }
 
+/* Keep carousel height consistent */
+#highlightCarousel .carousel-inner {
+    min-height: 600px;       
+    display: flex;
+    align-items: center;     
+}
+
+/* Images scale down to fit without stretching */
+#highlightCarousel img {
+    max-height: 600px;
+    width: auto;             /* preserve aspect ratio */
+    object-fit: contain;     /* ensure no distortion */
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    #highlightCarousel .carousel-inner {
+        min-height: 400px;   /* smaller for tablets/phones */
+    }
+    #highlightCarousel img {
+        max-height: 400px;
+    }
+}
+
+
 @media (min-width: 768px) {
 	section.resume-section {
 		min-height: 100vh;
