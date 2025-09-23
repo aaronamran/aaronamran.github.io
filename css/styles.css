@@ -12298,6 +12298,7 @@ section.resume-section .resume-section-content {
 		min-height: 100vh;
 	}
 }
+
 @media (min-width: 992px) {
 	section.resume-section {
 		padding-left: 3rem;
@@ -12305,6 +12306,17 @@ section.resume-section .resume-section-content {
 		padding-top: 5rem;
 		padding-bottom: 5rem;
 	}
+}
+
+@media (max-width: 600px) {
+    .social-icons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .social-icon {
+        margin: 8px 0 !important; /* 8px vertical spacing */
+    }
 }
 
 /* For WebKit browsers */
