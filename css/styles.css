@@ -12312,6 +12312,7 @@ section.resume-section .resume-section-content {
     .social-icons {
         display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
         align-items: center;
     }
     .social-icon {
