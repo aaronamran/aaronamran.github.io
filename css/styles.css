@@ -12316,7 +12316,7 @@ section.resume-section .resume-section-content {
         align-items: center;
     }
     .social-icon {
-        margin: 8px 0 !important; /* 8px vertical spacing */
+        margin: 4px 4px !important; /* 8px vertical spacing */
     }
 }
 
