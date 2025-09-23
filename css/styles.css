@@ -12311,6 +12311,8 @@ section.resume-section .resume-section-content {
 @media (max-width: 600px) {
     .social-icons {
         display: flex;
+		flex-direction: row;
+        flex-wrap: wrap;
         align-items: flex-start;
     }
     .social-icon {
