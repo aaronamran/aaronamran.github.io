@@ -12169,7 +12169,7 @@ input:checked + .slider:before {
     clear: both;              
 }
 
-#project-search {
+#project-search, #highlight-search {
 	width: 100%;
 	padding: 0.6rem 2.5rem 0.6rem 1rem;
 	border-radius: 0.5rem;
