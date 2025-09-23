@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Completed Books</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            font-family: var(--bs-body-font-family);
+            margin: 0;
+        }
+        .books-container {
+            max-width: 900px;
+            margin: 48px auto 0 auto;
+            background: rgba(255,255,255,0.08);
+            border-radius: 1rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            padding: 32px 24px;
+        }
+        h1, h2, h3, th {
+            font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: 700;
+            color: #e0e0e0;
+            margin-bottom: 16px;
+        }
+        h3 {
+            font-size: 2rem;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #23272b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+            margin-bottom: 0;
+        }
+        th, td {
+            padding: 12px 16px;
+            border: 1px solid #333;
+            text-align: left;
+            font-size: 1.1em;
+            color: #e0e0e0;
+        }
+        th {
+            background: #2c3136;
+            color: #e0e0e0;
+            letter-spacing: 1px;
+        }
+        tr:nth-child(even) td {
+            background: #23272b;
+        }
+        tr:nth-child(odd) td {
+            background: #181a1b;
+        }
+        caption {
+            caption-side: top;
+            font-size: 1.5em;
+            margin-bottom: 16px;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+        body {
+            padding-left: 0 !important;
+        }
+        @media (max-width: 600px) {
+            .books-container {
+                padding: 12px 4px;
+            }
+            table, th, td {
+                font-size: 1em;
+            }
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 999;
+            background: #2c3136;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+            text-align: center;
+            line-height: 48px;
+            transition: background 0.2s;
+        }
+        #backToTopBtn:hover {
+            background: #23272b;
+        }
+    </style>
+</head>
+<body>
+    <div class="books-container">
+        <button onclick="window.location.href='index.html'" style="
+            margin-bottom: 24px;
+            padding: 10px 24px;
+            font-size: 1.1em;
+            border-radius: 6px;
+            border: none;
+            background: #2c3136;
+            color: #e0e0e0;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#23272b'" onmouseout="this.style.background='#2c3136'">
+            ← Back to Home
+        </button>
+        <br />
+        <h4>Books I Have Completed Reading</h4>
+        <br />
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>The 4 Hour Workweek</td>
+                    <td>Timothy Feriss</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Brave New World</td>
+                    <td>Aldous Huxley</td>
+                    <td>Fiction</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Anything You Want</td>
+                    <td>Derek Sivers</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Digital Fortress</td>
+                    <td>Dan Brown</td>
+                    <td>Fiction</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>The Decision Book - Fifty Models for Strategic Thinking</td>
+                    <td>Mikael Krogerus</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Factfulness: Ten Reasons We're Wrong About the World - And Why Things Are Better Than You Think</td>
+                    <td>Hans Rosling</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Flowers for Algernon</td>
+                    <td>Daniel Keyes</td>
+                    <td>Fiction</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>The Future of Humanity</td>
+                    <td>Michio Kaku</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>The Alchemist</td>
+                    <td>Paulo Coelho</td>
+                    <td>Fiction</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Superintelligence Paths Dangers Strategies</td>
+                    <td>Nick Bostrom</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>The Picture of Dorian Gray</td>
+                    <td>Oscar Wilde</td>
+                    <td>Fiction</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>The Art of War</td>
+                    <td>Sun Tzu</td>
+                    <td>Non-Fiction</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="stars"></div>
+    <div id="backToTopBtn" title="Back to Top">&#8679;</div>
+    <script>
+        // Show button when scrolled down
+        window.onscroll = function() {
+            document.getElementById("backToTopBtn").style.display =
+                (document.documentElement.scrollTop > 200) ? "block" : "none";
+        };
+        // Scroll to top when clicked
+        document.getElementById("backToTopBtn").onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+</body>
+</html>
