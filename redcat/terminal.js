@@ -151,10 +151,10 @@ class Terminal {
         
         if (isMobile) {
             // Mobile-friendly compact welcome message
-            const welcome = `<div class="welcome-message">╔═══════════════════════════════════╗
-║  Red Cat - RHEL 9 Terminal        ║
-║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                   ║
-╚═══════════════════════════════════╝
+            const welcome = `<div class="welcome-message">╔═══════════════════════════════╗
+║ Red Cat - RHEL 9 Terminal     ║
+║ By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                 ║
+╚═══════════════════════════════╝
 
 RHCSA exam prep simulator
 Runs locally in your browser
@@ -1507,8 +1507,15 @@ Your session persists until you close this tab.</div>`;
     clearTerminal() {
         this.output.innerHTML = '';
         // Scroll to top to simulate real terminal behavior
-        const terminal = document.getElementById('terminal');
-        terminal.scrollTop = 0;
+        const terminalBody = document.getElementById('terminal');
+        if (terminalBody) {
+            terminalBody.scrollTop = 0;
+        }
+        // Also scroll the terminal-output container if it exists
+        const output = document.querySelector('.terminal-output');
+        if (output) {
+            output.scrollTop = 0;
+        }
     }
     
     resetFilesystem() {
