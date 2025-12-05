@@ -151,10 +151,13 @@ class Terminal {
         
         if (isMobile) {
             // Mobile-friendly compact welcome message with mobile-proof ASCII box
-            const welcome = `<div class="welcome-message"><pre class="ascii-box">╔═══════════════════════════════╗
+            const welcome = 
+`<div class="welcome-message"><pre class="ascii-box">
+╔═══════════════════════════════╗
 ║ Red Cat - RHEL 9 Terminal     ║
-║ By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                 ║
-╚═══════════════════════════════╝</pre>
+║ By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                ║
+╚═══════════════════════════════╝
+</pre>
 RHCSA exam prep simulator
 Runs locally in your browser
 
