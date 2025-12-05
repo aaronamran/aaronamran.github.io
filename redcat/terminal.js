@@ -150,12 +150,11 @@ class Terminal {
         const isMobile = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
         
         if (isMobile) {
-            // Mobile-friendly compact welcome message
-            const welcome = `<div class="welcome-message">╔═══════════════════════════════╗
+            // Mobile-friendly compact welcome message with mobile-proof ASCII box
+            const welcome = `<div class="welcome-message"><pre class="ascii-box">╔═══════════════════════════════╗
 ║ Red Cat - RHEL 9 Terminal     ║
 ║ By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                 ║
-╚═══════════════════════════════╝
-
+╚═══════════════════════════════╝</pre>
 RHCSA exam prep simulator
 Runs locally in your browser
 
@@ -164,16 +163,15 @@ Type 'help' for commands
 Type 'scenarios' for exercises</div>`;
             this.addOutput(welcome);
         } else {
-            // Desktop full welcome message
-            const welcome = `<div class="welcome-message">╔═══════════════════════════════════════════════════════════╗
+            // Desktop full welcome message with mobile-proof ASCII box
+            const welcome = `<div class="welcome-message"><pre class="ascii-box">╔═══════════════════════════════════════════════════════════╗
 ║  Red Cat - a Red Hat Enterprise Linux 9 terminal          ║
 ║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                                           ║
 ║                                                           ║
 ║  Browser-based CLI simulator for RHCSA exam preparation   ║
 ║  All commands run locally client-side                     ║
 ║  No data is sent to servers                               ║
-╚═══════════════════════════════════════════════════════════╝
-
+╚═══════════════════════════════════════════════════════════╝</pre>
 Welcome! This terminal simulates a RHEL 9 system with:
   • Virtual filesystem with /etc, /var, /home directories
   • User and group management
@@ -1547,16 +1545,14 @@ Your session persists until you close this tab.</div>`;
         // Show welcome message again
         const welcomeDiv = document.createElement('div');
         welcomeDiv.className = 'welcome-message';
-        welcomeDiv.innerHTML = `<pre>
-╔═══════════════════════════════════════════════════════════╗
+        welcomeDiv.innerHTML = `<div class="welcome-message"><pre class="ascii-box">╔═══════════════════════════════════════════════════════════╗
 ║  Red Cat - a Red Hat Enterprise Linux 9 terminal          ║
 ║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                                           ║
 ║                                                           ║
 ║  Browser-based CLI simulator for RHCSA exam preparation   ║
 ║  All commands run locally client-side                     ║
 ║  No data is sent to servers                               ║
-╚═══════════════════════════════════════════════════════════╝
-
+╚═══════════════════════════════════════════════════════════╝</pre>
 Welcome! This terminal simulates a RHEL 9 system with:
   • Virtual filesystem with /etc, /var, /home directories
   • User and group management
@@ -1571,8 +1567,7 @@ Type 'help' for available commands
 Type 'man &lt;command&gt;' for command documentation
 Type 'scenarios' to see practice exercises
 
-Your session persists until you close this tab.
-</pre>`;
+Your session persists until you close this tab.</div>`;
         this.output.appendChild(welcomeDiv);
         
         this.addOutput('<span class="success">Filesystem reset successfully.</span>');

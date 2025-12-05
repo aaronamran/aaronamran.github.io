@@ -395,6 +395,22 @@ body {
     margin: 0;
 }
 
+/* Mobile-proof ASCII box styling */
+.ascii-box {
+    font-family: "Cascadia Mono", "Fira Code", "Courier New", "Consolas", monospace;
+    white-space: pre;
+    letter-spacing: 0;
+    line-height: 1.1;
+    margin: 0 0 1rem 0;
+    padding: 0;
+    /* Prevent mobile auto-scaling */
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    /* Lock character width */
+    font-variant-ligatures: none;
+    font-feature-settings: normal;
+}
+
 .output-line {
     margin: 0.3rem 0;
     white-space: pre-wrap;
