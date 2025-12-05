@@ -130,7 +130,7 @@ class Terminal {
     
     showWelcomeMessage() {
         const welcome = `<div class="welcome-message">╔═══════════════════════════════════════════════════════════╗
-║  RHCSA Practice Terminal - Red Hat Enterprise Linux 9     ║
+║  Red Cat - a Red Hat Enterprise Linux 9 terminal          ║
 ║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                                           ║
 ║                                                           ║
 ║  Browser-based CLI simulator for RHCSA exam preparation   ║
@@ -1505,7 +1505,7 @@ Your session persists until you close this tab.</div>`;
         welcomeDiv.className = 'welcome-message';
         welcomeDiv.innerHTML = `<pre>
 ╔═══════════════════════════════════════════════════════════╗
-║  RHCSA Practice Terminal - Red Hat Enterprise Linux 9     ║
+║  Red Cat - a Red Hat Enterprise Linux 9 terminal          ║
 ║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                                           ║
 ║                                                           ║
 ║  Browser-based CLI simulator for RHCSA exam preparation   ║
