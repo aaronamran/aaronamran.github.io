@@ -121,49 +121,175 @@
 						>
 					</div>
 					<p class="lead mb-5">
-						Endless journey of exploring code, circuits, networks, exploits — a
-						result of insatiable curiosity (and imposter syndrome).
+						Endless journey of exploring code, circuits, networks, exploits 
+						<br />
+						— the result of insatiable curiosity (and imposter syndrome).
 					</p>
 					<!-- Obtain flag pngs from https://twemoji-cheatsheet.vercel.app/ -->
-					<h4 class="mt-5 mb-2">Find Me On:</h4>
-					<div class="social-icons mb-5">
-						<a
-							class="social-icon"
-							href="https://www.linkedin.com/in/aaronamran/" target="_blank"
-							><i class="fab fa-linkedin-in"></i
-						></a>
-						<a class="social-icon" href="https://github.com/aaronamran" target="_blank"
-							><i class="fab fa-github"></i
-						></a>
-						<!-- <a class="social-icon" href="books.html" target="_blank"><i class="fas fa-book"></i></a> -->
-						<a class="social-icon" href="https://tryhackme.com/p/aaronamran" target="_blank" title="TryHackMe"><i class="fas fa-user-secret"></i></a>
+					
+					<!-- Collapsible Links Section -->
+					<style>
+						.platform-grid {
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+							gap: 1rem;
+							max-width: 600px;
+						}
 						
-						<a class="social-icon" href="https://app.hackviser.com/profile/aaronamran" target="_blank" title="Hackviser">
-    <i class="fas fa-v"></i>
-</a>					
-						<a class="social-icon" href="https://students.mosse-institute.com/student/nxCLnZGLgyOUMpnDw16rtDvYuTF2" target="_blank" title="Mossé Cybersecurity Institute">
-    <i class="fas fa-shield-halved"></i>
-</a>
-<a class="social-icon" href="https://app.hackthebox.com/profile/2004513" target="_blank" title="HackTheBox">
-        <i class="fas fa-cube"></i>
-    </a>
-<a class="social-icon" href="https://www.codechef.com/users/aaronamran" target="_blank" title="CodeChef">
-        <i class="fas fa-utensils"></i>
-    </a>
-						<a class="social-icon" href="https://www.hackerrank.com/aaronamran" target="_blank" title="HackerRank">
-        <i class="fab fa-hackerrank"></i>
-    </a>
-						<a class="social-icon" href="https://www.codewars.com/users/aaronamran" target="_blank" title="Codewars">
-    <i class="fas fa-spinner"></i>
-</a>
-						<a class="social-icon" href="https://leetcode.com/u/aaronamran/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
-						<a class="social-icon" href="https://codeforces.com/profile/aaronamran" target="_blank" title="Codeforces">
-    <i class="fas fa-chart-bar"></i>
-</a>
+						.platform-category {
+							text-align: center;
+						}
+						
+						.category-header {
+							padding: 0.75rem 1rem;
+							background: linear-gradient(135deg, #5f89e0 0%, #7b68ee 100%);
+							color: white;
+							border-radius: 8px;
+							cursor: pointer;
+							font-weight: 600;
+							transition: all 0.3s ease;
+							margin-bottom: 0.5rem;
+							border: none;
+							box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+						}
+						
+						.category-header:hover {
+							transform: translateY(-2px);
+							box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+						}
+						
+						.category-header.active {
+							background: linear-gradient(135deg, #667eea 0%, #da77f2 100%);
+						}
+						
+						.category-icons {
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: center;
+							gap: 0.5rem;
+							margin-top: 0.5rem;
+							max-height: 0;
+							overflow: hidden;
+							transition: max-height 0.3s ease;
+						}
+						
+						.category-icons.show {
+							max-height: 200px;
+						}
+						
+						.category-icons .social-icon {
+							width: 3rem;
+							height: 3rem;
+							font-size: 1.5rem;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
+					</style>
+					
+					<div class="platform-grid mb-5">
+						<!-- Social Category -->
+						<div class="platform-category">
+							<div class="category-header" onclick="toggleCategory('social')">Social</div>
+							<div id="social-icons" class="category-icons">
+								<a class="social-icon" href="https://www.linkedin.com/in/aaronamran/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+								<a class="social-icon" href="https://github.com/aaronamran" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+							</div>
+						</div>
+						
+						<!-- Cybersecurity Category -->
+						<div class="platform-category">
+							<div class="category-header" onclick="toggleCategory('cybersecurity')">Cybersecurity</div>
+							<div id="cybersecurity-icons" class="category-icons">
+								<a class="social-icon" href="https://tryhackme.com/p/aaronamran" target="_blank" title="TryHackMe"><i class="fas fa-user-secret"></i></a>
+								<a class="social-icon" href="https://app.hackthebox.com/profile/2004513" target="_blank" title="HackTheBox"><i class="fas fa-cube"></i></a>
+								<a class="social-icon" href="https://app.hackviser.com/profile/aaronamran" target="_blank" title="Hackviser"><i class="fas fa-v"></i></a>
+								<a class="social-icon" href="https://students.mosse-institute.com/student/nxCLnZGLgyOUMpnDw16rtDvYuTF2" target="_blank" title="Mossé Cybersecurity Institute"><i class="fas fa-shield-halved"></i></a>
+							</div>
+						</div>
+						
+						<!-- Coding Category -->
+						<div class="platform-category">
+							<div class="category-header" onclick="toggleCategory('coding')">Coding</div>
+							<div id="coding-icons" class="category-icons">
+								<a class="social-icon" href="https://www.hackerrank.com/aaronamran" target="_blank" title="HackerRank"><i class="fab fa-hackerrank"></i></a>
+								<a class="social-icon" href="https://leetcode.com/u/aaronamran/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+								<a class="social-icon" href="https://www.codewars.com/users/aaronamran" target="_blank" title="Codewars"><i class="fas fa-spinner"></i></a>
+								<a class="social-icon" href="https://codeforces.com/profile/aaronamran" target="_blank" title="Codeforces"><i class="fas fa-chart-bar"></i></a>
+								<a class="social-icon" href="https://www.codechef.com/users/aaronamran" target="_blank" title="CodeChef"><i class="fas fa-utensils"></i></a>
+							</div>
+						</div>
 					</div>
-					<h4 class="mt-5 mb-2">Try It Out:</h4>
+					
+					<script>
+					function toggleCategory(category) {
+						const iconsDiv = document.getElementById(category + '-icons');
+						const header = event.target;
+						
+						// Toggle the icons visibility
+						iconsDiv.classList.toggle('show');
+						header.classList.toggle('active');
+					}
+					</script>
+					
+					<style>
+					/* Red Cat Card Hover */
+					.redcat-card:hover {
+						border-color: #dc3545 !important;
+						box-shadow: 0 8px 24px rgba(220, 53, 69, 0.3) !important;
+					}
+					
+					/* Try It Out Heading */
+					.try-it-out-heading {
+						font-size: 2rem;
+						font-weight: 700;
+						background: linear-gradient(135deg, #dc3545 0%, #ff6b7a 100%);
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+						background-clip: text;
+						margin-top: 3rem !important;
+						margin-bottom: 1.5rem !important;
+						display: flex;
+						align-items: center;
+						gap: 0.75rem;
+					}
+					
+				.try-it-out-heading::before {
+					content: '';
+					width: 0;
+					height: 0;
+					border-left: 1.2rem solid #dc3545;
+					border-top: 0.75rem solid transparent;
+					border-bottom: 0.75rem solid transparent;
+					-webkit-text-fill-color: initial;
+				}					/* Highlights Section Hover - Gold/Amber for achievements */
+					#highlights .project-card:hover {
+						border-color: #ffc107 !important;
+						box-shadow: 0 8px 24px rgba(255, 193, 7, 0.35) !important;
+						transform: translateY(-2px);
+						transition: all 0.3s ease;
+					}
+					
+					/* Projects Section Hover - Blue-Purple gradient for technical work */
+					#projects .project-card:hover {
+						border-color: #667eea !important;
+						box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35) !important;
+						transform: translateY(-2px);
+						transition: all 0.3s ease;
+					}
+					
+					/* Certifications Section Hover - Green for professional credentials */
+					#certifications .certification-card:hover {
+						border-color: #28a745 !important;
+						box-shadow: 0 8px 24px rgba(40, 167, 69, 0.35) !important;
+						transform: translateY(-2px);
+						transition: all 0.3s ease;
+					}
+					</style>
+					
+					<h2 class="try-it-out-heading">Try It Live</h2>
 					<!-- RHCSA Practice Terminal Card -->
-					<div class="project-card information-technology col-md-5 flex-column flex-md-row justify-content-between mb-4">
+					<div class="project-card information-technology col-md-5 flex-column flex-md-row justify-content-between mb-4 redcat-card">
 						<a href="redcat/index.html" target="_blank" class="certification-link">
 							<div class="project-info flex-grow-1">
 								<div class="d-flex align-items-start mb-3">
@@ -181,7 +307,7 @@
 									</div>
 								</div>
 								<div>
-									Browser-based terminal simulator for practicing RHCSA exam objectives with realistic command execution, exam mode with timer, and comprehensive task scenarios.
+									Browser-based terminal for practicing RHCSA exam.
 								</div>
 							</div>
 						</a>
