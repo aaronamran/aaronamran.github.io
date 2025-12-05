@@ -47,11 +47,28 @@ class Terminal {
         // Sidebar toggle handler
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
+        const menuBtn = document.getElementById('menuBtn');
         const container = document.querySelector('.container');
         
+        // Toggle sidebar for desktop edge button
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('hidden');
             container.classList.toggle('sidebar-hidden');
+        });
+        
+        // Toggle sidebar for mobile menu button
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const isMobile = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+            if (isMobile && !sidebar.classList.contains('hidden')) {
+                if (!sidebar.contains(e.target) && e.target !== menuBtn) {
+                    sidebar.classList.add('hidden');
+                }
+            }
         });
         
         // Keep terminal scrolled to bottom
@@ -129,7 +146,26 @@ class Terminal {
     }
     
     showWelcomeMessage() {
-        const welcome = `<div class="welcome-message">╔═══════════════════════════════════════════════════════════╗
+        // Detect mobile (portrait mode)
+        const isMobile = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+        
+        if (isMobile) {
+            // Mobile-friendly compact welcome message
+            const welcome = `<div class="welcome-message">╔═══════════════════════════════════╗
+║  Red Cat - RHEL 9 Terminal        ║
+║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                   ║
+╚═══════════════════════════════════╝
+
+RHCSA exam prep simulator
+Runs locally in your browser
+
+Tap ☰ for objectives
+Type 'help' for commands
+Type 'scenarios' for exercises</div>`;
+            this.addOutput(welcome);
+        } else {
+            // Desktop full welcome message
+            const welcome = `<div class="welcome-message">╔═══════════════════════════════════════════════════════════╗
 ║  Red Cat - a Red Hat Enterprise Linux 9 terminal          ║
 ║  By <a href="https://aaronamran.github.io/" target="_blank" style="color: #00ff00; text-decoration: underline;">@aaronamran</a>                                           ║
 ║                                                           ║
@@ -153,7 +189,8 @@ Type 'man &lt;command&gt;' for command documentation
 Type 'scenarios' to see practice exercises
 
 Your session persists until you close this tab.</div>`;
-        this.addOutput(welcome);
+            this.addOutput(welcome);
+        }
     }
     
     setupSessionPersistence() {

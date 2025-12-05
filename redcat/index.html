@@ -124,6 +124,7 @@
                     <span class="timer-display" id="timerDisplay">3:00:00</span>
                 </div>
                 <div class="terminal-controls">
+                    <button class="control-btn menu-btn" id="menuBtn" title="Menu">☰</button>
                     <button class="control-btn" id="clearBtn" title="Clear terminal">Clear</button>
                     <button class="control-btn" id="resetBtn" title="Reset filesystem">Reset</button>
                     <button class="control-btn help-btn" id="helpBtn" title="Show help">Help</button>
@@ -179,6 +180,12 @@
     </div>
 
     <!-- Load JavaScript modules -->
+    <script>
+        // Hide sidebar on mobile by default
+        if (window.matchMedia('(max-aspect-ratio: 1/1)').matches) {
+            document.getElementById('sidebar').classList.add('hidden');
+        }
+    </script>
     <script src="filesystem.js"></script>
     <script src="commands.js"></script>
     <script src="nano/nano.js"></script>
