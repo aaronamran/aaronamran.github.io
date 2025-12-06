@@ -1416,7 +1416,202 @@ Your session persists until you close this tab.</div>`;
             parts.push(this.expandVariables(current));
         }
         
-        return parts;
+        // Expand braces first, then globs
+        const braceExpanded = this.expandBraces(parts);
+        return this.expandGlobs(braceExpanded);
+    }
+    
+    expandBraces(parts) {
+        // Expand brace patterns like {a,b,c} and {1..10}
+        const expanded = [];
+        
+        for (const part of parts) {
+            if (this.hasBracePattern(part)) {
+                const matches = this.expandBracePattern(part);
+                expanded.push(...matches);
+            } else {
+                expanded.push(part);
+            }
+        }
+        
+        return expanded;
+    }
+    
+    hasBracePattern(str) {
+        // Check for brace expansion pattern
+        return /\{[^}]+\}/.test(str);
+    }
+    
+    expandBracePattern(str) {
+        // Find first brace pattern
+        const match = str.match(/\{([^}]+)\}/);
+        if (!match) return [str];
+        
+        const fullPattern = match[0];
+        const content = match[1];
+        const prefix = str.substring(0, match.index);
+        const suffix = str.substring(match.index + fullPattern.length);
+        
+        // Check if it's a range pattern {a..z} or {1..10}
+        const rangeMatch = content.match(/^(\d+|[a-z])\.\.(\d+|[a-z])$/i);
+        if (rangeMatch) {
+            const [, start, end] = rangeMatch;
+            const items = this.generateRange(start, end);
+            const results = [];
+            
+            for (const item of items) {
+                const expanded = prefix + item + suffix;
+                // Recursively expand if there are more braces
+                if (this.hasBracePattern(expanded)) {
+                    results.push(...this.expandBracePattern(expanded));
+                } else {
+                    results.push(expanded);
+                }
+            }
+            
+            return results;
+        }
+        
+        // Otherwise it's a list {a,b,c}
+        const items = content.split(',');
+        const results = [];
+        
+        for (const item of items) {
+            const expanded = prefix + item.trim() + suffix;
+            // Recursively expand if there are more braces
+            if (this.hasBracePattern(expanded)) {
+                results.push(...this.expandBracePattern(expanded));
+            } else {
+                results.push(expanded);
+            }
+        }
+        
+        return results;
+    }
+    
+    generateRange(start, end) {
+        // Generate range for numeric or alphabetic sequences
+        const items = [];
+        
+        if (/^\d+$/.test(start) && /^\d+$/.test(end)) {
+            // Numeric range
+            const startNum = parseInt(start);
+            const endNum = parseInt(end);
+            const step = startNum <= endNum ? 1 : -1;
+            
+            for (let i = startNum; step > 0 ? i <= endNum : i >= endNum; i += step) {
+                items.push(String(i));
+            }
+        } else if (/^[a-z]$/i.test(start) && /^[a-z]$/i.test(end)) {
+            // Alphabetic range
+            const startCode = start.charCodeAt(0);
+            const endCode = end.charCodeAt(0);
+            const step = startCode <= endCode ? 1 : -1;
+            
+            for (let i = startCode; step > 0 ? i <= endCode : i >= endCode; i += step) {
+                items.push(String.fromCharCode(i));
+            }
+        }
+        
+        return items;
+    }
+    
+    expandGlobs(parts) {
+        // Expand glob patterns like *.txt, file?.txt, file[1-3].txt
+        const expanded = [];
+        
+        for (const part of parts) {
+            // Check if part contains glob characters and is not quoted
+            if (this.hasGlobPattern(part)) {
+                const matches = this.matchGlob(part);
+                if (matches.length > 0) {
+                    expanded.push(...matches.sort());
+                } else {
+                    // No matches, keep the pattern as-is (bash behavior)
+                    expanded.push(part);
+                }
+            } else {
+                expanded.push(part);
+            }
+        }
+        
+        return expanded;
+    }
+    
+    hasGlobPattern(str) {
+        // Check if string contains unescaped glob characters
+        return /[*?[\]]/.test(str) && !str.includes('\\*') && !str.includes('\\?');
+    }
+    
+    matchGlob(pattern) {
+        // Convert glob pattern to regex and match against filesystem
+        const matches = [];
+        
+        // Determine if pattern has a path component
+        const lastSlash = pattern.lastIndexOf('/');
+        let dirPath = '.';
+        let filePattern = pattern;
+        
+        if (lastSlash > -1) {
+            dirPath = pattern.substring(0, lastSlash) || '/';
+            filePattern = pattern.substring(lastSlash + 1);
+        }
+        
+        // Resolve directory path
+        const resolvedDir = this.fs.resolvePath(dirPath);
+        const dirNode = this.fs.getNode(resolvedDir);
+        
+        if (!dirNode || dirNode.type !== 'directory') {
+            return [];
+        }
+        
+        // Convert glob pattern to regex
+        const regex = this.globToRegex(filePattern);
+        
+        // Match files in directory
+        for (const [name, node] of Object.entries(dirNode.children || {})) {
+            if (regex.test(name)) {
+                const fullPath = dirPath === '.' ? name : `${dirPath}/${name}`;
+                matches.push(fullPath);
+            }
+        }
+        
+        return matches;
+    }
+    
+    globToRegex(pattern) {
+        // Convert glob pattern to regex
+        // * matches any characters except /
+        // ? matches single character except /
+        // [abc] matches any character in set
+        // [a-z] matches range
+        let regexStr = '^';
+        
+        for (let i = 0; i < pattern.length; i++) {
+            const char = pattern[i];
+            
+            if (char === '*') {
+                regexStr += '[^/]*';
+            } else if (char === '?') {
+                regexStr += '[^/]';
+            } else if (char === '[') {
+                // Find closing bracket
+                const closeIdx = pattern.indexOf(']', i + 1);
+                if (closeIdx > -1) {
+                    const charClass = pattern.substring(i + 1, closeIdx);
+                    regexStr += '[' + charClass.replace(/\\/g, '\\\\') + ']';
+                    i = closeIdx;
+                } else {
+                    regexStr += '\\[';
+                }
+            } else {
+                // Escape regex special characters
+                regexStr += char.replace(/[.+^${}()|\\]/g, '\\$&');
+            }
+        }
+        
+        regexStr += '$';
+        return new RegExp(regexStr);
     }
     
     expandVariables(str) {
