@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Cat | by @aaronamran</title>
+    <link rel="icon" type="image/png" href="redcat.png">
+    <link rel="stylesheet" href="terminal.css">
+    <!-- v1.1 - Fixed terminal ordering -->
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar with RHCSA objectives -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>RHCSA Objectives</h2>
+            </div>
+            
+            <div class="objectives">
+                <div class="objective-section">
+                    <h3>Essential Tools</h3>
+                    <ul>
+                        <li data-progress="0">Shell commands & syntax</li>
+                        <li data-progress="0">I/O redirection (>, |, 2>)</li>
+                        <li data-progress="0">grep & regex</li>
+                        <li data-progress="0">File operations</li>
+                        <li data-progress="0">Permissions (chmod, chown)</li>
+                        <li data-progress="0">Links (hard & soft)</li>
+                        <li data-progress="0">Archive (tar, gzip)</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li data-progress="0">Create/delete users</li>
+                        <li data-progress="0">Password management</li>
+                        <li data-progress="0">Groups & memberships</li>
+                        <li data-progress="0">sudo configuration</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>Software Management</h3>
+                    <ul>
+                        <li data-progress="0">DNF/YUM repositories</li>
+                        <li data-progress="0">Install/remove packages</li>
+                        <li data-progress="0">RPM queries</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>System Operations</h3>
+                    <ul>
+                        <li data-progress="0">Boot/reboot/shutdown</li>
+                        <li data-progress="0">systemd targets</li>
+                        <li data-progress="0">Process management</li>
+                        <li data-progress="0">Log files & journalctl</li>
+                        <li data-progress="0">systemctl services</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>Storage & Filesystems</h3>
+                    <ul>
+                        <li data-progress="0">Partitioning (fdisk)</li>
+                        <li data-progress="0">LVM (pv, vg, lv)</li>
+                        <li data-progress="0">mkfs & mounting</li>
+                        <li data-progress="0">fstab configuration</li>
+                        <li data-progress="0">NFS & autofs</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>Networking</h3>
+                    <ul>
+                        <li data-progress="0">IP configuration</li>
+                        <li data-progress="0">Hostname resolution</li>
+                        <li data-progress="0">firewalld/firewall-cmd</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>Security</h3>
+                    <ul>
+                        <li data-progress="0">SELinux modes</li>
+                        <li data-progress="0">SELinux contexts</li>
+                        <li data-progress="0">SSH key-based auth</li>
+                        <li data-progress="0">File permissions</li>
+                    </ul>
+                </div>
+                
+                <div class="objective-section">
+                    <h3>Shell Scripting</h3>
+                    <ul>
+                        <li data-progress="0">Conditionals (if, test)</li>
+                        <li data-progress="0">Loops (for, while)</li>
+                        <li data-progress="0">Script parameters</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <p>💡 <strong>Tip:</strong> Commands persist in this session. Try <code>help</code> for available commands.</p>
+            </div>
+        </aside>
+
+        <!-- Vertical toggle button on the edge of sidebar -->
+        <button class="vertical-toggle-btn" id="sidebarToggle" title="Toggle sidebar">
+            <span class="chevron-left">‹</span>
+            <span class="chevron-right">›</span>
+        </button>
+
+        <!-- Terminal area -->
+        <main class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-title">
+                    <img src="redcat.png" alt="Red Hat" class="redhat-logo">
+                    <span class="os-badge">Red Cat</span>
+                    <span class="terminal-name">root@rhcsa-lab ~</span>
+                </div>
+                <div class="exam-timer" id="examTimer" style="display: none;">
+                    <span class="timer-label">Time Remaining:</span>
+                    <span class="timer-display" id="timerDisplay">3:00:00</span>
+                </div>
+                <div class="terminal-controls">
+                    <button class="control-btn menu-btn" id="menuBtn" title="Menu">☰</button>
+                    <button class="control-btn" id="clearBtn" title="Clear terminal">Clear</button>
+                    <button class="control-btn" id="resetBtn" title="Reset filesystem">Reset</button>
+                    <button class="control-btn help-btn" id="helpBtn" title="Show help">Help</button>
+                    <button class="control-btn exam-btn" id="examBtn" title="Start Exam Mode">🎓 Exam Mode</button>
+                </div>
+            </div>
+            
+            <div class="terminal-body" id="terminal">
+                <div class="terminal-output" id="output">
+                    <!-- Welcome message will be added by JavaScript -->
+                </div>
+                <div class="input-line">
+                        <span class="prompt" id="prompt">[root@rhcsa-lab ~]# </span>
+                        <input type="text" 
+                            id="commandInput" 
+                            class="command-input" 
+                            autocomplete="off" 
+                            spellcheck="false"
+                            autofocus>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scenario Selection Modal -->
+    <div class="scenario-modal" id="scenarioModal">
+        <div class="scenario-content">
+            <h2>Select RHCSA Exam Scenario</h2>
+            <p>Choose one of the practice exam scenarios below. The exam timer (3 hours) will start after you make your selection.</p>
+            
+            <div class="scenario-options">
+                <button class="scenario-btn" data-scenario="1">
+                    <span class="scenario-number">Scenario 1</span>
+                    <span class="scenario-desc">Research Server Configuration</span>
+                    <span class="scenario-detail">server1.example.com + server2.example.com</span>
+                </button>
+                
+                <button class="scenario-btn" data-scenario="2">
+                    <span class="scenario-number">Scenario 2</span>
+                    <span class="scenario-desc">IT Operations Setup</span>
+                    <span class="scenario-detail">serverA.example.com + serverB.example.com</span>
+                </button>
+                
+                <button class="scenario-btn" data-scenario="3">
+                    <span class="scenario-number">Scenario 3</span>
+                    <span class="scenario-desc">Developer Workstation</span>
+                    <span class="scenario-detail">primary.example.com + remote.example.com</span>
+                </button>
+            </div>
+            
+            <button class="cancel-btn" id="cancelScenario">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script>
+        // Hide sidebar on mobile by default
+        if (window.matchMedia('(max-aspect-ratio: 1/1)').matches) {
+            document.getElementById('sidebar').classList.add('hidden');
+        }
+    </script>
+    <script src="filesystem.js"></script>
+    
+    <!-- Modular Command Modules -->
+    <script src="commands/commands-core.js"></script>
+    <script src="commands/commands-text.js"></script>
+    <script src="commands/commands-files.js"></script>
+    <script src="commands/commands-users.js"></script>
+    <script src="commands/commands-network.js"></script>
+    <script src="commands/commands-system.js"></script>
+    <script src="commands/commands-disk.js"></script>
+    <script src="commands/commands-selinux.js"></script>
+    <script src="commands/commands-process.js"></script>
+    <script src="commands/commands-scheduling.js"></script>
+    <script src="commands/commands-packages.js"></script>
+    <script src="commands/commands-containers.js"></script>
+    <script src="commands/commands-editors.js"></script>
+    
+    <!-- Main commands aggregator -->
+    <script src="commands.js"></script>
+    <script src="nano/nano.js"></script>
+    <script src="vi/vi.js"></script>
+    <script src="bashinterpreter/lexer.js"></script>
+    <script src="bashinterpreter/parser.js"></script>
+    <script src="bashinterpreter/executor.js"></script>
+    <script src="bashinterpreter/interpreter.js"></script>
+    <script src="terminal.js"></script>
+</body>
+</html>
