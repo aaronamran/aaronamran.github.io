@@ -33,6 +33,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 // for Projects section
 let currentCategory = "all";
+// Debug flag for filter troubleshooting
+const DEBUG_FILTER = false;
 
 // Helper: Highlight search term in a string (case-insensitive)
 function highlightText(text, searchText) {
@@ -44,15 +46,19 @@ function highlightText(text, searchText) {
 }
 
 function filterProjects(category, searchText = "") {
-	currentCategory = category || currentCategory;
-	searchText = searchText.toLowerCase();
+	// Normalize category and searchText
+	currentCategory = (category || currentCategory).toLowerCase();
+	searchText = (searchText || "").toLowerCase();
 
 	const cards = document.getElementsByClassName("project-card");
+	if (DEBUG_FILTER) console.log('filterProjects called:', { currentCategory, searchText });
 	for (let i = 0; i < cards.length; i++) {
 		const card = cards[i];
-		// Category filter
-		const matchesCategory =
-			currentCategory === "all" || card.className.indexOf(currentCategory) > -1;
+		// Category filter using data-category attribute (normalized)
+		const cardCategory = (card.getAttribute('data-category') || "").toLowerCase().trim();
+		const isAlways = (card.getAttribute('data-always') || '').toLowerCase() === 'true';
+		const matchesCategory = currentCategory === "all" || cardCategory === currentCategory || isAlways;
+		if (DEBUG_FILTER) console.log(`card[${i}]`, { cardCategory, matchesCategory });
 
 		// Get elements
 		const titleElem = card.querySelector("h3");
@@ -71,7 +77,9 @@ function filterProjects(category, searchText = "") {
 			subheading.toLowerCase().includes(searchText);
 
 		if (matchesCategory && matchesSearch) {
-			addClass(card, "show");
+			// ensure visible: add show class and set display:flex for proper layout
+			card.classList.add('show');
+			card.style.display = 'flex';
 			// Highlight matches
 			if (searchText) {
 				if (titleElem) titleElem.innerHTML = highlightText(title, searchText);
@@ -85,53 +93,21 @@ function filterProjects(category, searchText = "") {
 				if (subheadingElem) subheadingElem.innerHTML = subheading;
 			}
 		} else {
-			removeClass(card, "show");
+			// hide reliably: remove show class and set display none
+			card.classList.remove('show');
+			card.style.display = 'none';
 			// Remove highlights if card is hidden
 			if (titleElem) titleElem.innerHTML = title;
 			if (descElem) descElem.innerHTML = desc;
 			if (subheadingElem) subheadingElem.innerHTML = subheading;
 		}
 	}
-
-	// Change quote text based on category
-	// const quote = document.getElementById("quoteText");
-	// if (!quote) return;
-	// if (category === "cybersecurity") {
-	// 	quote.textContent =
-	// 		"Cybersecurity = Offensive Security x Defensive Security x Malware Analysis";
-	// } else if (category === "information-technology") {
-	// 	quote.textContent =
-	// 		"Information Technology = System Administration x Networking x Cloud Computing";
-	// } else if (category === "computer-science") {
-	// 	quote.textContent =
-	// 		"Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering";
-	// } else if (category === "machine-learning") {
-	// 	quote.textContent =
-	// 		"Machine Learning = Core Models x Applied ML x Autonomous Agents";
-	// } else if (category === "electronics") {
-	// 	quote.textContent =
-	// 		"Electronics = PCB & Circuit Design x Microcontrollers x Robotics";
-	// } else {
-	// 	quote.textContent =
-	// 		"Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding";
-	// }
 }
 
 // Listen for radio button changes
 document.addEventListener("DOMContentLoaded", function () {
 	// Initial filter
 	filterProjects("all", "");
-
-	// Radio buttons
-	const radios = document.querySelectorAll(
-		'#radioButtonContainer input[type="radio"]'
-	);
-	radios.forEach((radio) => {
-		radio.addEventListener("change", function () {
-			const searchText = document.getElementById("project-search").value || "";
-			filterProjects(this.value, searchText);
-		});
-	});
 
 	// Search input
 	const searchInput = document.getElementById("project-search");
@@ -161,42 +137,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Show filtered elements
 function addClass(element, name) {
-	var i, arr1, arr2;
-	arr1 = element.className.split(" ");
-	arr2 = name.split(" ");
-	for (i = 0; i < arr2.length; i++) {
-		if (arr1.indexOf(arr2[i]) == -1) {
-			element.className += " " + arr2[i];
-		}
-	}
+	// Use classList to reliably add classes (handles whitespace and duplicates)
+	if (!element || !name) return;
+	name.split(/\s+/).forEach((cls) => {
+		if (cls) element.classList.add(cls);
+	});
 }
 
 // Hide elements that are not selected
 function removeClass(element, name) {
-	var i, arr1, arr2;
-	arr1 = element.className.split(" ");
-	arr2 = name.split(" ");
-	for (i = 0; i < arr2.length; i++) {
-		while (arr1.indexOf(arr2[i]) > -1) {
-			arr1.splice(arr1.indexOf(arr2[i]), 1);
-		}
-	}
-	element.className = arr1.join(" ");
+	// Use classList to reliably remove classes
+	if (!element || !name) return;
+	name.split(/\s+/).forEach((cls) => {
+		if (cls) element.classList.remove(cls);
+	});
 }
 
 // Add active class to the current control button (highlight it)
 var btnContainer = document.getElementById("radioButtonContainer");
 if (btnContainer) {
-	var btns = btnContainer.getElementsByClassName("btn");
-	for (var i = 0; i < btns.length; i++) {
-		btns[i].addEventListener("click", function () {
-			var current = document.getElementsByClassName("active");
-			if (current && current[0]) {
-				current[0].className = current[0].className.replace(" active", "");
-			}
-			this.className += " active";
-		});
-	}
+	// Radio buttons removed: project filtering will not use radio inputs
 }
 
 // Copy-to-clipboard for the Google dork code block

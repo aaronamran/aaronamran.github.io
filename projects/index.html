@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>aaronamran</title>
+		<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+		<!-- Font Awesome icons (free version)-->
+		<script
+			src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- Google fonts-->
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/css/styles.css" rel="stylesheet" />
+	</head>
+	<body id="page-top">
+		<!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img
+						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/index.html">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/index.html">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/index.html">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/index.html"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/internships/index.html"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/index.html"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/index.html"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/index.html">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/index.html"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- Page Content-->
+		<div class="container-fluid p-0">
+			<hr class="m-0" />
+			<!-- Portfolio Container -->
+			<div id="portfolioContainer">
+			<!-- Projects-->
+			<!-- 
+			- Cybersecurity - Exploit Development, Malware Analysis & Reverse Engineering, Network Security
+			- Information Technology - System Administration, Networking, Cloud Computing
+			- Computer Science - Operating Systems, Low-Level Programming, Applied Mathematics
+			- Electronics - IoT, Embedded Systems, PCB & Circuit Design
+			- AI/ML - Model Development, AI Applications, Data Engineering & Processing
+			- Blockchain - Smart Contracts & DApps, Infrastructure & Protocols, Security & Auditing
+			-->
+			<section class="resume-section" id="projects">
+				<div class="resume-section-content row">
+					<h2 class="mb-0">Projects</h2>
+					<!-- Search field -->
+					<div class="row">
+						<div class="col-12">
+							<div class="search-container mb-4">
+								<input
+									type="text"
+									id="project-search"
+									placeholder="Search projects..."
+									autocomplete="off"
+								/>
+								<button
+									type="button"
+									id="clear-search"
+									aria-label="Clear search"
+								>
+									<span>&times;</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- Project Cards -->
+					<div
+						class="project-card show col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="computer-science" data-always="true" style="display:flex;"
+					>
+						<a
+							href="/redcat/index.html"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Red Cat - A Client-side Red Hat Enterprise Linux 9 Terminal
+								</h3>
+								<div class="subheading mb-3">Computer Science - Operating Systems</div>
+								<img
+									src="/assets/projects/red_cat_enterprise_linux_browser.png"
+									class="d-block w-100 custom-img-size"
+									alt="Red Cat - A Client-side RHEL 9 Terminal"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Browser-based terminal simulator for practicing RHCSA exam objectives with realistic command execution, exam mode with timer, and comprehensive task scenarios.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/Troubleshooting-Simulated-Injected-System-Faults-on-Oracle-Linux#troubleshooting-simulated-injected-system-faults-on-oracle-linux"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Troubleshooting Simulated Injected System Faults on Oracle Linux
+								</h3>
+								<div class="subheading mb-3">IT - System Administration</div>
+								<img
+									src="/assets/projects/oracle_linux_troubleshooting_injected_faults.png"
+									class="d-block w-100 custom-img-size"
+									alt="Troubleshooting Simulated Injected System Faults on Oracle Linux"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed Oracle Linux VM and randomly injected system-level faults to simulate real-world failures and practice blind detection and remediation.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="machine-learning"
+					>
+						<a
+							href="https://github.com/aaronamran/Customer-Churn-Prediction-Using-Supervised-Learning#customer-churn-prediction-using-supervised-learning"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Customer Churn Prediction Using Supervised Learning
+								</h3>
+								<div class="subheading mb-3">Machine Learning - Applied ML</div>
+								<img
+									src="/assets/projects/customer_churn_prediction_supervised_learning.png"
+									class="d-block w-100 custom-img-size"
+									alt="Customer Churn Prediction Using Supervised Learning"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Predicted customer churn using 3 different classifiers
+									(Logistic Regression, Random Forest and SVM) and compared
+									their performance using various metrics.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/Build-and-Secure-a-Multi-User-Web-Server-With-Containers-on-AlmaLinux#build-and-secure-a-multi-user-web-server-with-containers-on-almalinux"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Build and Secure a Multi-User Web Server With Containers on
+									AlmaLinux
+								</h3>
+								<div class="subheading mb-3">IT - System Administration</div>
+								<img
+									src="/assets/projects/build_and_secure_a_multi-user_web_server_with_containers_on_almalinux.png"
+									class="d-block w-100 custom-img-size"
+									alt="Build and Secure a Multi-User Web Server With Containers on AlmaLinux"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed a dev server with web services, user access control,
+									containers, storage, SELinux, firewalls, and automation based
+									on RHCSA exam objectives.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/AWS-Automated-EC2-Backup-to-S3-with-IAM-and-CloudWatch-Log-Monitoring#aws-automated-ec2-backup-to-s3-with-iam-and-cloudwatch-log-monitoring"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									AWS Automated EC2 Backup to S3 with IAM and CloudWatch Log
+									Monitoring
+								</h3>
+								<div class="subheading mb-3">IT - Cloud Computing</div>
+								<img
+									src="/assets/projects/aws_automated_ec2_backup_to_s3_with_iam_and_cloudwatch.png"
+									class="d-block w-100 custom-img-size"
+									alt="AWS Automated EC2 Backup to S3 with IAM and CloudWatch Log Monitoring"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Implemented an automated EC2 backup system with secure S3
+									integration and CloudWatch log monitoring using IAM roles and
+									cron scripting.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/iSCSI-SAN-Setup-with-Ubuntu-Server-Target-and-Lubuntu-Initiator#iscsi-san-setup-with-ubuntu-server-target-and-lubuntu-initiator"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									iSCSI SAN Setup with Ubuntu Server Target and Lubuntu
+									Initiator
+								</h3>
+								<div class="subheading mb-3">IT - System Administration</div>
+								<img
+									src="/assets/projects/iSCSI_SAN_Ubuntu_Server_target_Lubuntu_initiator.png"
+									class="d-block w-100 custom-img-size"
+									alt="iSCSI SAN Setup with Ubuntu Server Target and Lubuntu Initiator"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed an iSCSI-based storage setup in a virtualized
+									environment with persistent remote disk access between Ubuntu
+									Server target and Lubuntu initiator.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="cybersecurity"
+					>
+						<a
+							href="https://github.com/aaronamran/Vulnerability-Scanning-Lab-with-OpenVAS-and-Metasploitable2#vulnerability-scanning-lab-with-openvas-and-metasploitable2"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Vulnerability Scanning Lab with OpenVAS and Metasploitable2
+								</h3>
+								<div class="subheading mb-3">
+									Cybersecurity - Defensive Security
+								</div>
+								<img
+									src="/assets/projects/vulnerability_scanning_lab_openvas_metasploitable2.png"
+									class="d-block w-100 custom-img-size"
+									alt="Vulnerability Scanning Lab with OpenVAS and Metasploitable2"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed OpenVAS in Kali Linux VM to detect vulnerabilities in
+									Metasploitable2 VM and suggested remediation steps.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/Zabbix-Monitoring-with-Lubuntu-Server-and-antiX-Linux-Clients/tree/main#zabbix-monitoring-with-lubuntu-server-and-antix-linux-clients"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Zabbix Monitoring with Lubuntu Server and antiX Linux Clients
+								</h3>
+								<div class="subheading mb-3">IT - System Administration</div>
+								<img
+									src="/assets/projects/zabbix_monitoring_linux.png"
+									class="d-block w-100 custom-img-size"
+									alt="Zabbix Monitoring with Lubuntu Server and antiX Linux Clients"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed Zabbix to monitor Linux host systems in a virtualized
+									environment and visualized system performance on the dashboard
+									after stress testing.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/Docker-LXC-and-VM-Networking-in-VirtualBox#docker-lxc-and-vm-networking-in-virtualbox"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									Docker, LXC and VM Networking in VirtualBox
+								</h3>
+								<div class="subheading mb-3">IT - System Administration</div>
+								<img
+									src="/assets/projects/docker_lxc_vm_networking_diagram.png"
+									class="d-block w-100 custom-img-size"
+									alt="Docker, LXC and VM Networking in VirtualBox"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed containerised services using Docker and LXC on a
+									Lubuntu VM in VirtualBox with bridged networking to simulate
+									Proxmox-style infrastructure.
+								</div>
+							</div>
+						</a>
+					</div>
+					<div
+						class="project-card highlight-card col-md-5 flex-column flex-md-row justify-content-between mb-4"
+						data-category="information-technology"
+					>
+						<a
+							href="https://github.com/aaronamran/AWS-Lightsail-LAMP-Stack-Web-App-Deployment?tab=readme-ov-file#aws-lightsail-lamp-stack-web-application-deployment"
+							target="_blank"
+							class="certification-link"
+						>
+							<div class="project-info flex-grow-1">
+								<h3 class="mb-2">
+									AWS Lightsail LAMP Stack Web App Deployment
+								</h3>
+								<div class="subheading mb-3">IT - Cloud Computing</div>
+								<img
+									src="/assets/projects/aws_lightsail_lamp_stack.png"
+									class="d-block w-100 custom-img-size"
+									alt="AWS Lightsail Instance"
+									style="height: 200px; object-fit: fill"
+									loading="lazy"
+								/>
+								<br />
+								<div>
+									Deployed PHP web app with CRUD functionality onto AWS
+									Lightsail instance and configured static public IP address
+									with SSL certificate.
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</section>
+            </div>
+		<div id="stars"></div>
+		<div id="stars2"></div>
+		<!-- Bootstrap core JS-->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"
+		></script>
+		<!-- Core theme JS-->
+		<script src="/js/scripts.js"></script>
+	</body>
+</html>

@@ -11950,7 +11950,7 @@ input:checked + .slider:before {
 	border: 1px solid #ddd;
 	border-radius: 8px;
 	padding: 20px;
-	margin: 15px;
+	margin: 1rem; /* increased spacing between project cards */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -11958,6 +11958,32 @@ input:checked + .slider:before {
 	cursor: pointer;
 	display: none;
 }
+
+/* Showcase card: same visual style as .project-card but separate class for homepage showcases */
+.showcase-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 1rem; /* uniform spacing around showcase cards */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: background-color 0.3s ease;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.showcase-card .project-info {
+	font-size: 16px;
+}
+
+.showcase-card:hover {
+	border-color: #667eea; /* similar hover tint as project cards */
+	background-color: rgba(102, 126, 234, 0.06);
+	transform: translateY(-2px);
+	transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
 
 .virtual-event-card {
 	border: 1px solid #ddd;
