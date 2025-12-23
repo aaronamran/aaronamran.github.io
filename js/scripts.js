@@ -94,27 +94,27 @@ function filterProjects(category, searchText = "") {
 	}
 
 	// Change quote text based on category
-	const quote = document.getElementById("quoteText");
-	if (!quote) return;
-	if (category === "cybersecurity") {
-		quote.textContent =
-			"Cybersecurity = Offensive Security x Defensive Security x Malware Analysis";
-	} else if (category === "information-technology") {
-		quote.textContent =
-			"Information Technology = System Administration x Networking x Cloud Computing";
-	} else if (category === "computer-science") {
-		quote.textContent =
-			"Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering";
-	} else if (category === "machine-learning") {
-		quote.textContent =
-			"Machine Learning = Core Models x Applied ML x Autonomous Agents";
-	} else if (category === "electronics") {
-		quote.textContent =
-			"Electronics = PCB & Circuit Design x Microcontrollers x Robotics";
-	} else {
-		quote.textContent =
-			"Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding";
-	}
+	// const quote = document.getElementById("quoteText");
+	// if (!quote) return;
+	// if (category === "cybersecurity") {
+	// 	quote.textContent =
+	// 		"Cybersecurity = Offensive Security x Defensive Security x Malware Analysis";
+	// } else if (category === "information-technology") {
+	// 	quote.textContent =
+	// 		"Information Technology = System Administration x Networking x Cloud Computing";
+	// } else if (category === "computer-science") {
+	// 	quote.textContent =
+	// 		"Computer Science = Operating Systems x Data Structures & Algorithms x Software Engineering";
+	// } else if (category === "machine-learning") {
+	// 	quote.textContent =
+	// 		"Machine Learning = Core Models x Applied ML x Autonomous Agents";
+	// } else if (category === "electronics") {
+	// 	quote.textContent =
+	// 		"Electronics = PCB & Circuit Design x Microcontrollers x Robotics";
+	// } else {
+	// 	quote.textContent =
+	// 		"Homelab Projects = Building x Connecting x Breaking x Troubleshooting x Understanding";
+	// }
 }
 
 // Listen for radio button changes
@@ -186,11 +186,65 @@ function removeClass(element, name) {
 
 // Add active class to the current control button (highlight it)
 var btnContainer = document.getElementById("radioButtonContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-	btns[i].addEventListener("click", function () {
-		var current = document.getElementsByClassName("active");
-		current[0].className = current[0].className.replace(" active", "");
-		this.className += " active";
-	});
+if (btnContainer) {
+	var btns = btnContainer.getElementsByClassName("btn");
+	for (var i = 0; i < btns.length; i++) {
+		btns[i].addEventListener("click", function () {
+			var current = document.getElementsByClassName("active");
+			if (current && current[0]) {
+				current[0].className = current[0].className.replace(" active", "");
+			}
+			this.className += " active";
+		});
+	}
 }
+
+// Copy-to-clipboard for the Google dork code block
+function initDorkCopy() {
+	const btn = document.getElementById('copyDorkBtn');
+	const code = document.getElementById('dorkCode');
+	if (!btn || !code) return;
+
+	// Avoid attaching multiple handlers
+	if (btn._dorkInitialized) return;
+	btn._dorkInitialized = true;
+
+	const originalText = btn.textContent;
+	const originalClass = btn.className;
+
+	async function handleCopy() {
+		try {
+			await navigator.clipboard.writeText(code.textContent.trim());
+		} catch (e) {
+			// fallback
+			const ta = document.createElement('textarea');
+			ta.value = code.textContent.trim();
+			document.body.appendChild(ta);
+			ta.select();
+			try {
+				document.execCommand('copy');
+			} catch (err) {}
+			ta.remove();
+		}
+
+		// Update button text/state instead of showing separate indicator
+		btn.textContent = 'Copied!';
+		btn.className = originalClass + ' btn-success';
+
+		// Revert after 5 seconds
+		setTimeout(() => {
+			btn.textContent = originalText;
+			btn.className = originalClass;
+		}, 5000);
+	}
+
+	btn.addEventListener('click', handleCopy);
+}
+
+// Run on initial page load
+document.addEventListener('DOMContentLoaded', function () {
+	initDorkCopy();
+});
+
+// Expose for SPA loader to call after injecting article content
+window.initDorkCopy = initDorkCopy;

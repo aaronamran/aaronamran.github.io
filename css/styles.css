@@ -76,11 +76,13 @@
 		rgba(255, 255, 255, 0)
 	);
 	--bs-body-font-family: Muli, -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-		Segoe UI Symbol, Noto Color Emoji;
+		'Inter', Muli, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", "Noto Color Emoji";
+	--bs-heading-font-family: 'Saira Extra Condensed', 'Inter', Muli, sans-serif;
 	--bs-body-font-size: 1rem;
 	--bs-body-font-weight: 400;
-	--bs-body-line-height: 1.5;
+	--bs-body-line-height: 1.6;
 	--bs-body-color: rgb(21, 25, 29);
 	--bs-body-bg: rgb(10, 10, 10); /* body-background */
 	--bs-border-width: 1px;
@@ -122,6 +124,18 @@ body {
 	background-color: var(--bs-body-bg);
 	-webkit-text-size-adjust: 100%;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Headings use condensed display font for personality */
+h1, h2, h3, h4, h5, h6, .myname-text, .navbar-brand, #navText {
+	font-family: var(--bs-heading-font-family);
+	letter-spacing: 0.02em;
+}
+
+/* Improve font rendering for body */
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Animated Stars */
@@ -694,7 +708,7 @@ body {
 		transform: translateX(0px);
 	}
 	100% {
-		transform: translateX(2000px);
+		transform: translateX(1500px);
 	}
 }
 
@@ -12199,6 +12213,50 @@ input:checked + .slider:before {
 	object-position: center;
 }
 
+/* Override: ensure highlight certification links lay out logo left of text */
+.highlight-card .certification-link,
+.project-card.highlight-card .certification-link {
+	flex-direction: row !important;
+	align-items: center !important;
+}
+.highlight-card .certification-link img,
+.project-card.highlight-card .certification-link img {
+	margin-right: 14px !important;
+	margin-bottom: 0 !important;
+	display: inline-block !important;
+}
+
+/* Blog list style for ethical hacking highlights */
+.blog-list {
+	padding-left: 0;
+}
+.blog-list-item {
+	border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.blog-list-link {
+	color: inherit;
+}
+.blog-list-link:hover {
+	background: rgba(95,137,224,0.04);
+	text-decoration: none;
+}
+
+/* Ensure blog list items align consistently regardless of description length */
+.blog-list-link {
+	display: flex !important;
+	align-items: flex-start !important;
+}
+.blog-list-link > img {
+	flex: 0 0 auto;
+}
+.blog-list-link > div {
+	flex: 1 1 auto;
+	min-width: 0; /* allow text to wrap inside flex item */
+}
+.blog-list .text-muted {
+	display: block;
+}
+
 .search-container {
 	display: block;           
     width: 100%;
@@ -12400,4 +12458,39 @@ section.resume-section .resume-section-content {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: #e0e2e6;
+}
+
+/* Article formatting: justify paragraphs and center images in writeups */
+section.resume-section .resume-section-content p,
+#articleContent p {
+	text-align: justify;
+	text-justify: inter-word;
+	hyphens: auto;
+}
+
+/* Center images inside article content and resume sections */
+section.resume-section .resume-section-content img,
+#articleContent img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Ensure responsive images keep fluid sizing */
+#articleContent img.img-fluid {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Exceptions: keep small flag icons inline in resume sections */
+/* Matches images that reference the flags directory in common resume sections */
+#education img[src*="assets/flags/"],
+#experience img[src*="assets/flags/"],
+#internships img[src*="assets/flags/"],
+#activities img[src*="assets/flags/"] {
+	display: inline-block !important;
+	vertical-align: middle !important;
+	margin-left: 8px !important;
+	margin-right: 0 !important;
+	margin-bottom: 0 !important;
 }

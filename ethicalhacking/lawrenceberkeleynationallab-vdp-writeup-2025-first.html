@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NASA VDP Writeup — Aaron Amran</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <link href="../css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img
+						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="../assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#about">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#ethicalhacking">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#projects">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#experience"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#internships"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#certifications"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#education"
+							>Education</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#skills">Skills</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="../index.html#activities"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+    <header style="padding-bottom:2rem;">
+        <a href="../index.html#ethicalhacking" class="btn btn-outline-light">Return</a>
+    </header>
+	<div class="d-flex align-items-center mb-3">
+		<img src="../assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0">Lawrence Berkeley National Laboratory (LBNL)</h2>
+	</div>
+    <div class="subheading mb-4">December 2025 · Vulnerability Disclosure Program</div>
+    <p class="lead mb-4">As usual, I was spending my free time hunting for security flaws on foreign government websites, including those belonging to the Dutch Government, the UK Government, and most notably, the US Government. One random day, on 16 December 2025, I came across a LinkedIn post from someone whose name I can no longer remember. In the post, he mentioned that he had successfully found a security vulnerability in one of Lawrence Berkeley National Laboratory’s (LBNL) websites.</p>
+    <p class="lead mb-4">Out of curiosity, I visited <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2025%2D12%2D16%3A%20Thank%20you%20to%20Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)%20%2D%20Sarawak%20Information%20Systems%20(SAINS)%20for%20identifying%20a%20web%20server%20misconfiguration." target="_blank" rel="noopener noreferrer">https://go.lbl.gov/vdp</a> and read through LBNL’s Vulnerability Disclosure Program rules. Unlike most VDPs, I genuinely think LBNL’s scope is well-suited for people who are lazy, like me. Let me explain.</p>
+    <p class="lead mb-4">Their scope explicitly disallows any testing that requires account creation. This means that all testing must be conducted in a fully public-facing, black-box manner. One could argue that this narrow scope significantly reduces the attack surface. However, from my perspective, it aligns perfectly with how I prefer to work.</p>
+
+	<div class="text-center">
+		<a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2025%2D12%2D16%3A%20Thank%20you%20to%20Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)%20%2D%20Sarawak%20Information%20Systems%20(SAINS)%20for%20identifying%20a%20web%20server%20misconfiguration." target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+			<img src="../assets/ethicalhacking/lbnldjango/whitehatsforsciencekudos1.png" alt="LBNL VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" loading="lazy">
+		</a>
+	</div>
+    
+    <p class="lead mb-4">Since I had some free time to spare, I figured that procrastinating would only do more harm than good. I immediately performed subdomain enumeration using C99’s Subdomain Finder, copied the results into a text file, and used the Bulk URL Opener browser extension to open multiple subdomains simultaneously.</p>
+	<p class="lead mb-4">The first 100 subdomains did not yield anything particularly interesting. I was mostly performing surface-level reconnaissance, hoping for quick wins. Most of the subdomains either returned HTTP 403 responses or required authentication via internal LBNL staff accounts.</p>
+	<p class="lead mb-4">I continued going through the list, opening more subdomains, skipping those that were clearly not worth further investigation, and keeping an eye out for anything unusual or promising.</p>
+	<p class="lead mb-4">Eventually, I reached roughly the 120th and 121st subdomains. Both turned out to be API endpoints for production and staging environments. These endpoints were clearly intended for programmatic access rather than human-facing web pages, which explained why viewing them directly in a browser did not reveal much.</p>
+	<p class="lead mb-4">At a surface level, it was apparent that these API endpoints were running on Django, which confirmed my suspicion that they were backend API services rather than static public websites. Django is a widely used Python web framework for building both web applications and RESTful APIs.</p>
+
+    <img src="../assets/ethicalhacking/lbnldjango/djangodebugtrue.png" alt="LBNL Django Debug Mode Enabled" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">The moment I noticed that Django Debug Mode was enabled on a public-facing API endpoint, I knew I had found a significant security issue. In general, Django Debug Mode exposes highly detailed error information, including stack traces, environment variables, and sometimes even database credentials. This type of information can be extremely valuable to attackers and may lead to further exploitation or privilege escalation.</p>
+	<p class="lead mb-4">What made this even more interesting was that the debug page itself conveniently displayed several accessible paths, including <code>admin/</code>, <code>accounts/</code>, <code>_allauth/</code>, and <code>api/</code>. It felt almost like one of those games where, at the very beginning, you are given hints and tools to guide you forward.</p>
+	<p class="lead mb-4">I began modifying the URL by appending these paths to the base endpoint, hoping that each request might lead to something new. After about ten minutes of exploring many empty rooms, I finally stumbled upon an endpoint that immediately caught my attention:</p>
+    <div class="text-center mb-4">
+		<div style="display:inline-block; text-align:left; position:relative;">
+			<button id="copyDorkBtn" class="btn btn-sm btn-outline-light" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); z-index:2;">Copy</button>
+			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1rem 1.25rem; border-radius:8px; min-width:520px;"><code id="dorkCode">https://redacted.lbl.gov/_allauth/openapi.yaml</code></pre>
+			<div id="dorkCopied" style="position:absolute; right:90px; top:50%; transform:translateY(-50%); display:none; background:#28a745; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85rem;">Copied!</div>
+		</div>
+	</div>
+    <img src="../assets/ethicalhacking/lbnldjango/djangodebug1.png" alt="LBNL Django Debug Mode Error Page" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<p class="lead mb-4">The page returned a <code>ModuleNotFoundError</code>, but more importantly, it exposed extremely verbose debug information. As soon as I saw details such as the Python version and Python path, I knew this was a serious misconfiguration. I scrolled further down the page.</p>
+
+	<img src="../assets/ethicalhacking/lbnldjango/djangodebug2.png" alt="LBNL Django Debug Mode Error Page Continued" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+    <img src="../assets/ethicalhacking/lbnldjango/djangodebug3.png" alt="LBNL Django Debug Mode Error Page Continued" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">There it was. Sensitive server-side information laid out openly, effectively served on a silver platter for anyone curious enough.</p>
+	<p class="lead mb-4">I immediately drafted an email to the Berkeley Lab Cybersecurity team, explaining how I discovered the endpoint and providing clear steps to reproduce the issue. At the time, it was almost lunchtime on 17 December 2025 in Malaysia, while it was still the night of 16 December 2025 in the United States.</p>
+	<p class="lead mb-4">Exactly 25 minutes later, I received a reply from their cybersecurity team. They thanked me for the responsible disclosure and informed me that they would add my name to the <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2025%2D12%2D16%3A%20Thank%20you%20to%20Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)%20%2D%20Sarawak%20Information%20Systems%20(SAINS)%20for%20identifying%20a%20web%20server%20misconfiguration." target="_blank" rel="noopener noreferrer">White Hats for Science Kudos list</a>. I replied shortly after, and about an hour later, I received a follow-up confirmation email.</p>
+
+	<img src="../assets/ethicalhacking/lbnldjango/lbldjangoemailreply.png" alt="LBNL Django Email Reply" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">It was a great feeling, especially just before the Christmas holiday season kicked in. Not only did I learn something new, but I was also acknowledged for helping to keep a major research laboratory more secure. It was a small win, but one that I would absolutely recommend experiencing.</p>
+
+	<hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next hack.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">December 2025</p>
+	</section>
+
+
+	<footer style="padding-top:2rem;">
+		<a href="../index.html#ethicalhacking" class="btn btn-outline-light">Return</a>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
