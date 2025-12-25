@@ -26,15 +26,12 @@
         rel="stylesheet"
         type="text/css"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NASA VDP Writeup — Aaron Amran</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
-    <link href="../css/styles.css" rel="stylesheet">
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>NASA VDP Writeup — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 </head>
-<body>
+<body id="page-top">
     <!-- Navigation-->
 		<nav
 			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
@@ -107,9 +104,10 @@
         <a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
     </header>
 	<div class="d-flex align-items-center mb-3">
-		<img src="../assets/logo/nasalogo.png" alt="NASA logo" style="height:96px; width:auto; margin-right:16px;" />
-		<h2 class="mb-0">National Aeronautics and Space Administration (NASA)</h2>
+		<img src="/assets/logo/nasalogo.png" alt="NASA logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0 fw-semibold">NASA's Misconfigured Google Drive Permissions</h2>
 	</div>
+	<h3 class="mb-2 text-muted">National Aeronautics and Space Administration (NASA)</h3>
     <div class="subheading mb-4">August 2025 · Vulnerability Disclosure Program</div>
     <p class="lead mb-4">It all started in November 2024, when I began taking my slow transition into cybersecurity more seriously. At that time I was six months into working as an ICT Technician, juggling full-time work while studying and experimenting during whatever free time I had, mostly in the evenings after work. One day, while scrolling through LinkedIn, I came across several viral posts from ethical hackers around the world sharing their success stories of finding security vulnerabilities at NASA.</p>
 	<p class="lead mb-4">I was immediately intrigued and wanted to try it out for myself. I researched NASA’s Vulnerability Disclosure Program (VDP) and discovered that it was a public program where anyone could responsibly report security vulnerabilities on NASA’s systems. With nothing to lose, I decided to give it a shot and began looking for potential vulnerabilities on NASA’s public-facing websites and applications.</p>
@@ -125,8 +123,7 @@
 	<p class="lead mb-4">After six weeks of relentless Google Dorking during my limited free time, on 28 December 2024, I finally stumbled upon a PowerPoint presentation slide from NASA, thanks to the following Google Dork:</p>
 	<div class="text-center mb-4">
 		<div style="display:inline-block; text-align:left; position:relative;">
-			<button id="copyDorkBtn" class="btn btn-sm btn-outline-light" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); z-index:2;">Copy</button>
-			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1rem 1.25rem; border-radius:8px; min-width:520px;"><code id="dorkCode">site:nasa.gov "https://drive.google.com/folder/"</code></pre>
+			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1rem 1.25rem; border-radius:8px; max-width:100%; min-width:0; overflow-x:auto; white-space:pre-wrap; word-break:break-word;"><code id="dorkCode">site:nasa.gov "https://drive.google.com/folder/"</code></pre>
 			<div id="dorkCopied" style="position:absolute; right:90px; top:50%; transform:translateY(-50%); display:none; background:#28a745; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85rem;">Copied!</div>
 		</div>
 	</div>
@@ -150,7 +147,7 @@
 
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next hack.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2025-first.html">next hack</a>.</p>
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">August 2025</p>
 	</section>
@@ -162,7 +159,7 @@
 </main>
 <div id="stars"></div>
 <div id="stars2"></div>
-<script src="../js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

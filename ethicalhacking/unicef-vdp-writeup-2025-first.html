@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>Unauthenticated Uploads — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img
+						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="../assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/index.html">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/index.html">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/index.html">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/index.html"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/internships/index.html"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/index.html"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/index.html"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/index.html">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/index.html"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+    <header style="padding-bottom:2rem;">
+        <a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
+    </header>
+	<div class="d-flex align-items-center mb-3">
+		<img src="/assets/logo/uniceflogo.png" alt="UNICEF logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0 fw-semibold">Unauthenticated Uploads in UNICEF’s ArcGIS FeatureServer</h2>
+	</div>
+	<h3 class="mb-2 text-muted">United Nations International Children's Emergency Fund (UNICEF)</h3>
+    <div class="subheading mb-4">December 2025 · Vulnerability Disclosure Program</div>
+    <p class="lead mb-4">As I’ve gotten older, I’ve realized that I stay engaged only when I’m working on problems that demand a high level of intellectual challenge. While I could easily spend my free time doing something relaxing, I consistently choose the opposite, drawn to difficult problems that push my thinking and provide the mental stimulation I look forward to. This blog documents that search for challenge. In October 2025, while browsing various Vulnerability Disclosure Programs in my spare time, I struggled to settle on a target, much like choosing a meal in a crowded food court. Eventually, <a href="https://www.unicef.org/digitalimpact/unicef-information-security-hall-fame">UNICEF’s VDP</a> stood out. After reviewing the testing scope, I decided to focus there. If I found something, great. If not, I would simply move on.</a></p>
+
+	<div class="text-center">
+		<a href="" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+			<img src="../assets/ethicalhacking/unicefarcgis/unicefhalloffame1.png" alt="UNICEF VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" loading="lazy">
+		</a>
+	</div>
+    
+	<p class="lead mb-4">One thing I learned from my past experiences and reconnaissance efforts is that many large organizations dealing with societal data tend to rely on some form of geographical mapping systems, whether for internal use or public-facing services. UNICEF is no exception.</p>
+    <p class="lead mb-4">My reconnaissance phase targeting UNICEF’s digital assets began with the usual Google dorks and subdomain enumeration on 28 October 2025 at around 3:00 PM. Leaked passwords? Leaked Social Security numbers or other sensitive credentials? None were publicly available. This was interesting, because it meant the challenge was starting to become real.</p>
+	<p class="lead mb-4">At that point, my perspective shifted. I asked myself: If I can’t extract data from them, can I give them unwanted or malicious data instead? This led me to think about file upload functionalities, especially in places where the average user should not be allowed to upload anything. This is where geographical mapping systems entered the picture.</p>
+	<p class="lead mb-4">To set the context, many organizations use ArcGIS, a geographic information system designed for working with maps and spatial data. Suspecting that UNICEF might be using ArcGIS as well, I crafted a Google dork specifically targeting their ArcGIS upload endpoints via FeatureServer.</p>
+
+    <div class="text-center mb-4">
+		<div style="display:inline-block; text-align:left; position:relative;">
+			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1rem 1.25rem; border-radius:8px; max-width:100%; min-width:0; overflow-x:auto; white-space:pre-wrap; word-break:break-word;"><code id="dorkCode">site:*.unicef.* inurl:"/rest/services" intext:ArcGIS intext:upload</code></pre>
+			<div id="dorkCopied" style="position:absolute; right:90px; top:50%; transform:translateY(-50%); display:none; background:#28a745; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85rem;">Copied!</div>
+		</div>
+	</div>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/dorkresults1.png" alt="UNICEF ArcGIS Dork Results" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+    <p class="lead mb-4">The results were promising. I identified several ArcGIS FeatureServer endpoints that potentially allowed unauthenticated data uploads. I began reviewing each result to determine whether unauthenticated file uploads were actually permitted. For explanation purposes, I will use the first result from the image above.</p>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/appendblz.png" alt="UNICEF ArcGIS FeatureServer" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">From the URL <code>https://redacted.unicef.org/redacted/append</code>, I replaced <code>append</code> with <code>uploads</code> to check whether unauthenticated uploads were even allowed in the first place.</p>
+
+    <img src="../assets/ethicalhacking/unicefarcgis/cannotupload.png" alt="UNICEF ArcGIS Cannot Upload" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">A 403 error was returned. This suggested that UNICEF was aware of this risk and had properly restricted unauthenticated uploads on their ArcGIS FeatureServer endpoints. At this point, a change in strategy was necessary. My guiding principle is that for large organizations, it is nearly impossible to secure every single data source and service. The sheer scale makes mistakes inevitable somewhere. With that in mind, I crafted a new Google dork. By now, it was already around 7:00 PM.</p> 
+
+    <div class="text-center mb-4">
+		<div style="display:inline-block; text-align:left; position:relative;">
+			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1rem 1.25rem; border-radius:8px; max-width:100%; min-width:0; overflow-x:auto; white-space:pre-wrap; word-break:break-word;"><code id="dorkCode">site:*.unicef.* inurl:"/FeatureServer/uploads" </code></pre>
+			<div id="dorkCopied" style="position:absolute; right:90px; top:50%; transform:translateY(-50%); display:none; background:#28a745; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85rem;">Copied!</div>
+		</div>
+	</div>
+
+
+	<img src="/assets/ethicalhacking/unicefarcgis/dorkresults2.png" alt="UNICEF ArcGIS Dork Results" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">This time, the result was clear. A single unsecured endpoint surfaced immediately. I clicked the first relevant and vulnerable link, which led me to the following page.</p>
+
+	<img src="/assets/ethicalhacking/unicefarcgis/uploadsendpoint.png" alt="UNICEF ArcGIS Upload Endpoint" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Take a close look at the image. Throughout this write-up, I’ve been discussing unauthenticated uploads, but did you notice that unauthenticated deletes were also possible? Without logging in as any user, I could delete geographical data remotely, from the comfort of my home, while eating a bag of chips. To further validate the upload capability, I tested it using a Proof-of-Concept (PoC) text file and filled in the item description to see whether the process would be blocked midway.</p>
+	
+    <img src="/assets/ethicalhacking/unicefarcgis/uploaditem.png" alt="UNICEF ArcGIS Upload Item" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+    <img src="/assets/ethicalhacking/unicefarcgis/browsefile.png" alt="UNICEF ArcGIS Browse File" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+    <p class="lead mb-4">A successful upload resulted in a response containing the message “Committed: true”. The item ID generated during this process is important and should be noted.</p>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/ethicalhack.png" alt="UNICEF ArcGIS Successful Upload" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">To verify that the upload was successful, I opened the item ID in a new browser tab to confirm that the file was indeed present on UNICEF’s ArcGIS server.</p>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/proofhack.png" alt="UNICEF ArcGIS Verify Upload" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+    
+	<p class="lead mb-4">As an additional note, appending <code>?f=pjson</code> to the end of the URL displays the item’s details in JSON format.</p>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/jsonethicalhack.png" alt="UNICEF ArcGIS JSON Format" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	
+	<p class="lead mb-4">Once the main PoC testing was complete, I returned to delete the uploaded item. The server responded with: <code>{“success”: true}</code></p>
+
+    <img src="/assets/ethicalhacking/unicefarcgis/deleteitem.png" alt="UNICEF ArcGIS Delete Item" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">I then prepared an 11-page PDF report containing detailed findings and screenshots, which I submitted via email to infosecurity@unicef.org at 10:15 PM. The next morning, I checked my email as soon as I woke up, hoping for a response. There was none. I got ready for work and continued with my day as usual. Days turned into weeks, and weeks into months, without any reply. During that time, I continued hunting for security flaws in other organizations’ digital assets during my free time. Then, on 23 December 2025 at 11:58 PM, I finally received the following email:</p>
+
+	<img src="../assets/ethicalhacking/unicefarcgis/unicefinfosecemailreply.png" alt="UNICEF InfoSec Email Reply" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Either Santa Claus had been unusually generous in the year 2025, or I had been patient long enough to forget about the report and email entirely. Regardless, it was a pleasant surprise to finally receive a response after such a long wait.</p>
+
+	<hr />
+		<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+			<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">December 2025</p>
+	</section>
+
+		<!-- Next hack modal (styled to match site) -->
+		<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
+			  <div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+				<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
+			  </div>
+			  <div class="modal-body" style="color:#dcdfe4;">
+				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
+				<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
+				<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
+			  </div>
+			  <div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
+				<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+	<footer style="padding-top:2rem;">
+		<a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

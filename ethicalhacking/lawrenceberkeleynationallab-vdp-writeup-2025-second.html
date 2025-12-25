@@ -26,15 +26,12 @@
         rel="stylesheet"
         type="text/css"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NASA VDP Writeup — Aaron Amran</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
-    <link href="../css/styles.css" rel="stylesheet">
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>HTML Injection — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 </head>
-<body>
+<body id="page-top">
     <!-- Navigation-->
 		<nav
 			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
@@ -107,9 +104,10 @@
         <a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
     </header>
 	<div class="d-flex align-items-center mb-3">
-		<img src="../assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
-		<h2 class="mb-0">Lawrence Berkeley National Laboratory (LBNL)</h2>
+		<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0 fw-semibold">Discovering HTML Injection In Berkeley Lab's Search Feature</h2>
 	</div>
+	<h3 class="mb-2 text-muted">Lawrence Berkeley National Laboratory (LBNL)</h3>
     <div class="subheading mb-4">December 2025 · Vulnerability Disclosure Program</div>
     <p class="lead mb-4">“If you already scored a valid submission in a VDP, why would you hunt for security flaws again?” The answer is simple. I want to make sure my wins are not the result of luck, but of skill.</p>
     <p class="lead mb-4">This story is a continuation of my previous write-up about <a href="../ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2025-first.html" target="_blank" rel="noopener noreferrer">my first valid submission in Lawrence Berkeley National Laboratory’s (LBNL) Vulnerability Disclosure Program</a>.</p>
@@ -139,10 +137,9 @@
 	<p class="lead mb-4">While experimenting further, I discovered that <code>&lt;iframe&gt;</code> blocked embedding google.com, but allowed sources under lbl.gov. This behavior suggested that iframe restrictions were enforced through <code>X-Frame-Options: SAMEORIGIN</code> and/or a Content Security Policy <code>frame-ancestors</code> directive. At this point, it was almost lunchtime, and attempting to bypass Cloudflare’s WAF through payload obfuscation to achieve reflected XSS did not seem worth the energy-to-reward ratio. As a result, I shifted my focus toward weaponizing the HTML injection as a phishing vector instead.</p>
 	<p class="lead mb-4">I spent more time crafting a phishing-style HTML sign-in form. The main challenge was that CSS was blocked, which forced me to rely purely on HTML for layout and presentation. After many iterations and reusing what I had learned from previous tests, I arrived at a final payload.</p>
 
-    <div class="text-center mb-4">
+	<div class="text-center mb-4">
 		<div style="margin:0 auto; display:block; max-width:720px; text-align:left; position:relative;">
-				<button id="copyDorkBtn" class="btn btn-sm btn-outline-light" style="position:absolute; right:8px; top:8px; z-index:3;">Copy</button>
-			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1.25rem 6rem 1.25rem 1.25rem; border-radius:8px; width:100%; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; hyphens:auto;"><code id="dorkCode">https://redacted.lbl.gov/?s=%3C/span%3E%3Cspan%3E%3Csvg%20width=%221000%22%20height=%2235%22%3E%3C/svg%3E%3Ccenter%3E%3Cform%20action=%22/login-endpoint%22%20method=%22POST%22%20class=%22form-example%22%3E%3Cbr%3E%3Cbr%3E%3Ch1%3ESession%20Expired%3C/h1%3E%20%3Ch3%3EFor%20security%20purposes,%20please%20sign%20in%20again%20to%20continue%3C/h3%3E%3Cbr/%3E%3Cdiv%20class=%22form-example%22%3E%3Clabel%20for=%22email%22%3EEmail%20address:%3C/label%3E%20%3Cinput%20type=%22email%22%20name=%22email%22%20id=%22email%22%20required%20/%3E%3Cbr/%3E%3C/div%3E%3Cbr/%3E%3Cdiv%20class=%22form-example%22%3E%3Clabel%20for=%22password%22%3EPassword:%3C/label%3E%20%3Cinput%20type=%22password%22%20name=%22password%22%20id=%22password%22%20required%20/%3E%3Cbr/%3E%3C/div%3E%3Cbr/%3E%3Cdiv%20class=%22form-example%22%3E%3Cinput%20type=%22submit%22%20value=%22Sign%20In%22%20/%3E%3C/div%3E%3Csvg%20width=%221000%22%20height=%221000%22%3E%3C/svg%3E%3C/form%3E%3C/center%3E</code></pre>
+			<pre style="margin:0; background: rgba(0,0,0,0.65); color:#fff; padding:1.25rem; border-radius:8px; max-width:100%; min-width:0; overflow-x:auto; white-space:pre-wrap; word-break:break-word;"><code id="dorkCode">https://redacted.lbl.gov/?s=%3C/span%3E%3Cspan%3E%3Csvg%20width=%221000%22%20height=%2235%22%3E%3C/svg%3E%3Ccenter%3E%3Cform%20action=%22/login-endpoint%22%20method=%22POST%22%20class=%22form-example%22%3E%3Cbr%3E%3Cbr%3E%3Ch1%3ESession%20Expired%3C/h1%3E%20%3Ch3%3EFor%20security%20purposes,%20please%20sign%20in%20again%20to%20continue%3C/h3%3E%3Cbr/%3E%3Cdiv%20class=%22form-example%22%3E%3Clabel%20for=%22email%22%3EEmail%20address:%3C/label%3E%20%3Cinput%20type=%22email%22%20name=%22email%22%20id=%22email%22%20required%20/%3E%3Cbr%3E%3C/div%3E%3Cbr/%3E%3Cdiv%20class=%22form-example%22%3E%3Clabel%20for=%22password%22%3EPassword:%3C/label%3E%20%3Cinput%20type=%22password%22%20name=%22password%22%20id=%22password%22%20required%20/%3E%3Cbr%3E%3C/div%3E%3Cbr%3E%3Cdiv%20class=%22form-example%22%3E%3Cinput%20type=%22submit%22%20value=%22Sign%20In%22%20/%3E%3C/div%3E%3Csvg%20width=%221000%22%20height=%221000%22%3E%3C/svg%3E%3C/form%3E%3C/center%3E</code></pre>
 			<div id="dorkCopied" style="position:absolute; right:90px; top:50%; transform:translateY(-50%); display:none; background:#28a745; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85rem;">Copied!</div>
 		</div>
 	</div>
@@ -160,10 +157,30 @@
 
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next hack.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
+		<!-- <p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ethicalhacking/unicef-vdp-writeup-2025-first.html">next hack</a>.</p> -->
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">December 2025</p>
 	</section>
+
+	<!-- Next hack modal (styled to match site) -->
+		<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
+			  <div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+				<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
+			  </div>
+			  <div class="modal-body" style="color:#dcdfe4;">
+				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
+				<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
+				<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
+			  </div>
+			  <div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
+				<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
 
 
 	<footer style="padding-top:2rem;">
@@ -172,7 +189,7 @@
 </main>
 <div id="stars"></div>
 <div id="stars2"></div>
-<script src="../js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

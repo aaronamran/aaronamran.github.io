@@ -12370,3 +12370,111 @@ section.resume-section .resume-section-content img,
 	margin-right: 0 !important;
 	margin-bottom: 0 !important;
 }
+
+/* --- Scoped responsive tweaks for ethicalhacking article pages --- */
+/* Reduce paragraph sizes on desktop by ~10% and improve mobile spacing */
+#articleContent {
+	box-sizing: border-box;
+	/* keep existing vertical padding but ensure horizontal padding on small screens */
+}
+
+/* Slightly smaller body text inside article content for desktop */
+#articleContent p {
+	font-size: 0.9rem; /* ~10% smaller than root 1rem */
+}
+#articleContent p.lead {
+	font-size: 0.95rem;
+}
+
+/* Make images responsive and give breathing room from screen edges */
+#articleContent img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#articleContent .d-flex.align-items-center img {
+	/* reduce header logo size slightly on small screens via media query below */
+	max-height: 96px;
+	width: auto;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767.98px) {
+	/* Add horizontal padding so content doesn't touch the edges */
+	#articleContent {
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+		padding-top: 1rem !important;
+		padding-bottom: 1rem !important;
+		max-width: 100% !important;
+	}
+
+	/* Smaller, more readable text on narrow viewports */
+	#articleContent p {
+		font-size: 0.85rem;
+		line-height: 1.55;
+	}
+	#articleContent p.lead {
+		font-size: 0.9rem;
+	}
+
+	/* Reduce heading sizes slightly for mobile */
+	#articleContent h2 {
+		font-size: 1.25rem;
+	}
+	#articleContent h3 {
+		font-size: 1rem;
+	}
+
+	/* Reduce header logo and inline images */
+	#articleContent .d-flex.align-items-center img {
+		max-height: 64px !important;
+	}
+
+	/* Constrain large inline content (pre/code) and allow horizontal scroll */
+	#articleContent pre,
+	#articleContent pre code {
+		font-size: 0.8rem;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	/* Keep centered images from overflowing the viewport */
+	#articleContent .text-center .img-fluid {
+		max-width: 92%;
+	}
+}
+
+/* end scoped responsive tweaks */
+
+/* Force blog images to scale within article container (override inline styles) */
+#articleContent img {
+	max-width: 100% !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+/* Shrink sign-off paragraphs (excluding the 'See you in the next hack' line) */
+#articleContent section.text-center p:not(.mb-1) {
+	font-size: 0.9em !important; /* reduce by ~10% relative to the current size */
+}
+
+/* Explicitly align author/date sign-off sizes with article paragraph sizes */
+#articleContent section.text-center p.mb-0,
+#articleContent section.text-center p.text-muted.small {
+	font-size: 0.9rem !important; /* desktop size to match #articleContent p */
+}
+
+@media (max-width: 767.98px) {
+	#articleContent section.text-center p.mb-0,
+	#articleContent section.text-center p.text-muted.small {
+		font-size: 0.8rem !important;
+	}
+	/* Make 'See you in the next hack' slightly larger than author/date but smaller on mobile */
+	#articleContent section.text-center p.mb-1 {
+		font-size: 0.9rem !important;
+	}
+}
