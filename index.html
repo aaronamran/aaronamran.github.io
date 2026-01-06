@@ -40,6 +40,7 @@
 				<span id="navText" class="d-block d-lg-none">Portfolio</span>
 				<span class="d-none d-lg-block"
 					><img
+						id="profilePicture"
 						class="img-fluid img-profile rounded-circle mx-auto mb-2"
 						src="/assets/img/profile.jpg"
 						alt="Profile Picture"
@@ -211,8 +212,20 @@
 								align-items: flex-start;
 							}
 							.category-header { text-align: left; }
-							.category-icons { justify-content: flex-start; margin-top: 0.5rem; }
+							.category-icons { justify-content: flex-start; margin-top: 0.5rem; }						
+						/* Fix blog list items for mobile */
+						.blog-list-item .blog-list-link > a > div,
+						.blog-list-item .blog-list-link > div {
+							flex-direction: column !important;
+							align-items: flex-start !important;
 						}
+						
+						.blog-list-item .platform-icons {
+							margin-left: 0 !important;
+							margin-top: 1rem;
+							width: 100%;
+							justify-content: flex-start;
+						}						}
 					</style>
 					
 					<!-- platform-grid removed (items merged into blog list) -->

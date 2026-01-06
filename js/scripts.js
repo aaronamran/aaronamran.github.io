@@ -204,6 +204,17 @@ function initDorkCopy() {
 // Run on initial page load
 document.addEventListener('DOMContentLoaded', function () {
 	initDorkCopy();
+	
+	// Profile picture hover effect
+	const profilePic = document.getElementById('profilePicture');
+	if (profilePic) {
+		profilePic.addEventListener('mouseenter', function() {
+			this.src = '/assets/img/catko.jpg';
+		});
+		profilePic.addEventListener('mouseleave', function() {
+			this.src = '/assets/img/profile.jpg';
+		});
+	}
 });
 
 // Expose for SPA loader to call after injecting article content
