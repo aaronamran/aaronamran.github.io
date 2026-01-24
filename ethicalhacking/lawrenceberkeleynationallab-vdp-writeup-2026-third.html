@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>HTML Injection — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="../assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/index.html">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/index.html">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/index.html">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/index.html"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/internships/index.html"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/index.html"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/index.html"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/index.html">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/index.html"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+    <header style="padding-bottom:2rem;">
+        <a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
+    </header>
+	<div class="d-flex align-items-center mb-3">
+		<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0 fw-semibold">Berkeley Lab's Exposed CR1000X Data Logger</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Lawrence Berkeley National Laboratory (LBNL)</h3>
+    <div class="subheading mb-4">January 2026 · Vulnerability Disclosure Program</div>
+    <p class="lead mb-4">As I am writing this on 22 January 2026 at 12:08 PM, I discovered something that I personally find mind-blowing for us cybersecurity folks. Curious to know what it is? That will come later at the end of this blog.</p>
+    <p class="lead mb-4">For now, back to the main topic. This blog is a write-up of my successful attempt to discover my third officially valid vulnerability (and hopefully a fourth in the future) for <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science" target="_blank" referrerpolicy="noreferrer">Lawrence Berkeley National Laboratory’s (LBNL) Vulnerability Disclosure Program.</a></p>
+
+	<div class="text-center">
+		<a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2026%2D01%2D21%3A%20Thank%20you%2C%20Aaron%20Amran%E2%80%94identification%20of%20an%20exposed%20device%20contributes%20positively%20to%20science%E2%80%94your%20vigilance%20enhances%20security!" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+			<img src="../assets/ethicalhacking/lbnlcr1000x/whitehatsforsciencekudos3.png" alt="LBNL VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" loading="lazy">
+		</a>
+	</div>
+    
+	<p class="lead mb-4">About two weeks ago, I realised that my existing methodology for enumerating subdomains and discovering hidden attack surfaces was suboptimal. Because of that, I decided to try a newer and more effective recon tool created by <a href="https://github.com/rix4uni" target="_blank" referrerpolicy="noreferrer">Bhagirath Saxena (rix4uni)</a>. I’ve already dropped the biggest hint by mentioning the tool creator and his GitHub, but I won’t name the tool directly. I prefer readers to self-discover it, as I strongly believe people learn best when they put in their own effort.</p>
+    <p class="lead mb-4">Using this recon tool on Kali Linux, I enumerated a large set of subdomains, stored them in a text file, and manually opened them one by one to inspect the responses. Many ethical hackers would immediately pipe results into tools like httpx, Nuclei, or similar automation. While those tools are extremely powerful, I personally get better results through manual inspection. My belief is simple:
+Tools focus heavily on status codes and signatures, but when you manually and visually inspect subdomains, combined with intuition and experience, you often notice things that automation misses.</p>
+	<p class="lead mb-4">After a lengthy session of bookmarking multiple interesting targets, I went through each bookmarked URL, testing for misconfigurations, XSS, and other common vulnerabilities. Eventually, I landed on a particularly interesting page.</p>
+
+    <img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_status_homepage.png" alt="LBNL CR1000X Data Logger Status Homepage" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">My first thought was information disclosure. However, for this type of vulnerability to be valid, it typically needs to expose sensitive data such as Personally Identifiable Information (PII), credentials, internal server or system configuration details. In this case, the page only displayed system status information. While not highly sensitive, it could still help an attacker understand the system’s configuration and operational state. I initially assumed this would not be impactful enough and would likely result in an invalid submission.</p> 
+	<p class="lead mb-4">While reviewing the page, I noticed I was currently on the Status tab. There were other tabs available as well: Data, Files, and Utilities. I clicked on Files, and a Sign-In prompt immediately appeared.</p>
+
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_signin.png" alt="LBNL CR1000X Data Logger Sign-In Prompt" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">I tested common default credential pairs like admin:admin, admin:password, and any other possible credential pairs that I could think of. None of them worked. At that point, I clicked Cancel, assuming the attempt was over.</p>
+
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_file_control.png" alt="LBNL CR1000X Data Logger File Control" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">To my surprise, I was not redirected to an HTTP 401 Unauthorized page. Instead, the File Control page remained fully accessible. This immediately triggered my curiosity. I repeated the same process for the Data and Utilities tabs, and observed the exact same behaviour.</p>
+
+	<p class="lead mb-4">The Data tab did not expose anything particularly interesting. However, the Utilities tab was a different story. It displayed functionality that appeared capable of modifying device settings. At this point, my unverified but reasonable assumption was that the authentication prompt was merely cosmetic, and that proper access control was not being enforced on the backend. In other words, an attacker could simply dismiss the login prompt and still gain access to potentially sensitive device functionality.</p>
+
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_utilities.png" alt="LBNL CR1000X Data Logger Utilities" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">To better understand the real-world impact of this exposure, I researched what the CR1000X actually is. The following information and images are taken from Campbell Scientific’s official website.</p>
+
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_image.png" alt="LBNL CR1000X Data Logger Product Image" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+    
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_details.png" alt="LBNL CR1000X Data Logger Product Details" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	
+	<p class="lead mb-4">Now this is interesting, the CR1000X is a rugged, high-precision data logger designed for extreme environments. It is capable of operating for years on a single battery, often paired with a solar panel. At that moment, I was genuinely relieved that I did not attempt to alter any settings to demonstrate impact. Doing so could have disrupted critical research operations and potentially affected real people’s careers.</p>
+		
+	<p class="lead mb-4">I sent a detailed and responsible report to the Berkeley Lab Cybersecurity Team. A few hours later, I received a reply from Jay Krous. At the time, I did not realise who he was. Later, out of curiosity, I Googled his name, only to discover that he is the Head of Cybersecurity at Berkeley Lab.</p>
+
+	<img src="../assets/ethicalhacking/lbnlcr1000x/thirdvulnemailreply.png" alt="LBNL CR1000X Email Reply" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">While Googling Jay Krous, I noticed another search result titled: 'How Berkeley Lab Helped Develop One of the World's Most ...' so naturally I clicked on it.</p>
+
+	<a href="https://labpartnering.org/success-stories/0ea93456-f4fa-4b00-a083-8eea524eea36?labs%5B%5D=lbnl" target="_blank" referrerpolicy="noreferrer"><img src="../assets/ethicalhacking/lbnlcr1000x/berkeleylab_zeek.png" alt="Berkeley Lab Zeek" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy"></a>
+
+	<p class="lead mb-4">Berkeley Lab played a key role in developing Zeek. Yes, that Zeek. Zeek is a powerful network analysis framework widely used for security monitoring and network traffic analysis. If you’ve ever used educational platforms like TryHackMe, chances are you’ve encountered Zeek at some point.</p>
+
+	<p class="lead mb-4">Realising that I had responsibly disclosed a vulnerability to the same institution that helped create one of the most influential tools in modern network security was genuinely mind-blowing.</p>
+
+	<p class="lead mb-4">After <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2026%2D01%2D21%3A%20Thank%20you%2C%20Aaron%20Amran%E2%80%94identification%20of%20an%20exposed%20device%20contributes%20positively%20to%20science%E2%80%94your%20vigilance%20enhances%20security!" target="_blank" rel="noopener noreferrer" style="display:inline-block;">Berkeley Lab Cybersecurity acknowledged my contribution in the White Hats for Science Kudos section</a>, this blog is finally published on 24 January 2026.</p>
+
+	<hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+			<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">January 2026</p>
+	</section>
+
+	<!-- Next hack modal (styled to match site) -->
+		<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
+			  <div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+				<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
+			  </div>
+			  <div class="modal-body" style="color:#dcdfe4;">
+				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
+				<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
+				<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
+			  </div>
+			  <div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
+				<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+
+	<footer style="padding-top:2rem;">
+		<a href="/ethicalhacking/index.html" class="btn btn-outline-light">Return</a>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
