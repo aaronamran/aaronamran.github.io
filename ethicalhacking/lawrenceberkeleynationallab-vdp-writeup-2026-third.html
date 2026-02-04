@@ -104,7 +104,7 @@
     </header>
 	<div class="d-flex align-items-center mb-3">
 		<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
-		<h2 class="mb-0 fw-semibold">Berkeley Lab's Exposed CR1000X Data Logger</h2>
+		<h2 class="mb-0 fw-semibold">Berkeley Lab's Exposed CR1000X Datalogger</h2>
 	</div>
 	<h3 class="mb-2 text-muted">Lawrence Berkeley National Laboratory (LBNL)</h3>
     <div class="subheading mb-4">January 2026 · Vulnerability Disclosure Program</div>
@@ -122,30 +122,30 @@
 Tools focus heavily on status codes and signatures, but when you manually and visually inspect subdomains, combined with intuition and experience, you often notice things that automation misses.</p>
 	<p class="lead mb-4">After a lengthy session of bookmarking multiple interesting targets, I went through each bookmarked URL, testing for misconfigurations, XSS, and other common vulnerabilities. Eventually, I landed on a particularly interesting page.</p>
 
-    <img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_status_homepage.png" alt="LBNL CR1000X Data Logger Status Homepage" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+    <img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_status_homepage.png" alt="LBNL CR1000X Datalogger Status Homepage" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
 
 	<p class="lead mb-4">My first thought was information disclosure. However, for this type of vulnerability to be valid, it typically needs to expose sensitive data such as Personally Identifiable Information (PII), credentials, internal server or system configuration details. In this case, the page only displayed system status information. While not highly sensitive, it could still help an attacker understand the system’s configuration and operational state. I initially assumed this would not be impactful enough and would likely result in an invalid submission.</p> 
 	<p class="lead mb-4">While reviewing the page, I noticed I was currently on the Status tab. There were other tabs available as well: Data, Files, and Utilities. I clicked on Files, and a Sign-In prompt immediately appeared.</p>
 
-	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_signin.png" alt="LBNL CR1000X Data Logger Sign-In Prompt" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_signin.png" alt="LBNL CR1000X Datalogger Sign-In Prompt" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
 
 	<p class="lead mb-4">I tested common default credential pairs like admin:admin, admin:password, and any other possible credential pairs that I could think of. None of them worked. At that point, I clicked Cancel, assuming the attempt was over.</p>
 
-	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_file_control.png" alt="LBNL CR1000X Data Logger File Control" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_file_control.png" alt="LBNL CR1000X Datalogger File Control" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
 
 	<p class="lead mb-4">To my surprise, I was not redirected to an HTTP 401 Unauthorized page. Instead, the File Control page remained fully accessible. This immediately triggered my curiosity. I repeated the same process for the Data and Utilities tabs, and observed the exact same behaviour.</p>
 
 	<p class="lead mb-4">The Data tab did not expose anything particularly interesting. However, the Utilities tab was a different story. It displayed functionality that appeared capable of modifying device settings. At this point, my unverified but reasonable assumption was that the authentication prompt was merely cosmetic, and that proper access control was not being enforced on the backend. In other words, an attacker could simply dismiss the login prompt and still gain access to potentially sensitive device functionality.</p>
 
-	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_utilities.png" alt="LBNL CR1000X Data Logger Utilities" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_utilities.png" alt="LBNL CR1000X Datalogger Utilities" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
 
 	<p class="lead mb-4">To better understand the real-world impact of this exposure, I researched what the CR1000X actually is. The following information and images are taken from Campbell Scientific’s official website.</p>
 
-	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_image.png" alt="LBNL CR1000X Data Logger Product Image" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_image.png" alt="LBNL CR1000X Datalogger Product Image" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
     
-	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_details.png" alt="LBNL CR1000X Data Logger Product Details" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_details.png" alt="LBNL CR1000X Datalogger Product Details" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
 	
-	<p class="lead mb-4">Now this is interesting, the CR1000X is a rugged, high-precision data logger designed for extreme environments. It is capable of operating for years on a single battery, often paired with a solar panel. At that moment, I was genuinely relieved that I did not attempt to alter any settings to demonstrate impact. Doing so could have disrupted critical research operations and potentially affected real people’s careers.</p>
+	<p class="lead mb-4">Now this is interesting, the CR1000X is a rugged, high-precision datalogger designed for extreme environments. It is capable of operating for years on a single battery, often paired with a solar panel. At that moment, I was genuinely relieved that I did not attempt to alter any settings to demonstrate impact. Doing so could have disrupted critical research operations and potentially affected real people’s careers.</p>
 		
 	<p class="lead mb-4">I sent a detailed and responsible report to the Berkeley Lab Cybersecurity Team. A few hours later, I received a reply from Jay Krous. At the time, I did not realise who he was. Later, out of curiosity, I Googled his name, only to discover that he is the Head of Cybersecurity at Berkeley Lab.</p>
 
