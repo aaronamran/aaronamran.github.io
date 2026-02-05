@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>DorkIndex</title>
+    <link rel="icon" type="image/png" href="dorkindexicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="dorkindexicon.png" alt="DorkIndex" class="logo"> DorkIndex</h1>
+        
+        <div class="credits">
+            <p>Inspired by <a href="https://github.com/TakSec" target="_blank" rel="noopener noreferrer">TakSec</a>'s <a href="https://taksec.github.io/google-dorks-bug-bounty/" target="_blank" rel="noopener noreferrer">Google Dorks for Bug Bounty</a></p>
+            <p class="author-links">
+                Created by @aaronamran | 
+                <a href="https://www.linkedin.com/in/aaronamran/" target="_blank" rel="noopener noreferrer">LinkedIn</a> | 
+                <a href="https://aaronamran.github.io/" target="_blank" rel="noopener noreferrer">Website</a> | 
+                <a href="https://github.com/aaronamran" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </p>
+        </div>
+        
+        <div class="input-section">
+            <label for="domainInput">Enter a domain:</label>
+            <input type="text" id="domainInput" placeholder="example.com" value="example.com">
+            <p class="hint">For multiple domains, separate by comma. e.g., example1.com, example2.com</p>
+        </div>
+
+        <div class="engine-tabs">
+            <button class="engine-tab active" data-engine="google">Google</button>
+            <button class="engine-tab" data-engine="bing">Bing</button>
+            <button class="engine-tab" data-engine="duckduckgo">DuckDuckGo</button>
+            <button class="engine-tab" data-engine="yandex">Yandex</button>
+            <button class="engine-tab" data-engine="brave">Brave</button>
+            <button class="engine-tab" data-engine="baidu">Baidu</button>
+            <button class="engine-tab" data-engine="mojeek">Mojeek</button>
+        </div>
+
+        <div id="dorksList" class="dorks-list">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

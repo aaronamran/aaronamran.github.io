@@ -1,0 +1,384 @@
+{
+  "dorks": [
+    {
+      "title": "PHP extension w/ parameters",
+      "google": "site:example.com ext:php inurl:?",
+      "bing": "site:example.com ext:php url:?",
+      "duckduckgo": "site:example.com .php ?",
+      "yandex": "site:example.com ext:php url:?",
+      "brave": "site:example.com ext:php url:?",
+      "baidu": "site:example.com filetype:php",
+      "mojeek": "site:example.com php"
+    },
+    {
+      "title": "API Endpoints",
+      "google": "site:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3",
+      "bing": "site:example.com (url:api OR url:rest OR url:v1 OR url:v2 OR url:v3)",
+      "duckduckgo": "site:example.com (api OR rest OR v1 OR v2 OR v3)",
+      "yandex": "site:example.com (url:api | url:rest | url:v1 | url:v2)",
+      "brave": "site:example.com (url:api OR url:rest OR url:v1)",
+      "baidu": "site:example.com api",
+      "mojeek": "site:example.com api rest"
+    },
+    {
+      "title": "Juicy Extensions",
+      "google": "site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old",
+      "bing": "site:example.com (ext:log OR ext:txt OR ext:conf OR ext:ini OR ext:env OR ext:bak OR ext:backup)",
+      "duckduckgo": "site:example.com (.log OR .txt OR .conf OR .env OR .bak OR .backup)",
+      "yandex": "site:example.com (ext:log | ext:txt | ext:conf | ext:env | ext:bak)",
+      "brave": "site:example.com (ext:log OR ext:txt OR ext:env OR ext:bak)",
+      "baidu": "site:example.com (filetype:log OR filetype:txt OR filetype:conf)",
+      "mojeek": "site:example.com (log OR config OR backup)"
+    },
+    {
+      "title": "High % inurl keywords",
+      "google": "site:example.com inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php",
+      "bing": "site:example.com (url:conf OR url:env OR url:admin OR url:backup OR url:sql)",
+      "duckduckgo": "site:example.com (conf OR env OR admin OR backup OR sql)",
+      "yandex": "site:example.com (url:conf | url:env | url:admin | url:backup)",
+      "brave": "site:example.com (url:admin OR url:backup OR url:config)",
+      "baidu": "site:example.com (admin OR backup OR config)",
+      "mojeek": "site:example.com admin backup config"
+    },
+    {
+      "title": "Server Errors",
+      "google": "site:example.com inurl:\"error\" | intitle:\"exception\" | intitle:\"failure\" | \"database error\" | \"SQL syntax\" | \"undefined index\" | \"unhandled exception\" | \"stack trace\"",
+      "bing": "site:example.com (title:exception OR title:error OR \"database error\" OR \"SQL syntax\")",
+      "duckduckgo": "site:example.com (\"error\" OR \"exception\" OR \"database error\")",
+      "yandex": "site:example.com (title:exception | \"database error\" | \"SQL syntax\")",
+      "brave": "site:example.com (\"exception\" OR \"error\" OR \"stack trace\")",
+      "baidu": "site:example.com error exception",
+      "mojeek": "site:example.com error exception database"
+    },
+    {
+      "title": "XSS prone parameters",
+      "google": "site:example.com inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= inurl:&",
+      "bing": "site:example.com (url:q= OR url:s= OR url:search= OR url:query= OR url:keyword=)",
+      "duckduckgo": "site:example.com (\"?q=\" OR \"?s=\" OR \"?search=\" OR \"?query=\")",
+      "yandex": "site:example.com (url:q= | url:search= | url:query=)",
+      "brave": "site:example.com (url:q= OR url:search= OR url:query=)",
+      "baidu": "site:example.com search query",
+      "mojeek": "site:example.com search query"
+    },
+    {
+      "title": "Open Redirect prone parameters",
+      "google": "site:example.com inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= inurl:& inurl:http",
+      "bing": "site:example.com (url:redirect= OR url:return= OR url:next= OR url:url=)",
+      "duckduckgo": "site:example.com (\"?redirect=\" OR \"?return=\" OR \"?next=\" OR \"?url=\")",
+      "yandex": "site:example.com (url:redirect= | url:return= | url:next=)",
+      "brave": "site:example.com (url:redirect= OR url:return= OR url:url=)",
+      "baidu": "site:example.com redirect return",
+      "mojeek": "site:example.com redirect return url"
+    },
+    {
+      "title": "SQLi Prone Parameters",
+      "google": "site:example.com inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= inurl:&",
+      "bing": "site:example.com (url:id= OR url:pid= OR url:category= OR url:cat=)",
+      "duckduckgo": "site:example.com (\"?id=\" OR \"?pid=\" OR \"?category=\" OR \"?cat=\")",
+      "yandex": "site:example.com (url:id= | url:pid= | url:category=)",
+      "brave": "site:example.com (url:id= OR url:category= OR url:cat=)",
+      "baidu": "site:example.com id category",
+      "mojeek": "site:example.com id category"
+    },
+    {
+      "title": "SSRF Prone Parameters",
+      "google": "site:example.com inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain= | inurl:page= inurl:&",
+      "bing": "site:example.com (url:url= OR url:path= OR url:dest= OR url:domain=)",
+      "duckduckgo": "site:example.com (\"?url=\" OR \"?path=\" OR \"?dest=\" OR \"?domain=\")",
+      "yandex": "site:example.com (url:url= | url:path= | url:dest=)",
+      "brave": "site:example.com (url:url= OR url:path= OR url:dest=)",
+      "baidu": "site:example.com url path",
+      "mojeek": "site:example.com url path destination"
+    },
+    {
+      "title": "LFI Prone Parameters",
+      "google": "site:example.com inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:&",
+      "bing": "site:example.com (url:file= OR url:include OR url:dir OR url:folder=)",
+      "duckduckgo": "site:example.com (\"?file=\" OR \"?include\" OR \"?dir\" OR \"?folder=\")",
+      "yandex": "site:example.com (url:file= | url:include | url:dir)",
+      "brave": "site:example.com (url:file= OR url:include OR url:dir)",
+      "baidu": "site:example.com file include",
+      "mojeek": "site:example.com file include directory"
+    },
+    {
+      "title": "RCE Prone Parameters",
+      "google": "site:example.com inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read= | inurl:ping= inurl:&",
+      "bing": "site:example.com (url:cmd OR url:exec= OR url:code= OR url:run=)",
+      "duckduckgo": "site:example.com (\"?cmd\" OR \"?exec=\" OR \"?code=\" OR \"?run=\")",
+      "yandex": "site:example.com (url:cmd | url:exec= | url:code=)",
+      "brave": "site:example.com (url:cmd OR url:exec= OR url:code=)",
+      "baidu": "site:example.com cmd exec",
+      "mojeek": "site:example.com cmd exec code"
+    },
+    {
+      "title": "File upload endpoints",
+      "google": "site:example.com intext:\"choose file\" | intext:\"select file\" | intext:\"upload PDF\"",
+      "bing": "site:example.com (\"choose file\" OR \"select file\" OR \"upload\")",
+      "duckduckgo": "site:example.com (\"choose file\" OR \"upload file\")",
+      "yandex": "site:example.com (\"choose file\" | \"select file\")",
+      "brave": "site:example.com (\"choose file\" OR \"upload\")",
+      "baidu": "site:example.com upload file",
+      "mojeek": "site:example.com upload file"
+    },
+    {
+      "title": "API Docs",
+      "google": "site:example.com inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer | inurl:redoc | inurl:openapi | intitle:\"Swagger UI\"",
+      "bing": "site:example.com (url:apidocs OR url:swagger OR url:api-docs OR title:\"Swagger UI\")",
+      "duckduckgo": "site:example.com (apidocs OR swagger OR \"api documentation\")",
+      "yandex": "site:example.com (url:apidocs | url:swagger | url:api-docs)",
+      "brave": "site:example.com (url:swagger OR url:apidocs OR url:redoc)",
+      "baidu": "site:example.com swagger api documentation",
+      "mojeek": "site:example.com api documentation swagger"
+    },
+    {
+      "title": "Login Pages",
+      "google": "site:example.com inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure",
+      "bing": "site:example.com (url:login OR url:signin OR title:login)",
+      "duckduckgo": "site:example.com (login OR signin)",
+      "yandex": "site:example.com (url:login | url:signin | title:login)",
+      "brave": "site:example.com (url:login OR url:signin)",
+      "baidu": "site:example.com login signin",
+      "mojeek": "site:example.com login signin"
+    },
+    {
+      "title": "Test Environments",
+      "google": "site:example.com inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo",
+      "bing": "site:example.com (url:test OR url:dev OR url:staging OR url:sandbox OR url:debug)",
+      "duckduckgo": "site:example.com (test OR dev OR staging OR sandbox)",
+      "yandex": "site:example.com (url:test | url:dev | url:staging | url:sandbox)",
+      "brave": "site:example.com (url:test OR url:dev OR url:staging)",
+      "baidu": "site:example.com test dev staging",
+      "mojeek": "site:example.com test development staging"
+    },
+    {
+      "title": "Sensitive Documents",
+      "google": "site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx intext:\"confidential\" | intext:\"Not for Public Release\" | intext:\"internal use only\"",
+      "bing": "site:example.com (ext:pdf OR ext:doc OR ext:docx OR ext:xls OR ext:xlsx) (\"confidential\" OR \"internal use only\")",
+      "duckduckgo": "site:example.com (.pdf OR .doc OR .xls) (confidential OR \"internal use\")",
+      "yandex": "site:example.com (ext:pdf | ext:doc | ext:xls) (\"confidential\" | \"internal\")",
+      "brave": "site:example.com (ext:pdf OR ext:doc) confidential",
+      "baidu": "site:example.com (filetype:pdf OR filetype:doc) confidential",
+      "mojeek": "site:example.com document confidential"
+    },
+    {
+      "title": "Sensitive Parameters",
+      "google": "site:example.com inurl:email= | inurl:phone= | inurl:name= | inurl:user= inurl:&",
+      "bing": "site:example.com (url:email= OR url:phone= OR url:user=)",
+      "duckduckgo": "site:example.com (\"?email=\" OR \"?phone=\" OR \"?user=\")",
+      "yandex": "site:example.com (url:email= | url:phone= | url:user=)",
+      "brave": "site:example.com (url:email= OR url:user=)",
+      "baidu": "site:example.com email phone user",
+      "mojeek": "site:example.com email phone"
+    },
+    {
+      "title": "Adobe Experience Manager (AEM)",
+      "google": "site:example.com inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/bin/wcm | inurl:/crx/de",
+      "bing": "site:example.com (url:/content/ OR url:/jcr: OR url:/crx/)",
+      "duckduckgo": "site:example.com (/content/ OR /jcr: OR /crx/)",
+      "yandex": "site:example.com (url:/content/ | url:/jcr: | url:/crx/)",
+      "brave": "site:example.com (url:/content/ OR url:/crx/)",
+      "baidu": "site:example.com /content/ /crx/",
+      "mojeek": "site:example.com aem content"
+    },
+    {
+      "title": "Disclosed XSS and Open Redirects",
+      "google": "site:openbugbounty.org inurl:reports intext:\"example.com\"",
+      "bing": "site:openbugbounty.org url:reports \"example.com\"",
+      "duckduckgo": "site:openbugbounty.org reports example.com",
+      "yandex": "site:openbugbounty.org url:reports \"example.com\"",
+      "brave": "site:openbugbounty.org reports example.com",
+      "baidu": "site:openbugbounty.org example.com",
+      "mojeek": "site:openbugbounty.org example.com"
+    },
+    {
+      "title": "Google Groups",
+      "google": "site:groups.google.com \"example.com\"",
+      "bing": "site:groups.google.com \"example.com\"",
+      "duckduckgo": "site:groups.google.com example.com",
+      "yandex": "site:groups.google.com \"example.com\"",
+      "brave": "site:groups.google.com example.com",
+      "baidu": "site:groups.google.com example.com",
+      "mojeek": "site:groups.google.com example.com"
+    },
+    {
+      "title": "Code Leaks",
+      "google": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "bing": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "duckduckgo": "site:pastebin.com example.com\nsite:jsfiddle.net example.com\nsite:codebeautify.org example.com\nsite:codepen.io example.com",
+      "yandex": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "brave": "site:pastebin.com example.com\nsite:jsfiddle.net example.com\nsite:codebeautify.org example.com\nsite:codepen.io example.com",
+      "baidu": "site:pastebin.com example.com\nsite:jsfiddle.net example.com",
+      "mojeek": "site:pastebin.com example.com\nsite:jsfiddle.net example.com"
+    },
+    {
+      "title": "Cloud Storage",
+      "google": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:dev.azure.com \"example.com\"\nsite:onedrive.live.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"\nsite:sharepoint.com \"example.com\"\nsite:dropbox.com/s \"example.com\"",
+      "bing": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:dev.azure.com \"example.com\"\nsite:onedrive.live.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"\nsite:sharepoint.com \"example.com\"",
+      "duckduckgo": "site:s3.amazonaws.com example.com\nsite:blob.core.windows.net example.com\nsite:googleapis.com example.com\nsite:drive.google.com example.com\nsite:onedrive.live.com example.com\nsite:sharepoint.com example.com",
+      "yandex": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"",
+      "brave": "site:s3.amazonaws.com example.com\nsite:blob.core.windows.net example.com\nsite:googleapis.com example.com\nsite:drive.google.com example.com\nsite:digitaloceanspaces.com example.com",
+      "baidu": "site:s3.amazonaws.com example.com\nsite:googleapis.com example.com",
+      "mojeek": "site:s3.amazonaws.com example.com\nsite:googleapis.com example.com"
+    },
+    {
+      "title": "JFrog Artifactory",
+      "google": "site:jfrog.io \"example.com\"",
+      "bing": "site:jfrog.io \"example.com\"",
+      "duckduckgo": "site:jfrog.io example.com",
+      "yandex": "site:jfrog.io \"example.com\"",
+      "brave": "site:jfrog.io example.com",
+      "baidu": "site:jfrog.io example.com",
+      "mojeek": "site:jfrog.io example.com"
+    },
+    {
+      "title": "Firebase",
+      "google": "site:firebaseio.com \"example.com\"",
+      "bing": "site:firebaseio.com \"example.com\"",
+      "duckduckgo": "site:firebaseio.com example.com",
+      "yandex": "site:firebaseio.com \"example.com\"",
+      "brave": "site:firebaseio.com example.com",
+      "baidu": "site:firebaseio.com example.com",
+      "mojeek": "site:firebaseio.com example.com"
+    },
+    {
+      "title": "Security.txt",
+      "google": "site:*/security.txt \"bounty\"",
+      "bing": "url:security.txt bounty",
+      "duckduckgo": "security.txt bounty",
+      "yandex": "url:security.txt \"bounty\"",
+      "brave": "url:security.txt bounty",
+      "baidu": "security.txt bounty",
+      "mojeek": "security.txt bounty"
+    },
+    {
+      "title": "GraphQL Endpoints",
+      "google": "site:example.com inurl:graphql | inurl:graphiql | inurl:playground | intitle:\"GraphQL Playground\" | intitle:\"GraphiQL\"",
+      "bing": "site:example.com (url:graphql OR url:graphiql OR url:playground OR title:\"GraphQL\")",
+      "duckduckgo": "site:example.com (graphql OR graphiql OR playground)",
+      "yandex": "site:example.com (url:graphql | url:graphiql | url:playground)",
+      "brave": "site:example.com (url:graphql OR url:graphiql OR url:playground)",
+      "baidu": "site:example.com graphql",
+      "mojeek": "site:example.com graphql playground"
+    },
+    {
+      "title": "Exposed .git Repositories",
+      "google": "site:example.com inurl:\".git\" | inurl:\"/.git/config\" | inurl:\"/.git/HEAD\" | inurl:\"/.git/index\"",
+      "bing": "site:example.com (url:.git OR url:/.git/config OR url:/.git/HEAD)",
+      "duckduckgo": "site:example.com (\".git\" OR \"/.git/config\" OR \"/.git/HEAD\")",
+      "yandex": "site:example.com (url:.git | url:/.git/config | url:/.git/HEAD)",
+      "brave": "site:example.com (url:.git OR url:/.git/config)",
+      "baidu": "site:example.com .git",
+      "mojeek": "site:example.com .git config"
+    },
+    {
+      "title": "Jenkins & CI/CD",
+      "google": "site:example.com inurl:jenkins | inurl:ci | inurl:hudson | intitle:\"Dashboard [Jenkins]\" | intitle:\"Jenkins\" | inurl:job | inurl:build",
+      "bing": "site:example.com (url:jenkins OR url:ci OR url:hudson OR title:\"Jenkins\")",
+      "duckduckgo": "site:example.com (jenkins OR hudson OR \"ci/cd\")",
+      "yandex": "site:example.com (url:jenkins | url:ci | url:hudson | title:\"Jenkins\")",
+      "brave": "site:example.com (url:jenkins OR url:ci OR title:\"Jenkins\")",
+      "baidu": "site:example.com jenkins hudson",
+      "mojeek": "site:example.com jenkins hudson"
+    },
+    {
+      "title": "WordPress Specific",
+      "google": "site:example.com inurl:wp-content | inurl:wp-includes | inurl:wp-admin | inurl:wp-config.php.bak | inurl:wp-config.php.txt | inurl:xmlrpc.php | inurl:readme.html",
+      "bing": "site:example.com (url:wp-content OR url:wp-includes OR url:wp-admin OR url:wp-config)",
+      "duckduckgo": "site:example.com (wp-content OR wp-includes OR wp-admin)",
+      "yandex": "site:example.com (url:wp-content | url:wp-includes | url:wp-admin)",
+      "brave": "site:example.com (url:wp-content OR url:wp-admin OR url:wp-config)",
+      "baidu": "site:example.com wordpress wp-content",
+      "mojeek": "site:example.com wordpress wp-content"
+    },
+    {
+      "title": "IDOR Prone Parameters",
+      "google": "site:example.com inurl:uid= | inurl:userid= | inurl:user_id= | inurl:accountid= | inurl:account_id= | inurl:orderid= | inurl:order_id= | inurl:invoice= | inurl:invoiceid= inurl:&",
+      "bing": "site:example.com (url:uid= OR url:userid= OR url:accountid= OR url:orderid= OR url:invoice=)",
+      "duckduckgo": "site:example.com (\"?uid=\" OR \"?userid=\" OR \"?accountid=\" OR \"?orderid=\" OR \"?invoice=\")",
+      "yandex": "site:example.com (url:uid= | url:userid= | url:accountid= | url:orderid=)",
+      "brave": "site:example.com (url:uid= OR url:userid= OR url:accountid= OR url:orderid=)",
+      "baidu": "site:example.com uid userid accountid",
+      "mojeek": "site:example.com uid userid account"
+    },
+    {
+      "title": "GitHub Exposure",
+      "google": "site:github.com \"example.com\" password | api_key | secret | credentials | token | ssh | aws_access | \"BEGIN RSA PRIVATE KEY\" | \"DB_PASSWORD\"",
+      "bing": "site:github.com \"example.com\" (password OR api_key OR secret OR credentials OR token)",
+      "duckduckgo": "site:github.com example.com (password OR api_key OR secret OR token)",
+      "yandex": "site:github.com \"example.com\" (password | api_key | secret | credentials | token)",
+      "brave": "site:github.com example.com (password OR api_key OR secret OR token)",
+      "baidu": "site:github.com example.com password",
+      "mojeek": "site:github.com example.com password secret"
+    },
+    {
+      "title": "Exposed .env Files",
+      "google": "site:example.com ext:env | intext:\"DB_PASSWORD\" | intext:\"DATABASE_PASSWORD\" | intext:\"API_KEY\" | intext:\"SECRET_KEY\" | intext:\"AWS_ACCESS\" | intext:\"AWS_SECRET\"",
+      "bing": "site:example.com (ext:env OR \"DB_PASSWORD\" OR \"API_KEY\" OR \"SECRET_KEY\")",
+      "duckduckgo": "site:example.com (.env OR \"DB_PASSWORD\" OR \"API_KEY\")",
+      "yandex": "site:example.com (ext:env | \"DB_PASSWORD\" | \"API_KEY\")",
+      "brave": "site:example.com (ext:env OR \"DB_PASSWORD\" OR \"API_KEY\")",
+      "baidu": "site:example.com env DB_PASSWORD",
+      "mojeek": "site:example.com env password"
+    },
+    {
+      "title": "Exposed Dashboards",
+      "google": "site:example.com inurl:kibana | inurl:grafana | inurl:prometheus | inurl:k8s | intitle:\"Kubernetes Dashboard\" | intitle:\"Grafana\" | intitle:\"Kibana\"",
+      "bing": "site:example.com (url:kibana OR url:grafana OR url:prometheus OR title:\"Dashboard\")",
+      "duckduckgo": "site:example.com (kibana OR grafana OR prometheus OR kubernetes)",
+      "yandex": "site:example.com (url:kibana | url:grafana | url:prometheus | title:\"Dashboard\")",
+      "brave": "site:example.com (url:kibana OR url:grafana OR url:prometheus)",
+      "baidu": "site:example.com kibana grafana",
+      "mojeek": "site:example.com kibana grafana dashboard"
+    },
+    {
+      "title": "Trello Boards",
+      "google": "site:trello.com \"example.com\"",
+      "bing": "site:trello.com \"example.com\"",
+      "duckduckgo": "site:trello.com example.com",
+      "yandex": "site:trello.com \"example.com\"",
+      "brave": "site:trello.com example.com",
+      "baidu": "site:trello.com example.com",
+      "mojeek": "site:trello.com example.com"
+    },
+    {
+      "title": "Wayback Machine",
+      "google": "site:web.archive.org/web/*/example.com/*",
+      "bing": "site:web.archive.org example.com",
+      "duckduckgo": "site:web.archive.org example.com",
+      "yandex": "site:web.archive.org example.com",
+      "brave": "site:web.archive.org example.com",
+      "baidu": "site:web.archive.org example.com",
+      "mojeek": "site:web.archive.org example.com"
+    },
+    {
+      "title": "Exposed Admin Panels",
+      "google": "site:example.com inurl:admin | inurl:administrator | inurl:moderator | inurl:controlpanel | inurl:adminpanel | inurl:dashboard | intitle:\"admin\" | intitle:\"administrator\"",
+      "bing": "site:example.com (url:admin OR url:administrator OR url:moderator OR url:dashboard OR title:\"admin\")",
+      "duckduckgo": "site:example.com (admin OR administrator OR moderator OR dashboard)",
+      "yandex": "site:example.com (url:admin | url:administrator | url:moderator | url:dashboard)",
+      "brave": "site:example.com (url:admin OR url:administrator OR url:dashboard)",
+      "baidu": "site:example.com admin administrator",
+      "mojeek": "site:example.com admin administrator dashboard"
+    },
+    {
+      "title": "Backup Files",
+      "google": "site:example.com ext:bak | ext:backup | ext:old | ext:save | ext:sql | ext:zip | ext:tar.gz | ext:tar | inurl:backup | inurl:dump",
+      "bing": "site:example.com (ext:bak OR ext:backup OR ext:old OR ext:sql OR ext:zip OR url:backup OR url:dump)",
+      "duckduckgo": "site:example.com (.bak OR .backup OR .old OR .sql OR backup OR dump)",
+      "yandex": "site:example.com (ext:bak | ext:backup | ext:old | ext:sql | url:backup)",
+      "brave": "site:example.com (ext:bak OR ext:backup OR ext:sql OR url:backup)",
+      "baidu": "site:example.com (filetype:bak OR filetype:backup OR filetype:sql)",
+      "mojeek": "site:example.com backup sql dump"
+    },
+    {
+      "title": "Directory Listings",
+      "google": "site:example.com intitle:\"index of\" | intitle:\"directory listing\" | intitle:\"directory of\" | intext:\"parent directory\"",
+      "bing": "site:example.com (title:\"index of\" OR title:\"directory listing\" OR \"parent directory\")",
+      "duckduckgo": "site:example.com (\"index of\" OR \"directory listing\")",
+      "yandex": "site:example.com (title:\"index of\" | title:\"directory listing\")",
+      "brave": "site:example.com (title:\"index of\" OR \"directory listing\")",
+      "baidu": "site:example.com index directory",
+      "mojeek": "site:example.com index directory listing"
+    }
+  ]
+}
