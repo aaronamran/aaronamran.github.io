@@ -85,10 +85,17 @@ h1 .logo {
     font-size: 1rem;
 }
 
-#domainInput {
+.input-wrapper {
+    position: relative;
+    display: inline-block;
     width: 100%;
     max-width: 600px;
+}
+
+#domainInput {
+    width: 100%;
     padding: 0.6rem 0.875rem;
+    padding-right: 2.5rem;
     font-size: 1rem;
     background: #2a2a2a;
     border: 1px solid #404040;
@@ -100,6 +107,24 @@ h1 .logo {
 #domainInput:focus {
     outline: none;
     border-color: #ef4444;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s;
+}
+
+.clear-btn:hover {
+    color: #ef4444;
 }
 
 .hint {

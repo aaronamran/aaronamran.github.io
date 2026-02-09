@@ -36,6 +36,14 @@ class DorkIndex {
         const input = document.getElementById('domainInput');
         input.addEventListener('input', () => this.renderDorks());
         
+        // Clear button functionality
+        const clearBtn = document.getElementById('clearBtn');
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            input.focus();
+            this.renderDorks();
+        });
+        
         // Engine tab switching
         document.querySelectorAll('.engine-tab').forEach(tab => {
             tab.addEventListener('click', (e) => this.switchEngine(e.currentTarget));
