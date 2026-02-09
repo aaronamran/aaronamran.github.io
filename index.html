@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script>
+        // Remove index.html from URL for clean URLs on GitHub Pages
+        if (window.location.pathname.endsWith('/index.html')) {
+            window.history.replaceState(null, '', window.location.pathname.replace('/index.html', '/'));
+        }
+    </script>
+    
     <div class="container">
         <h1><img src="dorkindexicon.png" alt="DorkIndex" class="logo"> DorkIndex</h1>
         
@@ -25,7 +32,7 @@
         
         <div class="input-section">
             <label for="domainInput">Enter a domain:</label>
-            <input type="text" id="domainInput" placeholder="example.com" value="example.com">
+            <input type="text" id="domainInput" placeholder="example.com">
             <p class="hint">For multiple domains, separate by comma. e.g., example1.com, example2.com</p>
         </div>
 
