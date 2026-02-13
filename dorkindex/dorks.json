@@ -379,6 +379,26 @@
       "brave": "site:example.com (title:\"index of\" OR \"directory listing\")",
       "baidu": "site:example.com index directory",
       "mojeek": "site:example.com index directory listing"
+    },
+    {
+      "title": "Salesforce Aura Components",
+      "google": "site:example.com inurl:/s/ | inurl:/s/article | inurl:/s/contact | inurl:/s/topic",
+      "bing": "site:example.com (url:/s/ OR url:/s/article OR url:/s/contact OR url:/s/topic)",
+      "duckduckgo": "site:example.com (/s/ OR /s/article OR /s/contact OR /s/topic)",
+      "yandex": "site:example.com (url:/s/ | url:/s/article | url:/s/contact | url:/s/topic)",
+      "brave": "site:example.com (url:/s/ OR url:/s/article OR url:/s/contact OR url:/s/topic)",
+      "baidu": "site:example.com /s/ /s/article /s/contact",
+      "mojeek": "site:example.com /s/ article contact topic"
+    },
+    {
+      "title": "ArcGIS FeatureServer",
+      "google": "site:example.com inurl:featureserver | inurl:rest/services | inurl:uploads | intext:uploads | inurl:gpserver",
+      "bing": "site:example.com (url:featureserver OR url:rest/services OR url:uploads OR url:gpserver)",
+      "duckduckgo": "site:example.com (featureserver OR rest/services OR uploads OR gpserver)",
+      "yandex": "site:example.com (url:featureserver | url:rest/services | url:uploads | url:gpserver)",
+      "brave": "site:example.com (url:featureserver OR url:rest/services OR url:uploads OR url:gpserver)",
+      "baidu": "site:example.com featureserver rest services uploads",
+      "mojeek": "site:example.com featureserver rest services gpserver"
     }
   ]
 }
