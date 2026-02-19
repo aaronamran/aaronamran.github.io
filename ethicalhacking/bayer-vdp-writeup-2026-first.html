@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>HTML Injection — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="../assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/internships/"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+    <header style="padding-bottom:2rem;">
+        <a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
+    </header>
+	<div class="d-flex align-items-center mb-3">
+		<img src="/assets/logo/bayerlogo.png" alt="Bayer logo" style="height:96px; width:auto; margin-right:16px;" />
+		<h2 class="mb-0 fw-semibold">RCE via React2Shell And Sign-In Bypass in Bayer's Internal Dev Environment</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Bayer AG</h3>
+    <div class="subheading mb-4">February 2026 · Vulnerability Disclosure Program</div>
+    <p class="lead mb-4">On 26 January 2026, I was bored and decided to use Google dorking to search for more responsible disclosure programs to participate in. I found many programs, bookmarked them, and chose one to investigate. Apparently, fate had something in store for me, because the organization I selected was Bayer. For readers who are unfamiliar, Bayer is a German multinational pharmaceutical and life sciences company, and one of the largest pharmaceutical companies in the world.</p>
+    <p class="lead mb-4">This discovery felt personal. Back in 2017, during my first year in Germany for my German language course and later tertiary education, I lived in Berlin with some friends. For several months, we stayed in an apartment where we would pass by Bayer’s office in Berlin Mitte every day after language classes. Who would have thought that nine years later, in 2026, I would successfully gain access to Bayer’s internal development environment through a critical vulnerability?</p>
+
+	<div class="text-center">
+		<a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2026%2D01%2D21%3A%20Thank%20you%2C%20Aaron%20Amran%E2%80%94identification%20of%20an%20exposed%20device%20contributes%20positively%20to%20science%E2%80%94your%20vigilance%20enhances%20security!" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+			<img src="../assets/ethicalhacking/bayerdevrce/bayerdevrce.png" alt="Bayer Dev RCE" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" loading="lazy">
+		</a>
+	</div>
+    
+	<p class="lead mb-4">As usual, I began with subdomain enumeration. Recently, I tend to start directly with subdomain enumeration during reconnaissance, and only move to Google dorking or other techniques if nothing interesting appears. The tool I used returned 14,442 subdomains. That is a large number, but not all subdomains are valid live hosts. Proper filtering and validation are essential.</p>
+    <p class="lead mb-4">After a few hours of manual inspection and filtering, I found a subdomain that looked interesting. I had the Wappalyzer Chrome extension installed, and it identified the subdomain as running on React and NextJS. That immediately caught my attention. A few months earlier, the well known React2Shell vulnerability, CVE-2025-55182, had been discovered and gained significant attention in the cybersecurity community. I searched online for React2Shell checker tools and simply pasted the subdomain URL into one of them.</p>
+    <p class="lead mb-4">To my surprise, the tool reported that the subdomain was vulnerable to React2Shell. I immediately launched my Kali Linux virtual machine to verify whether this was a true positive.</p>
+
+    <img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_react2shell_unamea_1.png" alt="Bayer Dev React2Shell Vulnerability 1" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_react2shell_unamea_2.png" alt="Bayer Dev React2Shell Vulnerability 2" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+		
+	<p class="lead mb-4">The output confirmed that the vulnerable web application was running on a Linux system and that it had access to the uname command. This strongly suggested that the vulnerability was exploitable and allowed arbitrary command execution. I then executed another command, whoami, to determine the current user.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_react2shell_whoami_1.png" alt="Bayer Dev React2Shell Vulnerability 3" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_react2shell_whoami_2.png" alt="Bayer Dev React2Shell Vulnerability 4" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">To my shock, the result showed that the application was running as root. This is a critical finding. Running as root means full system privileges. At that moment, I knew I had identified a critical vulnerability. To avoid causing any disruption or damage, I immediately stopped further command execution.</p> 
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_signin_modal.png" alt="Bayer Dev Default Page Load" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Returning to the web application interface, the default page displayed a sign in modal that appeared automatically on page load. Clicking Sign in redirected me to a login page intended for Bayer employees. Since I am not an employee, I obviously had no valid credentials.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/bayer_signin_screen.png" alt="Bayer Dev Sign In Page" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Since I am not an employee, I obviously had no valid credentials. I returned to the previous page and tried clicking Cancel on the sign in modal, but it did not work. I remained stuck behind the modal.</p>
+
+	<p class="lead mb-4">Then I had a simple idea. What if I bypassed the sign in modal entirely by modifying the URL? The current URL was <code>redacted.bayer.com/tenants</code>. I removed the <code>/tenants</code> portion to see what would happen. The application redirected me to what appeared to be the main homepage, although the URL still contained <code>/tenants</code>. Despite that, the sign in modal was no longer blocking my access.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_signin_modal_bypassed_homepage.png" alt="Bayer Dev Sign In Modal Bypassed Homepage" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">I explored the page and clicked Select on the Bayer Test tenant. The dashboard for that tenant loaded successfully.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_bayer_tenant_dashboard.png" alt="Bayer Dev Tenant Dashboard" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">At this point, I had full access to Bayer’s internal dashboard for the test tenant without authentication. I carefully explored the available functionalities to understand the scope of access. I discovered that I could view and modify device settings, which is a serious security concern.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_organisations.png" alt="Bayer Dev Organizations" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Under the Organizations tab, I could create a new organization, edit existing ones, and even delete them. These privileges should be strictly restricted to authorized personnel. However, due to the authentication bypass, I could access these features without proper authorization. The DSO tab displayed DSO cycles.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_dso_cycles.png" alt="Bayer Dev DSO Cycles" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	
+	<p class="lead mb-4">The Talent tab revealed names and email addresses of employees associated with the project. This was a significant privacy issue. In my screenshots, I redacted all employee names and email addresses, except for the CEO’s name, since that information is publicly available.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_tenant_defaultpeople.png" alt="Bayer Dev Talent" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+		
+	<p class="lead mb-4">The Assets tab displayed a list of all assets within the tenant. The combination of remote command execution as root and unauthenticated access to internal administrative functionality made this an extremely severe finding.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/dsocockpit_assets.png" alt="Bayer Dev Assets" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">In my experience, vulnerability research is strangely unpredictable. Some days require intense effort and concentration to find even a minor issue. Other days, you unexpectedly discover a critical vulnerability almost by accident. In this case, it took me less than six hours from the moment I decided to start hunting on Bayer, to gaining root command execution in their internal development environment, and finally writing a responsible disclosure email to their cybersecurity team.</p>
+
+	<p class="lead mb-4">The next day, I received a confirmation email from Bayer’s cybersecurity team. Given the critical severity of the issue, it was not surprising that they quickly acknowledged the report and escalated it to the appropriate team for remediation.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/cvd_email_reply_1.png" alt="Bayer Dev CVD Email Reply 1" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">Several weeks later, on Friday evening, 13 February 2026, I received another email informing me that the vulnerability had been fixed. They also offered to include my name on Bayer’s Coordinated Vulnerability Disclosure Hall of Fame page. I gladly accepted and provided the required details.</p>
+
+	<img src="../assets/ethicalhacking/bayerdevrce/cvd_email_reply_2.png" alt="Bayer Dev CVD Email Reply 2" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+
+	<p class="lead mb-4">After <a href="" target="_blank" rel="noopener noreferrer" style="display:inline-block;">Bayer publicly acknowledged my contribution in their Hall of Fame</a>, I completed this blog and published it on 16 February 2026.</p>
+
+	<hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+			<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">February 2026</p>
+	</section>
+
+	<!-- Next hack modal (styled to match site) -->
+		<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
+			  <div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+				<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
+			  </div>
+			  <div class="modal-body" style="color:#dcdfe4;">				<div class="text-center mb-3">
+					<img src="../assets/img/bnwimage.gif" alt="Coming soon" style="max-width:100%; height:auto;" loading="lazy" />
+				</div>				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
+				<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
+				<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
+			  </div>
+			  <div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
+				<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+
+	<footer style="padding-top:2rem;">
+		<a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

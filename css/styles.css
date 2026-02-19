@@ -12133,6 +12133,58 @@ input:checked + .slider:before {
 	display: block;
 }
 
+/* CTF card grid */
+.ctf-card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-auto-rows: 1fr;
+	gap: 16px;
+}
+.ctf-card {
+	background: rgba(16, 18, 22, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	border-radius: 12px;
+	overflow: hidden;
+	height: 100%;
+}
+.ctf-card-link {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 16px;
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	height: 100%;
+}
+.ctf-card-link:hover {
+	background: rgba(95, 137, 224, 0.06);
+}
+.ctf-card-logo {
+	width: 100%;
+	height: 72px;
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+}
+.ctf-card-logo-img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+.ctf-card-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.ctf-card .text-muted,
+.ctf-card .text-muted a {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
 .search-container {
 	display: block;           
     width: 100%;
@@ -12450,6 +12502,32 @@ section.resume-section .resume-section-content img,
 
 /* end scoped responsive tweaks */
 
+/* Q&A blocks for CTF writeups */
+#articleContent .ctf-qa {
+	margin: 1.25rem 0;
+	padding: 1rem 1.25rem;
+	border-left: 3px solid rgba(255, 255, 255, 0.35);
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 8px;
+}
+
+#articleContent .ctf-qa h4 {
+	margin-bottom: 0.75rem;
+}
+
+#articleContent .ctf-qa dt {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	margin-top: 0.75rem;
+	margin-bottom: 0.25rem;
+}
+
+#articleContent .ctf-qa dd {
+	margin: 0;
+	color: rgba(255, 255, 255, 0.9);
+}
+
 /* Force blog images to scale within article container (override inline styles) */
 #articleContent img {
 	max-width: 100% !important;
@@ -12469,6 +12547,10 @@ section.resume-section .resume-section-content img,
 }
 
 @media (max-width: 767.98px) {
+	#articleContent .ctf-qa {
+		padding: 0.85rem 1rem;
+	}
+
 	#articleContent section.text-center p.mb-0,
 	#articleContent section.text-center p.text-muted.small {
 		font-size: 0.8rem !important;

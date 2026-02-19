@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	<title>Django Server Misconfigurations — Aaron Amran</title>
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/internships/"
+							>Internships</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+	<header class="pb-4">
+        <a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+    </header>
+	<div class="d-flex justify-content-start align-items-center mb-3">
+		<img src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">Arrow</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Hackviser</h3>
+    <div class="subheading mb-4">February 2026 · Warmup Stage 1</div>
+    <p class="lead mb-4">This writeup focuses on practicing basics of the Telnet service. Telnet (Telecommunication Network) is a protocol used for accessing remote computers over the internet. It provides a text-based interface for users to communicate with and control another machine, but lacks encryption, making it less secure.</p>
+
+	<h4 class="mb-3">Tasks</h4>
+	<p class="mb-2"><strong>Question 1:</strong> Which port(s) are open?</p>
+	<p class="mb-3">Run a Nmap scan on the target IP using <code>nmap -sV -sC -A [target IP]</code>.</p>
+	<img src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_image1.png" alt="Arrow CTF nmap scan output" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
+	<p class="mb-5"><strong>Answer:</strong> 23</p>
+
+	<p class="mb-2"><strong>Question 2:</strong> What is the running service name?</p>
+	<p class="mb-5"><strong>Answer:</strong> Telnet</p>
+
+	<p class="mb-2"><strong>Question 3:</strong> What is the hostname?</p>
+	<p class="mb-3">For this question, we can simply use telnet to connect to the target machine and observe the hostname.</p>
+	<img src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_image2.png" alt="Arrow CTF telnet connection" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
+	<p class="mb-5"><strong>Answer:</strong> arrow</p>
+
+	<p class="mb-2"><strong>Question 4:</strong> What's the username:password you use to connect to telnet?</p>
+	<p class="mb-3">To find the username and password, we can observe the hint given when using telnet to connect to the target machine.</p>
+	<p class="mb-5"><strong>Answer:</strong> root:root</p>
+
+	<p class="mb-2"><strong>Question 5:</strong> What is the working directory location when you connect to telnet?</p>
+	<p class="mb-3">After successfully connecting to the target machine, use the command <code>pwd</code> to check the current working directory.</p>
+	<img src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_image3.png" alt="Arrow CTF telnet working directory" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
+	<p class="mb-5"><strong>Answer:</strong> /root</p>
+
+	
+	<hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/filehunter.html">next CTF challenge</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">February 2026</p>
+	</section>
+
+
+	<footer class="pt-4">
+		<a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
