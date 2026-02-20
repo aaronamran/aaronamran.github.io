@@ -106,43 +106,40 @@
         <a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
     </header>
 	<div class="d-flex justify-content-start align-items-center mb-3">
-		<img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
-		<h2 class="mb-0 fw-semibold">Secure Command</h2>
+		<img src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">Mount</h2>
 	</div>
 	<h3 class="mb-2 text-muted">Hackviser</h3>
     <div class="subheading mb-4">February 2026 · Warmup Stage 1</div>
-    <p class="lead mb-4">This writeup focuses on practicing basics of the SSH service. SSH (Secure Shell) is a protocol used to securely access and manage devices on a network. It encrypts data to protect confidentiality and integrity, making SSH a preferred option over Telnet for remote administration.</p>
+    <p class="lead mb-4">This writeup focuses on practicing basics of Network File Sharing (NFS). NFS is a protocol that allows computers to share files from their file systems over a network.</p>
 
 	<h4 class="mb-3">Tasks</h4>
-	<p class="mb-2"><strong>Question 1:</strong> Which port(s) are open?</p>
-    <p class="mb-3">Run a Nmap scan on the target IP using <code>nmap -sC -sV -A [target IP]</code>.</p>
-    <img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_image1.png" alt="Secure Command CTF 1" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
-	<p class="mb-5"><strong>Answer:</strong> 22</p>
+	<p class="mb-2"><strong>Question 1:</strong> What is the name of the service running on port 2049?</p>
+    <p class="mb-3">Use nmap to scan the target machine and identify open ports with <code>nmap -sC -sV -A [target IP]</code>.</p>
+    <img src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_image1.png" alt="Mount 1" class="img-fluid mb-3" />
+	<p class="mb-5"><strong>Answer:</strong> nfs</p>
 
-	<p class="mb-2"><strong>Question 2:</strong> What is the running service name?</p>
-	<p class="mb-5"><strong>Answer:</strong> SSH</p>
+	<p class="mb-2"><strong>Question 2:</strong> What does NFS stands for?</p>
+    <p class="mb-5"><strong>Answer:</strong> Network File Sharing</p>
 
-	<p class="mb-2"><strong>Question 3:</strong> What is "Master's Message" when connecting to SSH with hackviser:hackviser credentials?</p>
-    <img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_image2.png" alt="Secure Command CTF 2" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
-    <p class="mb-5"><strong>Answer:</strong> W3lc0m3 t0 h4ck1ng w0rld</p>
+	<p class="mb-2"><strong>Question 3:</strong> What is the command used to view shared NFS exports on remote computers?</p>
+    <img src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_image2.png" alt="Mount 2" class="img-fluid mb-3" />
+    <p class="mb-5"><strong>Answer:</strong> showmount</p>
 
-	<p class="mb-2"><strong>Question 4:</strong> What is the command to change user in Linux?</p>
-    <img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_image3.png" alt="Secure Command CTF 3" class="img-fluid rounded mb-3" style="max-width: 720px;" loading="lazy">
-    <p class="mb-5"><strong>Answer:</strong> su</p>
+	<p class="mb-2"><strong>Question 4:</strong> What is the path to the directory that the target machine shares with NFS?</p>
+    <p class="mb-5"><strong>Answer:</strong> /root</p>
 
-	<p class="mb-2"><strong>Question 5:</strong> What's the password for root user?</p>
-    <p class="mb-3">Try default passwords like root, password, admin, etc.</p>
-	<p class="mb-5"><strong>Answer:</strong> root</p>
+	<p class="mb-2"><strong>Question 5:</strong> What is the command used to mount NFS exports to the computer?</p>
+	<p class="mb-5"><strong>Answer:</strong> mount</p>
 
-    <p class="mb-2"><strong>Question 6:</strong> What is the parameter of the ls command that shows hidden files?</p>
-	<p class="mb-5"><strong>Answer:</strong> -a</p>
+    <p class="mb-2"><strong>Question 6:</strong> What is the password saved in the a file in the directory you mounted?</p>
+    <p class="mb-3">First create a folder using <code>mkdir /mnt/nfs_mount</code> to mount the NFS export. Then mount the NFS export using <code>mount -t nfs [target IP]:/root /mnt/nfs_mount</code> and navigate to the mounted directory.</p>
+    <img src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_image3.png" alt="Mount 3" class="img-fluid mb-3" />
+    <p class="mb-5"><strong>Answer:</strong> yrt1-pa6Y-cxTF-4vak</p>
 
-    <p class="mb-2"><strong>Question 7:</strong> What is the master's advice?</p>
-	<p class="mb-5"><strong>Answer:</strong> st4y cur10us</p>
-	
-	<hr />
+    <hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/carnival.html">next CTF challenge</a>.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/">next CTF challenge</a>.</p>
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">February 2026</p>
 	</section>
