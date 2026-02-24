@@ -34,20 +34,8 @@ const LandingPage = {
         this.elements.chapterGrid = document.getElementById('chapter-grid');
         this.elements.backBtn = document.getElementById('back-to-mode');
 
-        // Check if user has already started (has saved progress)
-        const hasProgress = localStorage.getItem('rhcsaProgress') !== null;
-        
-        if (hasProgress) {
-            // User has progress, hide landing and start app normally
-            this.hide();
-            // Call initApp directly for returning users
-            if (typeof initApp === 'function') {
-                initApp();
-            }
-        } else {
-            // First time user, show landing
-            this.show();
-        }
+        // Always show landing page on initial load
+        this.show();
 
         // Setup event listeners
         this.setupEventListeners();
