@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Cat</title>
+    <title>Red Cat - RHCSA Exam Practice</title>
     <link rel="icon" type="image/png" href="redcat.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Landing Page Overlay -->
+    <!-- Landing Page -->
     <div id="landing-overlay" class="landing-overlay">
         <div class="landing-content">
             <div class="landing-header">
@@ -75,103 +75,8 @@
         </div>
     </div>
 
-    <div class="container" id="main-app" style="display: none;">
-        <!-- Left Panel: Section Info & Tasks -->
-        <aside class="left-panel">
-            <header class="section-header">
-                <h1 id="section-title">Loading...</h1>
-                <p id="section-description"></p>
-                <div class="stats">
-                    <span class="stat">
-                        <strong>Points:</strong> 
-                        <span id="current-points">0</span> / <span id="total-points">0</span>
-                    </span>
-                    <span class="stat">
-                        <strong>Section:</strong> 
-                        <span id="current-section">1</span> / <span id="total-sections">3</span>
-                    </span>
-                </div>
-            </header>
-
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
-            </div>
-
-            <div class="tasks-container">
-                <h2>Tasks</h2>
-                <ul id="task-list"></ul>
-            </div>
-
-            <div class="section-navigation">
-                <button id="prev-section" class="nav-btn" disabled>← Previous Section</button>
-                <button id="next-section" class="nav-btn" disabled>Next Section →</button>
-            </div>
-        </aside>
-
-        <!-- Right Panel: Terminal Interface -->
-        <main class="right-panel">
-            <div class="terminal-header">
-                <div class="terminal-title">
-                    <img src="redcat.png" alt="Red Hat" class="redhat-logo">
-                    <span class="os-badge">Red Cat</span>
-                    <span class="terminal-name" id="terminal-name">by <a href="https://aaronamran.github.io" target="_blank"><u>aaronamran</u></a></span>
-                </div>
-                <div class="terminal-header-actions">
-                    <button id="home-btn" class="control-btn home-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
-                        </svg>
-                        Home
-                    </button>
-                    <a href="https://ko-fi.com/aaronamran" target="_blank" class="kofi-icon-link" title="Support on Ko-fi">
-                        <svg class="kofi-icon-tiny" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/>
-                        </svg>
-                        <span>Support on Ko-fi</span>
-                    </a>
-                    <button id="clear-history" class="control-btn clear-btn">Clear History</button>
-                    <button id="reset-section" class="control-btn reset-btn">Reset Section</button>
-                    <button id="reset-all" class="control-btn reset-danger-btn">Reset All</button>
-                </div>
-            </div>
-
-            <div class="terminal-content">
-                <!-- Command History -->
-                <div id="command-history" class="command-history"></div>
-
-                <!-- Terminal Input Line -->
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt">[student@redcat ~]$ </span>
-                    <input 
-                        type="text" 
-                        id="terminal-input" 
-                        class="terminal-input" 
-                        autocomplete="off" 
-                        spellcheck="false"
-                        autofocus
-                    />
-                </div>
-
-                <!-- Hint instructions -->
-                <div class="terminal-hint-info">Use &lt;command&gt; -h for help or use &lt;command&gt; -h | grep &lt;keyword&gt; to filter</div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Scripts - Modular Architecture -->
-    <!-- Core Modules (load first) -->
-    <script src="modules/state.js"></script>
-    <script src="modules/validation.js"></script>
-    <script src="modules/output.js"></script>
-    <script src="modules/ui.js"></script>
-    
-    <!-- Data & Helper Modules -->
-    <script src="help.js"></script>
-    
-    <!-- Section Data (load before data.js) -->
+    <!-- Scripts -->
+    <!-- Section Data (needed for chapter selection) -->
     <script src="sections/section1-users-and-groups.js"></script>
     <script src="sections/section2-permissions-and-acls.js"></script>
     <script src="sections/section3-storage-and-filesystems.js"></script>
@@ -188,13 +93,34 @@
     <script src="sections/section14-boot-grub.js"></script>
     <script src="sections/section15-time-services.js"></script>
     
-    <!-- Data Loader (depends on section files) -->
+    <!-- Data Loader -->
     <script src="data.js"></script>
     
     <!-- Landing Page Module -->
     <script src="landing.js"></script>
-    
-    <!-- Main Application Orchestrator (load last) -->
-    <script src="app.js"></script>
+
+    <!-- Clear localStorage on first access to ensure clean state -->
+    <script>
+        // Check if this is a fresh access (not from internal navigation)
+        // We use sessionStorage to track if user has already been to landing this session
+        if (!sessionStorage.getItem('redcat-session-active')) {
+            console.log('🧹 First access detected, clearing localStorage...');
+            // Clear only Red Cat related localStorage items
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                // Remove Red Cat specific keys
+                if (key && (key.includes('redcat') || key.includes('appState') || 
+                    key.includes('terminal') || key.includes('section'))) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            console.log(`✅ Cleared ${keysToRemove.length} localStorage items`);
+            
+            // Mark session as active
+            sessionStorage.setItem('redcat-session-active', 'true');
+        }
+    </script>
 </body>
 </html>

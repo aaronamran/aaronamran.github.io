@@ -11,11 +11,8 @@ Red Cat is a fully client-side web application designed to help RHCSA exam candi
 
 ## 🚀 Getting Started
 
-### Option 1: Refactored Version (Recommended)
-Open `index-refactored.html` in your browser - modular architecture, easier to extend.
-
-### Option 2: Original Version
-Open `index.html` in your browser - original monolithic version (still functional).
+### Quick Start
+Open `index.html` in your browser - this is the main entry point with practice mode selection.
 
 **No installation required** - just open the HTML file!
 
@@ -37,7 +34,7 @@ Open `index.html` in your browser - original monolithic version (still functiona
 ## 🚀 Getting Started
 
 1. Open `index.html` in any modern web browser
-2. Start with Section 1, Task 1
+2. Choose your practice mode (Default, Select Chapter, or Free Terminal)
 3. Type commands in the terminal
 4. Get instant feedback on your command structure
 5. Progress unlocks as you complete tasks
@@ -123,11 +120,16 @@ Edit `data.js` to add your own sections and tasks. Each task follows this struct
 └── styles.css               # Styles
 ```
 
-### Original Version (Preserved)
+### File Structure
 ```
-├── index.html               # Entry point (original)
-├── app.js                   # Monolithic (1,367 lines)
-├── validator.js             # Validation (247 lines)
+├── index.html               # Entry point with practice mode selection
+├── practice.html            # Main practice interface
+├── terminal.html            # Free terminal mode
+├── terminal/                # Terminal resources
+│   ├── commands/            # Command implementations
+│   ├── filesystem/          # Virtual filesystem
+│   └── ...                  # Other terminal modules
+├── app.js                   # Main application orchestrator
 ├── data.js                  # Task definitions
 ├── help.js                  # Help documentation
 └── styles.css               # Styles
