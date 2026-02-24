@@ -119,16 +119,7 @@ function setupEventListeners() {
     elements.resetSectionBtn.addEventListener('click', handleResetSection);
     elements.resetAllBtn.addEventListener('click', handleResetAll);
     
-    // Home button - return to landing page
-    const homeBtn = document.getElementById('home-btn');
-    if (homeBtn) {
-        homeBtn.addEventListener('click', () => {
-            if (confirm('Return to home? This will clear all progress.')) {
-                localStorage.clear();
-                location.reload();
-            }
-        });
-    }
+    // Home button is now a link to landing.html (no event listener needed)
     
     // Clear terminal history
     elements.clearHistoryBtn.addEventListener('click', clearTerminalHistory);

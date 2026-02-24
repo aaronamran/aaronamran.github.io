@@ -92,20 +92,12 @@ const LandingPage = {
     startDefaultPractice() {
         console.log('🚀 Starting Default Practice from Section 1');
         
-        // Initialize app state with section 1
-        appState.currentSectionId = 1;
-        appState.practiceMode = 'default';
+        // Set practice mode in sessionStorage for practice.html to read
+        sessionStorage.setItem('redcat-practice-mode', 'default');
+        sessionStorage.setItem('redcat-start-section', '1');
         
-        // Save initial state
-        saveProgress();
-        
-        // Hide landing and start app
-        this.hide();
-        
-        // Initialize the main app
-        if (typeof initApp === 'function') {
-            initApp();
-        }
+        // Navigate to practice page
+        window.location.href = 'practice.html';
     },
 
     /**
@@ -115,7 +107,7 @@ const LandingPage = {
         console.log('🖥️ Opening Free Terminal');
         
         // Redirect to terminal
-        window.location.href = 'terminal/terminal.html';
+        window.location.href = 'terminal.html';
     },
 
     /**
@@ -202,20 +194,12 @@ const LandingPage = {
     startFromSection(sectionId) {
         console.log(`🚀 Starting practice from Section ${sectionId}`);
         
-        // Initialize app state with selected section
-        appState.currentSectionId = sectionId;
-        appState.practiceMode = 'custom';
+        // Set practice mode in sessionStorage for practice.html to read
+        sessionStorage.setItem('redcat-practice-mode', 'custom');
+        sessionStorage.setItem('redcat-start-section', String(sectionId));
         
-        // Save initial state
-        saveProgress();
-        
-        // Hide landing and start app
-        this.hide();
-        
-        // Initialize the main app
-        if (typeof initApp === 'function') {
-            initApp();
-        }
+        // Navigate to practice page
+        window.location.href = 'practice.html';
     }
 };
 
