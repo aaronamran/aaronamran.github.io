@@ -119,13 +119,13 @@
 
 	<p class="mb-2"><strong>Question 2:</strong> Which port(s) are open?</p>
     <p class="mb-3">Use nmap to scan the target machine and identify open ports with <code>nmap -sC -sV -A [target IP]</code>.</p>
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image1.png" alt="Tiger 1" class="img-fluid mb-4" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image1.png" alt="Tiger 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
     <p class="mb-5"><strong>Answer:</strong> 5901</p>
 
 	<p class="mb-2"><strong>Question 3:</strong> Who is the user you have established a VNC connection with?</p>
     <p class="mb-3">Use a VNC client such as Remmina to connect to the target machine on port 5901. Choose VNC from the dropdown and enter the target IP address with port 5901. After successfully connecting, check the username by opening a terminal and running <code>whoami</code>.</p>
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image2.png" alt="Tiger 2" class="img-fluid mb-4" />
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image3.png" alt="Tiger 3" class="img-fluid mb-4" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image2.png" alt="Tiger 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image3.png" alt="Tiger 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
     <p class="mb-5"><strong>Answer:</strong> leo</p>
 
 	<p class="mb-2"><strong>Question 4:</strong> What is the Linux kernel version?</p>
@@ -134,13 +134,13 @@
 
 	<p class="mb-2"><strong>Question 5:</strong> What is the name of the running VNC program?</p>
     <p class="mb-3">Use <code>ps aux | grep vnc</code> to check the running VNC program.</p>
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image4.png" alt="Tiger 4" class="img-fluid mb-4" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image4.png" alt="Tiger 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 	<p class="mb-5"><strong>Answer:</strong> Xtigervnc</p>
 
     <p class="mb-2"><strong>Question 6:</strong> What is the IP address of the computer that established a VNC connection on February 23, 2023?</p>
     <p class="mb-3">Use <code>ls -al</code> to list available files and directories in the current directory, and navigate to <code>.vnc</code>. Then read the connection logs.</p>
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image5.png" alt="Tiger 5" class="img-fluid mb-4" />
-    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image6.png" alt="Tiger 6" class="img-fluid mb-4" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image5.png" alt="Tiger 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_image6.png" alt="Tiger 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
     <p class="mb-5"><strong>Answer:</strong> 10.1.9.23</p>
 
     <hr />

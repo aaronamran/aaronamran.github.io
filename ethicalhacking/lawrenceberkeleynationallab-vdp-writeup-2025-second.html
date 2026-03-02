@@ -116,7 +116,7 @@
 
 	<div class="text-center">
 		<a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2025%2D12%2D22%3A%20Thank%20you%20again%20to%20Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)%20%2D%20Sarawak%20Information%20Systems%20(SAINS)%20for%20identifying%20a%20potential%20web%20server%20issue." target="_blank" rel="noopener noreferrer" style="display:inline-block;">
-			<img src="../assets/ethicalhacking/lbnlhtml/whitehatsforsciencekudos2.png" alt="LBNL VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" loading="lazy">
+			<img src="../assets/ethicalhacking/lbnlhtml/whitehatsforsciencekudos2.png" alt="LBNL VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
 		</a>
 	</div>
     
@@ -126,15 +126,15 @@
 	<p class="lead mb-4">After bookmarking many potential targets, I eventually reached roughly the 446th subdomain. At first glance, it was a typical LBNL website with standard sections such as About, What We Do, and News & Events. Nothing immediately stood out as a promising attack surface, except for one feature, the search function.</p>
 	<p class="lead mb-4">When testing for potential HTML injection or XSS vulnerabilities, I tend to avoid using the <code>&lt;b&gt;</code> element. Before other hackers grab their pitchforks, let me explain. With modern CSS frameworks, typography styles, and headings, <code>&lt;b&gt;</code> is often unreliable as a visual indicator. It is easy to confuse injected output with existing styles. Instead, I prefer using its cousin, the <code>&lt;u&gt;</code> element. It is simple, unambiguous, and if HTML injection succeeds, the underline is immediately visible.</p>
 
-    <img src="../assets/ethicalhacking/lbnlhtml/underlinesearch.png" alt="LBNL Underlined Search" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+    <img src="../assets/ethicalhacking/lbnlhtml/underlinesearch.png" alt="LBNL Underlined Search" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">The result was clear. HTML injection was working.</p> 
 
-	<img src="../assets/ethicalhacking/lbnlhtml/cloudflarecslblgov.png" alt="LBNL CloudFlare WAF Triggered" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlhtml/cloudflarecslblgov.png" alt="LBNL CloudFlare WAF Triggered" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">Naturally, I decided to explore further by testing what was allowed and what was blocked. After approximately three hours of testing, repeatedly triggering Cloudflare’s WAF, and inspecting responses using browser Developer Tools, I arrived at several conclusions. The following HTML elements were allowed: <code>&lt;svg&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;u&gt;</code>, <code>&lt;img&gt;</code> and <code>&lt;textarea&gt;</code>. Anything related to JavaScript, however, was blocked by Cloudflare’s WAF. This included <code>&lt;script&gt;</code>, <code>&lt;noscript&gt;</code>, <code>&lt;alert&gt;</code>, <code>&lt;onclick&gt;</code>, <code>&lt;button&gt;</code>, <code>javascript:</code>, inline styles, <code>document.write()</code>, and the <code>onload</code> event.</p>
 
-	<img src="../assets/ethicalhacking/lbnlhtml/iframesources.png" alt="LBNL Iframe Sources" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlhtml/iframesources.png" alt="LBNL Iframe Sources" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">While experimenting further, I discovered that <code>&lt;iframe&gt;</code> blocked embedding google.com, but allowed sources under lbl.gov. This behavior suggested that iframe restrictions were enforced through <code>X-Frame-Options: SAMEORIGIN</code> and/or a Content Security Policy <code>frame-ancestors</code> directive. At this point, it was almost lunchtime, and attempting to bypass Cloudflare’s WAF through payload obfuscation to achieve reflected XSS did not seem worth the energy-to-reward ratio. As a result, I shifted my focus toward weaponizing the HTML injection as a phishing vector instead.</p>
 	<p class="lead mb-4">I spent more time crafting a phishing-style HTML sign-in form. The main challenge was that CSS was blocked, which forced me to rely purely on HTML for layout and presentation. After many iterations and reusing what I had learned from previous tests, I arrived at a final payload.</p>
@@ -148,12 +148,12 @@
 
 	<p class="lead mb-4">All of that code, combined with careful UI positioning, resulted in a phishing page that looked convincing enough for users who do not inspect page source code or the complete URL.</p>
     
-	<img src="../assets/ethicalhacking/lbnlhtml/phishingcentered.png" alt="LBNL Phishing Page Centered" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlhtml/phishingcentered.png" alt="LBNL Phishing Page Centered" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 	
 	<p class="lead mb-4">Once again, I drafted a detailed email to the Berkeley Lab Cybersecurity team, clearly explaining my methodology, findings, and the specific behaviors enforced by Cloudflare’s WAF.</p>
 	<p class="lead mb-4">About an hour later, I received a reply from their cybersecurity team. They thanked me for the responsible disclosure and informed me that my name had once again been added to the <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2025%2D12%2D22%3A%20Thank%20you%20again%20to%20Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)%20%2D%20Sarawak%20Information%20Systems%20(SAINS)%20for%20identifying%20a%20potential%20web%20server%20issue." target="_blank" rel="noopener noreferrer">White Hats for Science Kudos list</a>.</p>
 
-	<img src="../assets/ethicalhacking/lbnlhtml/secondemailreply.png" alt="LBNL Django Email Reply" class="img-fluid rounded mb-4" style="max-width: 720px;" loading="lazy">
+	<img src="../assets/ethicalhacking/lbnlhtml/secondemailreply.png" alt="LBNL Django Email Reply" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">Another win right before Christmas? I will gladly take that. While I did not manage to trigger an XSS vulnerability this time, it still felt like a solid validation of my approach. Otherwise, it might have been a Merry XSSMas instead of the usual Merry Xmas.</p>
 
