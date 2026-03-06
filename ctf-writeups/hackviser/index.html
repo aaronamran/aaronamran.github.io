@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -16,7 +16,10 @@
 			crossorigin="anonymous"
 		></script>
 		<!-- Google fonts-->
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
 		<link
 			href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
 			rel="stylesheet"
@@ -39,7 +42,9 @@
 			<a class="navbar-brand js-scroll-trigger" href="#page-top">
 				<span id="navText" class="d-block d-lg-none">Portfolio</span>
 				<span class="d-none d-lg-block"
-					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+					><img
+						id="profilePicture"
+						class="img-fluid img-profile rounded-circle mx-auto mb-2"
 						src="/assets/img/profile.jpg"
 						alt="Profile Picture"
 				/></span>
@@ -61,10 +66,14 @@
 						<a class="nav-link js-scroll-trigger" href="/">About</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/"
+							>Ethical Hacking</a
+						>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/"
+							>CTF Writeups</a
+						>
 					</li>
 					<li class="nav-item portfolio-nav-item">
 						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
@@ -102,15 +111,30 @@
 		</nav>
 		<!-- Page Content-->
 		<div class="container-fluid p-0">
-			<hr class="m-0" />	
+			<hr class="m-0" />
 			<header class="pt-4 px-3 px-lg-5">
-		<a href="/ctf-writeups/" class="btn btn-outline-light">Return</a>
-		</header>
+				<a href="/ctf-writeups/" class="btn btn-outline-light">Return</a>
+				<button
+					id="scrollToBottom"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToBottom()"
+				>
+					<i class="fas fa-arrow-down"></i> Scroll to Bottom
+				</button>
+			</header>
 			<!-- CTF Writeups -->
-			<section class="resume-section align-items-start pt-3 pb-4" id="ctf-writeups">
+			<section
+				class="resume-section align-items-start pt-3 pb-4"
+				id="ctf-writeups"
+			>
 				<div class="resume-section-content mb-4">
 					<h2 class="mb-5">Hackviser CTF Writeups</h2>
-					<img src="/assets/ctfwriteups/logo/hackviser_logo.png" alt="Hackviser logo" style="height: 72px; margin-left: 0; margin-right: 0;" class="mb-5"/>
+					<img
+						src="/assets/ctfwriteups/logo/hackviser_logo.png"
+						alt="Hackviser logo"
+						style="height: 72px; margin-left: 0; margin-right: 0"
+						class="mb-5"
+					/>
 					<!-- Search field -->
 					<!-- <div class="row">
 						<div class="col-12">
@@ -135,173 +159,447 @@
 					<div class="row justify-content-center">
 						<ul class="blog-list list-unstyled w-100">
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/satellite.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/satellite/satellite_hackviser_logo.png" alt="Satellite logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/satellite.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/satellite/satellite_hackviser_logo.png"
+										alt="Satellite logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Satellite</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — March 2026</small></div>
-										<div class="text-muted">Practice scanning a WordPress website to identify security vulnerabilities and gain access to the system through these vulnerabilities.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — March 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice scanning a WordPress website to identify security
+											vulnerabilities and gain access to the system through
+											these vulnerabilities.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/venomous.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/venomous/venomous_hackviser_logo.png" alt="Venomous logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/venomous.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/venomous/venomous_hackviser_logo.png"
+										alt="Venomous logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Venomous</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — March 2026</small></div>
-										<div class="text-muted">Practice detecting and exploiting file upload, directory traversal and LFI vulnerabilities in web applications running on Nginx web server, and getting reverse shell using log poisoning.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — March 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice detecting and exploiting file upload, directory
+											traversal and LFI vulnerabilities in web applications
+											running on Nginx web server, and getting reverse shell
+											using log poisoning.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/leaf.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_logo.png" alt="Leaf logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/leaf.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_logo.png"
+										alt="Leaf logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Leaf</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — March 2026</small></div>
-										<div class="text-muted">Practice discovering and exploiting the SSTI vulnerability and taking over the server with bind shell.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — March 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice discovering and exploiting the SSTI vulnerability
+											and taking over the server with bind shell.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/workstuff.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_logo.png" alt="Work Stuff logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/workstuff.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_logo.png"
+										alt="Work Stuff logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Work Stuff</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — March 2026</small></div>
-										<div class="text-muted">Practice understanding the vulnerabilities of web applications built using Werkzeug and exploiting these vulnerabilities through the Metasploit Framework.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — March 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice understanding the vulnerabilities of web
+											applications built using Werkzeug and exploiting these
+											vulnerabilities through the Metasploit Framework.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/alohomora.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/alohomora/alohomora_hackviser_logo.png" alt="Alohomora logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/alohomora.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/alohomora/alohomora_hackviser_logo.png"
+										alt="Alohomora logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Alohomora</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — Feb 2026</small></div>
-										<div class="text-muted">Practice directory discovery in a web application, detecting critical data by navigating between git branches, and gaining access to the server with a key file.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice directory discovery in a web application,
+											detecting critical data by navigating between git
+											branches, and gaining access to the server with a key
+											file.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/bee.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/bee/bee_hackviser_logo.png" alt="Bee logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/bee.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/bee/bee_hackviser_logo.png"
+										alt="Bee logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Bee</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — Feb 2026</small></div>
-										<div class="text-muted">Practice how to discover and exploit SQL Injection and File Upload vulnerabilities.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice how to discover and exploit SQL Injection and
+											File Upload vulnerabilities.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/discoverlernaean.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/discoverlernaean/discoverlernaean_hackviser_logo.png" alt="Discover Lernaean logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/discoverlernaean.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/discoverlernaean/discoverlernaean_hackviser_logo.png"
+										alt="Discover Lernaean logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Discover Lernaean</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 2 — Feb 2026</small></div>
-										<div class="text-muted">Practice how to discover and exploit security vulnerabilities on web servers and SSH protocols.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice how to discover and exploit security
+											vulnerabilities on web servers and SSH protocols.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/mount.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_logo.png" alt="Mount logo" style="height: 48px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/mount.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/mount/mount_hackviser_logo.png"
+										alt="Mount logo"
+										style="
+											height: 48px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Mount</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of Network File Sharing (NFS).</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of Network File Sharing (NFS).
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/tiger.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_logo.png" alt="Tiger logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/tiger.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/tiger/tiger_hackviser_logo.png"
+										alt="Tiger logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Tiger</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of Virtual Network Computing (VNC).</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of Virtual Network Computing (VNC).
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/querygate.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/querygate/querygate_hackviser_logo.png" alt="Query Gate logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/querygate.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/querygate/querygate_hackviser_logo.png"
+										alt="Query Gate logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Query Gate</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of MySQL and learning database fundamentals.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of MySQL and learning database
+											fundamentals.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/carnival.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/carnival/carnival_hackviser_logo.png" alt="Carnival logo" style="height: 64px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/carnival.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/carnival/carnival_hackviser_logo.png"
+										alt="Carnival logo"
+										style="
+											height: 64px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Carnival</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of Server Message Block (SMB).</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of Server Message Block (SMB).
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/securecommand.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_logo.png" alt="Secure Command logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/securecommand.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_logo.png"
+										alt="Secure Command logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Secure Command</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of the SSH service.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of the SSH service.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/007.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/007/007_hackviser_logo.png" alt="007 logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/007.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/007/007_hackviser_logo.png"
+										alt="007 logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">007</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of Remote Desktop Protocol (RDP).</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of Remote Desktop Protocol (RDP).
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/reddict.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/reddict/reddict_hackviser_logo.png" alt="Reddict logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/reddict.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/reddict/reddict_hackviser_logo.png"
+										alt="Reddict logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Reddict</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
 										<div class="text-muted">Practice basics of Redis.</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/filehunter.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/filehunter/filehunter_hackviser_logo.png" alt="Filehunter logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/filehunter.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/filehunter/filehunter_hackviser_logo.png"
+										alt="Filehunter logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">File Hunter</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of the FTP service.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of the FTP service.
+										</div>
 									</div>
 								</a>
 							</li>
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/arrow.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_logo.png" alt="Arrow logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a
+									href="/ctf-writeups/hackviser/arrow.html"
+									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
+								>
+									<img
+										src="/assets/ctfwriteups/hackviser/arrow/arrow_hackviser_logo.png"
+										alt="Arrow logo"
+										style="
+											height: 56px;
+											width: auto;
+											margin-right: 12px;
+											flex: 0 0 auto;
+										"
+									/>
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Arrow</h4>
-										<div class="subheading mb-1"><small>Hackviser Warmup Stage 1 — Feb 2026</small></div>
-										<div class="text-muted">Practice basics of the Telnet service.</div>
+										<div class="subheading mb-1">
+											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
+										</div>
+										<div class="text-muted">
+											Practice basics of the Telnet service.
+										</div>
 									</div>
 								</a>
 							</li>
 						</ul>
 					</div>
-                </div>
+				</div>
 			</section>
 			<footer class="pt-4 pb-4 px-3 px-lg-5">
 				<a href="/ctf-writeups/" class="btn btn-outline-light">Return</a>
+				<button
+					id="scrollToTop"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToTop()"
+				>
+					<i class="fas fa-arrow-up"></i> Scroll to Top
+				</button>
 			</footer>
-			
 		</div>
 		<div id="stars"></div>
 		<div id="stars2"></div>

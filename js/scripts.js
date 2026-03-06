@@ -219,3 +219,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Expose for SPA loader to call after injecting article content
 window.initDorkCopy = initDorkCopy;
+
+// Scroll to top/bottom functions
+function scrollToBottom() {
+	window.scrollTo({
+		top: document.body.scrollHeight,
+		behavior: "smooth",
+	});
+}
+
+function scrollToTop() {
+	window.scrollTo({
+		top: 0,
+		behavior: "smooth",
+	});
+}
