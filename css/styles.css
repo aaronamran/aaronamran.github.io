@@ -12414,7 +12414,7 @@ section.resume-section .resume-section-content img,
 /* Matches images that reference the flags directory in common resume sections */
 #education img[src*="assets/flags/"],
 #experience img[src*="assets/flags/"],
-#internships img[src*="assets/flags/"],
+#trainings img[src*="assets/flags/"],
 #activities img[src*="assets/flags/"] {
 	display: inline-block !important;
 	vertical-align: middle !important;
