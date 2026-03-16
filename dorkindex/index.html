@@ -28,6 +28,18 @@
                 <a href="https://aaronamran.github.io/" target="_blank" rel="noopener noreferrer">Website</a> | 
                 <a href="https://github.com/aaronamran" target="_blank" rel="noopener noreferrer">GitHub</a>
             </p>
+            <div class="kofi-cta">
+                <a class="kofi-button" href="https://ko-fi.com/aaronamran" target="_blank" rel="noopener noreferrer" aria-label="Support on Ko-fi">
+                    <span class="kofi-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" role="img" focusable="false">
+                            <path d="M7 4h10a3 3 0 0 1 3 3v4a4 4 0 0 1-4 4h-1.4l-2.2 3.5a1 1 0 0 1-1.7 0L8.5 15H7a4 4 0 0 1-4-4V7a3 3 0 0 1 3-3zm10 2H7a1 1 0 0 0-1 1v4a2 2 0 0 0 2 2h1.9a1 1 0 0 1 .85.47l1.35 2.1 1.35-2.1a1 1 0 0 1 .85-.47H16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1z" fill="currentColor"/>
+                            <path d="M12 9.2c.7-1 2.3-1.2 3.1-.2.8 1 .3 2.4-.6 3.2l-2.5 2.1-2.5-2.1c-.9-.8-1.4-2.2-.6-3.2.8-1 2.4-.8 3.1.2z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    Support DorkIndex on Ko-fi
+                </a>
+                <button id="scrollToBottom" class="scroll-btn scroll-to-bottom" title="Scroll to bottom">↓ Scroll to Bottom</button>
+            </div>
         </div>
         
         <div class="input-section">
@@ -52,8 +64,26 @@
         <div id="dorksList" class="dorks-list">
             <!-- Dynamically populated -->
         </div>
+        
+        <button id="scrollToTop" class="scroll-btn scroll-to-top" title="Scroll to top">↑ Back to Top</button>
     </div>
 
     <script src="app.js"></script>
+    <script>
+        // Scroll functionality
+        document.getElementById('scrollToBottom').addEventListener('click', function() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+        
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>

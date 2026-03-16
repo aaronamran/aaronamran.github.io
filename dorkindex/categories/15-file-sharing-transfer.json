@@ -1,0 +1,25 @@
+{
+  "category": "File Sharing & Transfer",
+  "dorks": [
+    {
+      "title": "Unauthenticated ZFile",
+      "google": "site:example.com intext:\"Powered by ZFile\"",
+      "bing": "site:example.com \"Powered by ZFile\"",
+      "duckduckgo": "site:example.com \"Powered by ZFile\"",
+      "yandex": "site:example.com \"Powered by ZFile\"",
+      "brave": "site:example.com \"Powered by ZFile\"",
+      "baidu": "site:example.com \"Powered by ZFile\"",
+      "mojeek": "site:example.com \"Powered by ZFile\""
+    },
+    {
+      "title": "FileCatalyst",
+      "google": "site:example.com intitle:\"FileCatalyst file transfer solution\" | intext:\"powered by File Catalyst\"",
+      "bing": "site:example.com (title:\"FileCatalyst file transfer solution\" OR \"powered by File Catalyst\")",
+      "duckduckgo": "site:example.com (\"FileCatalyst file transfer solution\" OR \"powered by File Catalyst\")",
+      "yandex": "site:example.com (title:\"FileCatalyst file transfer solution\" | \"powered by File Catalyst\")",
+      "brave": "site:example.com (title:\"FileCatalyst file transfer solution\" OR \"powered by File Catalyst\")",
+      "baidu": "site:example.com (\"FileCatalyst file transfer solution\" OR \"powered by File Catalyst\")",
+      "mojeek": "site:example.com (\"FileCatalyst\" OR \"powered by File Catalyst\")"
+    }
+  ]
+}

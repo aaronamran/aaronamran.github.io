@@ -1,0 +1,55 @@
+{
+  "category": "Bug Bounty & Security",
+  "dorks": [
+    {
+      "title": "HackerOne Reports",
+      "google": "site:hackerone.com \"example.com\"",
+      "bing": "site:hackerone.com \"example.com\"",
+      "duckduckgo": "site:hackerone.com example.com",
+      "yandex": "site:hackerone.com \"example.com\"",
+      "brave": "site:hackerone.com example.com",
+      "baidu": "site:hackerone.com example.com",
+      "mojeek": "site:hackerone.com example.com"
+    },
+    {
+      "title": "Bugcrowd Reports",
+      "google": "site:bugcrowd.com \"example.com\"",
+      "bing": "site:bugcrowd.com \"example.com\"",
+      "duckduckgo": "site:bugcrowd.com example.com",
+      "yandex": "site:bugcrowd.com \"example.com\"",
+      "brave": "site:bugcrowd.com example.com",
+      "baidu": "site:bugcrowd.com example.com",
+      "mojeek": "site:bugcrowd.com example.com"
+    },
+    {
+      "title": "Disclosed XSS and Open Redirects",
+      "google": "site:openbugbounty.org inurl:reports intext:\"example.com\"",
+      "bing": "site:openbugbounty.org url:reports \"example.com\"",
+      "duckduckgo": "site:openbugbounty.org reports example.com",
+      "yandex": "site:openbugbounty.org url:reports \"example.com\"",
+      "brave": "site:openbugbounty.org reports example.com",
+      "baidu": "site:openbugbounty.org example.com",
+      "mojeek": "site:openbugbounty.org example.com"
+    },
+    {
+      "title": "Security.txt",
+      "google": "site:*/security.txt \"bounty\"",
+      "bing": "url:security.txt bounty",
+      "duckduckgo": "security.txt bounty",
+      "yandex": "url:security.txt \"bounty\"",
+      "brave": "url:security.txt bounty",
+      "baidu": "security.txt bounty",
+      "mojeek": "security.txt bounty"
+    },
+    {
+      "title": "Web Shells & Backdoors",
+      "google": "site:example.com inurl:shell | inurl:backdoor | inurl:wso | inurl:cmd | inurl:c99 | inurl:r57",
+      "bing": "site:example.com (url:shell OR url:backdoor OR url:wso OR url:cmd)",
+      "duckduckgo": "site:example.com (shell OR backdoor OR wso OR cmd)",
+      "yandex": "site:example.com (url:shell | url:backdoor | url:wso | url:cmd)",
+      "brave": "site:example.com (url:shell OR url:backdoor OR url:wso OR url:cmd)",
+      "baidu": "site:example.com shell backdoor",
+      "mojeek": "site:example.com shell backdoor wso"
+    }
+  ]
+}

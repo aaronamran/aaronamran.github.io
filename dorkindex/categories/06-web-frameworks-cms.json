@@ -1,0 +1,135 @@
+{
+  "category": "Web Frameworks & CMS",
+  "dorks": [
+    {
+      "title": "PHP extension w/ parameters",
+      "google": "site:example.com ext:php inurl:?",
+      "bing": "site:example.com ext:php url:?",
+      "duckduckgo": "site:example.com .php ?",
+      "yandex": "site:example.com ext:php url:?",
+      "brave": "site:example.com ext:php url:?",
+      "baidu": "site:example.com filetype:php",
+      "mojeek": "site:example.com php"
+    },
+    {
+      "title": "WordPress Specific",
+      "google": "site:example.com inurl:wp-content | inurl:wp-includes | inurl:wp-admin | inurl:wp-config.php.bak | inurl:wp-config.php.txt | inurl:xmlrpc.php | inurl:readme.html",
+      "bing": "site:example.com (url:wp-content OR url:wp-includes OR url:wp-admin OR url:wp-config)",
+      "duckduckgo": "site:example.com (wp-content OR wp-includes OR wp-admin)",
+      "yandex": "site:example.com (url:wp-content | url:wp-includes | url:wp-admin)",
+      "brave": "site:example.com (url:wp-content OR url:wp-admin OR url:wp-config)",
+      "baidu": "site:example.com wordpress wp-content",
+      "mojeek": "site:example.com wordpress wp-content"
+    },
+    {
+      "title": "Ghost Admin",
+      "google": "site:example.com inurl:/ghost/",
+      "bing": "site:example.com url:/ghost/",
+      "duckduckgo": "site:example.com /ghost/",
+      "yandex": "site:example.com url:/ghost/",
+      "brave": "site:example.com url:/ghost/",
+      "baidu": "site:example.com /ghost/",
+      "mojeek": "site:example.com ghost"
+    },
+    {
+      "title": "Dolibarr",
+      "google": "site:example.com intitle:\"Dolibarr\" inurl:login",
+      "bing": "site:example.com title:\"Dolibarr\" url:login",
+      "duckduckgo": "site:example.com \"Dolibarr\" login",
+      "yandex": "site:example.com title:\"Dolibarr\" url:login",
+      "brave": "site:example.com title:\"Dolibarr\" url:login",
+      "baidu": "site:example.com Dolibarr",
+      "mojeek": "site:example.com Dolibarr"
+    },
+    {
+      "title": "Adobe Experience Manager (AEM)",
+      "google": "site:example.com inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/bin/wcm | inurl:/crx/de",
+      "bing": "site:example.com (url:/content/ OR url:/jcr: OR url:/crx/)",
+      "duckduckgo": "site:example.com (/content/ OR /jcr: OR /crx/)",
+      "yandex": "site:example.com (url:/content/ | url:/jcr: | url:/crx/)",
+      "brave": "site:example.com (url:/content/ OR url:/crx/)",
+      "baidu": "site:example.com /content/ /crx/",
+      "mojeek": "site:example.com aem content"
+    },
+    {
+      "title": "Salesforce Aura Components",
+      "google": "site:example.com inurl:/s/ | inurl:/s/article | inurl:/s/contact | inurl:/s/topic",
+      "bing": "site:example.com (url:/s/ OR url:/s/article OR url:/s/contact OR url:/s/topic)",
+      "duckduckgo": "site:example.com (/s/ OR /s/article OR /s/contact OR /s/topic)",
+      "yandex": "site:example.com (url:/s/ | url:/s/article | url:/s/contact | url:/s/topic)",
+      "brave": "site:example.com (url:/s/ OR url:/s/article OR url:/s/contact OR url:/s/topic)",
+      "baidu": "site:example.com /s/ /s/article /s/contact",
+      "mojeek": "site:example.com /s/ article contact topic"
+    },
+    {
+      "title": "Spring Boot Actuator",
+      "google": "site:example.com inurl:\"/actuator/env\" | inurl:\"/actuator/heapdump\" | inurl:\"/actuator/configprops\"",
+      "bing": "site:example.com (url:\"/actuator/env\" OR url:\"/actuator/heapdump\" OR url:\"/actuator/configprops\")",
+      "duckduckgo": "site:example.com (\"/actuator/env\" OR \"/actuator/heapdump\" OR \"/actuator/configprops\")",
+      "yandex": "site:example.com (url:\"/actuator/env\" | url:\"/actuator/heapdump\" | url:\"/actuator/configprops\")",
+      "brave": "site:example.com (url:\"/actuator/env\" OR url:\"/actuator/heapdump\" OR url:\"/actuator/configprops\")",
+      "baidu": "site:example.com actuator",
+      "mojeek": "site:example.com actuator"
+    },
+    {
+      "title": "DokuWiki",
+      "google": "site:example.com inurl:/doku.php | intitle:\"DokuWiki\"",
+      "bing": "site:example.com (url:/doku.php OR title:\"DokuWiki\")",
+      "duckduckgo": "site:example.com (/doku.php OR \"DokuWiki\")",
+      "yandex": "site:example.com (url:/doku.php | title:\"DokuWiki\")",
+      "brave": "site:example.com (url:/doku.php OR title:\"DokuWiki\")",
+      "baidu": "site:example.com DokuWiki",
+      "mojeek": "site:example.com DokuWiki"
+    },
+    {
+      "title": "phpBB Forums",
+      "google": "site:example.com inurl:/phpbb/ | intitle:\"phpBB\" | inurl:viewtopic.php",
+      "bing": "site:example.com (url:/phpbb/ OR title:\"phpBB\" OR url:viewtopic.php)",
+      "duckduckgo": "site:example.com (/phpbb/ OR \"phpBB\" OR viewtopic.php)",
+      "yandex": "site:example.com (url:/phpbb/ | title:\"phpBB\" | url:viewtopic.php)",
+      "brave": "site:example.com (url:/phpbb/ OR title:\"phpBB\")",
+      "baidu": "site:example.com phpBB",
+      "mojeek": "site:example.com phpBB forum"
+    },
+    {
+      "title": "Directus CMS",
+      "google": "site:example.com inurl:/directus/ | intitle:\"Directus\"",
+      "bing": "site:example.com (url:/directus/ OR title:\"Directus\")",
+      "duckduckgo": "site:example.com (/directus/ OR \"Directus\")",
+      "yandex": "site:example.com (url:/directus/ | title:\"Directus\")",
+      "brave": "site:example.com (url:/directus/ OR title:\"Directus\")",
+      "baidu": "site:example.com Directus",
+      "mojeek": "site:example.com Directus"
+    },
+    {
+      "title": "Webmin",
+      "google": "site:example.com inurl:/webmin/ | intitle:\"Webmin\" inurl:10000",
+      "bing": "site:example.com (url:/webmin/ OR title:\"Webmin\")",
+      "duckduckgo": "site:example.com (/webmin/ OR \"Webmin\")",
+      "yandex": "site:example.com (url:/webmin/ | title:\"Webmin\")",
+      "brave": "site:example.com (url:/webmin/ OR title:\"Webmin\")",
+      "baidu": "site:example.com Webmin",
+      "mojeek": "site:example.com Webmin"
+    },
+    {
+      "title": "ISPConfig",
+      "google": "site:example.com inurl:/ispconfig/ | intitle:\"ISPConfig\"",
+      "bing": "site:example.com (url:/ispconfig/ OR title:\"ISPConfig\")",
+      "duckduckgo": "site:example.com (/ispconfig/ OR \"ISPConfig\")",
+      "yandex": "site:example.com (url:/ispconfig/ | title:\"ISPConfig\")",
+      "brave": "site:example.com (url:/ispconfig/ OR title:\"ISPConfig\")",
+      "baidu": "site:example.com ISPConfig",
+      "mojeek": "site:example.com ISPConfig"
+    },
+    {
+      "title": "Apache Struts",
+      "google": "site:example.com ext:action | ext:struts | ext:do",
+      "bing": "site:example.com (ext:action OR ext:struts OR ext:do)",
+      "duckduckgo": "site:example.com (.action OR .struts OR .do)",
+      "yandex": "site:example.com (ext:action | ext:struts | ext:do)",
+      "brave": "site:example.com (ext:action OR ext:struts OR ext:do)",
+      "baidu": "site:example.com filetype:action OR filetype:do",
+      "mojeek": "site:example.com struts action"
+    }
+  ]
+}

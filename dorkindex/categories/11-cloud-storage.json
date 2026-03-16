@@ -1,0 +1,35 @@
+{
+  "category": "Cloud & Storage",
+  "dorks": [
+    {
+      "title": "Cloud Storage",
+      "google": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:dev.azure.com \"example.com\"\nsite:onedrive.live.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"\nsite:sharepoint.com \"example.com\"\nsite:dropbox.com/s \"example.com\"",
+      "bing": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:dev.azure.com \"example.com\"\nsite:onedrive.live.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"\nsite:sharepoint.com \"example.com\"",
+      "duckduckgo": "site:s3.amazonaws.com example.com\nsite:blob.core.windows.net example.com\nsite:googleapis.com example.com\nsite:drive.google.com example.com\nsite:onedrive.live.com example.com\nsite:sharepoint.com example.com",
+      "yandex": "site:s3.amazonaws.com \"example.com\"\nsite:blob.core.windows.net \"example.com\"\nsite:googleapis.com \"example.com\"\nsite:drive.google.com \"example.com\"\nsite:digitaloceanspaces.com \"example.com\"",
+      "brave": "site:s3.amazonaws.com example.com\nsite:blob.core.windows.net example.com\nsite:googleapis.com example.com\nsite:drive.google.com example.com\nsite:digitaloceanspaces.com example.com",
+      "baidu": "site:s3.amazonaws.com example.com\nsite:googleapis.com example.com",
+      "mojeek": "site:s3.amazonaws.com example.com\nsite:googleapis.com example.com"
+    },
+    {
+      "title": "Firebase",
+      "google": "site:firebaseio.com \"example.com\" | inurl:\"firebaseio.com\" site:example.com | intext:\"firebaseio.com\" intext:\"authDomain\" site:example.com",
+      "bing": "site:firebaseio.com \"example.com\"",
+      "duckduckgo": "site:firebaseio.com example.com",
+      "yandex": "site:firebaseio.com \"example.com\"",
+      "brave": "site:firebaseio.com example.com",
+      "baidu": "site:firebaseio.com example.com",
+      "mojeek": "site:firebaseio.com example.com"
+    },
+    {
+      "title": "JFrog Artifactory",
+      "google": "site:jfrog.io \"example.com\"",
+      "bing": "site:jfrog.io \"example.com\"",
+      "duckduckgo": "site:jfrog.io example.com",
+      "yandex": "site:jfrog.io \"example.com\"",
+      "brave": "site:jfrog.io example.com",
+      "baidu": "site:jfrog.io example.com",
+      "mojeek": "site:jfrog.io example.com"
+    }
+  ]
+}
