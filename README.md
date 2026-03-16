@@ -105,18 +105,48 @@ Click any dork button to generate queries. Each category contains multiple pre-b
 ## 🎨 Customization
 
 ### Adding Custom Dorks
-Edit `dorks.json` to add your own dorks:
+
+**NEW: Modular Category Structure**
+
+Dorks are now organized in separate category files under `categories/` for easier maintenance. Each category is its own JSON file:
+
+```
+categories/
+├── 01-vulnerability-parameters.json
+├── 02-sensitive-files-data.json
+├── 03-error-messages-debug.json
+├── ... (16 total category files)
+```
+
+**To add a new dork:**
+
+1. Identify the appropriate category file in `categories/`
+2. Add your dork to the `dorks` array in that file:
 
 ```json
 {
-  "name": "Your custom dork",
-  "google": "site:{target} your google query",
-  "bing": "site:{target} your bing query",
-  "duckduckgo": "site:{target} simple query",
-  "yandex": "site:{target} your yandex query",
-  "brave": "site:{target} your brave query"
+  "category": "Sensitive Files & Data",
+  "dorks": [
+    {
+      "title": "Your custom dork",
+      "google": "site:example.com your google query",
+      "bing": "site:example.com your bing query",
+      "duckduckgo": "site:example.com simple query",
+      "yandex": "site:example.com your yandex query",
+      "brave": "site:example.com your brave query",
+      "baidu": "site:example.com your baidu query",
+      "mojeek": "site:example.com your mojeek query"
+    }
+  ]
 }
 ```
+
+**Note:** `example.com` is automatically replaced with your target domain.
+
+**To create a new category:**
+1. Create a new file: `categories/17-your-category.json`
+2. Update `app.js` to include the new file in the `categoryFiles` array
+3. See [MODULAR_STRUCTURE.md](MODULAR_STRUCTURE.md) for detailed guidelines
 
 ### Engine-Specific Considerations
 - **Google** - Supports all operators (`intitle:`, `inurl:`, `filetype:`)
@@ -132,13 +162,26 @@ Edit `dorks.json` to add your own dorks:
 ### Files Structure
 ```
 DorkIndex/
-├── index.html      # Main interface
-├── app.js          # Core logic (no backend calls)
-├── styles.css      # Clean, responsive styling
-├── dorks.json      # Dork templates database
-├── LICENSE         # MIT License
-└── README.md       # This file
+├── categories/                 # Modular dork category files (NEW)
+│   ├── 01-vulnerability-parameters.json
+│   ├── 02-sensitive-files-data.json
+│   ├── 03-error-messages-debug.json
+│   ├── ... (16 total categories)
+│   └── 16-miscellaneous.json
+├── index.html                  # Main interface
+├── app.js                      # Core logic (loads from categories/)
+├── styles.css                  # Clean, responsive styling
+├── dorks.json                  # Legacy file (kept as backup)
+├── MODULAR_STRUCTURE.md        # Documentation for modular structure
+├── DORK_CATEGORIES.md          # Category reference guide
+├── LICENSE                     # MIT License
+└── README.md                   # This file
 ```
+
+**Current Statistics:**
+- 📊 **141 total dorks** across **16 categories**
+- 🔍 **7 search engines** supported
+- 🎯 Organized, modular structure for easy maintenance
 
 ### Browser Compatibility
 - ✅ Chrome/Edge (Recommended)
@@ -154,15 +197,17 @@ Requires JavaScript enabled (for client-side processing only).
 
 Contributions welcome! To add dorks:
 1. Fork this repo
-2. Add dorks to `dorks.json` with engine-specific variations
-3. Test across multiple engines
-4. Submit PR with clear descriptions
+2. Identify the appropriate category file in `categories/`
+3. Add dorks following the standard format (see [MODULAR_STRUCTURE.md](MODULAR_STRUCTURE.md))
+4. Test across multiple engines
+5. Submit PR with clear descriptions
 
 **Focus on:**
 - Engine-specific optimizations
 - Real-world bug bounty scenarios
 - Reducing false positives
 - OPSEC-safe implementations
+- Proper categorization (use [DORK_CATEGORIES.md](DORK_CATEGORIES.md) as reference)
 
 ---
 

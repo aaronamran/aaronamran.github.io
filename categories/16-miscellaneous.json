@@ -1,0 +1,275 @@
+{
+  "category": "Miscellaneous",
+  "dorks": [
+    {
+      "title": "Test Environments",
+      "google": "site:example.com inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo",
+      "bing": "site:example.com (url:test OR url:dev OR url:staging OR url:sandbox OR url:debug)",
+      "duckduckgo": "site:example.com (test OR dev OR staging OR sandbox)",
+      "yandex": "site:example.com (url:test | url:dev | url:staging | url:sandbox)",
+      "brave": "site:example.com (url:test OR url:dev OR url:staging)",
+      "baidu": "site:example.com test dev staging",
+      "mojeek": "site:example.com test development staging"
+    },
+    {
+      "title": "ArcGIS FeatureServer",
+      "google": "site:example.com inurl:featureserver | inurl:rest/services | inurl:uploads | intext:uploads | inurl:gpserver",
+      "bing": "site:example.com (url:featureserver OR url:rest/services OR url:uploads OR url:gpserver)",
+      "duckduckgo": "site:example.com (featureserver OR rest/services OR uploads OR gpserver)",
+      "yandex": "site:example.com (url:featureserver | url:rest/services | url:uploads | url:gpserver)",
+      "brave": "site:example.com (url:featureserver OR url:rest/services OR url:uploads OR url:gpserver)",
+      "baidu": "site:example.com featureserver rest services uploads",
+      "mojeek": "site:example.com featureserver rest services gpserver"
+    },
+    {
+      "title": "Jira",
+      "google": "site:example.com inurl:/secure/Dashboard.jspa | inurl:/display/ | inurl:/secure/RapidBoard.jspa | inurl:/projects/ | inurl:jira intext:\"Reporter:\"",
+      "bing": "site:example.com (url:/secure/Dashboard.jspa OR url:/display/ OR url:/secure/RapidBoard.jspa OR url:/projects/)",
+      "duckduckgo": "site:example.com (/secure/Dashboard.jspa OR /display/ OR /secure/RapidBoard.jspa OR /projects/)",
+      "yandex": "site:example.com (url:/secure/Dashboard.jspa | url:/display/ | url:/secure/RapidBoard.jspa | url:/projects/)",
+      "brave": "site:example.com (url:/secure/Dashboard.jspa OR url:/display/ OR url:/projects/)",
+      "baidu": "site:example.com (Jira OR Dashboard OR display OR projects)",
+      "mojeek": "site:example.com Jira projects"
+    },
+    {
+      "title": "Wayback Machine",
+      "google": "site:web.archive.org/web/*/example.com/*",
+      "bing": "site:web.archive.org example.com",
+      "duckduckgo": "site:web.archive.org example.com",
+      "yandex": "site:web.archive.org example.com",
+      "brave": "site:web.archive.org example.com",
+      "baidu": "site:web.archive.org example.com",
+      "mojeek": "site:web.archive.org example.com"
+    },
+    {
+      "title": "Helpdesk Systems",
+      "google": "site:example.com inurl:/helpdesk/ | inurl:/help/ | inurl:/support/",
+      "bing": "site:example.com (url:/helpdesk/ OR url:/help/ OR url:/support/)",
+      "duckduckgo": "site:example.com (/helpdesk/ OR /help/ OR /support/)",
+      "yandex": "site:example.com (url:/helpdesk/ | url:/help/ | url:/support/)",
+      "brave": "site:example.com (url:/helpdesk/ OR url:/help/ OR url:/support/)",
+      "baidu": "site:example.com /helpdesk/ /support/",
+      "mojeek": "site:example.com helpdesk support"
+    },
+    {
+      "title": "Test Pages",
+      "google": "site:example.com inurl:/test/ | intitle:\"test page\" | inurl:test.php | inurl:test.html",
+      "bing": "site:example.com (url:/test/ OR title:\"test page\")",
+      "duckduckgo": "site:example.com (/test/ OR \"test page\")",
+      "yandex": "site:example.com (url:/test/ | title:\"test page\")",
+      "brave": "site:example.com (url:/test/ OR title:\"test page\")",
+      "baidu": "site:example.com /test/ test",
+      "mojeek": "site:example.com test page"
+    },
+    {
+      "title": "Job Postings",
+      "google": "site:example.com inurl:/job/ | inurl:/jobs/ | inurl:/careers/",
+      "bing": "site:example.com (url:/job/ OR url:/jobs/ OR url:/careers/)",
+      "duckduckgo": "site:example.com (/job/ OR /jobs/ OR /careers/)",
+      "yandex": "site:example.com (url:/job/ | url:/jobs/ | url:/careers/)",
+      "brave": "site:example.com (url:/job/ OR url:/jobs/ OR url:/careers/)",
+      "baidu": "site:example.com /jobs/ /careers/",
+      "mojeek": "site:example.com jobs careers"
+    },
+    {
+      "title": "Queue Management",
+      "google": "site:example.com inurl:/queue/ | inurl:/queues/ | intitle:\"Queue\"",
+      "bing": "site:example.com (url:/queue/ OR url:/queues/)",
+      "duckduckgo": "site:example.com (/queue/ OR /queues/)",
+      "yandex": "site:example.com (url:/queue/ | url:/queues/)",
+      "brave": "site:example.com (url:/queue/ OR url:/queues/)",
+      "baidu": "site:example.com /queue/",
+      "mojeek": "site:example.com queue"
+    },
+    {
+      "title": "Streaming Services",
+      "google": "site:example.com inurl:live.m3u8 | inurl:.m3u8 | inurl:stream.m3u8",
+      "bing": "site:example.com (url:live.m3u8 OR url:.m3u8)",
+      "duckduckgo": "site:example.com (live.m3u8 OR .m3u8)",
+      "yandex": "site:example.com (url:live.m3u8 | url:.m3u8)",
+      "brave": "site:example.com (url:live.m3u8 OR url:.m3u8)",
+      "baidu": "site:example.com m3u8",
+      "mojeek": "site:example.com m3u8 stream"
+    },
+    {
+      "title": "Device Status Pages",
+      "google": "site:example.com inurl:/view.shtml | inurl:/device_status | inurl:/device/status",
+      "bing": "site:example.com (url:/view.shtml OR url:/device_status OR url:/device/status)",
+      "duckduckgo": "site:example.com (/view.shtml OR /device_status OR /device/status)",
+      "yandex": "site:example.com (url:/view.shtml | url:/device_status | url:/device/status)",
+      "brave": "site:example.com (url:/view.shtml OR url:/device_status)",
+      "baidu": "site:example.com device status",
+      "mojeek": "site:example.com device status"
+    },
+    {
+      "title": "Status Pages",
+      "google": "site:example.com inurl:/status/ | inurl:/status.php | inurl:/server-status/ | intitle:\"Status\"",
+      "bing": "site:example.com (url:/status/ OR url:/status.php OR url:/server-status/)",
+      "duckduckgo": "site:example.com (/status/ OR /status.php OR /server-status/)",
+      "yandex": "site:example.com (url:/status/ | url:/status.php | url:/server-status/)",
+      "brave": "site:example.com (url:/status/ OR url:/status.php OR url:/server-status/)",
+      "baidu": "site:example.com /status/",
+      "mojeek": "site:example.com status server"
+    },
+    {
+      "title": "VNC Access",
+      "google": "site:example.com inurl:5900 | intitle:\"VNC\" | intext:\"VNC server\"",
+      "bing": "site:example.com (url:5900 OR title:\"VNC\")",
+      "duckduckgo": "site:example.com (5900 OR VNC)",
+      "yandex": "site:example.com (url:5900 | title:\"VNC\")",
+      "brave": "site:example.com (5900 OR VNC)",
+      "baidu": "site:example.com VNC 5900",
+      "mojeek": "site:example.com VNC server"
+    },
+    {
+      "title": "WebSocket Endpoints",
+      "google": "site:example.com inurl:wss:// | inurl:ws:// | intext:\"WebSocket\"",
+      "bing": "site:example.com (url:wss:// OR url:ws:// OR \"WebSocket\")",
+      "duckduckgo": "site:example.com (wss:// OR ws:// OR WebSocket)",
+      "yandex": "site:example.com (url:wss:// | url:ws:// | \"WebSocket\")",
+      "brave": "site:example.com (wss:// OR ws:// OR WebSocket)",
+      "baidu": "site:example.com WebSocket",
+      "mojeek": "site:example.com WebSocket wss ws"
+    },
+    {
+      "title": "Signup & Registration",
+      "google": "site:example.com inurl:/signup_user_complete/ | inurl:/signup/ | inurl:/register/",
+      "bing": "site:example.com (url:/signup_user_complete/ OR url:/signup/ OR url:/register/)",
+      "duckduckgo": "site:example.com (/signup_user_complete/ OR /signup/ OR /register/)",
+      "yandex": "site:example.com (url:/signup_user_complete/ | url:/signup/ | url:/register/)",
+      "brave": "site:example.com (url:/signup/ OR url:/register/)",
+      "baidu": "site:example.com /signup/ /register/",
+      "mojeek": "site:example.com signup register"
+    },
+    {
+      "title": "Bot Endpoints",
+      "google": "site:example.com inurl:/bot/ | inurl:/bots/ | inurl:/api/bot",
+      "bing": "site:example.com (url:/bot/ OR url:/bots/ OR url:/api/bot)",
+      "duckduckgo": "site:example.com (/bot/ OR /bots/ OR /api/bot)",
+      "yandex": "site:example.com (url:/bot/ | url:/bots/ | url:/api/bot)",
+      "brave": "site:example.com (url:/bot/ OR url:/bots/)",
+      "baidu": "site:example.com /bot/ /bots/",
+      "mojeek": "site:example.com bot bots"
+    },
+    {
+      "title": "GitLab File Browser",
+      "google": "site:example.com inurl:/-/blob/ | inurl:/-/tree/",
+      "bing": "site:example.com (url:/-/blob/ OR url:/-/tree/)",
+      "duckduckgo": "site:example.com (/-/blob/ OR /-/tree/)",
+      "yandex": "site:example.com (url:/-/blob/ | url:/-/tree/)",
+      "brave": "site:example.com (url:/-/blob/ OR url:/-/tree/)",
+      "baidu": "site:example.com /-/blob/",
+      "mojeek": "site:example.com gitlab blob tree"
+    },
+    {
+      "title": "Display Pages",
+      "google": "site:example.com inurl:/display/ | inurl:/show/",
+      "bing": "site:example.com (url:/display/ OR url:/show/)",
+      "duckduckgo": "site:example.com (/display/ OR /show/)",
+      "yandex": "site:example.com (url:/display/ | url:/show/)",
+      "brave": "site:example.com (url:/display/ OR url:/show/)",
+      "baidu": "site:example.com /display/",
+      "mojeek": "site:example.com display show"
+    },
+    {
+      "title": "Computer Management",
+      "google": "site:example.com inurl:/computer/ | inurl:/computers/ | intitle:\"Computer Management\"",
+      "bing": "site:example.com (url:/computer/ OR url:/computers/)",
+      "duckduckgo": "site:example.com (/computer/ OR /computers/)",
+      "yandex": "site:example.com (url:/computer/ | url:/computers/)",
+      "brave": "site:example.com (url:/computer/ OR url:/computers/)",
+      "baidu": "site:example.com /computer/",
+      "mojeek": "site:example.com computer management"
+    },
+    {
+      "title": "Issue Tracking",
+      "google": "site:example.com inurl:/issues/ | inurl:/issue/ | inurl:/bug/",
+      "bing": "site:example.com (url:/issues/ OR url:/issue/ OR url:/bug/)",
+      "duckduckgo": "site:example.com (/issues/ OR /issue/ OR /bug/)",
+      "yandex": "site:example.com (url:/issues/ | url:/issue/ | url:/bug/)",
+      "brave": "site:example.com (url:/issues/ OR url:/issue/)",
+      "baidu": "site:example.com /issues/ /bug/",
+      "mojeek": "site:example.com issues bug tracker"
+    },
+    {
+      "title": "Console Pages",
+      "google": "site:example.com inurl:/console/ | intitle:\"Console\" | inurl:/admin/console",
+      "bing": "site:example.com (url:/console/ OR title:\"Console\")",
+      "duckduckgo": "site:example.com (/console/ OR \"Console\")",
+      "yandex": "site:example.com (url:/console/ | title:\"Console\")",
+      "brave": "site:example.com (url:/console/ OR title:\"Console\")",
+      "baidu": "site:example.com /console/",
+      "mojeek": "site:example.com console admin"
+    },
+    {
+      "title": "UI Interfaces",
+      "google": "site:example.com inurl:/ui/ | inurl:/interface/",
+      "bing": "site:example.com (url:/ui/ OR url:/interface/)",
+      "duckduckgo": "site:example.com (/ui/ OR /interface/)",
+      "yandex": "site:example.com (url:/ui/ | url:/interface/)",
+      "brave": "site:example.com (url:/ui/ OR url:/interface/)",
+      "baidu": "site:example.com /ui/",
+      "mojeek": "site:example.com ui interface"
+    },
+    {
+      "title": "Guacamole Remote Desktop",
+      "google": "site:example.com inurl:/guacamole/ | intitle:\"Apache Guacamole\"",
+      "bing": "site:example.com (url:/guacamole/ OR title:\"Apache Guacamole\")",
+      "duckduckgo": "site:example.com (/guacamole/ OR \"Apache Guacamole\")",
+      "yandex": "site:example.com (url:/guacamole/ | title:\"Apache Guacamole\")",
+      "brave": "site:example.com (url:/guacamole/ OR title:\"Apache Guacamole\")",
+      "baidu": "site:example.com Guacamole",
+      "mojeek": "site:example.com Guacamole remote desktop"
+    },
+    {
+      "title": "OpenVAS Scanner",
+      "google": "site:example.com inurl:/omp/ | intitle:\"OpenVAS\" | inurl:9392",
+      "bing": "site:example.com (url:/omp/ OR title:\"OpenVAS\")",
+      "duckduckgo": "site:example.com (/omp/ OR \"OpenVAS\")",
+      "yandex": "site:example.com (url:/omp/ | title:\"OpenVAS\")",
+      "brave": "site:example.com (url:/omp/ OR title:\"OpenVAS\")",
+      "baidu": "site:example.com OpenVAS",
+      "mojeek": "site:example.com OpenVAS scanner"
+    },
+    {
+      "title": "FTP Servers",
+      "google": "site:example.com inurl:ftp:// | intitle:\"Index of /ftp\" | intext:\"ftp://\"",
+      "bing": "site:example.com (url:ftp:// OR title:\"Index of /ftp\")",
+      "duckduckgo": "site:example.com (ftp:// OR \"Index of /ftp\")",
+      "yandex": "site:example.com (url:ftp:// | title:\"Index of /ftp\")",
+      "brave": "site:example.com (url:ftp:// OR title:\"Index of /ftp\")",
+      "baidu": "site:example.com ftp",
+      "mojeek": "site:example.com ftp server"
+    },
+    {
+      "title": "Printer Admin Panels",
+      "google": "site:example.com inurl:hp/device/this.LCDispatcher | inurl:/printer/ | intitle:\"Printer\" | inurl:printerStatus",
+      "bing": "site:example.com (url:hp/device/this.LCDispatcher OR url:/printer/ OR title:\"Printer\")",
+      "duckduckgo": "site:example.com (hp/device/this.LCDispatcher OR /printer/ OR Printer)",
+      "yandex": "site:example.com (url:hp/device/this.LCDispatcher | url:/printer/ | title:\"Printer\")",
+      "brave": "site:example.com (url:hp/device/this.LCDispatcher OR url:/printer/)",
+      "baidu": "site:example.com printer HP",
+      "mojeek": "site:example.com printer admin panel"
+    },
+    {
+      "title": "CGI Scripts",
+      "google": "site:example.com inurl:/main.cgi | inurl:/status.cgi | inurl:cgi-bin | ext:cgi",
+      "bing": "site:example.com (url:/main.cgi OR url:/status.cgi OR url:cgi-bin OR ext:cgi)",
+      "duckduckgo": "site:example.com (/main.cgi OR /status.cgi OR cgi-bin OR .cgi)",
+      "yandex": "site:example.com (url:/main.cgi | url:/status.cgi | url:cgi-bin | ext:cgi)",
+      "brave": "site:example.com (url:/main.cgi OR url:/status.cgi OR url:cgi-bin)",
+      "baidu": "site:example.com cgi-bin main.cgi",
+      "mojeek": "site:example.com cgi scripts"
+    },
+    {
+      "title": "Script Management",
+      "google": "site:example.com inurl:/script/ | inurl:/scripts/ | inurl:/manage/",
+      "bing": "site:example.com (url:/script/ OR url:/scripts/ OR url:/manage/)",
+      "duckduckgo": "site:example.com (/script/ OR /scripts/ OR /manage/)",
+      "yandex": "site:example.com (url:/script/ | url:/scripts/ | url:/manage/)",
+      "brave": "site:example.com (url:/script/ OR url:/scripts/ OR url:/manage/)",
+      "baidu": "site:example.com /script/ /manage/",
+      "mojeek": "site:example.com script manage"
+    }
+  ]
+}

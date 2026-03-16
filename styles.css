@@ -38,6 +38,54 @@ h1 .logo {
     display: inline-block;
 }
 
+/* Scroll Buttons */
+.scroll-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin: 1.5rem auto;
+    padding: 0.8rem 1.2rem;
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.18);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+    min-height: 36px;
+}
+
+.scroll-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(239, 68, 68, 0.08);
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.2);
+}
+
+.scroll-btn:active {
+    transform: translateY(0);
+}
+
+.scroll-btn:focus-visible {
+    outline: 2px solid #fca5a5;
+    outline-offset: 2px;
+}
+
+.scroll-to-bottom {
+    margin: 0;
+}
+
+.scroll-to-top {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Credits Section */
 .credits {
     text-align: center;
@@ -70,6 +118,56 @@ h1 .logo {
 
 .author-links {
     margin-top: 0.5rem;
+}
+
+.kofi-cta {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.kofi-text {
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.kofi-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    background: transparent;
+    color: #ef4444;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    border: 1px solid #ef4444;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.18);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+    min-height: 36px;
+}
+
+.kofi-button:hover {
+    transform: translateY(-1px);
+    background: rgba(239, 68, 68, 0.08);
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.2);
+}
+
+.kofi-button:focus-visible {
+    outline: 2px solid #fca5a5;
+    outline-offset: 2px;
+}
+
+.kofi-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
 }
 
 /* Input Section */
@@ -170,6 +268,30 @@ h1 .logo {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+/* Category Headers */
+.category-header {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-header:first-child {
+    margin-top: 0;
+}
+
+.category-header h2 {
+    color: #ef4444;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.category-divider {
+    height: 2px;
+    background: linear-gradient(to right, #ef4444, transparent);
+    border-radius: 2px;
 }
 
 .dork-item {

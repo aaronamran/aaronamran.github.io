@@ -1,0 +1,105 @@
+{
+  "category": "Databases & Search",
+  "dorks": [
+    {
+      "title": "Elasticsearch",
+      "google": "site:example.com inurl:9200/_nodes | inurl:/_search | inurl:/_all_dbs | intext:\"cluster_name\" intext:\"version\"",
+      "bing": "site:example.com (url:9200/_nodes OR url:/_search OR \"cluster_name\" \"version\")",
+      "duckduckgo": "site:example.com (9200/_nodes OR /_search OR \"cluster_name\" \"version\")",
+      "yandex": "site:example.com (url:9200/_nodes | url:/_search | \"cluster_name\" \"version\")",
+      "brave": "site:example.com (url:9200/_nodes OR url:/_search OR \"cluster_name\" \"version\")",
+      "baidu": "site:example.com (elasticsearch OR cluster_name)",
+      "mojeek": "site:example.com elasticsearch cluster"
+    },
+    {
+      "title": "Redis Commander",
+      "google": "site:example.com intitle:\"Redis Commander\"",
+      "bing": "site:example.com title:\"Redis Commander\"",
+      "duckduckgo": "site:example.com \"Redis Commander\"",
+      "yandex": "site:example.com title:\"Redis Commander\"",
+      "brave": "site:example.com title:\"Redis Commander\"",
+      "baidu": "site:example.com \"Redis Commander\"",
+      "mojeek": "site:example.com \"Redis Commander\""
+    },
+    {
+      "title": "Apache Solr",
+      "google": "site:example.com intitle:\"Solr Admin\" inurl:/solr/",
+      "bing": "site:example.com title:\"Solr Admin\" url:/solr/",
+      "duckduckgo": "site:example.com \"Solr Admin\" /solr/",
+      "yandex": "site:example.com title:\"Solr Admin\" url:/solr/",
+      "brave": "site:example.com title:\"Solr Admin\" url:/solr/",
+      "baidu": "site:example.com \"Solr Admin\"",
+      "mojeek": "site:example.com Solr Admin"
+    },
+    {
+      "title": "RabbitMQ",
+      "google": "site:example.com intitle:\"RabbitMQ Management\"",
+      "bing": "site:example.com title:\"RabbitMQ Management\"",
+      "duckduckgo": "site:example.com \"RabbitMQ Management\"",
+      "yandex": "site:example.com title:\"RabbitMQ Management\"",
+      "brave": "site:example.com title:\"RabbitMQ Management\"",
+      "baidu": "site:example.com RabbitMQ",
+      "mojeek": "site:example.com RabbitMQ"
+    },
+    {
+      "title": "NATS",
+      "google": "site:example.com intitle:\"NATS\" inurl:\"/dashboard\"",
+      "bing": "site:example.com title:\"NATS\" url:\"/dashboard\"",
+      "duckduckgo": "site:example.com \"NATS\" /dashboard",
+      "yandex": "site:example.com title:\"NATS\" url:\"/dashboard\"",
+      "brave": "site:example.com title:\"NATS\" url:\"/dashboard\"",
+      "baidu": "site:example.com NATS",
+      "mojeek": "site:example.com NATS"
+    },
+    {
+      "title": "Apache Superset",
+      "google": "site:example.com intitle:\"Superset\" inurl:\"/login/\"",
+      "bing": "site:example.com title:\"Superset\" url:\"/login/\"",
+      "duckduckgo": "site:example.com \"Superset\" /login/",
+      "yandex": "site:example.com title:\"Superset\" url:\"/login/\"",
+      "brave": "site:example.com title:\"Superset\" url:\"/login/\"",
+      "baidu": "site:example.com Superset",
+      "mojeek": "site:example.com Superset"
+    },
+    {
+      "title": "phpMyAdmin",
+      "google": "site:example.com inurl:phpmyadmin inurl:index.php",
+      "bing": "site:example.com url:phpmyadmin url:index.php",
+      "duckduckgo": "site:example.com phpmyadmin index.php",
+      "yandex": "site:example.com url:phpmyadmin url:index.php",
+      "brave": "site:example.com url:phpmyadmin url:index.php",
+      "baidu": "site:example.com phpmyadmin",
+      "mojeek": "site:example.com phpmyadmin"
+    },
+    {
+      "title": "Couchbase",
+      "google": "site:example.com inurl:/couchbase/ | inurl:8091 | intitle:\"Couchbase\"",
+      "bing": "site:example.com (url:/couchbase/ OR url:8091 OR title:\"Couchbase\")",
+      "duckduckgo": "site:example.com (/couchbase/ OR 8091 OR \"Couchbase\")",
+      "yandex": "site:example.com (url:/couchbase/ | url:8091 | title:\"Couchbase\")",
+      "brave": "site:example.com (url:/couchbase/ OR title:\"Couchbase\")",
+      "baidu": "site:example.com Couchbase",
+      "mojeek": "site:example.com Couchbase"
+    },
+    {
+      "title": "MQTT Broker",
+      "google": "site:example.com inurl:/mqtt/ | intext:\"MQTT\" inurl:1883 | inurl:8883",
+      "bing": "site:example.com (url:/mqtt/ OR \"MQTT\")",
+      "duckduckgo": "site:example.com (/mqtt/ OR \"MQTT\")",
+      "yandex": "site:example.com (url:/mqtt/ | \"MQTT\")",
+      "brave": "site:example.com (url:/mqtt/ OR \"MQTT\")",
+      "baidu": "site:example.com MQTT",
+      "mojeek": "site:example.com MQTT broker"
+    },
+    {
+      "title": "MongoDB Exposure",
+      "google": "site:example.com inurl:mongodb:// | inurl:27017 | inurl:/_all_dbs | intext:\"MongoDB\"",
+      "bing": "site:example.com (url:mongodb:// OR url:27017 OR url:/_all_dbs)",
+      "duckduckgo": "site:example.com (mongodb:// OR 27017 OR /_all_dbs)",
+      "yandex": "site:example.com (url:mongodb:// | url:27017 | url:/_all_dbs)",
+      "brave": "site:example.com (url:mongodb:// OR url:27017 OR url:/_all_dbs)",
+      "baidu": "site:example.com MongoDB 27017",
+      "mojeek": "site:example.com MongoDB database"
+    }
+  ]
+}

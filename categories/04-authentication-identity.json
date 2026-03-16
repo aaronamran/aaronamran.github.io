@@ -1,0 +1,45 @@
+{
+  "category": "Authentication & Identity",
+  "dorks": [
+    {
+      "title": "Login Pages",
+      "google": "site:example.com inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure",
+      "bing": "site:example.com (url:login OR url:signin OR title:login)",
+      "duckduckgo": "site:example.com (login OR signin)",
+      "yandex": "site:example.com (url:login | url:signin | title:login)",
+      "brave": "site:example.com (url:login OR url:signin)",
+      "baidu": "site:example.com login signin",
+      "mojeek": "site:example.com login signin"
+    },
+    {
+      "title": "Exposed Admin Panels",
+      "google": "site:example.com inurl:admin | inurl:administrator | inurl:moderator | inurl:controlpanel | inurl:adminpanel | inurl:dashboard | intitle:\"admin\" | intitle:\"administrator\"",
+      "bing": "site:example.com (url:admin OR url:administrator OR url:moderator OR url:dashboard OR title:\"admin\")",
+      "duckduckgo": "site:example.com (admin OR administrator OR moderator OR dashboard)",
+      "yandex": "site:example.com (url:admin | url:administrator | url:moderator | url:dashboard)",
+      "brave": "site:example.com (url:admin OR url:administrator OR url:dashboard)",
+      "baidu": "site:example.com admin administrator",
+      "mojeek": "site:example.com admin administrator dashboard"
+    },
+    {
+      "title": "Keycloak",
+      "google": "site:example.com inurl:/auth/admin/ | intitle:\"Keycloak\" inurl:/auth/realms/",
+      "bing": "site:example.com (url:/auth/admin/ OR title:\"Keycloak\" url:/auth/realms/)",
+      "duckduckgo": "site:example.com (/auth/admin/ OR \"Keycloak\" /auth/realms/)",
+      "yandex": "site:example.com (url:/auth/admin/ | title:\"Keycloak\" url:/auth/realms/)",
+      "brave": "site:example.com (url:/auth/admin/ OR title:\"Keycloak\" url:/auth/realms/)",
+      "baidu": "site:example.com (Keycloak OR /auth/admin/ OR /auth/realms/)",
+      "mojeek": "site:example.com Keycloak auth"
+    },
+    {
+      "title": "Shibboleth",
+      "google": "site:example.com inurl:/idp/profile/SAML2/ | inurl:/Shibboleth.sso/",
+      "bing": "site:example.com (url:/idp/profile/SAML2/ OR url:/Shibboleth.sso/)",
+      "duckduckgo": "site:example.com (/idp/profile/SAML2/ OR /Shibboleth.sso/)",
+      "yandex": "site:example.com (url:/idp/profile/SAML2/ | url:/Shibboleth.sso/)",
+      "brave": "site:example.com (url:/idp/profile/SAML2/ OR url:/Shibboleth.sso/)",
+      "baidu": "site:example.com (Shibboleth OR SAML2)",
+      "mojeek": "site:example.com Shibboleth SAML"
+    }
+  ]
+}
