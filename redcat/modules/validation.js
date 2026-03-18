@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Validation Engine Module
  * 
  * This module handles command parsing and validation.

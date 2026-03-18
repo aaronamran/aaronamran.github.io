@@ -1,4 +1,4 @@
-// /root directory structure
+﻿// /root directory structure
 // Root user's home directory
 
 export function createRootDirectory() {

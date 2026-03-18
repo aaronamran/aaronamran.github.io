@@ -1,4 +1,4 @@
-// /bin directory structure
+﻿// /bin directory structure
 // Essential command binaries for all users
 
 export function createBinDirectory() {

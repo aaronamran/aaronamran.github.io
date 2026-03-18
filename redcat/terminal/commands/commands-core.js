@@ -1,4 +1,4 @@
-// Core Shell Commands - Essential builtins and utilities
+﻿// Core Shell Commands - Essential builtins and utilities
 // Part of Red Cat RHCSA Terminal Simulator
 
 class CoreCommands {

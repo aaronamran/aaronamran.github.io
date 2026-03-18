@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -64,7 +64,7 @@
 						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
 						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
@@ -104,13 +104,20 @@
 		<div class="container-fluid p-0">
 			<hr class="m-0" />	
 			<header class="pt-4 px-3 px-lg-5">
-		<a href="/ctf-writeups/" class="btn btn-outline-light">Return</a>
+		<a href="/hacking-labs/" class="btn btn-outline-light">Return</a>
+		<button
+					id="scrollToBottom"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToBottom()"
+				>
+					<i class="fas fa-arrow-down"></i> Scroll to Bottom
+				</button>
 		</header>
-			<!-- CTF Writeups -->
+			<!-- Hacking Labs -->
 			<section class="resume-section align-items-start pt-3 pb-4" id="ctf-writeups">
 				<div class="resume-section-content mb-4">
-					<h2 class="mb-5">Hack The Box CTF Writeups</h2>
-					<img src="/assets/ctfwriteups/logo/hackthebox_logo.png" alt="Hack The Box logo" style="height: 72px; margin-left: 0; margin-right: 0;" class="mb-5"/>
+					<h2 class="mb-5">TryHackMe Hacking Labs</h2>
+					<img src="/assets/hackinglabs/logo/tryhackme_logo.png" alt="TryHackMe logo" style="height: 72px; margin-left: 0; margin-right: 0;" class="mb-5"/>
 					<!-- Search field -->
 					<!-- <div class="row">
 						<div class="col-12">
@@ -135,8 +142,8 @@
 					<!-- <div class="row justify-content-center">
 						<ul class="blog-list list-unstyled w-100">
 							<li class="blog-list-item">
-								<a href="/ctf-writeups/hackviser/securecommand.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/ctfwriteups/hackviser/securecommand/securecommand_hackviser_logo.png" alt="Secure Command logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
+								<a href="/hacking-labs/hackviser/securecommand.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
+									<img src="/assets/hackinglabs/hackviser/securecommand/securecommand_hackviser_logo.png" alt="Secure Command logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" />
 									<div>
 										<h4 class="fw-normal blog-title mb-1">Secure Command</h4>
 										<div class="subheading mb-1"><small>Hackviser Warmups Stage 1 — Feb 2026</small></div>
@@ -149,7 +156,14 @@
                 </div>
 			</section>
 			<footer class="pt-4 pb-4 px-3 px-lg-5">
-				<a href="/ctf-writeups/" class="btn btn-outline-light">Return</a>
+				<a href="/hacking-labs/" class="btn btn-outline-light">Return</a>
+				<button
+					id="scrollToTop"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToTop()"
+				>
+					<i class="fas fa-arrow-up"></i> Scroll to Top
+				</button>
 			</footer>
 			
 		</div>

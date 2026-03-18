@@ -1,4 +1,4 @@
-// DorkIndex - Simple client-side dorking tool
+﻿// DorkIndex - Simple client-side dorking tool
 // No backend, no tracking, OPSEC-safe
 
 class DorkIndex {

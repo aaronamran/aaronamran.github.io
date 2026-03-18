@@ -1,4 +1,4 @@
-// /sys directory structure
+﻿// /sys directory structure
 // System device information
 
 export function createSysDirectory() {

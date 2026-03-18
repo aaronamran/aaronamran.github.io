@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Landing Page Module
  * 
  * Handles the landing page overlay that allows users to:

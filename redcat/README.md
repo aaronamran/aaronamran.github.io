@@ -1,4 +1,4 @@
-# 🐱 Red Cat
+﻿# 🐱 Red Cat
 
 **A lightweight RHCSA command-decision warmup trainer**
 

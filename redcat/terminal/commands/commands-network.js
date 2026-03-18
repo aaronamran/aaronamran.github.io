@@ -1,4 +1,4 @@
-// Network Commands - ip, nmcli, ping, etc.
+﻿// Network Commands - ip, nmcli, ping, etc.
 // Part of Red Cat RHCSA Terminal Simulator
 
 class NetworkCommands {

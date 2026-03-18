@@ -1,4 +1,4 @@
-// RHCSA Commands Aggregator
+﻿// RHCSA Commands Aggregator
 // Combines all modular command files into a unified interface
 // Part of Red Cat RHCSA Terminal Simulator
 

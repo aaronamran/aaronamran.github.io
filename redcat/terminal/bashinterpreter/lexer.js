@@ -1,4 +1,4 @@
-// Bash Lexer - Tokenizes bash script syntax
+﻿// Bash Lexer - Tokenizes bash script syntax
 // Converts bash script text into tokens for parsing
 
 class BashLexer {

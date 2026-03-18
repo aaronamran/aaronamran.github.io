@@ -1,4 +1,4 @@
-// /proc directory structure
+﻿// /proc directory structure
 // Process and kernel information
 
 export function createProcDirectory() {

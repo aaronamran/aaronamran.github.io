@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - State Management Module
  * 
  * Handles application state and localStorage persistence

@@ -1,4 +1,4 @@
-// /opt directory structure
+﻿// /opt directory structure
 // Optional software packages
 
 export function createOptDirectory() {

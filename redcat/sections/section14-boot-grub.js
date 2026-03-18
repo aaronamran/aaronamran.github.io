@@ -1,4 +1,4 @@
-const section14Data = {
+﻿const section14Data = {
     id: 14,
     title: "Boot Process & GRUB",
     description: "Manage systemd targets, GRUB2, and boot process (Boot simulator tasks moved to Phase 2)",

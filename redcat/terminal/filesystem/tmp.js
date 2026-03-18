@@ -1,4 +1,4 @@
-// /tmp directory structure
+﻿// /tmp directory structure
 // Temporary files
 
 export function createTmpDirectory() {

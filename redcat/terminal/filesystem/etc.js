@@ -1,4 +1,4 @@
-// /etc directory structure
+﻿// /etc directory structure
 // System configuration files
 
 export function createEtcDirectory() {

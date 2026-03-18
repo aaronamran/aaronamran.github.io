@@ -1,4 +1,4 @@
-// SELinux Security Commands
+﻿// SELinux Security Commands
 // Part of Red Cat RHCSA Terminal Simulator
 
 class SELinuxCommands {

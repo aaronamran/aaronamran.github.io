@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -63,7 +63,7 @@
 						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
 						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
@@ -101,13 +101,13 @@
 		</nav>
 <main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
 	<header class="pb-4">
-        <a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
         <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
             <i class="fas fa-arrow-down"></i> Scroll to Bottom
         </button>
     </header>
 	<div class="d-flex justify-content-start align-items-center mb-3">
-		<img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
 		<h2 class="mb-0 fw-semibold">Work Stuff</h2>
 	</div>
 	<h3 class="mb-2 text-muted">Hackviser</h3>
@@ -117,14 +117,14 @@
 	<h4 class="mb-3">Tasks</h4>
 	<p class="mb-2"><strong>Question 1:</strong> What is the WSGI web application library running on port 80?</p>
     <p class="mb-3">Use nmap to scan the target machine and identify open ports with <code>nmap -sC -sV -A [target IP]</code>.</p>
-	<img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image1.png" alt="Work Stuff Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+	<img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image1.png" alt="Work Stuff Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> Werkzeug</p>
 
 	<p class="mb-2"><strong>Question 2:</strong> Which directory path is accessible if debug mode is active?</p>
     <p class="mb-3">We can open the target IP in a web browser.</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image2.png" alt="Work Stuff Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image2.png" alt="Work Stuff Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-3">If the debug mode of werkzeug is enabled, the <code>/console</code> directory path is accessible.</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image3.png" alt="Work Stuff Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image3.png" alt="Work Stuff Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-3">We run the command <code>__import__('os').popen('whoami').read();</code> to test if the console is working.</p>
     <p class="mb-5"><strong>Answer:</strong> /console</p>
 
@@ -136,38 +136,38 @@
 
     <p class="mb-2"><strong>Question 5:</strong> What is the disclosure date of the exploit found related to werkzeug?</p>
     <p class="mb-3">Using msfconsole, we can find the exploit related to werkzeug and find the disclosure date.</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image4.png" alt="Work Stuff Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image4.png" alt="Work Stuff Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> 2015-06-28</p>
 
     <p class="mb-2"><strong>Question 6:</strong> What is the msfconsole command to check whether an exploit will work before it is actually running?</p>
     <p class="mb-3">We now use the command <code>use 0</code> to use the werkzeug exploit module. Using <code>show OPTIONS</code> allows us to configure necessary options for the exploit to work. It is important to use <code>set RHOSTS [target_ip]</code> to specify the target IP address. Then we have to use <code>set AUTHMODE none</code> to prevent Metasploit from generating unnecessary authentication attempts. Once we are ready to run the exploit, we use the <code>check</code> command for checking purposes</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image5.png" alt="Work Stuff Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image6.png" alt="Work Stuff Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image5.png" alt="Work Stuff Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image6.png" alt="Work Stuff Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> check</p>
 
     <p class="mb-2"><strong>Question 7:</strong> Which file contains information about customers?</p>
     <p class="mb-3">Once we run the exploit using the command <code>exploit</code>, a Meterpreter shell is obtained, allowing us to navigate the file system and access sensitive files.</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image7.png" alt="Work Stuff Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image8.png" alt="Work Stuff Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image7.png" alt="Work Stuff Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image8.png" alt="Work Stuff Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> customers.csv</p>
 
     <p class="mb-2"><strong>Question 8:</strong> What is the email address of the best customer of the month?</p>
     <p class="mb-3">To access the email address, we need to use <code>cat customers.csv</code> to view the file and look for the best customer of the month.</p>
-    <img src="/assets/ctfwriteups/hackviser/workstuff/workstuff_hackviser_image9.png" alt="Work Stuff Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/workstuff/workstuff_hackviser_image9.png" alt="Work Stuff Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> nolan.christine@protonmail.net</p>
 
 
 	
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/leaf.html">next CTF challenge</a>.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/leaf.html">next Hacking Lab challenge</a>.</p>
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">March 2026</p>
 	</section>
 
 
 	<footer class="pt-4">
-		<a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
 		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
 			<i class="fas fa-arrow-up"></i> Scroll to Top
 		</button>

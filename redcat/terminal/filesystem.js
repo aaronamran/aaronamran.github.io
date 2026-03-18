@@ -1,4 +1,4 @@
-// Virtual Filesystem for RHCSA Practice Terminal
+﻿// Virtual Filesystem for RHCSA Practice Terminal
 // Simulates a Linux filesystem with directories, files, permissions, and ownership
 // Consolidated from modular architecture into single non-ES6 file for browser compatibility
 

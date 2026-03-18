@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -63,7 +63,7 @@
 						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
 						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
@@ -101,13 +101,13 @@
 		</nav>
 <main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
 	<header class="pb-4">
-        <a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
         <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
             <i class="fas fa-arrow-down"></i> Scroll to Bottom
         </button>
     </header>
 	<div class="d-flex justify-content-start align-items-center mb-3">
-		<img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_logo.png" alt="Leaf logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_logo.png" alt="Leaf logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
 		<h2 class="mb-0 fw-semibold">Leaf</h2>
 	</div>
 	<h3 class="mb-2 text-muted">Hackviser</h3>
@@ -117,12 +117,12 @@
 	<h4 class="mb-3">Tasks</h4>
 	<p class="mb-2"><strong>Question 1:</strong> What is the website title?</p>
     <p class="mb-3">We can open the target IP in a web browser and check the title of the page.</p>
-	<img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_image1.png" alt="Leaf Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+	<img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_image1.png" alt="Leaf Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> Modish Tech</p>
 
 	<p class="mb-2"><strong>Question 2:</strong> Which GET parameter is used on the page where the product detail is displayed?</p>
     <p class="mb-3">Click on a product to view its details and observe the URL in the browser's address bar.</p>
-    <img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_image2.png" alt="Leaf Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_image2.png" alt="Leaf Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-5"><strong>Answer:</strong> id</p>
 
     <p class="mb-2"><strong>Question 3:</strong> What does SSTI stands for?</p>
@@ -133,26 +133,26 @@
 
     <p class="mb-2"><strong>Question 5:</strong> What is the name of the database used by the application?</p>
     <p class="mb-3">For this task, we need to use SSTI in the comment fields to hack into the target machine. We will first try the payload <code>{7*7}</code> and observe its output.</p>
-    <img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_image3.png" alt="Leaf Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_image3.png" alt="Leaf Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-3">Since the output is 49, we can confirm that the application is vulnerable to SSTI. We can then create a backdoor to execute commands on the server using the following payload: <code>{{['<command>']|filter('system')}}</code></p>
     <p class="mb-3">When we use <code>{{['ls']|filter('system')}}</code>, we can see the list of files in the current directory.</p>
-    <img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_image4.png" alt="Leaf Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_image4.png" alt="Leaf Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-3">We will use the payload <code>{{['nc -nvlp 1337 -e /bin/bash']|filter('system')}}</code> to create a bind shell on the target machine, then use <code>nc -nv [target IP] 1337</code> to connect to it.</p>
-    <img src="/assets/ctfwriteups/hackviser/leaf/leaf_hackviser_image5.png" alt="Leaf Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/leaf/leaf_hackviser_image5.png" alt="Leaf Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     <p class="mb-3">Now that we have a shell on the target machine, we can use the command <code>cat config.php</code> to read the database name.</p>
     <p class="mb-5"><strong>Answer:</strong> modish_tech</p>
 
 	
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/venomous.html">next CTF challenge</a>.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/venomous.html">next Hacking Lab challenge</a>.</p>
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">March 2026</p>
 	</section>
 
 
 	<footer class="pt-4">
-		<a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
 		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
 			<i class="fas fa-arrow-up"></i> Scroll to Top
 		</button>

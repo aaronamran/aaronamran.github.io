@@ -1,4 +1,4 @@
-// Bash Executor - Executes AST nodes
+﻿// Bash Executor - Executes AST nodes
 // Runs parsed bash commands with proper scoping and control flow
 
 class BashExecutor {

@@ -1,4 +1,4 @@
-// RHCSA Commands - Environment & Variables Module
+﻿// RHCSA Commands - Environment & Variables Module
 // Implements: echo, export, env, set, unset
 
 class RHCSACommandsEnvironment extends RHCSACommandsBase {

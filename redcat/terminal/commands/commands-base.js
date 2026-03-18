@@ -1,4 +1,4 @@
-// RHCSA Commands Base Class
+﻿// RHCSA Commands Base Class
 // Shared state and helper methods for all command modules
 
 class RHCSACommandsBase {

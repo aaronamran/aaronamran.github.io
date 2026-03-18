@@ -1,4 +1,4 @@
-// Bash Parser - Builds Abstract Syntax Tree from tokens
+﻿// Bash Parser - Builds Abstract Syntax Tree from tokens
 // Parses bash script syntax into executable AST nodes
 
 class BashParser {

@@ -1,4 +1,4 @@
-// System Management Commands - systemctl, journalctl, etc.
+﻿// System Management Commands - systemctl, journalctl, etc.
 // Part of Red Cat RHCSA Terminal Simulator
 
 class SystemCommands {

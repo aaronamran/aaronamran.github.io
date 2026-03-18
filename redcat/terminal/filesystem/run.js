@@ -1,4 +1,4 @@
-// /run directory structure
+﻿// /run directory structure
 // Runtime variable data
 
 export function createRunDirectory() {

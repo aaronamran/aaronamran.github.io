@@ -1,4 +1,4 @@
-// Text Editor Commands - vi, vim, nano
+﻿// Text Editor Commands - vi, vim, nano
 // Part of Red Cat RHCSA Terminal Simulator
 
 class EditorCommands {

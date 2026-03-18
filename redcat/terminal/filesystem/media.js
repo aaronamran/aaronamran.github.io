@@ -1,4 +1,4 @@
-// /media directory structure  
+﻿// /media directory structure  
 // Removable media mount points
 
 export function createMediaDirectory() {

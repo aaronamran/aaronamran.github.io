@@ -1,4 +1,4 @@
-// Vi/Vim Editor - Complete RHCSA Simulator
+﻿// Vi/Vim Editor - Complete RHCSA Simulator
 // Accurate emulation of vim for RHCSA exam practice
 
 class ViEditor {

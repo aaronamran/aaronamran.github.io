@@ -1,4 +1,4 @@
-// /var directory structure
+﻿// /var directory structure
 // Variable data (logs, caches, spools)
 
 export function createVarDirectory() {

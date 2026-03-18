@@ -1,4 +1,4 @@
-// Terminal Controller - Main logic for RHCSA Practice Terminal
+﻿// Terminal Controller - Main logic for RHCSA Practice Terminal
 
 class Terminal {
     constructor() {

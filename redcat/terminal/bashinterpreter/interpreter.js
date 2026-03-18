@@ -1,4 +1,4 @@
-// Bash Interpreter - Main Entry Point
+﻿// Bash Interpreter - Main Entry Point
 // Integrates lexer, parser, and executor for bash script execution
 
 class BashInterpreter {

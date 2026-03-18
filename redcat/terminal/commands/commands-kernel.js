@@ -1,4 +1,4 @@
-// Kernel Module Commands - lsmod, modprobe, modinfo, rmmod, insmod
+﻿// Kernel Module Commands - lsmod, modprobe, modinfo, rmmod, insmod
 // Part of Red Cat RHCSA Terminal Simulator
 
 class KernelModuleCommands {

@@ -1,4 +1,4 @@
-// /boot directory structure
+﻿// /boot directory structure
 // Boot loader files, kernel images, and initial RAM disk
 
 export function createBootDirectory() {

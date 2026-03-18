@@ -1,4 +1,4 @@
-// Job Scheduling Commands - cron, at, etc.
+﻿// Job Scheduling Commands - cron, at, etc.
 // Part of Red Cat RHCSA Terminal Simulator
 
 class SchedulingCommands {

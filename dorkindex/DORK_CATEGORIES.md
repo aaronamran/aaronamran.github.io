@@ -1,4 +1,4 @@
-# Dork Categories
+﻿# Dork Categories
 
 This document describes the organization structure of `dorks.json` to make it easier to add new dorks to the correct category.
 

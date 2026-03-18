@@ -1,4 +1,4 @@
-// Package Management Commands - dnf, rpm
+﻿// Package Management Commands - dnf, rpm
 // Part of Red Cat RHCSA Terminal Simulator
 
 class PackageCommands {

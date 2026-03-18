@@ -1,4 +1,4 @@
-const section11Data = {
+﻿const section11Data = {
     id: 11,
     title: "SELinux Security",
     description: "Understand and Configure SELinux",

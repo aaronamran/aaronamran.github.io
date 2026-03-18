@@ -1,4 +1,4 @@
-// Disk and LVM Management Commands
+﻿// Disk and LVM Management Commands
 // Part of Red Cat RHCSA Terminal Simulator
 
 class DiskCommands {

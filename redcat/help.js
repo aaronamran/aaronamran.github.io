@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Command Help Text
  * 
  * This module contains help text for Linux commands.

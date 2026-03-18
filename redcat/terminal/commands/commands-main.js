@@ -1,4 +1,4 @@
-// RHCSA Commands - Complete Implementation
+﻿// RHCSA Commands - Complete Implementation
 // Merges all command modules into single class
 
 class RHCSACommands extends RHCSACommandsEnvironment {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - UI Rendering Module
  * 
  * Handles all UI updates and rendering logic

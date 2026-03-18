@@ -1,4 +1,4 @@
-// Sentinel-Auth Beta - API Authentication Debugger
+﻿// Sentinel-Auth Beta - API Authentication Debugger
 // Version 2.1.4
 
 // ============================================

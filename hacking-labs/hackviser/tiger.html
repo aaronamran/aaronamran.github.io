@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -63,7 +63,7 @@
 						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ctf-writeups/">CTF Writeups</a>
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
 					</li>
 					<li class="nav-item portfolio-nav-item">
 						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
@@ -101,55 +101,59 @@
 		</nav>
 <main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
 	<header class="pb-4">
-        <a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
         <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
             <i class="fas fa-arrow-down"></i> Scroll to Bottom
         </button>
     </header>
 	<div class="d-flex justify-content-start align-items-center mb-3">
-		<img src="/assets/ctfwriteups/hackviser/007/007_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
-		<h2 class="mb-0 fw-semibold">007</h2>
+		<img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">Tiger</h2>
 	</div>
 	<h3 class="mb-2 text-muted">Hackviser</h3>
     <div class="subheading mb-4">February 2026 · Warmup Stage 1</div>
-    <p class="lead mb-4">This writeup focuses on practicing basics of Remote Desktop Protocol (RDP). RDP is a protocol that allows users to connect to and control a computer remotely.</p>
+    <p class="lead mb-4">This writeup focuses on practicing basics of Virtual Network Computing (VNC). VNC is a protocol that allows users to connect to and control a computer remotely. The difference between VNC and RDP is that VNC is platform-independent and works across different operating systems, while RDP is specific to Windows environments.</p>
 
 	<h4 class="mb-3">Tasks</h4>
-	<p class="mb-2"><strong>Question 1:</strong> What is target hostname?</p>
-    <p class="mb-3">Run a Nmap scan on the target IP using <code>nmap -sC -sV -A -p- [target IP]</code>.</p>
-	<img src="/assets/ctfwriteups/hackviser/007/007_hackviser_image1.png" alt="007 CTF 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-    <img src="/assets/ctfwriteups/hackviser/007/007_hackviser_image2.png" alt="007 CTF 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-	<p class="mb-5"><strong>Answer:</strong> WIN-B9266PTLH5T</p>
+	<p class="mb-2"><strong>Question 1:</strong> What does VNC stands for?</p>
+	<p class="mb-5"><strong>Answer:</strong> Virtual Network Computing</p>
 
-	<p class="mb-2"><strong>Question 2:</strong> What does RDP stands for?</p>
-	<p class="mb-5"><strong>Answer:</strong> Remote Desktop Protocol</p>
+	<p class="mb-2"><strong>Question 2:</strong> Which port(s) are open?</p>
+    <p class="mb-3">Use nmap to scan the target machine and identify open ports with <code>nmap -sC -sV -A [target IP]</code>.</p>
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image1.png" alt="Tiger 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-5"><strong>Answer:</strong> 5901</p>
 
-	<p class="mb-2"><strong>Question 3:</strong> What is usually the most privileged username in Windows?</p>
-    <p class="mb-5"><strong>Answer:</strong> Administrator</p>
+	<p class="mb-2"><strong>Question 3:</strong> Who is the user you have established a VNC connection with?</p>
+    <p class="mb-3">Use a VNC client such as Remmina to connect to the target machine on port 5901. Choose VNC from the dropdown and enter the target IP address with port 5901. After successfully connecting, check the username by opening a terminal and running <code>whoami</code>.</p>
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image2.png" alt="Tiger 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image3.png" alt="Tiger 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-5"><strong>Answer:</strong> leo</p>
 
-	<p class="mb-2"><strong>Question 4:</strong> Whats the Windows version?</p>
-    <p class="mb-3">To find the Windows version, use Remmina to RDP to the target machine. Simply login as Administrator without any password or other details. A Windows Server 2019 will load. To find the Windows version, search for Run in Windows and type <code>winver</code>.</p>
-    <img src="/assets/ctfwriteups/hackviser/007/007_hackviser_image3.png" alt="007 CTF 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-    <p class="mb-5"><strong>Answer:</strong> 1809</p>
+	<p class="mb-2"><strong>Question 4:</strong> What is the Linux kernel version?</p>
+    <p class="mb-3">In the terminal use <code>uname -a</code> to check the Linux kernel version.</p>
+    <p class="mb-5"><strong>Answer:</strong> 5.10.0-28-amd64</p>
 
-	<p class="mb-2"><strong>Question 5:</strong> What is the name of the suspect folder under the C:\ directory?</p>
-    <img src="/assets/ctfwriteups/hackviser/007/007_hackviser_image4.png" alt="007 CTF 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-	<p class="mb-5"><strong>Answer:</strong> junk</p>
+	<p class="mb-2"><strong>Question 5:</strong> What is the name of the running VNC program?</p>
+    <p class="mb-3">Use <code>ps aux | grep vnc</code> to check the running VNC program.</p>
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image4.png" alt="Tiger 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-5"><strong>Answer:</strong> Xtigervnc</p>
 
-    <p class="mb-2"><strong>Question 6:</strong> Which user owns the junk folder?</p>
-    <img src="/assets/ctfwriteups/hackviser/007/007_hackviser_image5.png" alt="007 CTF 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-	<p class="mb-5"><strong>Answer:</strong> spy7</p>
-	
-	<hr />
+    <p class="mb-2"><strong>Question 6:</strong> What is the IP address of the computer that established a VNC connection on February 23, 2023?</p>
+    <p class="mb-3">Use <code>ls -al</code> to list available files and directories in the current directory, and navigate to <code>.vnc</code>. Then read the connection logs.</p>
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image5.png" alt="Tiger 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <img src="/assets/hackinglabs/hackviser/tiger/tiger_hackviser_image6.png" alt="Tiger 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-5"><strong>Answer:</strong> 10.1.9.23</p>
+
+    <hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ctf-writeups/hackviser/securecommand.html">next CTF challenge</a>.</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/mount.html">next Hacking Lab challenge</a>.</p>
 		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
 		<p class="text-muted small mt-1">February 2026</p>
 	</section>
 
 
 	<footer class="pt-4">
-		<a href="/ctf-writeups/hackviser/" class="btn btn-outline-light">Return</a>
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
 		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
 			<i class="fas fa-arrow-up"></i> Scroll to Top
 		</button>

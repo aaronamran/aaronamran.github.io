@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
 * Start Bootstrap - Resume v7.0.6 (https://startbootstrap.com/theme/resume)
 * Copyright 2013-2023 Start Bootstrap
@@ -12502,7 +12502,7 @@ section.resume-section .resume-section-content img,
 
 /* end scoped responsive tweaks */
 
-/* Q&A blocks for CTF writeups */
+/* Q&A blocks for Hacking Labs */
 #articleContent .ctf-qa {
 	margin: 1.25rem 0;
 	padding: 1rem 1.25rem;

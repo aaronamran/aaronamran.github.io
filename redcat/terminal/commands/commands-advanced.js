@@ -1,4 +1,4 @@
-// Advanced Storage and RHEL Ecosystem Commands
+﻿// Advanced Storage and RHEL Ecosystem Commands
 // stratis, vdo, subscription-manager, insights-client, authselect
 // Part of Red Cat RHCSA Terminal Simulator
 

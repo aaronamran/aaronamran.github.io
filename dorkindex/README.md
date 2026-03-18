@@ -1,4 +1,4 @@
-# 🔍 DorkIndex
+﻿# 🔍 DorkIndex
 
 **Client-Side Google Dorking Tool for OPSEC-Conscious Bug Bounty Hunters**
 

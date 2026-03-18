@@ -1,4 +1,4 @@
-const section12Data = {
+﻿const section12Data = {
     id: 12,
     title: "Shell Scripting & Automation",
     description: "Create and manage bash shell scripts",

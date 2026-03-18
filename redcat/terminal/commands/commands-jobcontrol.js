@@ -1,4 +1,4 @@
-// Job Control Commands - jobs, fg, bg, disown, nohup
+﻿// Job Control Commands - jobs, fg, bg, disown, nohup
 // Part of Red Cat RHCSA Terminal Simulator
 
 class JobControlCommands {

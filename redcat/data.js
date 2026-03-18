@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Task Data Loader
  * 
  * This file loads section data from modular section files.

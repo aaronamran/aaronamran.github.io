@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Output Generation Module
  * 
  * Generates simulated command output for audit tasks and pre-check commands

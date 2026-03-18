@@ -1,4 +1,4 @@
-// /mnt directory structure
+﻿// /mnt directory structure
 // Temporary mount point
 
 export function createMntDirectory() {

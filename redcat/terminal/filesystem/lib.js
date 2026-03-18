@@ -1,4 +1,4 @@
-// /lib and /lib64 directory structures
+﻿// /lib and /lib64 directory structures
 // Shared libraries
 
 export function createLibDirectories() {

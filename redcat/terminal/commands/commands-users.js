@@ -1,4 +1,4 @@
-// User and Group Management Commands
+﻿// User and Group Management Commands
 // Part of Red Cat RHCSA Terminal Simulator
 
 class UserCommands {

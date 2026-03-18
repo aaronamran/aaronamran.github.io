@@ -1,4 +1,4 @@
-// Process Management Commands
+﻿// Process Management Commands
 // Part of Red Cat RHCSA Terminal Simulator
 
 class ProcessCommands {

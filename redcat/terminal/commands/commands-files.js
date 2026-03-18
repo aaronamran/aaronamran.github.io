@@ -1,4 +1,4 @@
-// File Operations Commands - ls, cp, mv, rm, etc.
+﻿// File Operations Commands - ls, cp, mv, rm, etc.
 // Part of Red Cat RHCSA Terminal Simulator
 
 class FileCommands {

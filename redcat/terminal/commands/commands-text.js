@@ -1,4 +1,4 @@
-// Text Processing Commands - grep, sed, awk, etc.
+﻿// Text Processing Commands - grep, sed, awk, etc.
 // Part of Red Cat RHCSA Terminal Simulator
 
 class TextCommands {

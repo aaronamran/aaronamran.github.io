@@ -1,4 +1,4 @@
-# Sentinel-Auth Beta
+﻿# Sentinel-Auth Beta
 
 **API Authentication Debugger & JWT Token Validator**
 

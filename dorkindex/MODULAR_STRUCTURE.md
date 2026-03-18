@@ -1,4 +1,4 @@
-# Modular Dorks Structure
+﻿# Modular Dorks Structure
 
 ## Overview
 Split the monolithic `dorks.json` into separate category files for better maintainability and organization.

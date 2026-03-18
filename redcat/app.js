@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Red Cat - Main Application (Refactored)
  * 
  * Lightweight orchestrator that coordinates:

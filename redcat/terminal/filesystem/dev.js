@@ -1,4 +1,4 @@
-// /dev directory structure
+﻿// /dev directory structure
 // Device files
 
 export function createDevDirectory() {
