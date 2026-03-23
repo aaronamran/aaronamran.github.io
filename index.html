@@ -31,6 +31,22 @@
 		<link href="/css/styles.css" rel="stylesheet" />
 		<!-- Preload critical images -->
 		<link rel="preload" as="image" href="/assets/img/profile.jpg" fetchpriority="high" />
+		<style>
+			.typing-cursor {
+				animation: blink 0.7s infinite;
+				font-weight: 100;
+				color: #bd5d38;
+			}
+			
+			@keyframes blink {
+				0%, 49% { opacity: 1; }
+				50%, 100% { opacity: 0; }
+			}
+			
+			#typedText {
+				display: inline;
+			}
+		</style>
 	</head>
 	<body id="page-top">
 		<!-- Navigation-->
@@ -133,7 +149,7 @@
 						>
 					</div>
 					<p class="lead mb-5">
-						Endless journey of exploring code, circuits, networks, exploits 
+						<span id="typedText"></span><span class="typing-cursor">|</span>
 					</p>
 					
 					<!-- Obtain flag pngs from https://twemoji-cheatsheet.vercel.app/ -->
@@ -469,5 +485,38 @@
 		></script>
 		<!-- Core theme JS-->
 		<script src="./js/scripts.js"></script>
+		<script>
+			// Typing animation for the tagline
+			const text = "Endless journey of exploring code, circuits, networks, exploits.";
+			const typedTextElement = document.getElementById("typedText");
+			let charIndex = 0;
+			let isTyping = true;
+			
+			function typeWriter() {
+				if (isTyping) {
+					if (charIndex < text.length) {
+						typedTextElement.textContent += text.charAt(charIndex);
+						charIndex++;
+						setTimeout(typeWriter, 80); // Typing speed (80ms per character)
+					} else {
+						// Finished typing, wait before clearing
+						isTyping = false;
+						setTimeout(clearText, 2000); // Hold for 2 seconds
+					}
+				}
+			}
+			
+			function clearText() {
+				typedTextElement.textContent = "";
+				charIndex = 0;
+				isTyping = true;
+				setTimeout(typeWriter, 3000); // Wait 3 seconds before retyping
+			}
+			
+			// Start the animation after page loads
+			window.addEventListener('load', function() {
+				setTimeout(typeWriter, 500); // Initial delay of 500ms
+			});
+		</script>
 	</body>
 </html>

@@ -222,9 +222,24 @@ window.initDorkCopy = initDorkCopy;
 
 // Scroll to top/bottom functions
 function scrollToBottom() {
-	window.scrollTo({
-		top: document.body.scrollHeight,
-		behavior: "smooth",
+	// Wait for all images (including lazy-loaded ones) to load
+	const images = document.querySelectorAll('img');
+	const imagePromises = Array.from(images).map(img => {
+		if (img.complete) return Promise.resolve();
+		return new Promise(resolve => {
+			img.addEventListener('load', resolve);
+			img.addEventListener('error', resolve); // resolve even on error
+		});
+	});
+
+	Promise.all(imagePromises).then(() => {
+		// Small delay to ensure layout is complete
+		setTimeout(() => {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: "smooth",
+			});
+		}, 100);
 	});
 }
 
