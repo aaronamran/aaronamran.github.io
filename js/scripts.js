@@ -17,6 +17,22 @@ window.addEventListener("DOMContentLoaded", (event) => {
 		});
 	}
 
+	// Highlight active navigation based on current page URL
+	const currentPath = window.location.pathname;
+	const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+	
+	navLinks.forEach(link => {
+		const href = link.getAttribute("href");
+		
+		// Check if the current path matches the link href
+		if (href && currentPath.includes(href) && href !== "/") {
+			link.classList.add("active");
+		} else if (href === "/" && (currentPath === "/" || currentPath === "/index.html")) {
+			// Special case for home page
+			link.classList.add("active");
+		}
+	});
+
 	// Collapse responsive navbar when toggler is visible
 	const navbarToggler = document.body.querySelector(".navbar-toggler");
 	const responsiveNavItems = [].slice.call(

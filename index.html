@@ -142,203 +142,54 @@
 					<div class="myname-div">
 						<h1 class="myname-text mb-3" style="margin-top: 0; padding: 0">Aaron Amran</h2>
 					</div>
-					<div class="subheading mb-5">
+				<div class="subheading mb-5 d-flex align-items-center flex-wrap" style="gap: 0.5rem;">
+					<span>
 						Kuching, Sarawak · Malaysia ·
 						<a href="mailto:aaronamranba@gmail.com" class="subheading-mail"
 							>aaronamranba@gmail.com</a
 						>
-					</div>
-					<p class="lead mb-5">
-						<span id="typedText"></span><span class="typing-cursor">|</span>
-					</p>
-					
-					<!-- Obtain flag pngs from https://twemoji-cheatsheet.vercel.app/ -->
-					
-					<!-- Collapsible Links Section -->
-					<style>
-						.platform-grid {
-							display: grid;
-							/* stacked rows layout */
-							grid-template-columns: 1fr;
-							gap: 1rem;
-							max-width: 700px;
-							min-height: 7rem; /* reserve space for stacked icons */
-						}
-                    
-						.platform-category {
-							/* layout: header on left, icons on the right */
-							display: flex;
-							align-items: center;
-							justify-content: space-between;
-							gap: 1rem;
-						}
-                    
-						.category-header {
-							padding: 0.5rem 0.75rem;
-							background: linear-gradient(135deg, #0f1724 0%, #111827 100%);
-							color: #e6eef8;
-							border-radius: 8px;
-							cursor: pointer;
-							font-weight: 600;
-							transition: all 0.25s ease;
-							border: none;
-							box-shadow: 0 6px 18px rgba(2,6,23,0.5);
-							min-width: 10rem;
-							text-align: left;
-						}
-                    
-						.category-header:hover {
-							transform: translateY(-2px);
-							box-shadow: 0 8px 22px rgba(2,6,23,0.6);
-						}
-                    
-						.category-header.active {
-							background: linear-gradient(135deg, #0b1220 0%, #111827 100%);
-						}
-                    
-						.category-icons {
-							display: flex;
-							flex-wrap: wrap;
-							justify-content: flex-end;
-							gap: 0.5rem;
-							margin-top: 0.5rem;
-							/* reserve small vertical space when collapsed so layout doesn't jump */
-							max-height: 3.5rem;
-							overflow: hidden;
-							transition: max-height 0.28s ease;
-						}
-                    
-						.category-icons.show {
-							max-height: 350px;
-						}
-						.category-icons .social-icon {
-							width: 3rem;
-							height: 3rem;
-							font-size: 1.25rem;
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							border-radius: 8px;
-							background: rgba(255,255,255,0.02);
-							color: #cbd5e1;
-							transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-						}
-						.category-icons .social-icon:hover{
-							transform:translateY(-4px);
-							box-shadow:0 8px 20px rgba(2,6,23,0.5);
-							background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.04));
-						}
-
-						/* Responsive: stack category header above icons on small screens */
-						@media (max-width: 767.98px) {
-							.platform-category {
-								flex-direction: column;
-								align-items: flex-start;
-							}
-							.category-header { text-align: left; }
-						.category-icons { justify-content: flex-start; margin-top: 0.5rem; }
-						
-					/* Hide promo icons on mobile */
-					.promo-icon {
-						display: none !important;
-					}
-					
-					/* Fix blog list items for mobile */
-					.blog-list-item > a > div,
-					.blog-list-item > div {
-						flex-direction: column !important;
-						align-items: flex-start !important;
-					}
-					
-					.blog-list-item .platform-icons {
-						margin-left: 0 !important;
-						margin-top: 1rem;
-						width: 100%;
-						justify-content: flex-start;
-					}
-					
-					/* Fix Try It Live cards spacing on mobile */
-					.showcase-card, .redcat-card {
-						margin-left: 0 !important;
-						margin-right: 0 !important;
-						padding-left: 0.5rem !important;
-						padding-right: 0.5rem !important;
-					}
-					
-					.showcase-card a, .redcat-card a {
-						padding: 1rem !important;
-					}
-				}
-			</style>
-			
-			<!-- platform-grid removed (items merged into blog list) -->
-			<div class="row justify-content-center">
-				<ul class="blog-list list-unstyled w-100">
-					<li class="blog-list-item mb-3 blog-list-link d-flex align-items-center p-3 text-decoration-none blog-link">
-						<a href="/ethicalhacking/" style="display: contents; text-decoration: none; color: inherit;">
-							<div style="display:flex;align-items:center;width:100%;">
-								<div class="promo-icon" style="height:48px;width:48px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);box-shadow:0 6px 12px rgba(15,23,42,0.6);margin-right:1rem;">
-									<i class="fas fa-computer fa-lg" style="color:white"></i>
-								</div>
-								<div style="flex:1 1 0;min-width:0;">
-									<div class="fw-bold">Ethical Hacking Blogs</div>
-									<div class="text-muted">Blogs About Uncovering Vulnerabilities On Real World Targets</div>
-								</div>
-							</div>
+					</span>
+					<span>·</span>
+					<div class="social-icons-inline d-flex align-items-center" style="gap: 0.5rem;">
+						<a class="social-icon" href="https://www.linkedin.com/in/aaronamran/" target="_blank" title="LinkedIn">
+							<i class="fab fa-linkedin-in"></i>
 						</a>
-					</li>
-					<li class="blog-list-item mb-3 blog-list-link d-flex align-items-center p-3 text-decoration-none blog-link">
-						<a href="/hacking-labs/" style="display: contents; text-decoration: none; color: inherit;">
-							<div style="display:flex;align-items:center;width:100%;">
-								<div class="promo-icon" style="height:48px;width:48px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);box-shadow:0 6px 12px rgba(15,23,42,0.6);margin-right:1rem;">
-									<i class="fas fa-flag-checkered fa-lg" style="color:white"></i>
-								</div>
-								<div style="flex:1 1 0;min-width:0;">
-										<div class="fw-bold">Hacking Labs</div>
-									<div class="text-muted">Writeups of Completed Hacking Labs</div>
-								</div>
-							</div>
+					</div><span>·</span>
+					<div class="social-icons-inline d-flex align-items-center" style="gap: 0.5rem;">
+						<a class="social-icon" href="https://github.com/aaronamran" target="_blank" title="GitHub">
+							<i class="fab fa-github"></i>
 						</a>
-					</li>
-							<li class="blog-list-item mb-3 blog-list-link d-flex align-items-center p-3 text-decoration-none blog-link">
-									<div style="display:flex;align-items:center;width:100%;">
-										<div class="promo-icon" style="height:48px;width:48px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);box-shadow:0 6px 12px rgba(15,23,42,0.6);margin-right:1rem;">
-											<i class="fas fa-users fa-lg" style="color:white"></i>
-										</div>
-										<div style="flex:1 1 0;min-width:0;">
-											<div class="fw-bold">Social</div>
-											<div class="text-muted">Find me on <a href="https://www.linkedin.com/in/aaronamran/" target="_blank" title="LinkedIn">LinkedIn</a> and <a href="https://github.com/aaronamran" target="_blank" title="GitHub">GitHub</a></div>
-										</div>
-									</div>
-							</li>
-
-							<!-- <li class="blog-list-item mb-3 blog-list-link d-flex align-items-center p-3 text-decoration-none blog-link">
-									<div style="display:flex;align-items:center;width:100%;">
-										<div class="promo-icon" style="height:48px;width:48px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);box-shadow:0 6px 12px rgba(15,23,42,0.6);margin-right:1rem;">
-											<i class="fas fa-shield-halved fa-lg" style="color:white"></i>
-										</div>
-										<div style="flex:1 1 0;min-width:0;">
-											<div class="fw-bold">Cybersecurity</div>
-											<div class="text-muted">Hack with me on <a href="https://tryhackme.com/p/aaronamran" target="_blank" title="TryHackMe">TryHackMe</a>, <a href="https://app.hackthebox.com/profile/2004513" target="_blank" title="HackTheBox">HackTheBox</a>, <a href="https://app.hackviser.com/profile/aaronamran" target="_blank" title="Hackviser">Hackviser</a>, and <a href="https://students.mosse-institute.com/student/nxCLnZGLgyOUMpnDw16rtDvYuTF2" target="_blank" title="Mossé Cybersecurity Institute">Mossé Cybersecurity Institute</a>.</div>
-										</div>
-									</div>
-							</li>
-
-							<li class="blog-list-item mb-3 blog-list-link d-flex align-items-center p-3 text-decoration-none blog-link">
-									<div style="display:flex;align-items:center;width:100%;">
-										<div class="promo-icon" style="height:48px;width:48px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);box-shadow:0 6px 12px rgba(15,23,42,0.6);margin-right:1rem;">
-											<i class="fas fa-code fa-lg" style="color:white"></i>
-										</div>
-										<div style="flex:1 1 0;min-width:0;">
-											<div class="fw-bold">Coding</div>
-											<div class="text-muted">Code with me on <a href="https://www.hackerrank.com/aaronamran" target="_blank" title="HackerRank">HackerRank</a>, <a href="https://leetcode.com/u/aaronamran/" target="_blank" title="LeetCode">LeetCode</a>, <a href="https://www.codewars.com/users/aaronamran" target="_blank" title="Codewars">Codewars</a>, <a href="https://codeforces.com/profile/aaronamran" target="_blank" title="Codeforces">Codeforces</a>, and <a href="https://www.codechef.com/users/aaronamran" target="_blank" title="CodeChef">CodeChef</a>.</div>
-										</div>
-									</div>
-							</li> -->
-						</ul>
 					</div>
+				</div>
+				<p class="lead mb-3">
+					<span id="typedText"></span><span class="typing-cursor">|</span>
+				</p>
+				
+				<p class="writeup-intro">
+					> Read my writeups about <a href="/ethicalhacking/"><span id="vuln-count">9</span> vulnerability disclosures</a> and <a href="/hacking-labs/"><span id="ctf-count">25</span> hacking lab challenges</a>.
+				</p>
 					
 					<style>
+					/* Minimal writeup intro */
+					.writeup-intro {
+						font-size: 1.15rem;
+						color: #6c757d;
+						margin-bottom: 3rem;
+						line-height: 1.6;
+					}
+					
+					.writeup-intro a {
+						color: #adb5bd;
+						text-decoration: none;
+						border-bottom: 1px solid transparent;
+						transition: all 0.2s ease;
+					}
+					
+					.writeup-intro a:hover {
+						color: #bd5d38;
+						border-bottom-color: #bd5d38;
+					}
+					
 					/* Red Cat Card Hover */
 					.redcat-card:hover {
 						border-color: #dc3545 !important;
@@ -394,18 +245,19 @@
 					</style>
 					
 					<h2 class="try-it-out-heading">Try It Live</h2>
-				<div class="row">
+				<div class="row justify-content-center">
 				<!-- RHCSA Practice Terminal Card -->
-					<div class="col-md-5 flex-column flex-md-row justify-content-between mb-4 redcat-card showcase-card">
+					<div class="col-lg-4 col-md-6 mb-4 d-flex">
+						<div class="redcat-card showcase-card w-100">
 						<a href="redcat" target="_blank" class="certification-link">
 							<div class="project-info flex-grow-1">
 								<div class="d-flex align-items-start mb-3">
 									<img
 										src="./assets/logo/redcat.png"
 										alt="Red Cat"
-										style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
-									width="80"
-									height="80"
+									style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
+								width="80"
+								height="80"
 									loading="lazy"
 									decoding="async"
 									/>
@@ -419,19 +271,21 @@
 								</div>
 							</div>
 						</a>
+						</div>
 					</div>
 
 				<!-- DorkIndex Card -->
-					<div class="col-md-5 flex-column flex-md-row justify-content-between mb-4 redcat-card showcase-card">
+					<div class="col-lg-4 col-md-6 mb-4 d-flex">
+						<div class="redcat-card showcase-card w-100">
 						<a href="dorkindex" target="_blank" class="certification-link">
 							<div class="project-info flex-grow-1">
 								<div class="d-flex align-items-start mb-3">
 									<img
 										src="./assets/logo/dorkindex.png"
 										alt="DorkIndex"
-										style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
-									width="80"
-									height="80"
+									style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
+								width="80"
+								height="80"
 									loading="lazy"
 									decoding="async"
 									/>
@@ -445,19 +299,21 @@
 								</div>
 							</div>
 						</a>
+						</div>
 					</div>
 
 				<!-- Sentinel-Auth Card -->
-					<div class="col-md-5 flex-column flex-md-row justify-content-between mb-4 redcat-card showcase-card">
+					<div class="col-lg-4 col-md-6 mb-4 d-flex">
+						<div class="redcat-card showcase-card w-100">
 						<a href="sentinel-auth" target="_blank" class="certification-link">
 							<div class="project-info flex-grow-1">
 								<div class="d-flex align-items-start mb-3">
 									<img
 										src="./sentinel-auth/favicon.svg"
 										alt="Sentinel-Auth"
-										style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
-									width="80"
-									height="80"
+									style="width: 80px; height: 80px; object-fit: contain; margin-right: 1rem; flex-shrink: 0;"
+								width="80"
+								height="80"
 									loading="lazy"
 									decoding="async"
 									/>
@@ -471,8 +327,9 @@
 								</div>
 							</div>
 						</a>
+						</div>
 					</div>
-			</div>
+				</div>
 		</section>
 		</div>
 		<div id="stars"></div>
@@ -485,6 +342,7 @@
 		></script>
 		<!-- Core theme JS-->
 		<script src="./js/scripts.js"></script>
+		<script src="./js/writeup-count.js"></script>
 		<script>
 			// Typing animation for the tagline
 			const text = "Endless journey of exploring code, circuits, networks, exploits.";

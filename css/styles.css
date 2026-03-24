@@ -11963,25 +11963,38 @@ input:checked + .slider:before {
 .showcase-card {
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	padding: 20px;
-	margin: 1rem; /* uniform spacing around showcase cards */
+	padding: 1.25rem;
+	margin: 0; /* removed margin since Bootstrap grid handles spacing */
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	transition: background-color 0.3s ease;
+	justify-content: flex-start;
+	transition: all 0.3s ease;
 	cursor: pointer;
 	background-color: transparent;
+	min-height: 200px; /* reduced height for more compact cards */
+	height: auto; /* allow natural height instead of stretching */
 }
 
 .showcase-card .project-info {
-	font-size: 16px;
+	font-size: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.showcase-card h3 {
+	font-size: 1.4rem;
+	margin-bottom: 0.4rem !important;
+}
+
+.showcase-card .d-flex.align-items-start {
+	margin-bottom: 0.75rem !important;
 }
 
 .showcase-card:hover {
 	border-color: #667eea; /* similar hover tint as project cards */
 	background-color: rgba(102, 126, 234, 0.06);
 	transform: translateY(-2px);
-	transition: background-color 0.3s ease, transform 0.15s ease;
+	transition: all 0.3s ease;
 }
 
 
@@ -12300,6 +12313,27 @@ mark {
 		display: block;
 	}
 }
+
+/* Active navigation state highlighting */
+#sideNav .navbar-nav .nav-link.active {
+	color: #bd5d38 !important;
+	font-weight: 600;
+	border-left: 3px solid #bd5d38;
+	padding-left: calc(0.75rem - 3px);
+	background: rgba(189, 93, 56, 0.1);
+}
+
+#sideNav .navbar-nav .nav-link {
+	transition: all 0.25s ease;
+	border-left: 3px solid transparent;
+	padding-left: 0.75rem;
+}
+
+#sideNav .navbar-nav .nav-link:hover {
+	color: #bd5d38;
+	background: rgba(189, 93, 56, 0.05);
+}
+
 .social-icons .social-icon {
 	display: inline-flex;
 	align-items: center;
