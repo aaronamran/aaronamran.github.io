@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/trainings/"
+							>Trainings</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li> -->
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+	<header class="pb-4">
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+        <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i> Scroll to Bottom
+        </button>
+    </header>
+	<div class="d-flex justify-content-start align-items-center mb-3">
+		<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_idor/idor_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">Insecure Direct Object References (IDOR)</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Hackviser</h3>
+    <div class="subheading mb-4">March 2026 · Web Application Security Labs</div>
+    <p class="lead mb-4">Practice insecure direct object references (IDOR) attacks in multiple lab exercises.</p>
+	
+	<h5 class="mb-2">1. Invoices</h5>
+    <p class="mb-3"><strong>This lab contains an Insecure Direct Object References (IDOR) vulnerability that allows unauthorized access to other customers' invoices. To complete this lab, access other customers' invoices by changing the "invoice_id" value in the URL and find the invoice for the customer named "Emilia Rawne". What is the email address of the customer named Emilia Rawne?</strong></p>
+	<p class="mb-5"><strong>Answer:</strong> </p>
+
+    <h5 class="mb-2">2. Ticket Sales</h5>
+    <p class="mb-3"><strong>This lab contains an Insecure Direct Object References (IDOR) vulnerability that causes a product to be offered at a lower price. Your starting balance will not be enough to purchase tickets. To complete the lab, purchase tickets by manipulating the price sent to the server during ticket purchase. What is the order id that appears after the ticket is purchased?</strong></p>
+    <p class="mb-5"><strong>Answer:</strong> </p>
+
+	<h5 class="mb-2">3. Change Password</h5>
+    <p class="mb-3"><strong>This lab contains an Insecure Direct Object References (IDOR) vulnerability that leads to unauthorized password change of other users. To complete the lab, change the password of user "admin" by exploiting the IDOR vulnerability in the password change endpoint and log in to his account. What is the phone number of user "admin"? (Answer Format: 000-000-0000)</strong></p>
+	<p class="mb-5"><strong>Answer:</strong> </p>
+
+	<h5 class="mb-2">4. Money Transfer</h5>
+    <p class="mb-3"><strong>This lab contains an Insecure Direct Object References (IDOR) vulnerability that allows you to transfer money from another user's account. To complete the lab, transfer money from user "User 2" to your own account ("User 1") by exploiting the IDOR vulnerability in the endpoint performing the money transfer. What is the transfer ID that appears when money arrives in the user account?</strong></p>
+	<p class="mb-5"><strong>Answer:</strong> </p>
+
+	<h5 class="mb-2">5. Update Account</h5>
+    <p class="mb-3"><strong>This lab contains an Insecure Direct Object References (IDOR) vulnerability that leads to unauthorized modification of other users' account information. To complete the lab, identify the IDOR vulnerability in the endpoint where you can change the account information of user "Renee Misson". View other users' account information. What is the phone number of user "Renee Misson" (Answer Format: 000-000-0000)</strong></p>
+	<p class="mb-5"><strong>Answer:</strong> </p>
+
+
+    <hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/webapplicationsecurity_cmdinjection.html">next Hacking Lab</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">March 2026</p>
+	</section>
+
+
+	<footer class="pt-4">
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
+			<i class="fas fa-arrow-up"></i> Scroll to Top
+		</button>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
