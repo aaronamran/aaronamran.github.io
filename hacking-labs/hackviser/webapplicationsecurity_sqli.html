@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+        rel="stylesheet"
+        type="text/css"
+    />
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+        rel="stylesheet"
+        type="text/css"
+    />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/trainings/"
+							>Trainings</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li> -->
+				</ul>
+			</div>
+		</nav>
+<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
+	<header class="pb-4">
+        <a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+        <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i> Scroll to Bottom
+        </button>
+    </header>
+	<div class="d-flex justify-content-start align-items-center mb-3">
+		<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/sqli_hackviser_logo.png" alt="Hackviser logo" style="height:64px; width:auto; margin-left:0; margin-right:16px; flex:0 0 auto;" />
+		<h2 class="mb-0 fw-semibold">SQL Injection</h2>
+	</div>
+	<h3 class="mb-2 text-muted">Hackviser</h3>
+    <div class="subheading mb-4">March 2026 · Web Application Security Labs</div>
+    <p class="lead mb-4">Practice SQL Injection attacks in multiple lab exercises.</p>
+	
+	<h5 class="mb-2">1. Basic SQL Injection</h5>
+    <p class="mb-3"><strong>This lab contains a SQL Injection vulnerability in the login function. To complete the lab, bypass the login step by performing a SQL Injection attack. What is the email address of the user named Sky Raincin?</strong></p>
+    <p class="mb-3">This lab challenge is straightforward. Try entering <code>Sky Raincin&apos; or 1=1 #</code> in the username field and <code>pw&apos; or 1=1 #</code> in the password field. The statement <code>1=1</code> is a "tautology" as it is always true. In SQL logic, when you use <code>OR</code>, the entire statement becomes true if either side is true. The <code>#</code> (or <code>--</code> in some databases) tells the SQL engine to ignore everything after it. This is the "secret sauce" of the bypass.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/basicsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">The login authentication is successfully bypassed. If the code checks the username first (which is standard), the username payload likely did all the work. Here is how the query was transformed: <code>SELECT * FROM users WHERE username = 'Sky Raincin' or 1=1 #' AND password = '...'</code> Because of the <code>#</code>, the database actually executed this: <code>SELECT * FROM users WHERE username = 'Sky Raincin' OR 1=1</code>. Since <code>1=1</code> is true, the database returns the first user in the table. If "Sky Raincin" is the first user (or the only one matching that specific string), you're in. Even if the username was wrong, <code>OR 1=1</code> would return the first account in the database which is often the Admin.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/basicsqli_hackviser_image2.png" alt="Web Application Security SQL Injection 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-5"><strong>Answer:</strong> sraincin0@moonfruit.hv</p>
+
+    <h5 class="mb-2">2. Union-Based SQL Injection</h5>
+    <p class="mb-3"><strong>This lab contains a SQL injection vulnerability in the search function. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To complete the lab, perform a SQL injection UNION attack that retrieves database name. What is the password for the user named "oliverlee" in the database?</strong></p>
+    <p class="mb-3">There is a search input field for us to try out SQL injection. The overall process is to first determine the number of columns, find the database name, find the table and column names, and finally retrieve oliverlee's password.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image1.png" alt="Web Application Security SQL Injection 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">We can see that there are four columns visible, so our base payload would likely need four columns. We can test this first with the payload <code>Ford' ORDER BY 1 --</code>. This payload however does not work due to syntax mismatch, which explains why we are getting HTTP 500 errors.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image2.png" alt="Web Application Security SQL Injection 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">We now test with the payload <code>Ford' ORDER BY 1 -- -</code>. This payload works correctly, allowing us to proceed with the next step of the SQL injection attack.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image3.png" alt="Web Application Security SQL Injection 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">Testing with the payload <code>Ford' ORDER BY 5 -- -</code> returns an error, indicating that there are only four columns in the query.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image4.png" alt="Web Application Security SQL Injection 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">We test with the payload <code>Ford' UNION SELECT 'a','b','c','d'-- -</code>. If the table shows a, b, c, d in the rows, then all columns are "string-friendly". Otherwise, if it gives a 500 error, it means one of those columns (likely the # or Year column) expects a number, not a letter.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image5.png" alt="Web Application Security SQL Injection 7" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">Since the previous payload works, we now use this payload to get the name of the database: <code>Ford' UNION SELECT 1, database(), 3, 4-- -</code></p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image6.png" alt="Web Application Security SQL Injection 8" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">Then we use this payload <code>Ford' UNION SELECT 1, table_name, 3, 4 FROM information_schema.tables WHERE table_schema = 'ecliptica_cars'-- -</code> to list all the tables in the ecliptica_cars database.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image7.png" alt="Web Application Security SQL Injection 9" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">Now to find the column names of the users table, we use <code>' UNION SELECT 1, column_name, 3, 4 FROM information_schema.columns WHERE table_name = 'users'-- -</code>.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image8.png" alt="Web Application Security SQL Injection 10" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-3">Since we already have the column names, we can now retrieve the password for the user named "oliverlee" by using <code>' UNION SELECT 1, username, password, 4 FROM users WHERE username = 'oliverlee'-- -</code>.</p>
+    <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/unionbased_sqli_hackviser_image9.png" alt="Web Application Security SQL Injection 11" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+    <p class="mb-5"><strong>Answer:</strong> JWa86o4qsUgh</p>
+
+
+    <hr />
+	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/webapplicationsecurity_unrestrictedfileupload.html">next Hacking Lab</a>.</p>
+		<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+		<p class="text-muted small mt-1">March 2026</p>
+	</section>
+
+
+	<footer class="pt-4">
+		<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return</a>
+		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
+			<i class="fas fa-arrow-up"></i> Scroll to Top
+		</button>
+	</footer>
+</main>
+<div id="stars"></div>
+<div id="stars2"></div>
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
