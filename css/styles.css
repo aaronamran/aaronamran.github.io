@@ -11838,8 +11838,96 @@ input:checked + .slider:before {
 }
 
 .active-button {
-	background-color: #5f89e0 !important;
-	border-color: #5f89e0 !important;
+	background-color: #bd5d38 !important;
+	border-color: #bd5d38 !important;
+}
+
+/* Certification Filter Toggle */
+.cert-filter-toggle {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 50px;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.cert-filter-toggle .filter-btn {
+	padding: 8px 20px;
+	border: 2px solid #6c757d;
+	background-color: transparent;
+	color: #ffffff;
+	border-radius: 25px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	display: inline-block;
+}
+
+.cert-filter-toggle .filter-btn:hover {
+	background-color: rgba(108, 117, 125, 0.3);
+	color: #ffffff;
+}
+
+/* Offensive Security - Red */
+.cert-filter-toggle .filter-btn.filter-offensive {
+	border-color: #dc3545;
+}
+
+.cert-filter-toggle .filter-btn.filter-offensive:hover {
+	background-color: rgba(220, 53, 69, 0.3);
+}
+
+.cert-filter-toggle .filter-btn.filter-offensive.active {
+	background-color: #dc3545;
+	color: #ffffff;
+	border-color: #dc3545;
+}
+
+/* All Certifications - Neutral Gray */
+.cert-filter-toggle .filter-btn.filter-all {
+	border-color: #6c757d;
+}
+
+.cert-filter-toggle .filter-btn.filter-all:hover {
+	background-color: rgba(108, 117, 125, 0.3);
+}
+
+.cert-filter-toggle .filter-btn.filter-all.active {
+	background-color: #6c757d;
+	color: #ffffff;
+	border-color: #6c757d;
+}
+
+/* Defensive/Blue Team - Blue (for future use) */
+.cert-filter-toggle .filter-btn.filter-defensive {
+	border-color: #0d6efd;
+}
+
+.cert-filter-toggle .filter-btn.filter-defensive:hover {
+	background-color: rgba(13, 110, 253, 0.3);
+}
+
+.cert-filter-toggle .filter-btn.filter-defensive.active {
+	background-color: #0d6efd;
+	color: #ffffff;
+	border-color: #0d6efd;
+}
+
+/* Cloud - Cyan (for future use) */
+.cert-filter-toggle .filter-btn.filter-cloud {
+	border-color: #0dcaf0;
+}
+
+.cert-filter-toggle .filter-btn.filter-cloud:hover {
+	background-color: rgba(13, 202, 240, 0.3);
+}
+
+.cert-filter-toggle .filter-btn.filter-cloud.active {
+	background-color: #0dcaf0;
+	color: #ffffff;
+	border-color: #0dcaf0;
 }
 
 .certification-card {
