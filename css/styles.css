@@ -12294,6 +12294,10 @@ input:checked + .slider:before {
 	max-height: 100%;
 	object-fit: contain;
 }
+.ctf-card-logo-img.ctf-logo-smaller {
+	max-width: 70%;
+	max-height: 70%;
+}
 .ctf-card-body {
 	flex: 1 1 auto;
 	min-width: 0;
