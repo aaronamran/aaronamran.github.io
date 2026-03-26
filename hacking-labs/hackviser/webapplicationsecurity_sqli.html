@@ -146,15 +146,33 @@
 
 	<h5 class="mb-2">3. Boolean-Based Blind SQL Injection</h5>
     <p class="mb-3"><strong>This lab contains is a SQL Injection vulnerability in the stock control function. Due to the business logic, only "available in stock" or "not available in stock" response is received from the server. To complete the lab, perform a Blind SQL Injection attack using these two possibilities and retrieve the database name. What is the database name?</strong></p>
-	<p class="mb-5"><strong>Answer:</strong> </p>
+	<p class="mb-3">We see that the website shows a dropdown list of items to select from for checking stock availability.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 12" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-3">By intercepting the POST request in Burp Suite, we discover the parameter responsible for checking stock availability.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image2.png" alt="Web Application Security SQL Injection 13" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-3">We then use SQLmap to automate the Blind SQL Injection attack and retrieve the database name. In the Linux terminal, use <code>sqlmap -u [target_URL] --data="search=iphone11" --dbs</code>.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image3.png" alt="Web Application Security SQL Injection 14" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image4.png" alt="Web Application Security SQL Injection 15" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-3">The database name is revealed to be "echo_store".</p>
+	<p class="mb-5"><strong>Answer:</strong> echo_store</p>
 
 	<h5 class="mb-2">4. Time-Based Blind SQL Injection</h5>
-    <p class="mb-3"><strong>This lab contains is a SQL Injection vulnerability in the forgot password function. Unlike other SQL Injection labs, the answer returned from the server is always the same. To complete the lab, perform a Time-Based Blind SQL Injection attack observing the changes in response time and retrieve the database name. What is the database name?</strong></p>
-	<p class="mb-5"><strong>Answer:</strong> </p>
+    <p class="mb-3"><strong>This lab contains a SQL Injection vulnerability in the forgot password function. Unlike other SQL Injection labs, the answer returned from the server is always the same. To complete the lab, perform a Time-Based Blind SQL Injection attack observing the changes in response time and retrieve the database name. What is the database name?</strong></p>
+	<p class="mb-3">The website shows a reset password form.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/timebased_blindsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 16" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-3">We can directly use SQLmap to automate the Time-Based Blind SQL Injection attack and retrieve the database name. In the Linux terminal, use <code>sqlmap -u "[target URL]" --data="email=test@test.com" --method=POST --technique=T --current-db</code>. Note that <code>--technique=T</code> specifies the Time-Based Blind SQL Injection technique.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/timebased_blindsqli_hackviser_image2.png" alt="Web Application Security SQL Injection 17" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-5"><strong>Answer:</strong> utopia</p>
 
 	<h5 class="mb-2">5. Error-Based SQL Injection</h5>
     <p class="mb-3"><strong>This lab contains a SQL injection vulnerability. To complete this lab, perform a Error-Based SQL Injection attack using "img" parameter. What is the database name?</strong></p>
-	<p class="mb-5"><strong>Answer:</strong> </p>
+	<p class="mb-3">The website shows an image gallery of various places. Notice the <code>img</code> parameter in the URL.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image1.png" alt="Web Application Security SQL Injection 18" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image2.png" alt="Web Application Security SQL Injection 19" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-3">Use SQLmap to automate the Error-Based SQL Injection attack and retrieve the database name. In the Linux terminal, use <code>sqlmap -u "[target URL]" --batch --current-db</code>. After a while, the database name will be revealed.</p>
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image3.png" alt="Web Application Security SQL Injection 20" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<img src="/assets/hackinglabs/hackviser/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image4.png" alt="Web Application Security SQL Injection 21" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+	<p class="mb-5"><strong>Answer:</strong> heritage_marvels</p>
 
 
     <hr />
