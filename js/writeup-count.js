@@ -1,8 +1,8 @@
 // Writeup counts - update these numbers when adding new content
 const writeupCounts = {
-	vulnerabilityDisclosures: 8,
+	vulnerabilityDisclosures: 9,
 	ctfChallenges: {
-		hackviser: 24,
+		hackviser: 26,
 		hackthebox: 0,
 		overthewire: 1,
 		k8slanparty: 0,
