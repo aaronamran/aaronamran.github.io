@@ -29,6 +29,24 @@
 		/>
 		<!-- Core theme CSS (includes Bootstrap)-->
 		<link href="/css/styles.css" rel="stylesheet" />
+		<style>
+			.section-heading-with-triangle {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				color: #bd5d38;
+			}
+			
+			.section-heading-with-triangle::before {
+				content: '';
+				width: 0;
+				height: 0;
+				border-left: 1rem solid #bd5d38;
+				border-top: 0.6rem solid transparent;
+				border-bottom: 0.6rem solid transparent;
+				flex-shrink: 0;
+			}
+		</style>
 	</head>
 	<body id="page-top">
 		<!-- Navigation-->
@@ -118,27 +136,28 @@
 				<div class="resume-section-content">
 					<h2 class="mb-5">Ethical Hacking</h2>
 					<h3 class="mb-4 fw-lighter">Blogs About Uncovering Vulnerabilities On Real World Targets</h3>
-					<!-- Search field -->
-					<!-- <div class="row">
-						<div class="col-12">
-							<div class="search-container mb-4">
-								<input
-									type="text"
-									id="highlight-search"
-									placeholder="Search highlights..."
-									autocomplete="off"
-								/>
-								<button
-									type="button"
-									id="clear-search"
-									aria-label="Clear search"
-								>
-									<span>&times;</span>
-								</button>
-							</div>
-						</div>
+					
+					<!-- CVE Section (Commented out until first CVE is published) -->
+					<!-- <h4 class="mb-3 mt-4 section-heading-with-triangle">CVEs (Common Vulnerabilities and Exposures)</h4>
+					<p class="text-muted mb-4" style="font-size: 0.95rem;"><em>Formally tracked vulnerabilities assigned official CVE identifiers</em></p>
+					<div class="row justify-content-center">
+						<ul class="blog-list list-unstyled w-100">
+							<li class="blog-list-item mb-3">
+								<a href="/ethicalhacking/cve-example.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
+									<img src="/assets/logo/vendorlogo.png" alt="Vendor logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
+									<div>
+										<h4 class="fw-normal blog-title mb-1">CVE-XXXX-XXXXX: Vulnerability Title</h4>
+										<div class="subheading mb-1"><small>Vendor Name — Month Year • CVSS X.X</small></div>
+										<div class="text-muted">Brief description of the CVE.</div>
+									</div>
+								</a>
+							</li>
+						</ul>
 					</div> -->
-					<!-- Highlight Cards -->
+					
+					<!-- Responsible Disclosures Section -->
+					<h4 class="mb-3 fw-lighter section-heading-with-triangle">Responsible Disclosures (VDP/BBP)</h4>
+					<p class="text-muted mb-4" style="font-size: 0.95rem;"><em>Security findings reported through Vulnerability Disclosure Programs (VDP) and Bug Bounty Platforms (BBP)</em></p>
 					<div class="row justify-content-center">
 						<ul class="blog-list list-unstyled w-100">
 							<!-- <li class="blog-list-item mb-3">
@@ -243,6 +262,7 @@
 							</li>
 						</ul>
 					</div>
+				</div>
 			</section>
 			<footer class="pt-4 pb-4 px-3 px-lg-5">
 				<button
