@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>aaronamran</title>
+		<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+		<!-- Font Awesome icons (free version)-->
+		<script
+			src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- Google fonts-->
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/css/styles.css" rel="stylesheet" />
+		<style>
+			.section-heading-with-triangle {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				color: #bd5d38;
+			}
+			
+			.section-heading-with-triangle::before {
+				content: '';
+				width: 0;
+				height: 0;
+				border-left: 1rem solid #bd5d38;
+				border-top: 0.6rem solid transparent;
+				border-bottom: 0.6rem solid transparent;
+				flex-shrink: 0;
+			}
+		</style>
+	</head>
+	<body id="page-top">
+		<!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+			id="sideNav"
+		>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<span id="navText" class="d-block d-lg-none">Portfolio</span>
+				<span class="d-none d-lg-block"
+					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
+						src="/assets/img/profile.jpg"
+						alt="Profile Picture"
+					width="300" height="300" fetchpriority="high" decoding="async"
+				/></span>
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">About</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
+					</li>
+					<li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
+					</li>
+					<!-- <li class="nav-item portfolio-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
+					</li> -->
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/experience/"
+							>Experience</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/trainings/"
+							>Trainings</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/certifications/"
+							>Certifications</a
+						>
+					</li>
+					<li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/education/"
+							>Education</a
+						>
+					</li>
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
+					</li> -->
+					<!-- <li class="nav-item resume-nav-item">
+						<a class="nav-link js-scroll-trigger" href="/activities/"
+							>Activities</a
+						>
+					</li> -->
+				</ul>
+			</div>
+		</nav>
+		<!-- Page Content-->
+		<div class="container-fluid p-0">
+			<hr class="m-0" />
+			<header class="pt-4 px-3 px-lg-5">
+				<button
+					id="scrollToBottom"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToBottom()"
+				>
+					<i class="fas fa-arrow-down"></i> Scroll to Bottom
+				</button>
+			</header>
+			<!-- CVEs -->
+			<section class="resume-section" id="cves">
+				<div class="resume-section-content">
+					<h2 class="mb-5">Common Vulnerabilities and Exposures (CVEs)</h2>
+					<h3 class="mb-4 fw-lighter section-heading-with-triangle">Blogs About Discovering Zero-Day Vulnerabilities For CVEs On Real World Products</h3>
+					
+					<!-- CVEs Section -->
+					<div class="row justify-content-center">
+						<ul class="blog-list list-unstyled w-100">
+							<!-- <li class="blog-list-item mb-3">
+							<a href="/ethicalhacking/nasa-vdp-writeup-2025-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
+								<img src="/assets/logo/nasalogo.png" alt="NASA logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
+									<div>
+										<h4 class="fw-normal blog-title mb-1">NASA's Misconfigured Google Drive Permissions</h4>
+									<div class="subheading mb-1"><small>National Aeronautics and Space Administration (NASA) VDP — Aug 2025 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
+										<div class="text-muted">Identified misconfigured security permissions in NASA’s Google Drive, earning a Letter of Recommendation from NASA.</div>
+									</div>
+								</a>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+			</section>
+			<footer class="pt-4 pb-4 px-3 px-lg-5">
+				<button
+					id="scrollToTop"
+					class="btn btn-outline-light ms-2"
+					onclick="scrollToTop()"
+				>
+					<i class="fas fa-arrow-up"></i> Scroll to Top
+				</button>
+			</footer>
+
+				
+			<!-- <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+					<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
+				<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
+				<p class="text-muted small mt-1">February 2026</p>
+			</section>
+			
+				<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
+					<div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
+						<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
+					</div>
+					<div class="modal-body" style="color:#dcdfe4;">				<div class="text-center mb-3">
+							<img src="../assets/img/bnwimage.gif" alt="Coming soon" style="max-width:100%; height:auto;" loading="lazy" />
+						</div>				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
+						<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
+						<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
+					</div>
+					<div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
+						<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+					</div>
+					</div>
+				</div>
+				</div>
+
+
+			<footer style="padding-top:2rem;">
+				<a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
+				<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
+					<i class="fas fa-arrow-up"></i> Scroll to Top
+				</button>
+			</footer> -->
+
+
+		</div>
+		<div id="stars"></div>
+		<div id="stars2"></div>
+		<!-- Bootstrap core JS-->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"
+		></script>
+		<!-- Core theme JS-->
+		<script src="/js/scripts.js"></script>
+	</body>
+</html>
