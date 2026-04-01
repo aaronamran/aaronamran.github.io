@@ -29,6 +29,24 @@
 		/>
 		<!-- Core theme CSS (includes Bootstrap)-->
 		<link href="/css/styles.css" rel="stylesheet" />
+		<style>
+			.section-heading-with-triangle {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				color: #bd5d38;
+			}
+			
+			.section-heading-with-triangle::before {
+				content: '';
+				width: 0;
+				height: 0;
+				border-left: 1rem solid #bd5d38;
+				border-top: 0.6rem solid transparent;
+				border-bottom: 0.6rem solid transparent;
+				flex-shrink: 0;
+			}
+		</style>
 	</head>
 	<body id="page-top">
 		<!-- Navigation-->
@@ -107,7 +125,7 @@
 			<section class="resume-section" id="ctf-writeups">
 				<div class="resume-section-content">
 					<h2 class="mb-5">Hacking Labs</h2>
-					<h3 class="mb-4 fw-lighter">Writeups of Completed Practical Hacking Labs</h3>
+					<h3 class="mb-4 fw-lighter section-heading-with-triangle">Writeups of Completed Practical Hacking Labs</h3>
 					<!-- Search field -->
 					<!-- <div class="row">
 						<div class="col-12">
