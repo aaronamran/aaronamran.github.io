@@ -1,128 +1,74 @@
-ï»¿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>aaronamran</title>
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script
-        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-        crossorigin="anonymous"
-    ></script>
-    <!-- Google fonts-->
-    <link
-        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
-        rel="stylesheet"
-        type="text/css"
-    />
-    <link
-        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
-        rel="stylesheet"
-        type="text/css"
-    />
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/css/styles.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aaronamran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
 </head>
-<body id="page-top">
-    <!-- Navigation-->
-		<nav
-			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
-			id="sideNav"
-		>
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">
-				<span id="navText" class="d-block d-lg-none">Portfolio</span>
-				<span class="d-none d-lg-block"
-					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
-						src="../assets/img/profile.jpg"
-						alt="Profile Picture"
-				/></span>
-			</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/">About</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
-					</li>
-					<!-- <li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
-					</li> -->
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/experience/"
-							>Experience</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/trainings/"
-							>Trainings</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/certifications/"
-							>Certifications</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/education/"
-							>Education</a
-						>
-					</li>
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
-					</li> -->
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/activities/"
-							>Activities</a
-						>
-					</li> -->
-				</ul>
-			</div>
-		</nav>
-<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
-    <header style="padding-bottom:2rem;">
-        <a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
-        <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
-            <i class="fas fa-arrow-down"></i> Scroll to Bottom
-        </button>
+<body>
+
+  <div class="site-frame">
+
+    <!-- __ Topbar __ -->
+    <header class="topbar">
+      <nav class="topbar-inner">
+        <div class="topbar-links">
+          <a href="../index.html#about"          class="tl">About</a>
+          <a href="../ethicalhacking/"           class="tl active">Ethical_Hacking</a>
+          <a href="../hacking-labs/"             class="tl">Hacking_Labs</a>
+          <a href="../index.html#experience"     class="tl">Experience</a>
+          <a href="../index.html#certifications" class="tl">Certifications</a>
+          <a href="../index.html#education"      class="tl">Education</a>
+          <a href="../index.html#trainings"      class="tl">Trainings</a>
+        </div>
+        <div class="topbar-actions">
+          <div class="palette-swatches" id="paletteSwatches" aria-label="Accent color">
+            <button class="swatch" data-palette="cyan"  title="Cyber Cyan" style="--sw:#00D1FF"></button>
+            <button class="swatch" data-palette="green" title="Emerald"    style="--sw:#39d353"></button>
+            <button class="swatch" data-palette="pink"  title="Hot Pink"   style="--sw:#FF2E97"></button>
+          </div>
+          <a href="https://github.com/aaronamran" class="icon-btn" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/aaronamran/" class="icon-btn" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+            <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg id="icon-sun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </nav>
     </header>
-	<div class="d-flex align-items-center mb-3">
-		<img src="/assets/logo/nasalogo.png" alt="NASA logo" style="height:96px; width:auto; margin-right:16px;" />
-		<h2 class="mb-0 fw-semibold">NASA's Misconfigured Google Drive Permissions</h2>
-	</div>
-	<h3 class="mb-2 text-muted">National Aeronautics and Space Administration (NASA)</h3>
-    <div class="subheading mb-4">August 2025 Â· Vulnerability Disclosure Program</div>
+
+    <!-- __ Article __ -->
+    <div class="writeup-body">
+      <a href="./" class="back-link">&larr; Back to Ethical Hacking</a>
+
+      <div class="writeup-header">
+        <img src="../assets/logo/nasalogo.png" alt="NASA logo" class="writeup-logo" />
+        <div class="writeup-header-text">
+          <div class="writeup-org">National Aeronautics and Space Administration (NASA)</div>
+          <h1 class="writeup-title">NASA's Misconfigured Google Drive Permissions</h1>
+          <div class="writeup-date">August 2025 &mdash; Vulnerability Disclosure Program</div>
+        </div>
+      </div>
     <p class="lead mb-4">It all started in November 2024, when I began taking my slow transition into cybersecurity more seriously. At that time I was six months into working as an ICT Technician, juggling full-time work while studying and experimenting during whatever free time I had, mostly in the evenings after work. One day, while scrolling through LinkedIn, I came across several viral posts from ethical hackers around the world sharing their success stories of finding security vulnerabilities at NASA.</p>
-	<p class="lead mb-4">I was immediately intrigued and wanted to try it out for myself. I researched NASAâ€™s Vulnerability Disclosure Program (VDP) and discovered that it was a public program where anyone could responsibly report security vulnerabilities on NASAâ€™s systems. With nothing to lose, I decided to give it a shot and began looking for potential vulnerabilities on NASAâ€™s public-facing websites and applications.</p>
+	<p class="lead mb-4">I was immediately intrigued and wanted to try it out for myself. I researched NASA’s Vulnerability Disclosure Program (VDP) and discovered that it was a public program where anyone could responsibly report security vulnerabilities on NASA’s systems. With nothing to lose, I decided to give it a shot and began looking for potential vulnerabilities on NASA’s public-facing websites and applications.</p>
     
 	<img src="../assets/ethicalhacking/nasagdrive/NASA_VDP_Letter_of_Appreciation_2025_Google_Drive.png" alt="NASA VDP" class="img-fluid rounded mb-4" style="max-width: 540px;" width="540" height="304" loading="lazy" decoding="async">
     
-    <p class="lead mb-4">At that point, my knowledge was mostly theoretical and roughly equivalent to the CompTIA Security+ syllabus. Despite the lack of experience, I decided to take the leap and registered an account on Bugcrowd, targeting NASAâ€™s VDP specifically. What was the worst that could happen? At best, I would find something. At worst, I would make mistakes and learn from them.</p>
+    <p class="lead mb-4">At that point, my knowledge was mostly theoretical and roughly equivalent to the CompTIA Security+ syllabus. Despite the lack of experience, I decided to take the leap and registered an account on Bugcrowd, targeting NASA’s VDP specifically. What was the worst that could happen? At best, I would find something. At worst, I would make mistakes and learn from them.</p>
 	<p class="lead mb-4">My instincts told me that I would probably progress faster by focusing on CTFs and structured learning platforms. However, impatience, and perhaps a bit of greed, got the better of me. I wanted to discover a valid vulnerability on NASA.</p>
-	<p class="lead mb-4">I read countless write-ups on Medium and searched for success stories on LinkedIn. Every article provided new insights, but I quickly realized that most of what I learned could not be directly reused against NASAâ€™s VDP. Vulnerability Disclosure Programs and bug bounties operate on a strict first-come, first-served basis. Only the first person to report a valid vulnerability receives credit, while subsequent reports of the same issue receive nothing.</p>
+	<p class="lead mb-4">I read countless write-ups on Medium and searched for success stories on LinkedIn. Every article provided new insights, but I quickly realized that most of what I learned could not be directly reused against NASA’s VDP. Vulnerability Disclosure Programs and bug bounties operate on a strict first-come, first-served basis. Only the first person to report a valid vulnerability receives credit, while subsequent reports of the same issue receive nothing.</p>
 	<p class="lead mb-4">At this point, you might be wondering how someone as inexperienced as I was could possibly find something new, given that thousands of far more skilled hackers had already tested the same target. One key lesson I learned from experienced hackers was this. The more reconnaissance you perform on a target, the larger the attack surface you uncover, and the higher the probability of finding a security flaw waiting to be exploited. In simple terms, this is a game of probability.</p>
 	<p class="lead mb-4">That realization pushed me to fully commit to Google Dorking.</p>
-	<p class="lead mb-4">Google Dorking is the practice of using advanced Google search operators to uncover hidden information on the internet. I spent days and nights crafting various Google dorks to search for exposed files, directories, and parameters across NASAâ€™s public-facing domains. I was determined to find something others had overlooked. I did discover many documents that appeared confidential, or so I thought. Each time I submitted a report through Bugcrowd, it was triaged as P5, Informational, and therefore not eligible for NASAâ€™s Letter of Recommendation. I later learned that many of these documents were intentionally public under FOIA, the Freedom of Information Act.</p>
+	<p class="lead mb-4">Google Dorking is the practice of using advanced Google search operators to uncover hidden information on the internet. I spent days and nights crafting various Google dorks to search for exposed files, directories, and parameters across NASA’s public-facing domains. I was determined to find something others had overlooked. I did discover many documents that appeared confidential, or so I thought. Each time I submitted a report through Bugcrowd, it was triaged as P5, Informational, and therefore not eligible for NASA’s Letter of Recommendation. I later learned that many of these documents were intentionally public under FOIA, the Freedom of Information Act.</p>
 	<p class="lead mb-4">After six weeks of relentless Google Dorking during my limited free time, on 28 December 2024, I finally stumbled upon a PowerPoint presentation slide from NASA, thanks to the following Google Dork:</p>
 	<div class="text-center mb-4">
 		<div style="display:inline-block; text-align:left; position:relative;">
@@ -150,22 +96,19 @@
 
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2025-first.html">next hack</a>.</p>
-		<p class="mb-0" style="font-weight:700;">â€” @aaronamran</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="./lawrenceberkeleynationallab-vdp-writeup-2025-first.html">next hack</a>.</p>
+		<p class="mb-0" style="font-weight:700;">@aaronamran</p>
 		<p class="text-muted small mt-1">August 2025</p>
 	</section>
 
+    <div class="writeup-nav">
+      <a href="lawrenceberkeleynationallab-vdp-writeup-2025-first.html" class="back-link" style="margin-left:auto">&rarr; Next</a>
+    </div>
 
-	<footer style="padding-top:2rem;">
-		<a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
-		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
-			<i class="fas fa-arrow-up"></i> Scroll to Top
-		</button>
-	</footer>
-</main>
-<div id="stars"></div>
-<div id="stars2"></div>
-<script src="/js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </div>
+
+  </div>
+  <script src="../js/scripts.js"></script>
+
 </body>
 </html>

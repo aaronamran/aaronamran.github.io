@@ -1,267 +1,121 @@
-﻿/*!
- * Start Bootstrap - Resume v7.0.6 (https://startbootstrap.com/theme/resume)
- * Copyright 2013-2023 Start Bootstrap
- * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-resume/blob/master/LICENSE)
- */
-//
-// Scripts
-//
+/* ═══════════════════════════════════════════════
+   scripts.js — Shared site logic
+   Palette / theme toggle + "You're all caught up" modal
+   ═══════════════════════════════════════════════ */
+(function () {
 
-window.addEventListener("DOMContentLoaded", (event) => {
-	// Activate Bootstrap scrollspy on the main nav element
-	const sideNav = document.body.querySelector("#sideNav");
-	if (sideNav) {
-		new bootstrap.ScrollSpy(document.body, {
-			target: "#sideNav",
-			rootMargin: "0px 0px -40%",
-		});
-	}
+  /* ── Palette & theme ── */
+  const PALETTES = {
+    green: { dark: { accent: '#39d353', dim: 'rgba(57,211,83,0.12)'  }, light: { accent: '#1a7f37', dim: 'rgba(26,127,55,0.08)'  } },
+    cyan:  { dark: { accent: '#00D1FF', dim: 'rgba(0,209,255,0.12)'  }, light: { accent: '#0284c7', dim: 'rgba(2,132,199,0.10)'  } },
+    pink:  { dark: { accent: '#FF2E97', dim: 'rgba(255,46,151,0.14)' }, light: { accent: '#c2185b', dim: 'rgba(194,24,91,0.10)'  } },
+  };
 
-	// Highlight active navigation based on current page URL
-	const currentPath = window.location.pathname;
-	const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
-	
-	navLinks.forEach(link => {
-		const href = link.getAttribute("href");
-		
-		// Check if the current path matches the link href
-		if (href && currentPath.includes(href) && href !== "/") {
-			link.classList.add("active");
-		} else if (href === "/" && (currentPath === "/" || currentPath === "/index.html")) {
-			// Special case for home page
-			link.classList.add("active");
-		}
-	});
+  const root     = document.documentElement;
+  const toggle   = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('icon-moon');
+  const iconSun  = document.getElementById('icon-sun');
 
-	// Collapse responsive navbar when toggler is visible
-	const navbarToggler = document.body.querySelector(".navbar-toggler");
-	const responsiveNavItems = [].slice.call(
-		document.querySelectorAll("#navbarResponsive .nav-link")
-	);
-	responsiveNavItems.map(function (responsiveNavItem) {
-		responsiveNavItem.addEventListener("click", () => {
-			if (window.getComputedStyle(navbarToggler).display !== "none") {
-				navbarToggler.click();
-			}
-		});
-	});
-});
+  function applyPalette(name) {
+    const theme  = root.dataset.theme || 'dark';
+    const tokens = (PALETTES[name] || PALETTES.green)[theme];
+    root.style.setProperty('--accent',     tokens.accent);
+    root.style.setProperty('--accent-dim', tokens.dim);
+    document.querySelectorAll('.swatch').forEach(s =>
+      s.classList.toggle('active', s.dataset.palette === name));
+    localStorage.setItem('accent-palette', name);
+  }
 
-// for Projects section
-let currentCategory = "all";
-// Debug flag for filter troubleshooting
-const DEBUG_FILTER = false;
+  function applyTheme(t) {
+    root.dataset.theme = t;
+    iconMoon.style.display = t === 'dark'  ? '' : 'none';
+    iconSun.style.display  = t === 'light' ? '' : 'none';
+    localStorage.setItem('demo-theme', t);
+    applyPalette(localStorage.getItem('accent-palette') || 'green');
+  }
 
-// Helper: Highlight search term in a string (case-insensitive)
-function highlightText(text, searchText) {
-	if (!searchText) return text;
-	// Escape regex special chars in searchText
-	const escaped = searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-	const regex = new RegExp(escaped, "gi");
-	return text.replace(regex, (match) => `<mark>${match}</mark>`);
-}
+  applyTheme(localStorage.getItem('demo-theme') || 'dark');
 
-function filterProjects(category, searchText = "") {
-	// Normalize category and searchText
-	currentCategory = (category || currentCategory).toLowerCase();
-	searchText = (searchText || "").toLowerCase();
+  toggle.addEventListener('click', () =>
+    applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
 
-	const cards = document.getElementsByClassName("project-card");
-	if (DEBUG_FILTER) console.log('filterProjects called:', { currentCategory, searchText });
-	for (let i = 0; i < cards.length; i++) {
-		const card = cards[i];
-		// Category filter using data-category attribute (normalized)
-		const cardCategory = (card.getAttribute('data-category') || "").toLowerCase().trim();
-		const isAlways = (card.getAttribute('data-always') || '').toLowerCase() === 'true';
-		const matchesCategory = currentCategory === "all" || cardCategory === currentCategory || isAlways;
-		if (DEBUG_FILTER) console.log(`card[${i}]`, { cardCategory, matchesCategory });
+  document.getElementById('paletteSwatches').addEventListener('click', e => {
+    const btn = e.target.closest('.swatch');
+    if (btn) applyPalette(btn.dataset.palette);
+  });
 
-		// Get elements
-		const titleElem = card.querySelector("h3");
-		const descElem = card.querySelector("div.project-info > div:last-child");
-		const subheadingElem = card.querySelector(".subheading");
+  /* ── Mobile nav hamburger (injected; hidden on desktop via CSS) ── */
+  const topbarInner = document.querySelector('.topbar-inner');
+  if (topbarInner) {
+    const navToggle = document.createElement('button');
+    navToggle.id = 'navToggle';
+    navToggle.className = 'icon-btn';
+    navToggle.setAttribute('aria-label', 'Toggle navigation');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+    topbarInner.insertBefore(navToggle, topbarInner.firstChild);
+    navToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = topbarInner.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.addEventListener('click', e => {
+      if (!topbarInner.contains(e.target)) {
+        topbarInner.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 
-		// Get text
-		const title = titleElem?.textContent || "";
-		const desc = descElem?.textContent || "";
-		const subheading = subheadingElem?.textContent || "";
+  /* ── "You're all caught up" modal ──
+     Activated on any page that has an element with id="nextHackLink".
+     The modal is injected into the DOM dynamically so no per-page HTML is needed.
+  ── */
+  const nextLink = document.getElementById('nextHackLink');
+  if (nextLink) {
+    // Inject modal markup
+    const overlay = document.createElement('div');
+    overlay.id        = 'cuModal';
+    overlay.className = 'cu-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'cuModalTitle');
+    overlay.innerHTML = `
+      <div class="cu-box">
+        <div class="cu-header">
+          <span id="cuModalTitle">You're all caught up</span>
+        </div>
+        <div class="cu-body">
+          <div class="cu-img-wrap">
+            <img src="/assets/img/bnwimage.gif" alt="" loading="lazy" />
+          </div>
+          <p>Looks like you're enjoying the blog and have reached the end.</p>
+          <p>The next post depends on my next valid submission. Don't worry &mdash; recon for the next story is already in progress.</p>
+          <p class="cu-regards">Regards,<br>@aaronamran</p>
+        </div>
+        <div class="cu-footer">
+          <button id="cuClose" class="cu-btn">Close</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
 
-		// Search filter
-		const matchesSearch =
-			title.toLowerCase().includes(searchText) ||
-			desc.toLowerCase().includes(searchText) ||
-			subheading.toLowerCase().includes(searchText);
+    function openModal(e) {
+      e.preventDefault();
+      overlay.classList.add('active');
+      document.getElementById('cuClose').focus();
+    }
 
-		if (matchesCategory && matchesSearch) {
-			// ensure visible: add show class and set display:flex for proper layout
-			card.classList.add('show');
-			card.style.display = 'flex';
-			// Highlight matches
-			if (searchText) {
-				if (titleElem) titleElem.innerHTML = highlightText(title, searchText);
-				if (descElem) descElem.innerHTML = highlightText(desc, searchText);
-				if (subheadingElem)
-					subheadingElem.innerHTML = highlightText(subheading, searchText);
-			} else {
-				// Remove highlights (reset to original text)
-				if (titleElem) titleElem.innerHTML = title;
-				if (descElem) descElem.innerHTML = desc;
-				if (subheadingElem) subheadingElem.innerHTML = subheading;
-			}
-		} else {
-			// hide reliably: remove show class and set display none
-			card.classList.remove('show');
-			card.style.display = 'none';
-			// Remove highlights if card is hidden
-			if (titleElem) titleElem.innerHTML = title;
-			if (descElem) descElem.innerHTML = desc;
-			if (subheadingElem) subheadingElem.innerHTML = subheading;
-		}
-	}
-}
+    function closeModal() {
+      overlay.classList.remove('active');
+      nextLink.focus();
+    }
 
-// Listen for radio button changes
-document.addEventListener("DOMContentLoaded", function () {
-	// Initial filter
-	filterProjects("all", "");
+    nextLink.addEventListener('click', openModal);
+    document.getElementById('cuClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+  }
 
-	// Search input
-	const searchInput = document.getElementById("project-search");
-	if (searchInput) {
-		searchInput.addEventListener("input", function () {
-			filterProjects(currentCategory, this.value);
-			// Show/hide clear button
-			document.getElementById("clear-search").style.display = this.value
-				? "block"
-				: "none";
-		});
-	}
-
-	// Clear button
-	const clearBtn = document.getElementById("clear-search");
-	if (clearBtn && searchInput) {
-		clearBtn.addEventListener("click", function () {
-			searchInput.value = "";
-			filterProjects(currentCategory, "");
-			searchInput.focus();
-			clearBtn.style.display = "none";
-		});
-		// Hide clear button initially
-		clearBtn.style.display = "none";
-	}
-});
-
-// Show filtered elements
-function addClass(element, name) {
-	// Use classList to reliably add classes (handles whitespace and duplicates)
-	if (!element || !name) return;
-	name.split(/\s+/).forEach((cls) => {
-		if (cls) element.classList.add(cls);
-	});
-}
-
-// Hide elements that are not selected
-function removeClass(element, name) {
-	// Use classList to reliably remove classes
-	if (!element || !name) return;
-	name.split(/\s+/).forEach((cls) => {
-		if (cls) element.classList.remove(cls);
-	});
-}
-
-// Add active class to the current control button (highlight it)
-var btnContainer = document.getElementById("radioButtonContainer");
-if (btnContainer) {
-	// Radio buttons removed: project filtering will not use radio inputs
-}
-
-// Copy-to-clipboard for the Google dork code block
-function initDorkCopy() {
-	const btn = document.getElementById('copyDorkBtn');
-	const code = document.getElementById('dorkCode');
-	if (!btn || !code) return;
-
-	// Avoid attaching multiple handlers
-	if (btn._dorkInitialized) return;
-	btn._dorkInitialized = true;
-
-	const originalText = btn.textContent;
-	const originalClass = btn.className;
-
-	async function handleCopy() {
-		try {
-			await navigator.clipboard.writeText(code.textContent.trim());
-		} catch (e) {
-			// fallback
-			const ta = document.createElement('textarea');
-			ta.value = code.textContent.trim();
-			document.body.appendChild(ta);
-			ta.select();
-			try {
-				document.execCommand('copy');
-			} catch (err) {}
-			ta.remove();
-		}
-
-		// Update button text/state instead of showing separate indicator
-		btn.textContent = 'Copied!';
-		btn.className = originalClass + ' btn-success';
-
-		// Revert after 5 seconds
-		setTimeout(() => {
-			btn.textContent = originalText;
-			btn.className = originalClass;
-		}, 5000);
-	}
-
-	btn.addEventListener('click', handleCopy);
-}
-
-// Run on initial page load
-document.addEventListener('DOMContentLoaded', function () {
-	initDorkCopy();
-	
-	// Profile picture hover effect
-	const profilePic = document.getElementById('profilePicture');
-	if (profilePic) {
-		profilePic.addEventListener('mouseenter', function() {
-			this.src = '/assets/img/catko.jpg';
-		});
-		profilePic.addEventListener('mouseleave', function() {
-			this.src = '/assets/img/profile.jpg';
-		});
-	}
-});
-
-// Expose for SPA loader to call after injecting article content
-window.initDorkCopy = initDorkCopy;
-
-// Scroll to top/bottom functions
-function scrollToBottom() {
-	// Wait for all images (including lazy-loaded ones) to load
-	const images = document.querySelectorAll('img');
-	const imagePromises = Array.from(images).map(img => {
-		if (img.complete) return Promise.resolve();
-		return new Promise(resolve => {
-			img.addEventListener('load', resolve);
-			img.addEventListener('error', resolve); // resolve even on error
-		});
-	});
-
-	Promise.all(imagePromises).then(() => {
-		// Small delay to ensure layout is complete
-		setTimeout(() => {
-			window.scrollTo({
-				top: document.body.scrollHeight,
-				behavior: "smooth",
-			});
-		}, 100);
-	});
-}
-
-function scrollToTop() {
-	window.scrollTo({
-		top: 0,
-		behavior: "smooth",
-	});
-}
+})();

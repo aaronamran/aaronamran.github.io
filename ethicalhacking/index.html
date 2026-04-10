@@ -1,332 +1,138 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
-		<meta name="description" content="" />
-		<meta name="author" content="" />
-		<title>aaronamran</title>
-		<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
-		<!-- Font Awesome icons (free version)-->
-		<script
-			src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-			crossorigin="anonymous"
-		></script>
-		<!-- Google fonts-->
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-		<link
-			href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
-			rel="stylesheet"
-			type="text/css"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
-			rel="stylesheet"
-			type="text/css"
-		/>
-		<!-- Core theme CSS (includes Bootstrap)-->
-		<link href="/css/styles.css" rel="stylesheet" />
-		<style>
-			.section-heading-with-triangle {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				color: #bd5d38;
-			}
-			
-			.section-heading-with-triangle::before {
-				content: '';
-				width: 0;
-				height: 0;
-				border-left: 1rem solid #bd5d38;
-				border-top: 0.6rem solid transparent;
-				border-bottom: 0.6rem solid transparent;
-				flex-shrink: 0;
-			}
-		</style>
-	</head>
-	<body id="page-top">
-		<!-- Navigation-->
-		<nav
-			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
-			id="sideNav"
-		>
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">
-				<span id="navText" class="d-block d-lg-none">Portfolio</span>
-				<span class="d-none d-lg-block"
-					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
-						src="/assets/img/profile.jpg"
-						alt="Profile Picture"
-					width="300" height="300" fetchpriority="high" decoding="async"
-				/></span>
-			</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/">About</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
-					</li>
-					<!-- <li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
-					</li> -->
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/experience/"
-							>Experience</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/trainings/"
-							>Trainings</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/certifications/"
-							>Certifications</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/education/"
-							>Education</a
-						>
-					</li>
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
-					</li> -->
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/activities/"
-							>Activities</a
-						>
-					</li> -->
-				</ul>
-			</div>
-		</nav>
-		<!-- Page Content-->
-		<div class="container-fluid p-0">
-			<hr class="m-0" />
-			<header class="pt-4 px-3 px-lg-5">
-				<button
-					id="scrollToBottom"
-					class="btn btn-outline-light ms-2"
-					onclick="scrollToBottom()"
-				>
-					<i class="fas fa-arrow-down"></i> Scroll to Bottom
-				</button>
-			</header>
-			<!-- Ethical Hacking -->
-			<section class="resume-section" id="ethicalhacking">
-				<div class="resume-section-content">
-					<h2 class="mb-5">Ethical Hacking</h2>
-					<h3 class="mb-4 fw-lighter section-heading-with-triangle">Blogs About Uncovering Vulnerabilities For Responsible Disclosures On Real World Targets</h3>
-					
-					<!-- CVE Section (Commented out until first CVE is published) -->
-					<!-- <h4 class="mb-3 mt-4 section-heading-with-triangle">CVEs (Common Vulnerabilities and Exposures)</h4>
-					<p class="text-muted mb-4" style="font-size: 0.95rem;"><em>Formally tracked vulnerabilities assigned official CVE identifiers</em></p>
-					<div class="row justify-content-center">
-						<ul class="blog-list list-unstyled w-100">
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/cve-example.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/logo/vendorlogo.png" alt="Vendor logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">CVE-XXXX-XXXXX: Vulnerability Title</h4>
-										<div class="subheading mb-1"><small>Vendor Name — Month Year • CVSS X.X</small></div>
-										<div class="text-muted">Brief description of the CVE.</div>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div> -->
-					
-					<!-- Responsible Disclosures Section -->
-					<div class="row justify-content-center">
-						<ul class="blog-list list-unstyled w-100">
-							<!-- <li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/bayer-vdp-writeup-2026-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-									<img src="/assets/logo/bayerlogo.png" alt="Bayer logo" style="height: 56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">RCE via React2Shell And Sign-In Bypass in Bayer's Internal Dev Environment</h4>
-										<div class="subheading mb-1"><small>Bayer Coordinated Vulnerability Disclosure — Feb 2026 <img src="/assets/flags/german_flag.png" alt="Germany Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Reported two critical vulnerabilities, earning public recognition in Bayer CVD Hall of Fame.</div>
-									</div>
-								</a>
-							</li> -->
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/who-vdp-writeup-2026-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-							<img src="/assets/logo/whologo.png" alt="WHO logo" style="height:48px; width:auto; margin-right:12px; flex:0 0 auto;" width="48" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">World Health Organization's WordPress Vulnerability</h4>
-										<div class="subheading mb-1"><small>World Health Organization (WHO) VDP — April 2026 <img src="/assets/flags/un-flag.png" alt="UN Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Reported multiple WordPress vulnerabilities, earning public recognition via WHO's Vulnerability Hall of Fame.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/unesco-vdp-writeup-2026-second.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-							<img src="/assets/logo/unescologo.png" alt="UNESCO logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">UNESCO's Unprotected Power Supply in Ecuador</h4>
-										<div class="subheading mb-1"><small>United Nations Educational, Scientific and Cultural Organization (UNESCO) VDP — March 2026 <img src="/assets/flags/un-flag.png" alt="UN Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Discovered UNESCO's remote control to power supply in Ecuador, earning public recognition via UNESCO's Cybersecurity Hall of Fame.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/unesco-vdp-writeup-2026-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-							<img src="/assets/logo/unescologo.png" alt="UNESCO logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">UNESCO's Publicly Accessible xmlrpc.php File</h4>
-										<div class="subheading mb-1"><small>United Nations Educational, Scientific and Cultural Organization (UNESCO) VDP — March 2026 <img src="/assets/flags/un-flag.png" alt="UN Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Discovered a publicly accessible xmlrpc.php file, earning public recognition via UNESCO's Cybersecurity Hall of Fame.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/newsouthwalesparliamentaustralia-vdp-2026-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/nswparliamentaustralialogo.png" alt="NSW Parliament Australia logo" style="height:80px; width:auto; margin-right:12px; flex:0 0 auto;" width="64" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Parliament of New South Wales Cyber Vulnerability</h4>
-										<div class="subheading mb-1"><small>Parliament of New South Wales, Australia VDP — February 2026 <img src="/assets/flags/australia_flag.png" alt="Australia Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Responsibly disclosed a public-facing cyber vulnerability, earning formal acknowledgement.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" style="height:48px; width:auto; margin-right:12px; flex:0 0 auto;" width="64" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Invalid Calendar Date Leads to Denial-of-Service (DoS)</h4>
-										<div class="subheading mb-1"><small>Lawrence Berkeley National Laboratory (LBNL) VDP — Jan 2026 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Acknowledged by Berkeley Lab Cybersecurity Team for discovering an invalid calendar date vulnerability leading to a DoS.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2026-third.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" style="height:48px; width:auto; margin-right:12px; flex:0 0 auto;" width="64" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Berkeley Lab's Exposed CR1000X Datalogger</h4>
-										<div class="subheading mb-1"><small>Lawrence Berkeley National Laboratory (LBNL) VDP — Jan 2026 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Discovered broken access control to a CR1000X datalogger, earning public recognition via White Hats for Science Kudos.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/unicef-vdp-writeup-2026-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/uniceflogo.png" alt="UNICEF logo" style="height:64px; width:auto; margin-right:12px; flex:0 0 auto;" width="62" height="64" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Unauthenticated Uploads in UNICEF’s ArcGIS FeatureServer</h4>
-										<div class="subheading mb-1"><small>United Nations International Children's Emergency Fund (UNICEF) VDP — Jan 2026 <img src="/assets/flags/un-flag.png" alt="UN Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Identified unauthenticated data uploads on ArcGIS endpoint, earning public recognition via UNICEF Information Security Hall of Fame</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2025-second.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" style="height:48px; width:auto; margin-right:12px; flex:0 0 auto;" width="64" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Discovering HTML Injection in Berkeley Lab's Search Feature</h4>
-									<div class="subheading mb-1"><small>Lawrence Berkeley National Laboratory (LBNL) VDP — Dec 2025 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Uncovered HTML injection vulnerability in search feature, earning public recognition via White Hats for Science Kudos.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-								<a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2025-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" style="height:48px; width:auto; margin-right:12px; flex:0 0 auto;" width="64" height="48" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Django Server Misconfigurations at Berkeley Lab</h4>
-									<div class="subheading mb-1"><small>Lawrence Berkeley National Laboratory (LBNL) VDP — Dec 2025 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Discovered Django web server misconfiguration with Debug mode enabled, earning public recognition via White Hats for Science Kudos.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item mb-3">
-							<a href="/ethicalhacking/nasa-vdp-writeup-2025-first.html" class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link">
-								<img src="/assets/logo/nasalogo.png" alt="NASA logo" style="height:56px; width:auto; margin-right:12px; flex:0 0 auto;" width="56" height="56" loading="lazy" decoding="async" />
-									<div>
-										<h4 class="fw-normal blog-title mb-1">NASA's Misconfigured Google Drive Permissions</h4>
-									<div class="subheading mb-1"><small>National Aeronautics and Space Administration (NASA) VDP — Aug 2025 <img src="/assets/flags/usa-flag.png" alt="USA Flag" style="height:1em; vertical-align:middle; margin-left:0.5em; display:inline;" width="16" height="16" loading="lazy" decoding="async" /></small></div>
-										<div class="text-muted">Identified misconfigured security permissions in NASA’s Google Drive, earning a Letter of Recommendation from NASA.</div>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
-			<footer class="pt-4 pb-4 px-3 px-lg-5">
-				<button
-					id="scrollToTop"
-					class="btn btn-outline-light ms-2"
-					onclick="scrollToTop()"
-				>
-					<i class="fas fa-arrow-up"></i> Scroll to Top
-				</button>
-			</footer>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aaronamran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <style>
+    /* Page-specific: no-scroll, flex layout fills viewport */
+    .site-frame    { overflow: hidden !important; display: flex; flex-direction: column; height: calc(100vh - 2.5rem); }
+    .content-grid  { flex: 1; min-height: 0; overflow: hidden; }
+    .posts-col     { display: flex; flex-direction: column; overflow: hidden; }
+    #posts-list    { overflow: hidden; }
+    .pagination    { flex-shrink: 0; border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.8rem; }
+    .sidebar       { overflow-y: auto; }
+    /* Smaller post row typography */
+    #posts-list .pd-day   { font-size: 1.6rem; }
+    #posts-list .pd-mon   { font-size: 0.75rem; }
+    #posts-list .post-date { width: 42px; }
+    #posts-list .post-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
+    #posts-list .post-excerpt { font-size: 0.75rem; line-height: 1.5; margin-bottom: 0.4rem; }
+    #posts-list .post-row { padding-top: 0.85rem; padding-bottom: 0.85rem; }
+    #posts-list .post-row:first-of-type { padding-top: 0.55rem; }
+  </style>
+</head>
+<body>
 
-				
-			<!-- <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-					<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="#" id="nextHackLink" data-bs-toggle="modal" data-bs-target="#nextHackModal">next hack</a>.</p>
-				<p class="mb-0" style="font-weight:700;">— @aaronamran</p>
-				<p class="text-muted small mt-1">February 2026</p>
-			</section>
-			
-				<div class="modal fade" id="nextHackModal" tabindex="-1" aria-labelledby="nextHackModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content bg-dark text-light border-0" style="background-color:#0f1113;">
-					<div class="modal-header bg-dark text-light" style="border-bottom:1px solid rgba(255,255,255,0.06);">
-						<h5 class="modal-title" id="nextHackModalLabel">You’re all caught up</h5>
-					</div>
-					<div class="modal-body" style="color:#dcdfe4;">				<div class="text-center mb-3">
-							<img src="../assets/img/bnwimage.gif" alt="Coming soon" style="max-width:100%; height:auto;" loading="lazy" />
-						</div>				<p style="color:#dcdfe4;">Looks like you’re enjoying the blog and have reached the end.</p>
-						<p style="color:#c8ccd1;">The next post depends on my next valid submission. Don’t worry — recon for the next story is already in progress.</p>
-						<p class="mb-0" style="color:#9aa0a6;">Regards,<br>@aaronamran</p>
-					</div>
-					<div class="modal-footer bg-dark" style="border-top:1px solid rgba(255,255,255,0.02);">
-						<button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
-					</div>
-					</div>
-				</div>
-				</div>
+  <div class="site-frame">
 
+    <!-- ── Topbar ── -->
+    <header class="topbar">
+      <nav class="topbar-inner">
+        <div class="topbar-links">
+          <a href="../index.html#about"          class="tl">About</a>
+          <a href="../ethicalhacking/"           class="tl active">Ethical_Hacking</a>
+          <a href="../hacking-labs/"             class="tl">Hacking_Labs</a>
+          <a href="../index.html#experience"     class="tl">Experience</a>
+          <a href="../index.html#certifications" class="tl">Certifications</a>
+          <a href="../index.html#education"      class="tl">Education</a>
+          <a href="../index.html#trainings"      class="tl">Trainings</a>
+        </div>
+        <div class="topbar-actions">
+          <div class="palette-swatches" id="paletteSwatches" aria-label="Accent color">
+            <button class="swatch" data-palette="cyan"  title="Cyber Cyan" style="--sw:#00D1FF"></button>
+            <button class="swatch" data-palette="green" title="Emerald"    style="--sw:#39d353"></button>
+            <button class="swatch" data-palette="pink"  title="Hot Pink"   style="--sw:#FF2E97"></button>
+          </div>
+          <a href="https://github.com/aaronamran" class="icon-btn" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/aaronamran/" class="icon-btn" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+            <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg id="icon-sun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
 
-			<footer style="padding-top:2rem;">
-				<a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
-				<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
-					<i class="fas fa-arrow-up"></i> Scroll to Top
-				</button>
-			</footer> -->
+    <!-- ── Ethical Hacking Listing ── -->
+    <div class="content-grid">
+      <main class="posts-col">
+        <p class="about-quote" style="margin-bottom:1rem"><em>Uncovering vulnerabilities for responsible disclosures on real-world targets.</em></p>
+        <div id="posts-list"></div>
+        <nav class="pagination" id="pagination"></nav>
+      </main>
 
+      <aside class="sidebar">
+        <div class="sb-block">
+          <p class="col-label">Acknowledged By</p>
+          <div class="cert-badges">
+            <span class="cert-tag">NASA</span>
+            <span class="cert-tag">WHO</span>
+            <span class="cert-tag">UNESCO</span>
+            <span class="cert-tag">UNICEF</span>
+            <span class="cert-tag">NSW Parliament</span>
+            <span class="cert-tag">Berkeley Lab</span>
+          </div>
+        </div>
+        <div class="sb-block sb-stats">
+          <div class="stat-box"><span class="stat-num" id="vuln-count">10</span><span class="stat-label">vulns</span></div>
+          <div class="stat-box"><span class="stat-num">6</span><span class="stat-label">orgs</span></div>
+        </div>
 
-		</div>
-		<div id="stars"></div>
-		<div id="stars2"></div>
-		<!-- Bootstrap core JS-->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-			crossorigin="anonymous"
-		></script>
-		<!-- Core theme JS-->
-		<script src="/js/scripts.js"></script>
-	</body>
+      </aside>
+    </div>
+
+  </div>
+  <script src="../js/scripts.js"></script>
+  <script src="../js/count.js"></script>
+  <script>
+    // ── Paginated post list ──
+    const posts = [
+      { month:'Apr', year:'2026', href:'who-vdp-writeup-2026-first.html',                            title:"World Health Organization's WordPress Vulnerability",              excerpt:"Reported multiple WordPress vulnerabilities, earning public recognition via WHO's Vulnerability Hall of Fame.",                                                             prog:'VDP' },
+      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-second.html',                        title:"UNESCO's Unprotected Power Supply in Ecuador",                     excerpt:"Discovered UNESCO's remote-accessible power supply in Ecuador, earning public recognition via UNESCO's Cybersecurity Hall of Fame.",                                     prog:'VDP' },
+      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-first.html',                         title:"UNESCO's Publicly Accessible xmlrpc.php File",                    excerpt:"Discovered a publicly accessible xmlrpc.php file, earning public recognition via UNESCO's Cybersecurity Hall of Fame.",                                                  prog:'VDP' },
+      { month:'Feb', year:'2026', href:'newsouthwalesparliamentaustralia-vdp-2026-first.html',       title:"Parliament of New South Wales Cyber Vulnerability",               excerpt:"Responsibly disclosed a public-facing cyber vulnerability, earning formal acknowledgement from the Parliament of NSW.",                                                  prog:'VDP' },
+      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html',   title:"Invalid Calendar Date Leads to Denial-of-Service (DoS)",          excerpt:"Acknowledged by Berkeley Lab Cybersecurity Team for discovering an invalid calendar date vulnerability leading to a DoS.",                                              prog:'VDP' },
+      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-third.html',    title:"Berkeley Lab's Exposed CR1000X Datalogger",                      excerpt:"Discovered broken access control to a CR1000X datalogger, earning public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
+      { month:'Jan', year:'2026', href:'unicef-vdp-writeup-2026-first.html',                         title:"Unauthenticated Uploads in UNICEF's ArcGIS FeatureServer",        excerpt:"Identified unauthenticated data uploads on ArcGIS endpoint, earning public recognition via UNICEF Information Security Hall of Fame.",                                  prog:'VDP' },
+      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-second.html',   title:"Discovering HTML Injection in Berkeley Lab's Search Feature",    excerpt:"Uncovered HTML injection vulnerability in search feature, earning public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
+      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-first.html',    title:"Django Server Misconfigurations at Berkeley Lab",                 excerpt:"Discovered Django web server misconfiguration with Debug mode enabled, earning public recognition via White Hats for Science Kudos.",                                    prog:'VDP' },
+      { month:'Aug', year:'2025', href:'nasa-vdp-writeup-2025-first.html',                           title:"NASA's Misconfigured Google Drive Permissions",                  excerpt:"Identified misconfigured security permissions in NASA's Google Drive, earning a Letter of Recommendation from NASA.",                                                   prog:'VDP' },
+    ];
+
+    const PER_PAGE = 5;
+
+    function renderPage(page) {
+      const slice = posts.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+      document.getElementById('posts-list').innerHTML = slice.map(p =>
+        `<article class="post-row">
+          <div class="post-date"><span class="pd-day">${p.month}</span><span class="pd-mon">${p.year}</span></div>
+          <div class="post-body">
+            <h2 class="post-title"><a href="${p.href}">${p.title}</a></h2>
+            <p class="post-excerpt">${p.excerpt}</p>
+            <div class="post-meta"><span class="post-prog">${p.prog}</span></div>
+          </div>
+        </article>`
+      ).join('');
+
+      const total = Math.ceil(posts.length / PER_PAGE);
+      document.getElementById('pagination').innerHTML =
+        Array.from({length: total}, (_, i) =>
+          `<button class="pg-btn${i === page ? ' active' : ''}" onclick="renderPage(${i})">${i + 1}</button>`
+        ).join('');
+    }
+
+    renderPage(0);
+  </script>
+
+</body>
 </html>

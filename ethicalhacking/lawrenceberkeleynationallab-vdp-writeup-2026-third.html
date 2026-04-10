@@ -1,119 +1,65 @@
-ï»¿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>aaronamran</title>
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script
-        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-        crossorigin="anonymous"
-    ></script>
-    <!-- Google fonts-->
-    <link
-        href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
-        rel="stylesheet"
-        type="text/css"
-    />
-    <link
-        href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
-        rel="stylesheet"
-        type="text/css"
-    />
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/css/styles.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aaronamran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
 </head>
-<body id="page-top">
-    <!-- Navigation-->
-		<nav
-			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
-			id="sideNav"
-		>
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">
-				<span id="navText" class="d-block d-lg-none">Portfolio</span>
-				<span class="d-none d-lg-block"
-					><img					id="profilePicture"						class="img-fluid img-profile rounded-circle mx-auto mb-2"
-						src="../assets/img/profile.jpg"
-						alt="Profile Picture"
-				/></span>
-			</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/">About</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/">Ethical Hacking</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/hacking-labs/">Hacking Labs</a>
-					</li>
-					<!-- <li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/projects/">Projects</a>
-					</li> -->
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/experience/"
-							>Experience</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/trainings/"
-							>Trainings</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/certifications/"
-							>Certifications</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/education/"
-							>Education</a
-						>
-					</li>
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/skills/">Skills</a>
-					</li> -->
-					<!-- <li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/activities/"
-							>Activities</a
-						>
-					</li> -->
-				</ul>
-			</div>
-		</nav>
-<main id="articleContent" class="container" style="padding:2rem 0rem; max-width:1000px;">
-    <header style="padding-bottom:2rem;">
-        <a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
-        <button id="scrollToBottom" class="btn btn-outline-light ms-2" onclick="scrollToBottom()">
-            <i class="fas fa-arrow-down"></i> Scroll to Bottom
-        </button>
+<body>
+
+  <div class="site-frame">
+
+    <!-- __ Topbar __ -->
+    <header class="topbar">
+      <nav class="topbar-inner">
+        <div class="topbar-links">
+          <a href="../index.html#about"          class="tl">About</a>
+          <a href="../ethicalhacking/"           class="tl active">Ethical_Hacking</a>
+          <a href="../hacking-labs/"             class="tl">Hacking_Labs</a>
+          <a href="../index.html#experience"     class="tl">Experience</a>
+          <a href="../index.html#certifications" class="tl">Certifications</a>
+          <a href="../index.html#education"      class="tl">Education</a>
+          <a href="../index.html#trainings"      class="tl">Trainings</a>
+        </div>
+        <div class="topbar-actions">
+          <div class="palette-swatches" id="paletteSwatches" aria-label="Accent color">
+            <button class="swatch" data-palette="cyan"  title="Cyber Cyan" style="--sw:#00D1FF"></button>
+            <button class="swatch" data-palette="green" title="Emerald"    style="--sw:#39d353"></button>
+            <button class="swatch" data-palette="pink"  title="Hot Pink"   style="--sw:#FF2E97"></button>
+          </div>
+          <a href="https://github.com/aaronamran" class="icon-btn" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/aaronamran/" class="icon-btn" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+            <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg id="icon-sun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </nav>
     </header>
-	<div class="d-flex align-items-center mb-3">
-		<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" style="height:96px; width:auto; margin-right:16px;" />
-		<h2 class="mb-0 fw-semibold">Berkeley Lab's Exposed CR1000X Datalogger</h2>
-	</div>
-	<h3 class="mb-2 text-muted">Lawrence Berkeley National Laboratory (LBNL)</h3>
-    <div class="subheading mb-4">January 2026 Â· Vulnerability Disclosure Program</div>
+
+    <!-- __ Article __ -->
+    <div class="writeup-body">
+      <a href="./" class="back-link">&larr; Back to Ethical Hacking</a>
+
+      <div class="writeup-header">
+        <img src="../assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" class="writeup-logo" />
+        <div class="writeup-header-text">
+          <div class="writeup-org">Lawrence Berkeley National Laboratory (LBNL)</div>
+          <h1 class="writeup-title">Berkeley Lab's Exposed CR1000X Datalogger</h1>
+          <div class="writeup-date">January 2026 &mdash; Vulnerability Disclosure Program</div>
+        </div>
+      </div>
     <p class="lead mb-4">As I am writing this on 22 January 2026 at 12:08 PM, I discovered something that I personally find mind-blowing for us cybersecurity folks. Curious to know what it is? That will come later at the end of this blog.</p>
-    <p class="lead mb-4">For now, back to the main topic. This blog is a write-up of my successful attempt to discover my third officially valid vulnerability (and hopefully a fourth in the future) for <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science" target="_blank" referrerpolicy="noreferrer">Lawrence Berkeley National Laboratoryâ€™s (LBNL) Vulnerability Disclosure Program.</a></p>
+    <p class="lead mb-4">For now, back to the main topic. This blog is a write-up of my successful attempt to discover my third officially valid vulnerability (and hopefully a fourth in the future) for <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science" target="_blank" referrerpolicy="noreferrer">Lawrence Berkeley National Laboratory’s (LBNL) Vulnerability Disclosure Program.</a></p>
 
 	<div class="text-center">
 		<a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2026%2D01%2D21%3A%20Thank%20you%2C%20Aaron%20Amran%E2%80%94identification%20of%20an%20exposed%20device%20contributes%20positively%20to%20science%E2%80%94your%20vigilance%20enhances%20security!" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
@@ -121,14 +67,14 @@
 		</a>
 	</div>
     
-	<p class="lead mb-4">About two weeks ago, I realised that my existing methodology for enumerating subdomains and discovering hidden attack surfaces was suboptimal. Because of that, I decided to try a newer and more effective recon tool created by <a href="https://github.com/rix4uni" target="_blank" referrerpolicy="noreferrer">Bhagirath Saxena (rix4uni)</a>. Iâ€™ve already dropped the biggest hint by mentioning the tool creator and his GitHub, but I wonâ€™t name the tool directly. I prefer readers to self-discover it, as I strongly believe people learn best when they put in their own effort.</p>
+	<p class="lead mb-4">About two weeks ago, I realised that my existing methodology for enumerating subdomains and discovering hidden attack surfaces was suboptimal. Because of that, I decided to try a newer and more effective recon tool created by <a href="https://github.com/rix4uni" target="_blank" referrerpolicy="noreferrer">Bhagirath Saxena (rix4uni)</a>. I’ve already dropped the biggest hint by mentioning the tool creator and his GitHub, but I won’t name the tool directly. I prefer readers to self-discover it, as I strongly believe people learn best when they put in their own effort.</p>
     <p class="lead mb-4">Using this recon tool on Kali Linux, I enumerated a large set of subdomains, stored them in a text file, and manually opened them one by one to inspect the responses. Many ethical hackers would immediately pipe results into tools like httpx, Nuclei, or similar automation. While those tools are extremely powerful, I personally get better results through manual inspection. My belief is simple:
 Tools focus heavily on status codes and signatures, but when you manually and visually inspect subdomains, combined with intuition and experience, you often notice things that automation misses.</p>
 	<p class="lead mb-4">After a lengthy session of bookmarking multiple interesting targets, I went through each bookmarked URL, testing for misconfigurations, XSS, and other common vulnerabilities. Eventually, I landed on a particularly interesting page.</p>
 
     <img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_status_homepage.png" alt="LBNL CR1000X Datalogger Status Homepage" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
-	<p class="lead mb-4">My first thought was information disclosure. However, for this type of vulnerability to be valid, it typically needs to expose sensitive data such as Personally Identifiable Information (PII), credentials, internal server or system configuration details. In this case, the page only displayed system status information. While not highly sensitive, it could still help an attacker understand the systemâ€™s configuration and operational state. I initially assumed this would not be impactful enough and would likely result in an invalid submission.</p> 
+	<p class="lead mb-4">My first thought was information disclosure. However, for this type of vulnerability to be valid, it typically needs to expose sensitive data such as Personally Identifiable Information (PII), credentials, internal server or system configuration details. In this case, the page only displayed system status information. While not highly sensitive, it could still help an attacker understand the system’s configuration and operational state. I initially assumed this would not be impactful enough and would likely result in an invalid submission.</p> 
 	<p class="lead mb-4">While reviewing the page, I noticed I was currently on the Status tab. There were other tabs available as well: Data, Files, and Utilities. I clicked on Files, and a Sign-In prompt immediately appeared.</p>
 
 	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_signin.png" alt="LBNL CR1000X Datalogger Sign-In Prompt" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
@@ -143,13 +89,13 @@ Tools focus heavily on status codes and signatures, but when you manually and vi
 
 	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_utilities.png" alt="LBNL CR1000X Datalogger Utilities" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
-	<p class="lead mb-4">To better understand the real-world impact of this exposure, I researched what the CR1000X actually is. The following information and images are taken from Campbell Scientificâ€™s official website.</p>
+	<p class="lead mb-4">To better understand the real-world impact of this exposure, I researched what the CR1000X actually is. The following information and images are taken from Campbell Scientific’s official website.</p>
 
 	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_image.png" alt="LBNL CR1000X Datalogger Product Image" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
     
 	<img src="../assets/ethicalhacking/lbnlcr1000x/cr1000x_product_details.png" alt="LBNL CR1000X Datalogger Product Details" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 	
-	<p class="lead mb-4">Now this is interesting, the CR1000X is a rugged, high-precision datalogger designed for extreme environments. It is capable of operating for years on a single battery, often paired with a solar panel. At that moment, I was genuinely relieved that I did not attempt to alter any settings to demonstrate impact. Doing so could have disrupted critical research operations and potentially affected real peopleâ€™s careers.</p>
+	<p class="lead mb-4">Now this is interesting, the CR1000X is a rugged, high-precision datalogger designed for extreme environments. It is capable of operating for years on a single battery, often paired with a solar panel. At that moment, I was genuinely relieved that I did not attempt to alter any settings to demonstrate impact. Doing so could have disrupted critical research operations and potentially affected real people’s careers.</p>
 		
 	<p class="lead mb-4">I sent a detailed and responsible report to the Berkeley Lab Cybersecurity Team. A few hours later, I received a reply from Jay Krous. At the time, I did not realise who he was. Later, out of curiosity, I Googled his name, only to discover that he is the Head of Cybersecurity at Berkeley Lab.</p>
 
@@ -159,7 +105,7 @@ Tools focus heavily on status codes and signatures, but when you manually and vi
 
 	<a href="https://labpartnering.org/success-stories/0ea93456-f4fa-4b00-a083-8eea524eea36?labs%5B%5D=lbnl" target="_blank" referrerpolicy="noreferrer"><img src="../assets/ethicalhacking/lbnlcr1000x/berkeleylab_zeek.png" alt="Berkeley Lab Zeek" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async"></a>
 
-	<p class="lead mb-4">Berkeley Lab played a key role in developing Zeek. Yes, that Zeek. Zeek is a powerful network analysis framework widely used for security monitoring and network traffic analysis. If youâ€™ve ever used educational platforms like TryHackMe, chances are youâ€™ve encountered Zeek at some point.</p>
+	<p class="lead mb-4">Berkeley Lab played a key role in developing Zeek. Yes, that Zeek. Zeek is a powerful network analysis framework widely used for security monitoring and network traffic analysis. If you’ve ever used educational platforms like TryHackMe, chances are you’ve encountered Zeek at some point.</p>
 
 	<p class="lead mb-4">Realising that I had responsibly disclosed a vulnerability to the same institution that helped create one of the most influential tools in modern network security was genuinely mind-blowing.</p>
 
@@ -167,22 +113,20 @@ Tools focus heavily on status codes and signatures, but when you manually and vi
 
 	<hr />
 	<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/ethicalhacking/lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html">next hack</a>.</p>
-		<p class="mb-0" style="font-weight:700;">â€” @aaronamran</p>
+		<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="./lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html">next hack</a>.</p>
+		<p class="mb-0" style="font-weight:700;">@aaronamran</p>
 		<p class="text-muted small mt-1">January 2026</p>
 	</section>
 
+    <div class="writeup-nav">
+      <a href="unicef-vdp-writeup-2026-first.html" class="back-link">&larr; Previous</a>
+      <a href="lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html" class="back-link" style="margin-left:auto">&rarr; Next</a>
+    </div>
 
-	<footer style="padding-top:2rem;">
-		<a href="/ethicalhacking/" class="btn btn-outline-light">Return</a>
-		<button id="scrollToTop" class="btn btn-outline-light ms-2" onclick="scrollToTop()">
-			<i class="fas fa-arrow-up"></i> Scroll to Top
-		</button>
-	</footer>
-</main>
-<div id="stars"></div>
-<div id="stars2"></div>
-<script src="/js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </div>
+
+  </div>
+  <script src="../js/scripts.js"></script>
+
 </body>
 </html>

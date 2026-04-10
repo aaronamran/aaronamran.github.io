@@ -1,793 +1,221 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
-		<meta name="description" content="" />
-		<meta name="author" content="" />
-		<title>aaronamran</title>
-		<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
-		<!-- Font Awesome icons (free version)-->
-		<script
-			src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-			crossorigin="anonymous"
-		></script>
-		<!-- Google fonts-->
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
-			rel="stylesheet"
-			type="text/css"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
-			rel="stylesheet"
-			type="text/css"
-		/>
-		<!-- Core theme CSS (includes Bootstrap)-->
-		<link href="/css/styles.css" rel="stylesheet" />
-	</head>
-	<body id="page-top">
-		<!-- Navigation-->
-		<nav
-			class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
-			id="sideNav"
-		>
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">
-				<span id="navText" class="d-block d-lg-none">Portfolio</span>
-				<span class="d-none d-lg-block"
-					><img
-						id="profilePicture"
-						class="img-fluid img-profile rounded-circle mx-auto mb-2"
-						src="/assets/img/profile.jpg"
-						alt="Profile Picture"
-				/></span>
-			</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/">About</a>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/ethicalhacking/"
-							>Ethical Hacking</a
-						>
-					</li>
-					<li class="nav-item portfolio-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/hacking-labs/"
-							>Hacking Labs</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/experience/"
-							>Experience</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/trainings/"
-							>Trainings</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/certifications/"
-							>Certifications</a
-						>
-					</li>
-					<li class="nav-item resume-nav-item">
-						<a class="nav-link js-scroll-trigger" href="/education/"
-							>Education</a
-						>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<!-- Page Content-->
-		<div class="container-fluid p-0">
-			<hr class="m-0" />
-			<header class="pt-4 px-3 px-lg-5">
-				<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return to Hackviser</a>
-				<button
-					id="scrollToBottom"
-					class="btn btn-outline-light ms-2"
-					onclick="scrollToBottom()"
-				>
-					<i class="fas fa-arrow-down"></i> Scroll to Bottom
-				</button>
-			</header>
-			<!-- Warmup Labs -->
-			<section
-				class="resume-section align-items-start pt-3 pb-4"
-				id="warmup-labs"
-			>
-				<div class="resume-section-content mb-4">
-					<div class="d-flex align-items-center mb-5">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" style="height: 72px; width: auto; margin-right: 16px; flex: 0 0 auto;">
-							<path fill="#A6FF87" d="M18.667 21.332A7.93 7.93 0 0 1 16 27.28a7.9 7.9 0 0 1-5.334 2.053c-4.413 0-8-3.587-8-8 0-2.7 1.352-5.091 3.408-6.537.33-.232.778-.073.957.29a10 10 0 0 0 6.329 5.22q1.26.36 2.64.36c.65 0 1.272-.061 1.876-.175.385-.072.768.175.784.565q.007.14.006.277"></path>
-							<path fill="#7AFF4C" d="M24 10.667c0 1.04-.2 2.04-.56 2.946a8.03 8.03 0 0 1-5.333 4.774 7.8 7.8 0 0 1-2.107.28c-.733 0-1.44-.094-2.107-.28a8.03 8.03 0 0 1-5.333-4.774A8 8 0 0 1 8 10.667c0-4.414 3.587-8 8-8s8 3.586 8 8"></path>
-							<path fill="#57B536" d="M29.333 21.332c0 4.413-3.586 8-8 8a8 8 0 0 1-2.825-.515c-.425-.161-.504-.705-.208-1.05a9.88 9.88 0 0 0 2.367-6.435c0-.453-.04-.907-.107-1.333a.59.59 0 0 1 .304-.609 9.93 9.93 0 0 0 4.105-4.304c.179-.364.627-.523.958-.29a7.99 7.99 0 0 1 3.406 6.536"></path>
-						</svg>
-						<h2 class="mb-0">Hackviser Warmup Labs</h2>
-					</div>
-					<!-- Lab List -->
-					<div class="row justify-content-center">
-						<ul class="blog-list list-unstyled w-100">
-							<li class="blog-list-item">
-								<a
-									href="spooler.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_logo.png"
-										alt="Spooler logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Spooler</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice stealing tokens by exploiting misconfigured services on the system and performing token manipulation and privilege escalation attacks with the stolen token.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="dynamicbook.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_logo.png"
-										alt="Dynamic Book logo"
-										style="
-											height: 48px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Dynamic Book</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice exploiting vulnerabilities in a machine running a misconfigured rsync service to gain access and perform privilege escalation attacks.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="findandcrack.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_logo.png"
-										alt="Find and Crack logo"
-										style="
-											height: 58px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Find and Crack</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice vulnerability research, system access, privilege escalation and gaining access to encrypted data on the target machine running an open source web application.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="moonshade.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_logo.png"
-										alt="Moonshade logo"
-										style="
-											height: 48px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Moonshade</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice cracking the password of users on the system, gathering information and performing privilege escalation attacks by exploiting a vulnerable service running.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="quenovia.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_logo.png"
-										alt="Quenovia logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Quenovia</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice exploiting a vulnerability in a web application to get a reverse shell from the machine, and to practice privilege escalation attacks that result from misconfiguring a scheduled task on the machine.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="able.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_logo.png"
-										alt="Able logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Able</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice SSH and FTP services, brute-force attacks and privilege escalation techniques.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="glitch.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/glitch/glitch_hackviser_logo.png"
-										alt="Glitch logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Glitch</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice vulnerability detection in a web application, exploitation of the vulnerability, and privilege escalation attacks stemming from the linux kernel.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="superprocess.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/superprocess/superprocess_hackviser_logo.png"
-										alt="Super Process logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Super Process</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 3 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice vulnerability detection in a web application, exploiting the vulnerability through the Metasploit Framework, and privilege escalation attacks due to misconfigurations.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="satellite.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/satellite/satellite_hackviser_logo.png"
-										alt="Satellite logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Satellite</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice scanning a WordPress website to identify security
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aaronamran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="icon" type="image/x-icon" href="../../../assets/img/favicon.ico">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="topbar">
+      <nav class="topbar-inner">
+        <div class="topbar-links">
+          <a href="../../../index.html#about"          class="tl">About</a>
+          <a href="../../../ethicalhacking/"           class="tl">Ethical_Hacking</a>
+          <a href="../../../hacking-labs/"             class="tl active">Hacking_Labs</a>
+          <a href="../../../index.html#experience"     class="tl">Experience</a>
+          <a href="../../../index.html#certifications" class="tl">Certifications</a>
+          <a href="../../../index.html#education"      class="tl">Education</a>
+          <a href="../../../index.html#trainings"      class="tl">Trainings</a>
+        </div>
+        <div class="topbar-actions"><div class="palette-swatches" id="paletteSwatches" aria-label="Accent color"><button class="swatch" data-palette="cyan"  title="Cyber Cyan" style="--sw:#00D1FF"></button><button class="swatch" data-palette="green" title="Emerald"    style="--sw:#39d353"></button><button class="swatch" data-palette="pink"  title="Hot Pink"   style="--sw:#FF2E97"></button></div><a href="https://github.com/aaronamran" class="icon-btn" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg></a><a href="https://www.linkedin.com/in/aaronamran/" class="icon-btn" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme"><svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg id="icon-sun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div>
+      </nav>
+    </header>
+    <div class="content-grid">
+      <main class="posts-col">
+        <a href="../../" class="back-link">&larr; HackViser</a>
+        <p class="col-label">Warmup Labs</p>
+        <a class="post-row" href="spooler.html">
+          <div class="post-body">
+            <h2 class="post-title">Spooler</h2>
+            <p class="post-excerpt">Practice stealing tokens by exploiting misconfigured services on the system and performing token manipulation and privilege escalation attacks with the stolen token.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="dynamicbook.html">
+          <div class="post-body">
+            <h2 class="post-title">Dynamic Book</h2>
+            <p class="post-excerpt">Practice exploiting vulnerabilities in a machine running a misconfigured rsync service to gain access and perform privilege escalation attacks.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="findandcrack.html">
+          <div class="post-body">
+            <h2 class="post-title">Find and Crack</h2>
+            <p class="post-excerpt">Practice vulnerability research, system access, privilege escalation and gaining access to encrypted data on the target machine running an open source web application.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="moonshade.html">
+          <div class="post-body">
+            <h2 class="post-title">Moonshade</h2>
+            <p class="post-excerpt">Practice cracking the password of users on the system, gathering information and performing privilege escalation attacks by exploiting a vulnerable service running.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="quenovia.html">
+          <div class="post-body">
+            <h2 class="post-title">Quenovia</h2>
+            <p class="post-excerpt">Practice exploiting a vulnerability in a web application to get a reverse shell from the machine, and to practice privilege escalation attacks that result from misconfiguring a scheduled task on the machine.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="able.html">
+          <div class="post-body">
+            <h2 class="post-title">Able</h2>
+            <p class="post-excerpt">Practice SSH and FTP services, brute-force attacks and privilege escalation techniques.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="glitch.html">
+          <div class="post-body">
+            <h2 class="post-title">Glitch</h2>
+            <p class="post-excerpt">Practice vulnerability detection in a web application, exploitation of the vulnerability, and privilege escalation attacks stemming from the linux kernel.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="superprocess.html">
+          <div class="post-body">
+            <h2 class="post-title">Super Process</h2>
+            <p class="post-excerpt">Practice vulnerability detection in a web application, exploiting the vulnerability through the Metasploit Framework, and privilege escalation attacks due to misconfigurations.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 3 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="satellite.html">
+          <div class="post-body">
+            <h2 class="post-title">Satellite</h2>
+            <p class="post-excerpt">Practice scanning a WordPress website to identify security
 											vulnerabilities and gain access to the system through
-											these vulnerabilities.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="venomous.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/venomous/venomous_hackviser_logo.png"
-										alt="Venomous logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Venomous</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice detecting and exploiting file upload, directory
+											these vulnerabilities.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="venomous.html">
+          <div class="post-body">
+            <h2 class="post-title">Venomous</h2>
+            <p class="post-excerpt">Practice detecting and exploiting file upload, directory
 											traversal and LFI vulnerabilities in web applications
 											running on Nginx web server, and getting reverse shell
-											using log poisoning.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="leaf.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/leaf/leaf_hackviser_logo.png"
-										alt="Leaf logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Leaf</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice discovering and exploiting the SSTI vulnerability
-											and taking over the server with bind shell.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="workstuff.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/workstuff/workstuff_hackviser_logo.png"
-										alt="Work Stuff logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Work Stuff</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — March 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice understanding the vulnerabilities of web
+											using log poisoning.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="leaf.html">
+          <div class="post-body">
+            <h2 class="post-title">Leaf</h2>
+            <p class="post-excerpt">Practice discovering and exploiting the SSTI vulnerability
+											and taking over the server with bind shell.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="workstuff.html">
+          <div class="post-body">
+            <h2 class="post-title">Work Stuff</h2>
+            <p class="post-excerpt">Practice understanding the vulnerabilities of web
 											applications built using Werkzeug and exploiting these
-											vulnerabilities through the Metasploit Framework.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="alohomora.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_logo.png"
-										alt="Alohomora logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Alohomora</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice directory discovery in a web application,
+											vulnerabilities through the Metasploit Framework.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — March 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="alohomora.html">
+          <div class="post-body">
+            <h2 class="post-title">Alohomora</h2>
+            <p class="post-excerpt">Practice directory discovery in a web application,
 											detecting critical data by navigating between git
 											branches, and gaining access to the server with a key
-											file.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="bee.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_logo.png"
-										alt="Bee logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Bee</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice how to discover and exploit SQL Injection and
-											File Upload vulnerabilities.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="discoverlernaean.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/discoverlernaean/discoverlernaean_hackviser_logo.png"
-										alt="Discover Lernaean logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Discover Lernaean</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 2 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice how to discover and exploit security
-											vulnerabilities on web servers and SSH protocols.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="mount.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/mount/mount_hackviser_logo.png"
-										alt="Mount logo"
-										style="
-											height: 48px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Mount</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of Network File Sharing (NFS).
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="tiger.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/tiger/tiger_hackviser_logo.png"
-										alt="Tiger logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Tiger</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of Virtual Network Computing (VNC).
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="querygate.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/querygate/querygate_hackviser_logo.png"
-										alt="Query Gate logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Query Gate</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of MySQL and learning database
-											fundamentals.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="carnival.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/carnival/carnival_hackviser_logo.png"
-										alt="Carnival logo"
-										style="
-											height: 64px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Carnival</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of Server Message Block (SMB).
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="securecommand.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/securecommand/securecommand_hackviser_logo.png"
-										alt="Secure Command logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Secure Command</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of the SSH service.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="007.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/007/007_hackviser_logo.png"
-										alt="007 logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">007</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of Remote Desktop Protocol (RDP).
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="reddict.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/reddict/reddict_hackviser_logo.png"
-										alt="Reddict logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Reddict</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">Practice basics of Redis.</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="filehunter.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/filehunter/filehunter_hackviser_logo.png"
-										alt="Filehunter logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">File Hunter</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of the FTP service.
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="blog-list-item">
-								<a
-									href="arrow.html"
-									class="blog-list-link d-flex align-items-start p-3 text-decoration-none blog-link"
-								>
-									<img
-										src="/assets/hackinglabs/hackviser/warmups/arrow/arrow_hackviser_logo.png"
-										alt="Arrow logo"
-										style="
-											height: 56px;
-											width: auto;
-											margin-right: 12px;
-											flex: 0 0 auto;
-										"
-									/>
-									<div>
-										<h4 class="fw-normal blog-title mb-1">Arrow</h4>
-										<div class="subheading mb-1">
-											<small>Hackviser Warmup Stage 1 — Feb 2026</small>
-										</div>
-										<div class="text-muted">
-											Practice basics of the Telnet service.
-										</div>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
-			<footer class="pt-4 pb-4 px-3 px-lg-5">
-				<a href="/hacking-labs/hackviser/" class="btn btn-outline-light">Return to Hackviser</a>
-				<button
-					id="scrollToTop"
-					class="btn btn-outline-light ms-2"
-					onclick="scrollToTop()"
-				>
-					<i class="fas fa-arrow-up"></i> Scroll to Top
-				</button>
-			</footer>
-		</div>
-		<div id="stars"></div>
-		<div id="stars2"></div>
-		<!-- Bootstrap core JS-->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-			crossorigin="anonymous"
-		></script>
-		<!-- Core theme JS-->
-		<script src="/js/scripts.js"></script>
-	</body>
+											file.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="bee.html">
+          <div class="post-body">
+            <h2 class="post-title">Bee</h2>
+            <p class="post-excerpt">Practice how to discover and exploit SQL Injection and
+											File Upload vulnerabilities.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="discoverlernaean.html">
+          <div class="post-body">
+            <h2 class="post-title">Discover Lernaean</h2>
+            <p class="post-excerpt">Practice how to discover and exploit security
+											vulnerabilities on web servers and SSH protocols.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 2 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="mount.html">
+          <div class="post-body">
+            <h2 class="post-title">Mount</h2>
+            <p class="post-excerpt">Practice basics of Network File Sharing (NFS).</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="tiger.html">
+          <div class="post-body">
+            <h2 class="post-title">Tiger</h2>
+            <p class="post-excerpt">Practice basics of Virtual Network Computing (VNC).</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="querygate.html">
+          <div class="post-body">
+            <h2 class="post-title">Query Gate</h2>
+            <p class="post-excerpt">Practice basics of MySQL and learning database
+											fundamentals.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="carnival.html">
+          <div class="post-body">
+            <h2 class="post-title">Carnival</h2>
+            <p class="post-excerpt">Practice basics of Server Message Block (SMB).</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="securecommand.html">
+          <div class="post-body">
+            <h2 class="post-title">Secure Command</h2>
+            <p class="post-excerpt">Practice basics of the SSH service.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="007.html">
+          <div class="post-body">
+            <h2 class="post-title">007</h2>
+            <p class="post-excerpt">Practice basics of Remote Desktop Protocol (RDP).</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="reddict.html">
+          <div class="post-body">
+            <h2 class="post-title">Reddict</h2>
+            <p class="post-excerpt">Practice basics of Redis.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="filehunter.html">
+          <div class="post-body">
+            <h2 class="post-title">File Hunter</h2>
+            <p class="post-excerpt">Practice basics of the FTP service.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+        <a class="post-row" href="arrow.html">
+          <div class="post-body">
+            <h2 class="post-title">Arrow</h2>
+            <p class="post-excerpt">Practice basics of the Telnet service.</p>
+            <div class="post-meta"><span class="post-prog">Hackviser Warmup Stage 1 — Feb 2026</span></div>
+          </div>
+        </a>
+      </main>
+    </div>
+
+  </div>
+  <script src="../../../js/scripts.js"></script>
+
+</body>
 </html>
