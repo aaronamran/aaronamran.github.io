@@ -911,6 +911,13 @@ a {
   border-bottom: 1px solid var(--border);
   margin-bottom: 1.25rem;
   margin-top: 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.cert-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .cert-tab {
@@ -925,6 +932,8 @@ a {
   margin-bottom: -1px;
   letter-spacing: 0.04em;
   transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cert-tab:hover {
