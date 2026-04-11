@@ -13,18 +13,23 @@
     /* Page-specific: no-scroll, flex layout fills viewport */
     .site-frame    { overflow: hidden !important; display: flex; flex-direction: column; height: calc(100vh - 2.5rem); }
     .content-grid  { flex: 1; min-height: 0; overflow: hidden; }
-    .posts-col     { display: flex; flex-direction: column; overflow: hidden; }
-    #posts-list    { overflow: hidden; }
-    .pagination    { flex-shrink: 0; border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.8rem; }
+    .posts-col     { overflow-y: auto; overflow-x: hidden; min-height: 0; }
     .sidebar       { overflow-y: auto; }
+    /* Posts scrollbar — color follows palette accent */
+    .posts-col::-webkit-scrollbar       { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .posts-col::-webkit-scrollbar-thumb:hover { opacity: 0.75; }
     /* Smaller post row typography */
     #posts-list .pd-day   { font-size: 1.6rem; }
     #posts-list .pd-mon   { font-size: 0.75rem; }
     #posts-list .post-date { width: 42px; }
     #posts-list .post-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
     #posts-list .post-excerpt { font-size: 0.75rem; line-height: 1.5; margin-bottom: 0.4rem; }
-    #posts-list .post-row { padding-top: 0.85rem; padding-bottom: 0.85rem; }
+    #posts-list .post-row { padding-top: 0.85rem; padding-bottom: 0.85rem; cursor: pointer; }
     #posts-list .post-row:first-of-type { padding-top: 0.55rem; }
+    #posts-list a.post-row { text-decoration: none; color: inherit; display: flex; }
+    #posts-list a.post-row .post-title { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -68,7 +73,6 @@
       <main class="posts-col">
         <p class="about-quote" style="margin-bottom:1rem"><em>Uncovering vulnerabilities for responsible disclosures on real-world targets.</em></p>
         <div id="posts-list"></div>
-        <nav class="pagination" id="pagination"></nav>
       </main>
 
       <aside class="sidebar">
@@ -97,41 +101,28 @@
   <script>
     // ── Paginated post list ──
     const posts = [
-      { month:'Apr', year:'2026', href:'who-vdp-writeup-2026-first.html',                            title:"World Health Organization's WordPress Vulnerability",              excerpt:"Reported multiple WordPress vulnerabilities, earning public recognition via WHO's Vulnerability Hall of Fame.",                                                             prog:'VDP' },
-      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-second.html',                        title:"UNESCO's Unprotected Power Supply in Ecuador",                     excerpt:"Discovered UNESCO's remote-accessible power supply in Ecuador, earning public recognition via UNESCO's Cybersecurity Hall of Fame.",                                     prog:'VDP' },
-      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-first.html',                         title:"UNESCO's Publicly Accessible xmlrpc.php File",                    excerpt:"Discovered a publicly accessible xmlrpc.php file, earning public recognition via UNESCO's Cybersecurity Hall of Fame.",                                                  prog:'VDP' },
-      { month:'Feb', year:'2026', href:'newsouthwalesparliamentaustralia-vdp-2026-first.html',       title:"Parliament of New South Wales Cyber Vulnerability",               excerpt:"Responsibly disclosed a public-facing cyber vulnerability, earning formal acknowledgement from the Parliament of NSW.",                                                  prog:'VDP' },
-      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html',   title:"Invalid Calendar Date Leads to Denial-of-Service (DoS)",          excerpt:"Acknowledged by Berkeley Lab Cybersecurity Team for discovering an invalid calendar date vulnerability leading to a DoS.",                                              prog:'VDP' },
-      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-third.html',    title:"Berkeley Lab's Exposed CR1000X Datalogger",                      excerpt:"Discovered broken access control to a CR1000X datalogger, earning public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
-      { month:'Jan', year:'2026', href:'unicef-vdp-writeup-2026-first.html',                         title:"Unauthenticated Uploads in UNICEF's ArcGIS FeatureServer",        excerpt:"Identified unauthenticated data uploads on ArcGIS endpoint, earning public recognition via UNICEF Information Security Hall of Fame.",                                  prog:'VDP' },
-      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-second.html',   title:"Discovering HTML Injection in Berkeley Lab's Search Feature",    excerpt:"Uncovered HTML injection vulnerability in search feature, earning public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
-      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-first.html',    title:"Django Server Misconfigurations at Berkeley Lab",                 excerpt:"Discovered Django web server misconfiguration with Debug mode enabled, earning public recognition via White Hats for Science Kudos.",                                    prog:'VDP' },
-      { month:'Aug', year:'2025', href:'nasa-vdp-writeup-2025-first.html',                           title:"NASA's Misconfigured Google Drive Permissions",                  excerpt:"Identified misconfigured security permissions in NASA's Google Drive, earning a Letter of Recommendation from NASA.",                                                   prog:'VDP' },
+      { month:'Apr', year:'2026', href:'who-vdp-writeup-2026-first.html',                            title:"World Health Organization's WordPress Vulnerability",              excerpt:"Public recognition via WHO's Vulnerability Hall of Fame.",                                                             prog:'VDP' },
+      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-second.html',                        title:"UNESCO's Unprotected Power Supply in Ecuador",                     excerpt:"Public recognition via UNESCO's Cybersecurity Hall of Fame.",                                     prog:'VDP' },
+      { month:'Mar', year:'2026', href:'unesco-vdp-writeup-2026-first.html',                         title:"UNESCO's Publicly Accessible xmlrpc.php File",                    excerpt:"Public recognition via UNESCO's Cybersecurity Hall of Fame.",                                                  prog:'VDP' },
+      { month:'Feb', year:'2026', href:'newsouthwalesparliamentaustralia-vdp-2026-first.html',       title:"Parliament of New South Wales Cyber Vulnerability",               excerpt:"Received formal acknowledgement from the Parliament of NSW.",                                                  prog:'VDP' },
+      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-fourth.html',   title:"Berkeley Lab's Invalid Calendar Date Leads to Denial-of-Service (DoS)",          excerpt:"Acknowledged by Berkeley Lab Cybersecurity Team.",                                              prog:'VDP' },
+      { month:'Jan', year:'2026', href:'lawrenceberkeleynationallab-vdp-writeup-2026-third.html',    title:"Berkeley Lab's Exposed CR1000X Datalogger",                      excerpt:"Public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
+      { month:'Jan', year:'2026', href:'unicef-vdp-writeup-2026-first.html',                         title:"Unauthenticated Uploads in UNICEF's ArcGIS FeatureServer",        excerpt:"Public recognition via UNICEF Information Security Hall of Fame.",                                  prog:'VDP' },
+      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-second.html',   title:"Discovering HTML Injection in Berkeley Lab's Search Feature",    excerpt:"Public recognition via White Hats for Science Kudos.",                                                prog:'VDP' },
+      { month:'Dec', year:'2025', href:'lawrenceberkeleynationallab-vdp-writeup-2025-first.html',    title:"Django Server Misconfigurations at Berkeley Lab",                 excerpt:"Public recognition via White Hats for Science Kudos.",                                    prog:'VDP' },
+      { month:'Aug', year:'2025', href:'nasa-vdp-writeup-2025-first.html',                           title:"NASA's Misconfigured Google Drive Permissions",                  excerpt:"Received a Letter of Recommendation from NASA.",                                                   prog:'VDP' },
     ];
 
-    const PER_PAGE = 5;
-
-    function renderPage(page) {
-      const slice = posts.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
-      document.getElementById('posts-list').innerHTML = slice.map(p =>
-        `<article class="post-row">
-          <div class="post-date"><span class="pd-day">${p.month}</span><span class="pd-mon">${p.year}</span></div>
-          <div class="post-body">
-            <h2 class="post-title"><a href="${p.href}">${p.title}</a></h2>
-            <p class="post-excerpt">${p.excerpt}</p>
-            <div class="post-meta"><span class="post-prog">${p.prog}</span></div>
-          </div>
-        </article>`
-      ).join('');
-
-      const total = Math.ceil(posts.length / PER_PAGE);
-      document.getElementById('pagination').innerHTML =
-        Array.from({length: total}, (_, i) =>
-          `<button class="pg-btn${i === page ? ' active' : ''}" onclick="renderPage(${i})">${i + 1}</button>`
-        ).join('');
-    }
-
-    renderPage(0);
+    document.getElementById('posts-list').innerHTML = posts.map(p =>
+      `<a class="post-row" href="${p.href}">
+        <div class="post-date"><span class="pd-day">${p.month}</span><span class="pd-mon">${p.year}</span></div>
+        <div class="post-body">
+          <h2 class="post-title">${p.title}</h2>
+          <p class="post-excerpt">${p.excerpt}</p>
+          <div class="post-meta"><span class="post-prog">${p.prog}</span></div>
+        </div>
+      </a>`
+    ).join('');
   </script>
 
 </body>

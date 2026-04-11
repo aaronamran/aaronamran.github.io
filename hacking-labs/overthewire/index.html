@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="../../styles.css">
   <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
   <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .posts-col::-webkit-scrollbar-thumb:hover { opacity: 0.75; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
 </head>
 <body>
   <div class="site-frame">
@@ -43,7 +52,13 @@
         <a href="../" class="back-link">&larr; Hacking Labs</a>
         <p class="col-label" style="margin-top:1rem">OverTheWire: Wargames</p>
         <p class="about-quote">Linux and exploitation wargames via SSH — from beginner Bandit to advanced exploitation. <a href="https://overthewire.org/wargames/" target="_blank" rel="noopener">overthewire.org/wargames/</a></p>
-        <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">Writeups coming soon.</p>
+        <a class="post-row" href="bandit.html">
+          <div class="post-body">
+            <h2 class="post-title">Bandit</h2>
+            <p class="post-excerpt">Beginner wargame covering Linux CLI fundamentals — file permissions, SSH, redirects, and more.</p>
+            <div class="post-meta"><span class="post-prog">OverTheWire Wargames</span></div>
+          </div>
+        </a>
       </main>
       <aside class="sidebar">
         <div class="sb-block">

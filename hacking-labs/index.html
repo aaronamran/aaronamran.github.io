@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="../styles.css">
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .posts-col::-webkit-scrollbar-thumb:hover { opacity: 0.75; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
 </head>
 <body>
 
@@ -67,6 +76,14 @@
           <a href="overthewire/" class="platform-card">
             <div class="platform-card-name">OverTheWire: Wargames</div>
             <div class="platform-card-url">overthewire.org/wargames/</div>
+          </a>
+          <a href="k8slanparty/" class="platform-card">
+            <div class="platform-card-name">K8s Lan Party</div>
+            <div class="platform-card-url">k8slanparty.github.io</div>
+          </a>
+          <a href="redtigershackit/" class="platform-card">
+            <div class="platform-card-name">Red Tiger's HackIt</div>
+            <div class="platform-card-url">redtiger.hackit.at</div>
           </a>
         </div>
       </main>

@@ -8,6 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="icon" type="image/x-icon" href="../../../assets/img/favicon.ico">
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .posts-col::-webkit-scrollbar-thumb:hover { opacity: 0.75; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
 </head>
 <body>
   <div class="site-frame">
