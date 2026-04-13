@@ -6,8 +6,8 @@
   <title>aaronamran</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 </head>
 <body>
 
@@ -17,13 +17,13 @@
     <header class="topbar">
       <nav class="topbar-inner">
         <div class="topbar-links">
-          <a href="../index.html#about"          class="tl">About</a>
-          <a href="../ethicalhacking/"           class="tl active">Ethical_Hacking</a>
-          <a href="../hacking-labs/"             class="tl">Hacking_Labs</a>
-          <a href="../index.html#experience"     class="tl">Experience</a>
-          <a href="../index.html#certifications" class="tl">Certifications</a>
-          <a href="../index.html#education"      class="tl">Education</a>
-          <a href="../index.html#trainings"      class="tl">Trainings</a>
+          <a href="/index.html#about"          class="tl">About</a>
+          <a href="/ethicalhacking/"           class="tl active">Ethical_Hacking</a>
+          <a href="/hacking-labs/"             class="tl">Hacking_Labs</a>
+          <a href="/index.html#experience"     class="tl">Experience</a>
+          <a href="/index.html#certifications" class="tl">Certifications</a>
+          <a href="/index.html#education"      class="tl">Education</a>
+          <a href="/index.html#trainings"      class="tl">Trainings</a>
         </div>
         <div class="topbar-actions">
           <div class="palette-swatches" id="paletteSwatches" aria-label="Accent color">
@@ -47,10 +47,10 @@
 
     <!-- __ Article __ -->
     <div class="writeup-body">
-      <a href="./" class="back-link">&larr; Back to Ethical Hacking</a>
+      <a href="/ethicalhacking/" class="back-link">&larr; Back to Ethical Hacking</a>
 
       <div class="writeup-header">
-        <img src="../assets/logo/whologo.png" alt="WHO logo" class="writeup-logo" />
+        <img src="/assets/logo/whologo.png" alt="WHO logo" class="writeup-logo" />
         <div class="writeup-header-text">
           <div class="writeup-org">World Health Organization (WHO)</div>
           <h1 class="writeup-title">World Health Organization's WordPress Vulnerability</h1>
@@ -62,10 +62,10 @@
 	
 	<div class="text-center">
 		<a href="https://www.who.int/about/cybersecurity/vulnerability-hall-of-fame/ethical-hacker-list#:~:text=Ethical%20hackers-,Vulnerability%20Hall%20of%20Fame,-To%20continuously%20improve" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
-			<img src="../assets/ethicalhacking/whowordpress/who_vuln_hof.png" alt="WHO VDP 1" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
+			<img src="/assets/ethicalhacking/whowordpress/who_vuln_hof.png" alt="WHO VDP 1" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
 		</a>
         <a href="https://www.who.int/about/cybersecurity/vulnerability-hall-of-fame/ethical-hacker-list#:~:text=Aaron%20Amran%20Bin%20Amiruddin" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
-			<img src="../assets/ethicalhacking/whowordpress/who_vuln_hof_aaronamran.png" alt="WHO VDP 2" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
+			<img src="/assets/ethicalhacking/whowordpress/who_vuln_hof_aaronamran.png" alt="WHO VDP 2" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
 		</a>
 	</div>
 	
@@ -73,44 +73,44 @@
 	<p class="lead mb-4">Roughly around the same time I started hunting for vulnerabilities in UNICEF and UNESCO, I also began casually scouring through the WHO's public-facing digital assets. I noticed that many XSS and information disclosure issues had been reported previously. Personally, I'm not sure how others were finding those specific bugs; even when I invested more time and effort, I couldn't get an XSS payload to trigger, nor did I find any sensitive leaks via Google Dorks.</p>
     <p class="lead mb-4">Since I'm a manual hunter armed with the Wappalyzer extension, I screened the WHO's enumerated subdomains myself. I manually appended <code>/xmlrpc.php</code> to the URL of any site running WordPress. I hit a lot of HTTP 403 responses, but after some thorough searching, I finally came across two unprotected endpoints. The Proof-of-Concept (PoC) for both endpoints used the exact same method, so I only provided proof for one.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_subdomain_xmlrpcphp.png" alt="WHO XML-RPC Vulnerability" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_subdomain_xmlrpcphp.png" alt="WHO XML-RPC Vulnerability" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">I used Burp Suite to intercept the request so I can see the HTTP response.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_get_xmlrpcphp_http405.png" alt="WHO XML-RPC Intercept" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_get_xmlrpcphp_http405.png" alt="WHO XML-RPC Intercept" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">Since it returns HTTP 405 Method not Allowed, I changed the request method from GET to POST, and appended some XML code to list the available system methods.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_post_listmethods_http200_1.png" alt="WHO XML-RPC List" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
-    <img src="../assets/ethicalhacking/whowordpress/who_post_listmethods_http200_2.png" alt="WHO XML-RPC List" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_post_listmethods_http200_1.png" alt="WHO XML-RPC List" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_post_listmethods_http200_2.png" alt="WHO XML-RPC List" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">XML-RPC endpoints commonly expose the <code>pingback.ping</code> method. When publicly accessible, this method has historically been abused to trigger server-side HTTP requests to third-party targets, which can be leveraged for reflected traffic or amplification-style abuse if not restricted or rate-limited.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_post_pingback_http200.png" alt="WHO XML-RPC Pingback" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_post_pingback_http200.png" alt="WHO XML-RPC Pingback" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">I then used <a href="https://app.interactsh.com/#/" target="_blank" referrerpolicy="noreferrer">Interactsh Web Client</a> as a temporary callback server for this PoC.</p> 
 
-    <img src="../assets/ethicalhacking/whowordpress/interactsh_results.png" alt="Interactsh Results" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/interactsh_results.png" alt="Interactsh Results" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">Once I proved that the pingback method is working, I checked the IP address to confirm it.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/ip_source_info.png" alt="IP Source Info" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/ip_source_info.png" alt="IP Source Info" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">As usual, I sent an email report detailing the steps I took to the WHO Cybersecurity Team on 26 January 2026. A few days later, on 30 January 2026, I received a reply from them.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_cybersec_emailreply1.png" alt="Email 1" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_cybersec_emailreply1.png" alt="Email 1" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">Not bad. I was not expecting them to classify my finding as an Out-of-Band Server-Side Request Forgery (SSRF). After they fixed it, they emailed me and asked me to manually confirm that the vulnerability had been patched.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_cybersec_emailreply2.png" alt="Email 2" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_cybersec_emailreply2.png" alt="Email 2" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">I opened the URL of the endpoint in a web browser and checked the Network Tab in the Developer Tools. It was indeed fixed and returned an HTTP 403 Forbidden response.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/xmlrpc_forbidden.png" alt="XMLRPC Forbidden" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/xmlrpc_forbidden.png" alt="XMLRPC Forbidden" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">Once I confirmed the fix and sent them a screenshot, they replied with an email asking for my name and LinkedIn profile so they could add me to their Hall of Fame.</p>
 
-    <img src="../assets/ethicalhacking/whowordpress/who_cybersec_emailreply3.png" alt="Email 3" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/whowordpress/who_cybersec_emailreply3.png" alt="Email 3" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">It was only during the first week of April 2026 that I randomly checked and saw they had updated the list. This is why I am publishing this blog on 6 April 2026. My assumption is that they update the list every two to three months. I am still really curious about how to find a successful XSS on WHO's public-facing assets, so I aim to get at least one valid XSS during my next hunt there.</p>
 	
@@ -129,7 +129,7 @@
     </div>
 
   </div>
-  <script src="../js/scripts.js"></script>
+  <script src="/js/scripts.js"></script>
 
 </body>
 </html>

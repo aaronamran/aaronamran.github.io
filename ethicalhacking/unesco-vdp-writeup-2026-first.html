@@ -6,9 +6,9 @@
   <title>aaronamran</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 </head>
 <body>
 
@@ -18,13 +18,13 @@
     <header class="topbar">
       <nav class="topbar-inner">
         <div class="topbar-links">
-          <a href="../index.html#about"          class="tl">About</a>
-          <a href="../ethicalhacking/"           class="tl active">Ethical_Hacking</a>
-          <a href="../hacking-labs/"             class="tl">Hacking_Labs</a>
-          <a href="../index.html#experience"     class="tl">Experience</a>
-          <a href="../index.html#certifications" class="tl">Certifications</a>
-          <a href="../index.html#education"      class="tl">Education</a>
-          <a href="../index.html#trainings"      class="tl">Trainings</a>
+          <a href="/index.html#about"          class="tl">About</a>
+          <a href="/ethicalhacking/"           class="tl active">Ethical_Hacking</a>
+          <a href="/hacking-labs/"             class="tl">Hacking_Labs</a>
+          <a href="/index.html#experience"     class="tl">Experience</a>
+          <a href="/index.html#certifications" class="tl">Certifications</a>
+          <a href="/index.html#education"      class="tl">Education</a>
+          <a href="/index.html#trainings"      class="tl">Trainings</a>
         </div>
         <div class="topbar-actions">
           <div class="palette-swatches" id="paletteSwatches" aria-label="Accent color">
@@ -48,10 +48,10 @@
 
     <!-- __ Article __ -->
     <div class="writeup-body">
-      <a href="./" class="back-link">&larr; Back to Ethical Hacking</a>
+      <a href="/ethicalhacking/" class="back-link">&larr; Back to Ethical Hacking</a>
 
       <div class="writeup-header">
-        <img src="../assets/logo/unescologo.png" alt="UNESCO logo" class="writeup-logo" />
+        <img src="/assets/logo/unescologo.png" alt="UNESCO logo" class="writeup-logo" />
         <div class="writeup-header-text">
           <div class="writeup-org">United Nations Educational, Scientific and Cultural Organization (UNESCO)</div>
           <h1 class="writeup-title">UNESCO's Publicly Accessible xmlrpc.php File</h1>
@@ -62,7 +62,7 @@
 	
 	<div class="text-center">
 		<a href="https://www.unesco.org/en/vulnerability-disclosure#:~:text=28%20January%202026-,Aaron%20Amran%20Bin%20Amiruddin,-(mailto)%C2%A0" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
-			<img src="../assets/ethicalhacking/unescoxmlrpc/unesco_halloffame_aaron_xmlrpc.png" alt="UNESCO VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
+			<img src="/assets/ethicalhacking/unescoxmlrpc/unesco_halloffame_aaron_xmlrpc.png" alt="UNESCO VDP" class="img-fluid rounded mb-4" style="max-width:720px; width:auto; display:block;" width="720" height="405" loading="lazy" decoding="async">
 		</a>
 	</div>
     
@@ -70,21 +70,21 @@
 	<p class="lead mb-4">In January 2026, I decided to try again. After studying write-ups from other ethical hackers and reviewing previous vulnerabilities in UNESCO's Hall of Fame, I increased my efforts. I specifically targeted the XML-RPC endpoint. While I knew others had reported this in the past, I wanted to see if any instances remained.</p>
     <p class="lead mb-4">Using the Wappalyzer extension, I screened UNESCO's enumerated subdomains. For every site running WordPress, I manually appended <code>/xmlrpc.php</code> to the URL. Eventually, I found a live endpoint.</p>
 
-    <img src="../assets/ethicalhacking/unescoxmlrpc/unesco_xmlrpc.png" alt="UNESCO XML-RPC Vulnerability" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/unescoxmlrpc/unesco_xmlrpc.png" alt="UNESCO XML-RPC Vulnerability" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
     <p class="lead mb-4">To rule out a false positive, I used Burp Suite to intercept the request.</p>
 
-    <img src="../assets/ethicalhacking/unescoxmlrpc/getmethodnotallowed_unesco.png" alt="UNESCO XML-RPC Intercept" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/unescoxmlrpc/getmethodnotallowed_unesco.png" alt="UNESCO XML-RPC Intercept" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">I changed the request method from GET to POST and successfully listed the available system methods.</p>
 
-    <img src="../assets/ethicalhacking/unescoxmlrpc/post_unesco_xmlrpc.png" alt="UNESCO XML-RPC POST Request" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/unescoxmlrpc/post_unesco_xmlrpc.png" alt="UNESCO XML-RPC POST Request" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
-    <img src="../assets/ethicalhacking/unescoxmlrpc/post_unesco_xmlrpc2.png" alt="UNESCO XML-RPC POST Request" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/unescoxmlrpc/post_unesco_xmlrpc2.png" alt="UNESCO XML-RPC POST Request" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">Since this was sufficient proof of the vulnerability, I submitted my report to UNESCO's Digital Security team on 19 January 2026. After waiting a few weeks, I received a reply on 11 March 2026 confirming they had accepted and fixed the issue.</p> 
 
-    <img src="../assets/ethicalhacking/unescoxmlrpc/unesco_digitalsecurity_xmlrpc_email.png" alt="UNESCO Digital Security Email" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+    <img src="/assets/ethicalhacking/unescoxmlrpc/unesco_digitalsecurity_xmlrpc_email.png" alt="UNESCO Digital Security Email" class="img-fluid rounded mb-4" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 
 	<p class="lead mb-4">That's nice! So they accepted this small vulnerability and fixed it. I manually verified the fix and provided the team with the necessary details for my listing.</p>
 
@@ -105,7 +105,7 @@
     </div>
 
   </div>
-  <script src="../js/scripts.js"></script>
+  <script src="/js/scripts.js"></script>
 
 </body>
 </html>
