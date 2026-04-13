@@ -488,6 +488,34 @@ a {
   line-height: 1.5;
 }
 
+/* Badge Preview */
+#badge-preview-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 162px;
+  padding: 1rem;
+  background: var(--bg-dim);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#badge-preview-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 144px;
+  height: 144px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+#badge-preview-text {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  margin: 0;
+}
+
 .sb-exp-role a {
   color: var(--accent);
   transition: opacity 0.15s;
@@ -951,6 +979,30 @@ a {
 
 .cert-panel.active {
   display: block;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+/* Custom scrollbar for WebKit browsers */
+.cert-panel.active::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cert-panel.active::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cert-panel.active::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.cert-panel.active::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
 }
 
 .cert-table {
