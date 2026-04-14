@@ -1,0 +1,76 @@
+---
+title: 'Alohomora'
+date: '2026-02-20'
+excerpt: 'Practice directory discovery in a web application, detecting critical data by navigating between git branches, and gaining access to the server with a key file.'
+prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
+---
+
+<div class="writeup-header">
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_logo.png" alt="Hackviser logo" class="writeup-logo" />
+<div class="writeup-header-text">
+<div class="writeup-org">Hackviser</div>
+<h1 class="writeup-title">Alohomora</h1>
+<div class="writeup-date">February 2026 &middot; Warmup Stage 2</div>
+</div>
+</div>
+<p class="lead mb-4">Git is a version control system that supports multi-user collaboration by tracking code changes. The version control history of projects is stored in the ".git" folder. This writeup focuses on practicing directory discovery in a web application, detecting critical data by navigating between git branches, and gaining access to the server with a key file.</p>
+
+<h4 class="mb-3">Tasks</h4>
+<p class="mb-2"><strong>Question 1:</strong> What is blogger's email address?</p>
+<p class="mb-3">Considering that the chances of obtaining email address information via terminal is low, we can try to directly open the target IP in a web browser and look for contact information. We are greeted with the following:</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image1.png" alt="Alohomora Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-3">Clicking on the About section and reading further leads us to the following:</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image2.png" alt="Alohomora Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-5"><strong>Answer:</strong> tommy@cyberwand-blog.com</p>
+
+<p class="mb-2"><strong>Question 2:</strong> What is the name of the directory that contains git-related files found during a directory scan?</p>
+<p class="mb-3">To approach this, we have to use directory discovery techniques to find hidden directories. By using the command <code>gobuster dir -u 172.20.4.90 -w /usr/share/seclists/Discovery/Web-Content/common.txt -t 50</code>, we found a directory named ".git" which contains git-related files.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image3.png" alt="Alohomora Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-5"><strong>Answer:</strong> .git</p>
+
+<p class="mb-2"><strong>Question 3:</strong> What is the username of the developer?</p>
+<p class="mb-3">Opening .git in the web browser reveals the following git directory structure:</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image4.png" alt="Alohomora Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-3">We can use git-dumper to download the git folder to our local machine and search for information easily.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image5.png" alt="Alohomora Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-3">Now that we have the git repository, we will use the git command line tool to access various information needed of the repository.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image6.png" alt="Alohomora Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-3">After navigating to the target directory and using the command <code>git log</code>, we can find the commit that contains the username of the developer.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image7.png" alt="Alohomora Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-5"><strong>Answer:</strong> tomriddlex1</p>
+
+<p class="mb-2"><strong>Question 4:</strong> Which branch is active?</p>
+<p class="mb-3">Simply use the command <code>git branch</code> to see the active branch.</p>
+<p class="mb-5"><strong>Answer:</strong> main</p>
+
+<p class="mb-2"><strong>Question 5:</strong> What is the git command showing commits?</p>
+<p class="mb-5"><strong>Answer:</strong> log</p>
+
+<p class="mb-2"><strong>Question 6:</strong> What is the git command that changes the branch?</p>
+<p class="mb-3">To change the branch, we can use the command <code>git checkout &lt;branch_name&gt;</code>.</p>
+<p class="mb-5"><strong>Answer:</strong> checkout</p>
+
+<p class="mb-2"><strong>Question 7:</strong> What is the name of the forgotten file in the dev branch?</p>
+<p class="mb-3">We need to switch the branch from main to dev using the command <code>git checkout dev</code>. Then use <code>ls -l</code> to view available files.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image8.png" alt="Alohomora Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-5"><strong>Answer:</strong> id_rsa</p>
+
+<p class="mb-2"><strong>Question 8:</strong> What is the password hash for user hackviser?</p>
+<p class="mb-3">To access the password hash, we need to access the system and access <code>/etc/shadow</code>. We can use the id_rsa file as a key to access the system via SSH. However, the permissions for the id_rsa file need to be set correctly using <code>chmod 600 id_rsa</code>, and then we can attempt SSH again.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image9.png" alt="Alohomora Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-3">After successfully accessing the system, we can use <code>cat /etc/shadow</code> to view the password hash for user hackviser.</p>
+<img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image10.png" alt="Alohomora Image 10" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<p class="mb-5"><strong>Answer:</strong> $y$j9T$FOWx5qCAorpq72xggPErc0$zkgSTMnKfdrb/jH1zRKBvHCIsNCtmPElDaM4TjhNE7B</p>
+
+
+
+<hr />
+<section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/workstuff.html">next Hacking Lab</a>.</p>
+<p class="mb-0" style="font-weight:700;">@aaronamran</p>
+<p class="text-muted small mt-1">February 2026</p>
+</section>
+
+<div class="writeup-nav">
+</div>
+</div>

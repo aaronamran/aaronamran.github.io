@@ -1,0 +1,8 @@
+baseURL = 'https://aaronamran.github.io/'
+languageCode = 'en-us'
+title = 'aaronamran'
+
+disableKinds = ['taxonomy', 'term']
+
+[markup.goldmark.renderer]
+  unsafe = true

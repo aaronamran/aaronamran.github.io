@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+
+  <div class="site-frame">
+
+    {{ partial "topbar.html" . }}
+
+    {{ block "main" . }}{{ end }}
+
+  </div>
+
+  <script src="/js/scripts.js"></script>
+  <script src="/js/count.js"></script>
+  {{ block "pagescripts" . }}{{ end }}
+
+</body>
+</html>

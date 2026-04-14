@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>aaronamran</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 40px;
+            text-align: center;
+        }
+        .message {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Red Cat Storage Clearer</h1>
+    <div class="message success" id="message">Clearing localStorage...</div>
+    <script>
+        localStorage.clear();
+        document.getElementById('message').textContent = '✓ Storage cleared! Redirecting to Red Cat...';
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    </script>
+</body>
+</html>

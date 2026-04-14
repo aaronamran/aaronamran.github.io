@@ -1,0 +1,50 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <p class="about-quote">Challenges in mathematics, data structures and algorithms.</p>
+      <div class="platform-grid">
+        <a href="/algorithms/leetcode/" class="platform-card">
+          <div class="platform-card-name">LeetCode</div>
+          <div class="platform-card-url">leetcode.com</div>
+        </a>
+        <a href="/algorithms/codechef/" class="platform-card">
+          <div class="platform-card-name">CodeChef</div>
+          <div class="platform-card-url">codechef.com</div>
+        </a>
+        <a href="/algorithms/hackerrank/" class="platform-card">
+          <div class="platform-card-name">HackerRank</div>
+          <div class="platform-card-url">hackerrank.com</div>
+        </a>
+        <a href="/algorithms/projecteuler/" class="platform-card">
+          <div class="platform-card-name">Project Euler</div>
+          <div class="platform-card-url">projecteuler.net</div>
+        </a>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Focus Areas</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Data Structures</span>
+          <span class="cert-tag">Algorithms</span>
+          <span class="cert-tag">Mathematics</span>
+          <span class="cert-tag">Logic</span>
+          <span class="cert-tag">Competitive Programming</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num" id="platform-count">0</span><span class="stat-label">platforms</span></div>
+        <div class="stat-box"><span class="stat-num" id="ctf-count">0</span><span class="stat-label">labs</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

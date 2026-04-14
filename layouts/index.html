@@ -1,0 +1,78 @@
+{{ define "main" }}
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <div class="about-intro">
+        <div class="about-intro-text">
+          <h1 class="about-name"><span class="name-swap"><span class="name-real">Aaron Amran</span><span class="name-handle">@aaronamran</span></span><span class="about-accent">.</span></h1>
+          <p class="about-quote">Endless journey of exploring code, circuits, networks, exploits.</p>
+        </div>
+        <img class="profile-pic" src="/assets/img/profile.jpg" alt="Aaron Amran">
+      </div>
+
+      <div class="about-terminal">
+        <p><span class="t-dim">~$</span> cat about.txt</p>
+        <p class="t-dim">Location <span class="t-light">Kuching, Sarawak &middot; Malaysia</span></p>
+        <p class="t-dim">Role     <span class="t-light">System Engineer (System Storage Infrastructure)</span></p>
+        <p class="t-dim">Focus    <span class="t-light">Web App Security &middot; VDP Hunting &middot; Hacking Labs</span></p>
+        <p class="t-dim">Stack    <span class="t-light">Linux &middot; Windows Server &middot; Python &middot; Bash</span></p>
+        <p><span class="t-dim">~$</span> <span class="cursor-blink">&#x2587;</span></p>
+      </div>
+
+      <div class="about-section">
+        <p class="col-label">Contact</p>
+        <p class="about-contact-line">
+          <a href="https://github.com/aaronamran" target="_blank" rel="noopener">@aaronamran</a>
+          <span class="contact-sep">//</span>
+          <a href="https://github.com/aaronamran" target="_blank" rel="noopener">github.com/aaronamran</a>
+          <span class="contact-sep">//</span>
+          <a href="mailto:aaronamranba@gmail.com">aaronamranba@gmail.com</a>
+        </p>
+      </div>
+
+      <div class="about-section">
+        <p class="col-label">Try It Live</p>
+        <div class="platform-grid">
+          <a href="/redcat/" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card-url">Red Cat</div>
+            <div class="platform-card-desc">Practice commands for RHCSA exam.</div>
+          </a>
+          <a href="/dorkindex/" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card-url">DorkIndex</div>
+            <div class="platform-card-desc">Dorks for recon via search engines.</div>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Acknowledged By</p>
+        <div class="cert-badges">
+          <span class="cert-tag">NASA</span>
+          <span class="cert-tag">WHO</span>
+          <span class="cert-tag">UNESCO</span>
+          <span class="cert-tag">UNICEF</span>
+          <span class="cert-tag">NSW Parliament</span>
+          <span class="cert-tag">Berkeley Lab</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num" id="vuln-count">10</span><span class="stat-label">vulns</span></div>
+        <div class="stat-box"><span class="stat-num" id="ctf-count">0</span><span class="stat-label">labs</span></div>
+        <div class="stat-box"><span class="stat-num" id="cert-count">0</span><span class="stat-label">certs</span></div>
+      </div>
+      <div class="sb-block">
+        <p class="col-label">Currently</p>
+        <div class="sb-exp">
+          <span class="sb-exp-dot">&#9658;</span>
+          <div>
+            <p class="sb-exp-date">Aug 2025 &mdash; Present</p>
+            <p class="sb-exp-role">System Engineer<br><a href="https://www.sains.com.my" target="_blank" rel="noopener">SAINS</a></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+{{ end }}

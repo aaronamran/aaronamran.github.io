@@ -1,0 +1,52 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <p class="about-quote">100% hands-on cybersecurity labs and exercises.</p>
+      <div class="platform-grid">
+        <a href="/hacking-labs/hackthebox/" class="platform-card">
+          <div class="platform-card-name">Hack The Box</div>
+          <div class="platform-card-url">hackthebox.com</div>
+        </a>
+        <a href="/hacking-labs/hacksmarter/" class="platform-card">
+          <div class="platform-card-name">Hack Smarter</div>
+          <div class="platform-card-url">hacksmarter.org/catalog</div>
+        </a>
+        <a href="/hacking-labs/hackviser/" class="platform-card">
+          <div class="platform-card-name">HackViser</div>
+          <div class="platform-card-url">app.hackviser.com</div>
+        </a>
+        <a href="/hacking-labs/overthewire/" class="platform-card">
+          <div class="platform-card-name">OverTheWire: Wargames</div>
+          <div class="platform-card-url">overthewire.org/wargames/</div>
+        </a>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Focus Areas</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Web App Sec</span>
+          <span class="cert-tag">Forensics</span>
+          <span class="cert-tag">Crypto</span>
+          <span class="cert-tag">Rev Eng</span>
+          <span class="cert-tag">Wargames</span>
+          <span class="cert-tag">CVE Labs</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num" id="platform-count">0</span><span class="stat-label">platforms</span></div>
+        <div class="stat-box"><span class="stat-num" id="ctf-count">0</span><span class="stat-label">labs</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

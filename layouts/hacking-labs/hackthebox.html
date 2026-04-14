@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <a href="/hacking-labs/" class="back-link">&larr; Hacking Labs</a>
+      <p class="col-label" style="margin-top:1rem">Hack The Box</p>
+      <p class="about-quote">Premier penetration testing labs platform. <a href="https://hackthebox.com" target="_blank" rel="noopener">hackthebox.com</a></p>
+      <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">Writeups coming soon.</p>
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Platform</p>
+        <a href="https://hackthebox.com" target="_blank" rel="noopener" class="about-link">&#8599; hackthebox.com</a>
+      </div>
+      <div class="sb-block">
+        <p class="col-label">Categories</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Machines</span>
+          <span class="cert-tag">Challenges</span>
+          <span class="cert-tag">Pro Labs</span>
+          <span class="cert-tag">Sherlocks</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

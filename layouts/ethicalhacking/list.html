@@ -1,0 +1,59 @@
+{{ define "main" }}
+  <style>
+    .site-frame    { overflow: hidden !important; display: flex; flex-direction: column; height: calc(100vh - 2.5rem); }
+    .content-grid  { flex: 1; min-height: 0; overflow: hidden; }
+    .posts-col     { overflow-y: auto; overflow-x: hidden; min-height: 0; }
+    .sidebar       { overflow-y: auto; }
+    .posts-col::-webkit-scrollbar       { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    #posts-list .pd-day   { font-size: 1.6rem; }
+    #posts-list .pd-mon   { font-size: 0.75rem; }
+    #posts-list .post-date { width: 42px; }
+    #posts-list .post-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
+    #posts-list .post-excerpt { font-size: 0.75rem; line-height: 1.5; margin-bottom: 0.4rem; }
+    #posts-list .post-row { padding-top: 0.85rem; padding-bottom: 0.85rem; cursor: pointer; }
+    #posts-list .post-row:first-of-type { padding-top: 0.55rem; }
+    #posts-list a.post-row { text-decoration: none; color: inherit; display: flex; }
+    #posts-list a.post-row .post-title { color: var(--accent); }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <p class="about-quote" style="margin-bottom:1rem"><em>Uncovering vulnerabilities for responsible disclosures on real-world targets.</em></p>
+      <div id="posts-list">
+        {{ range .Pages }}
+        <a class="post-row" href="{{ .RelPermalink }}">
+          <div class="post-date">
+            <span class="pd-day">{{ .Date.Format "Jan" }}</span>
+            <span class="pd-mon">{{ .Date.Year }}</span>
+          </div>
+          <div class="post-body">
+            <h2 class="post-title">{{ .Title }}</h2>
+            <p class="post-excerpt">{{ .Params.excerpt }}</p>
+            <div class="post-meta"><span class="post-prog">{{ .Params.prog }}</span></div>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Acknowledged By</p>
+        <div class="cert-badges">
+          <span class="cert-tag">NASA</span>
+          <span class="cert-tag">WHO</span>
+          <span class="cert-tag">UNESCO</span>
+          <span class="cert-tag">UNICEF</span>
+          <span class="cert-tag">NSW Parliament</span>
+          <span class="cert-tag">Berkeley Lab</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">{{ len .Pages }}</span><span class="stat-label">vulns</span></div>
+        <div class="stat-box"><span class="stat-num">6</span><span class="stat-label">orgs</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

@@ -1,0 +1,33 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <a href="/hacking-labs/" class="back-link">&larr; Hacking Labs</a>
+      <p class="col-label" style="margin-top:1rem">Hack Smarter</p>
+      <p class="about-quote">Structured cybersecurity course catalog with hands-on offensive security labs. <a href="https://hacksmarter.org/catalog" target="_blank" rel="noopener">hacksmarter.org/catalog</a></p>
+      <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">Writeups coming soon.</p>
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Platform</p>
+        <a href="https://hacksmarter.org/catalog" target="_blank" rel="noopener" class="about-link">&#8599; hacksmarter.org/catalog</a>
+      </div>
+      <div class="sb-block">
+        <p class="col-label">Focus</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Offensive Security</span>
+          <span class="cert-tag">Recon</span>
+          <span class="cert-tag">Exploitation</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

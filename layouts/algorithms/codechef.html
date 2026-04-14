@@ -1,0 +1,46 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <a href="/algorithms/" class="back-link">&larr; Algorithms</a>
+      <p class="col-label" style="margin-top:1rem">CodeChef Topics</p>
+
+      <a class="post-row" href="/algorithms/codechef/arrays/">
+        <div class="post-body">
+          <h2 class="post-title">Arrays</h2>
+          <div class="post-meta"><span class="post-prog">1 / 56 problems solved</span></div>
+        </div>
+      </a>
+      <a class="post-row" href="/algorithms/codechef/strings/">
+        <div class="post-body">
+          <h2 class="post-title">Strings</h2>
+          <div class="post-meta"><span class="post-prog">0 / 42 problems solved</span></div>
+        </div>
+      </a>
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Focus Areas</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Arrays</span>
+          <span class="cert-tag">Strings</span>
+          <span class="cert-tag">Sorting</span>
+          <span class="cert-tag">Searching</span>
+          <span class="cert-tag">Dynamic Programming</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">1</span><span class="stat-label">topics</span></div>
+        <div class="stat-box"><span class="stat-num">1</span><span class="stat-label">solved</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

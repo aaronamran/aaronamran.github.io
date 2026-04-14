@@ -1,0 +1,40 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <a href="/hacking-labs/hackviser/" class="back-link">&larr; HackViser</a>
+      <p class="col-label" style="margin-top:1rem">{{ .Title }}</p>
+
+      {{ range .Pages }}
+      <a class="post-row" href="{{ .RelPermalink }}">
+        <div class="post-body">
+          <h2 class="post-title">{{ .Title }}</h2>
+          {{ if .Params.excerpt }}<p class="post-excerpt">{{ .Params.excerpt }}</p>{{ end }}
+          <div class="post-meta"><span class="post-prog">{{ .Params.prog }}</span></div>
+        </div>
+      </a>
+      {{ end }}
+
+      {{ if not .Pages }}
+      <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">Writeups coming soon.</p>
+      {{ end }}
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Platform</p>
+        <a href="https://app.hackviser.com" target="_blank" rel="noopener" class="about-link">&#8599; app.hackviser.com</a>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">{{ len .Pages }}</span><span class="stat-label">labs</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}
