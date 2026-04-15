@@ -1,8 +1,8 @@
 ---
 title: 'Dynamic Book'
 date: '2026-03-01'
-excerpt: ''
-prog: 'Hackviser Warmup  -  2026'
+excerpt: 'Practice exploiting vulnerabilities in a machine running a misconfigured rsync service to gain access and perform privilege escalation attacks.'
+prog: 'Hackviser Warmup Stage 3 -  2026'
 ---
 
 <div class="writeup-header">

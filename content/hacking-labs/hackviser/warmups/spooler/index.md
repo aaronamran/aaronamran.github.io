@@ -1,8 +1,8 @@
 ---
 title: 'Spooler'
 date: '2026-03-01'
-excerpt: ''
-prog: 'Hackviser Warmup  -  2026'
+excerpt: 'Practice stealing tokens by exploiting misconfigured services on the system and performing token manipulation and privilege escalation attacks with the stolen token.'
+prog: 'Hackviser Warmup Stage 3 -  2026'
 ---
 
 <div class="writeup-header">

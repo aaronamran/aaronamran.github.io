@@ -1,8 +1,8 @@
 ---
 title: 'Find and Crack'
 date: '2026-03-01'
-excerpt: ''
-prog: 'Hackviser Warmup  -  2026'
+excerpt: 'Practice vulnerability research, system access, privilege escalation and gaining access to encrypted data on the target machine running an open source web application.'
+prog: 'Hackviser Warmup Stage 3 -  2026'
 ---
 
 <div class="writeup-header">

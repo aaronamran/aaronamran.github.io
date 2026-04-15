@@ -16,13 +16,11 @@
       <a class="post-row" href="/algorithms/codechef/arrays/">
         <div class="post-body">
           <h2 class="post-title">Arrays</h2>
-          <div class="post-meta"><span class="post-prog">1 / 56 problems solved</span></div>
         </div>
       </a>
       <a class="post-row" href="/algorithms/codechef/strings/">
         <div class="post-body">
           <h2 class="post-title">Strings</h2>
-          <div class="post-meta"><span class="post-prog">0 / 42 problems solved</span></div>
         </div>
       </a>
     </main>
@@ -38,8 +36,10 @@
         </div>
       </div>
       <div class="sb-block sb-stats">
-        <div class="stat-box"><span class="stat-num">1</span><span class="stat-label">topics</span></div>
-        <div class="stat-box"><span class="stat-num">1</span><span class="stat-label">solved</span></div>
+        {{ $total := 0 }}
+        {{ range .Sections }}{{ $total = add $total (len .Pages) }}{{ end }}
+        <div class="stat-box"><span class="stat-num">{{ len .Sections }}</span><span class="stat-label">topics</span></div>
+        <div class="stat-box"><span class="stat-num">{{ $total }}</span><span class="stat-label">solved</span></div>
       </div>
     </aside>
   </div>
