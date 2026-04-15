@@ -3,6 +3,7 @@
 
 const counts = {
   vulnerabilityDisclosures: 10,
+  algorithmsSolved: 2,
   ctfChallenges: {
     hackthebox:      0,
     hacksmarter:     0,
@@ -43,6 +44,11 @@ function updateCounts() {
   // Total CTF writeups (hacking-labs sidebar)
   document.querySelectorAll('[id="ctf-count"]').forEach(el => {
     el.textContent = getTotalCTF();
+  });
+
+  // Total solved algorithms problems (algorithms sidebar)
+  document.querySelectorAll('[id="algo-count"]').forEach(el => {
+    el.textContent = counts.algorithmsSolved;
   });
 
   // Platform cards — DOM-counted; only has a value on hacking-labs/index.html
