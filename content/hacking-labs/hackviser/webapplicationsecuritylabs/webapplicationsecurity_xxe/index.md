@@ -44,7 +44,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 });
 </pre>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xxe/xxe_hackviser_image3.png" alt="Web Application Security XXE 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Now in the browser Console, paste the payload below which has been modified.</p>
+<p class="mb-3">Now in the browser console, paste the payload below which has been modified.</p>
 <pre>fetch(&quot;https://engaging-spot.europe1.hackviser.space/contact.php&quot;, {
   &quot;headers&quot;: {
     &quot;content-type&quot;: &quot;application/xml&quot;
