@@ -1,4 +1,4 @@
 ---
-title: "HackViser"
-layout: "hackviser"
+title: "Hackviser"
+layout: "Hackviser"
 ---
