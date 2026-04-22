@@ -1170,6 +1170,21 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.85rem;
   line-height: 1.4;
   color: #e6e6e6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.writeup-body pre::-webkit-scrollbar {
+  height: 5px;
+}
+.writeup-body pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.writeup-body pre::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+.writeup-body pre::-webkit-scrollbar-thumb:hover {
+  opacity: 0.75;
 }
 .writeup-body code {
   font-family: var(--mono);
