@@ -10,9 +10,9 @@
   --mono: Consolas, Monaco, 'Courier New', monospace;
 
   /* Dark (default) */
-  --bg:           #0d0d0d;
-  --bg-surface:   #111111;
-  --bg-sidebar:   #0f0f0f;
+  --bg:           #161616;
+  --bg-surface:   #1a1a1a;
+  --bg-sidebar:   #181818;
   --bg-hover:     rgba(255, 255, 255, 0.03);
   --border:       #2c2c2c;
   --border-mid:   #3d3d3d;

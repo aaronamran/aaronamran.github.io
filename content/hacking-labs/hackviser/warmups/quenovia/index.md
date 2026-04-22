@@ -20,11 +20,13 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <p class="mb-3">Open the target site in a web browser and see the title in the browser tab.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_image1.png" alt="Quenovia Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> Quenovia</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> Which file types are allowed to be uploaded to the profile photo field in the visa application?</p>
 <p class="mb-3">Click Apply for Visa, then scroll down to the Profile Photo section, and click Browse. Notice that the allowed file types are displayed in the file selection dialog.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_image2.png" alt="Quenovia Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> Image</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the database password?</p>
 <p class="mb-3">We need to exploit a vulnerability in the web application to gain access to the database. We can attempt to use file upload functionality to upload a malicious file that will give us access. Let's attempt to allow the web application to allow uploads of other file types by inspecting the Browse functionality, and changing <code>accept="image/*"</code> to <code>accept="*"</code>.</p>
@@ -38,14 +40,17 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <img src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_image7.png" alt="Quenovia Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <img src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_image8.png" alt="Quenovia Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> c2e5-4b76-812c</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the full path to the file containing system-wide scheduled tasks (cron jobs)?</p>
 <p class="mb-5"><strong>Answer:</strong> /etc/crontab</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the name of the command or script that is run once per minute as a scheduled task (cron job)?</p>
 <p class="mb-3">We can just run <code>cat /etc/crontab</code> to analyse the contents of the cron jobs.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/quenovia/quenovia_hackviser_image9.png" alt="Quenovia Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> clean_logs.sh</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> Which date was the database backup taken?</p>
 <p class="mb-3">Next, we need to find the backup directory. After some browsing, we discover that the backup directory is located at <code>/backups</code>. Listing out the contents reveals a SQL backup file. However, our attempt of reading it is unsuccessful due to lack of permissions.</p>
@@ -62,7 +67,7 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/moonshade.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

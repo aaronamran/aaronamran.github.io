@@ -20,6 +20,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">Run a Nmap scan on the target IP using <code>nmap -sC -sV -A [target IP]</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_image1.png" alt="Bee Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> 80, 3306</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> Which domain did you add to the hosts file to login to the site?</p>
 <p class="mb-3">Since port 80 is open, we can access the web server using a browser.</p>
@@ -29,6 +30,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">Use the command <code>echo "[target IP] dashboard.innovifyai.hackviser" >> /etc/hosts</code>, then use <code>cat /etc/hosts</code> to verify the entry.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_image4.png" alt="Bee Image 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> dashboard.innovifyai.hackviser</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> With which vulnerability did you bypass the login panel?</p>
 <p class="mb-3">Now that the login page is accessible, try using SQL injection payloads such as <code>', ", # or --</code> in the password field. However the following error message is displayed.</p>
@@ -38,6 +40,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">An SQL injection vulnerability is detected as seen below.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_image7.png" alt="Bee Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> SQL injection</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the name and extension of the page containing user settings in the panel that you accessed by bypassing login?</p>
 <p class="mb-3">Knowing that SQL injection is possible, we can use the payload <code>' or 1=1#</code> in the email field which was modified to bypass the login, which successfully bypasses the login panel and allows us to access the admin panel.</p>
@@ -50,6 +53,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">Back to this task, after some browsing around, it is discovered that the page containing the user settings is <code>settings.php</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_image9.png" alt="Bee Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async"> 
 <p class="mb-5"><strong>Answer:</strong> settings.php</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the id of the user you get shell on the machine with file upload vulnerability?</p>
 <p class="mb-3">From <code>settings.php</code> page, we see there is a photo upload area. This feature could be exploited to upload a malicious file and gain shell access. For testing purposes, simply uploading a text file instead of an image can help verify the functionality.</p>
@@ -60,6 +64,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">Now that the webshell has been uploaded, navigate to <code>http://dashboard.innovifyai.hackviser/uploads/webshell.php?cmd=id</code> to see the user ID of the webshell.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/bee/bee_hackviser_image12.png" alt="Bee Image 12" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> 33</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> What is the MySQL password?</p>
 <p class="mb-3">To find the MySQL password, we can utilize the webshell we uploaded earlier. By executing the command <code>cat ../db_connect.php</code>, we obtain the following output.</p>
@@ -72,7 +77,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/alohomora.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">February 2026</p>
 </section>

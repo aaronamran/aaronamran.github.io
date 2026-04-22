@@ -22,6 +22,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <p class="mb-3">Clicking on IT Management link brings us to the login interface, which shows the GLPI logo.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_image2.png" alt="Find and Crack Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> GLPI</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the username used to connect to the database?</p>
 <p class="mb-3">As the initial part of gathering information, let's run an nmap scan using <code>nmap -sC -sV -A [target hostname]</code>.</p>
@@ -32,11 +33,13 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_image5.png" alt="Find and Crack Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_image6.png" alt="Find and Crack Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> glpiuser</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> Which command can be run with sudo privileges?</p>
 <p class="mb-3">Enter <code>shell</code> to create a new shell session. Then enter <code>whoami</code> to see which user you are currently logged in as. Run <code>sudo -l</code> to list the commands that can be run with sudo privileges.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_image7.png" alt="Find and Crack Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> find</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is backup.zip password?</p>
 <p class="mb-3">We use <code>sudo find / -name "backup.zip"</code> to find the backup file. But when we use <code> cp -r /root/backup.zip ./</code>, we do not have the necessary permissions. Our next step is to find a way to escalate privileges. To achieve this, let's utilise the <a href="https://gtfobins.github.io/gtfobins/find/" target="_blank" referrerpolicy="no-referrer">GTFOBins payloads for find command</a>.</p>
@@ -47,6 +50,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <p class="mb-3">Open another terminal and navigate to the Downloads directory. We will use fcrackzip tool with the full command <code>fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u backup.zip</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_image10.png" alt="Find and Crack Image 10" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> asdf;lkj</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> Who is suspected of mining?</p>
 <p class="mb-3">Now we can unzip the backup file using <code>unzip -P "asdf;lkj" backup.zip</code>. After some filtering with grep, we discover the person suspected of mining.</p>
@@ -55,7 +59,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/dynamicbook.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

@@ -22,11 +22,13 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">Clicking on the About section and reading further leads us to the following:</p>
 <img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image2.png" alt="Alohomora Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> tommy@cyberwand-blog.com</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the name of the directory that contains git-related files found during a directory scan?</p>
 <p class="mb-3">To approach this, we have to use directory discovery techniques to find hidden directories. By using the command <code>gobuster dir -u 172.20.4.90 -w /usr/share/seclists/Discovery/Web-Content/common.txt -t 50</code>, we found a directory named ".git" which contains git-related files.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image3.png" alt="Alohomora Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> .git</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the username of the developer?</p>
 <p class="mb-3">Opening .git in the web browser reveals the following git directory structure:</p>
@@ -38,22 +40,27 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 <p class="mb-3">After navigating to the target directory and using the command <code>git log</code>, we can find the commit that contains the username of the developer.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image7.png" alt="Alohomora Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> tomriddlex1</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> Which branch is active?</p>
 <p class="mb-3">Simply use the command <code>git branch</code> to see the active branch.</p>
 <p class="mb-5"><strong>Answer:</strong> main</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the git command showing commits?</p>
 <p class="mb-5"><strong>Answer:</strong> log</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> What is the git command that changes the branch?</p>
 <p class="mb-3">To change the branch, we can use the command <code>git checkout &lt;branch_name&gt;</code>.</p>
 <p class="mb-5"><strong>Answer:</strong> checkout</p>
+<br />
 
 <p class="mb-2"><strong>Question 7:</strong> What is the name of the forgotten file in the dev branch?</p>
 <p class="mb-3">We need to switch the branch from main to dev using the command <code>git checkout dev</code>. Then use <code>ls -l</code> to view available files.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/alohomora/alohomora_hackviser_image8.png" alt="Alohomora Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> id_rsa</p>
+<br />
 
 <p class="mb-2"><strong>Question 8:</strong> What is the password hash for user hackviser?</p>
 <p class="mb-3">To access the password hash, we need to access the system and access <code>/etc/shadow</code>. We can use the id_rsa file as a key to access the system via SSH. However, the permissions for the id_rsa file need to be set correctly using <code>chmod 600 id_rsa</code>, and then we can attempt SSH again.</p>
@@ -66,7 +73,7 @@ prog: 'Hackviser Warmup Stage 2  -  Feb 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/workstuff.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">February 2026</p>
 </section>

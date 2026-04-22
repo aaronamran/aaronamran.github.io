@@ -19,6 +19,7 @@ prog: 'Hackviser Cryptanalysis Labs  -  April 2026'
 <p class="mb-3"><strong>MD5 is a cryptographic hash function algorithm that takes the message as input of any length and changes it into a fixed-length message of 16 bytes. MD5 algorithm stands for the message-digest algorithm. MD5 was developed as an improvement of MD4, with advanced security purposes. The output of MD5 (Digest size) is always 128 bits. MD5 was developed in 1991 by Ronald Rivest. What is the original text of the data in the file that has been hashed using the MD5 algorithm?</strong></p>
 <p class="mb-3"><strong>File content: </strong>8dbdda48fb8748d6746f1965824e966a</p>
 <p class="mb-5"><strong>Answer:</strong> StarryNightVanGogh</p>
+<br />
 
 <h5 class="mb-2">2. SHA1</h5>
 <p class="mb-3"><strong>SHA-1(Secure Hash Algorithm 1) cryptographic algorithm which takes an input and produces a 160-bit (20-byte) hash value. This hash value is known as a message digest. This message digest is usually then rendered as a hexadecimal number which is 40 digits long. What is the original text of the data in the file that has been hashed using the SHA1 algorithm?</strong></p>
@@ -28,7 +29,7 @@ prog: 'Hackviser Cryptanalysis Labs  -  April 2026'
 <hr />
 
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/cryptanalysislabs/">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">April 2026</p>
 </section>

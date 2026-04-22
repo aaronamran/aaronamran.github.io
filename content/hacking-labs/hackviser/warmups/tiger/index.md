@@ -18,26 +18,31 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> What does VNC stands for?</p>
 <p class="mb-5"><strong>Answer:</strong> Virtual Network Computing</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> Which port(s) are open?</p>
 <p class="mb-3">Use nmap to scan the target machine and identify open ports with <code>nmap -sC -sV -A [target IP]</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/tiger/tiger_hackviser_image1.png" alt="Tiger 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> 5901</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> Who is the user you have established a VNC connection with?</p>
 <p class="mb-3">Use a VNC client such as Remmina to connect to the target machine on port 5901. Choose VNC from the dropdown and enter the target IP address with port 5901. After successfully connecting, check the username by opening a terminal and running <code>whoami</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/tiger/tiger_hackviser_image2.png" alt="Tiger 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <img src="/assets/hackinglabs/hackviser/warmups/tiger/tiger_hackviser_image3.png" alt="Tiger 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> leo</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the Linux kernel version?</p>
 <p class="mb-3">In the terminal use <code>uname -a</code> to check the Linux kernel version.</p>
 <p class="mb-5"><strong>Answer:</strong> 5.10.0-28-amd64</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the name of the running VNC program?</p>
 <p class="mb-3">Use <code>ps aux | grep vnc</code> to check the running VNC program.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/tiger/tiger_hackviser_image4.png" alt="Tiger 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> Xtigervnc</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> What is the IP address of the computer that established a VNC connection on February 23, 2023?</p>
 <p class="mb-3">Use <code>ls -al</code> to list available files and directories in the current directory, and navigate to <code>.vnc</code>. Then read the connection logs.</p>
@@ -47,7 +52,7 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/mount.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">February 2026</p>
 </section>

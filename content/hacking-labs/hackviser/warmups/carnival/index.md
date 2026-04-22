@@ -18,6 +18,7 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> What stands for SMB service, which usually uses port 445?</p>
 <p class="mb-5"><strong>Answer:</strong> Server Message Block</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the name of the sharename with the comment "Looks interesting"?</p>
 <p class="mb-3">Start off with using Nmap to scan the machine and identify open ports and services using <code>nmap -sC -sV -A [target IP]</code>.</p>
@@ -25,15 +26,18 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 <p class="mb-3">Now that SMB is confirmed to be on port 445, use <code>smbclient</code> to connect to the SMB share. Append <code>--no-pass -L [target IP]</code></p>
 <img src="/assets/hackinglabs/hackviser/warmups/carnival/carnival_hackviser_image2.png" alt="Carnival CTF 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> Projects</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the helper command that shows which commands we can run after the SMB connection?</p>
 <img src="/assets/hackinglabs/hackviser/warmups/carnival/carnival_hackviser_image3.png" alt="Carnival CTF 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> help</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the name of the project?</p>
 <p class="mb-3">In the Projects share, use <code>l</code> to list available files and directories.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/carnival/carnival_hackviser_image4.png" alt="Carnival CTF 4" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> Bird</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is connection password inside the .config file?</p>
 <p class="mb-3">Use <code>more .config</code> to view the contents of the .config file.</p>
@@ -42,7 +46,7 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/querygate.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">February 2026</p>
 </section>

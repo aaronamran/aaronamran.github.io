@@ -23,6 +23,7 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <p class="mb-3">Now that we know the target has port 139 open, we can proceed to attempt shared files listing by using <code>smbclient --no-pass -L [target IP]</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image3.png" alt="Moonshade Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> 03-12-2024</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the username of the user having a UID of 1001?</p>
 <p class="mb-3">Let's return to list the files and folders that might be interesting by using <code>smbclient --no-pass \\\\[target IP]\\Reg_Backup_03-12-2024</code></p>
@@ -30,12 +31,14 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <p class="mb-3">We can see that there are files called sam_file and system_file. Download these two files, then run <code>impacket-secretsdump -sam sam_file -system system_file local -outputfile dump_SAM.txt</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image5.png" alt="Moonshade Image 5" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> edward</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the password of user edward?</p>
 <p class="mb-3">The SAM database dump also contains the password hashes for the users. We can use a tool like hashcat to crack the password of user edward. Since the hash we want to crack is NTLM, we set the <code>-m</code> parameter to 1000 and the attack mode to 0 for the <code>-a</code> parameter to try the passwords in rockyou.txt.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image6.png" alt="Moonshade Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image7.png" alt="Moonshade Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> twilight</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the name of the computer?</p>
 <p class="mb-3">With the information gathered so far, we can determine the name of the computer by trying to connect to it. We will use Remmina to RDP to the target IP address.</p>
@@ -43,11 +46,13 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <p class="mb-3">After connecting to the computer, open PowerShell and use <code>$env:COMPUTERNAME</code> to find the name of the computer.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image9.png" alt="Moonshade Image 9" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> DESKTOP-0SLFDB7</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is edward's username at company.hackviser.space?</p>
 <p class="mb-3">We can use <code>cmdkey /list</code> to check accounts registered on the computer.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/moonshade/moonshade_hackviser_image10.png" alt="Moonshade Image 10" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">    
 <p class="mb-5"><strong>Answer:</strong> edward@company.hv</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> What is the email address that Jacob uses in company.hv?</p>
 <p class="mb-3">Considering that we are now in the target environment, we can check the Users folder to find what other users are registered on the computer. We found Jacob's account folder, and opening his Desktop folder to read email_addresses.txt is not allowed. Hence, we need privilege escalation.</p>
@@ -70,7 +75,7 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/findandcrack.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

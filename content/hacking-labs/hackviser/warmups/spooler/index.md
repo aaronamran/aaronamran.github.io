@@ -21,6 +21,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <img src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_image1.png" alt="Spooler 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <img src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_image2.png" alt="Spooler 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> Microsoft IIS httpd 10.0</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the file path of the folder shared via FTP?</p>
 <p class="mb-3">For this lab, we will be using <a href="https://github.com/ThePacketBender/webshells/blob/master/POWERshell.aspx" target="_blank" referrerpolicy="no-referrer">POWERshell.aspx</a> by ThePacketBender.</p>
@@ -36,16 +37,19 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <p class="mb-3">Use <code>Get-ChildItem -Path C:\ -Recurse -Directory -ErrorAction SilentlyContinue -Filter "ftp"</code> to find the file path of the folder shared via FTP.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_image8.png" alt="Spooler 8" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> C:\inetpub\wwwroot\ftp</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the username of the account belonging to the software support specialist?</p>
 <p class="mb-3">In the PowerShell input, enter <code>Get-LocalUser</code> to see the list of local users.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_image9.png" alt="Spooler 9" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> liam</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> Which group is user Liam in?</p>
 <p class="mb-3">Run <code>net user liam</code> to see the groups the user belongs to.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/spooler/spooler_hackviser_image10.png" alt="Spooler 10" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> TechSupport</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the first and last name of Liam's customer with ID 4218 in the directory C:\users\liam\Desktop\clients?</p>
 <p class="mb-3">Run <code>whoami /priv</code> to check the privileges of the current user.</p>
@@ -64,7 +68,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

@@ -21,11 +21,13 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image1.png" alt="Dynamic Book Image 1" class="img-fluid mb-3" />
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image2.png" alt="Dynamic Book Image 2" class="img-fluid mb-3" />
 <p class="mb-5"><strong>Answer:</strong> rsync</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the purpose of this rsync server?</p>
 <p class="mb-3">We can find this by using <code>rsync [target IP]::</code> to list the available modules and their descriptions.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image3.png" alt="Dynamic Book Image 3" class="img-fluid mb-3" />
 <p class="mb-5"><strong>Answer:</strong> Backup server</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the path to the configuration file of the rsync service?</p>
 <p class="mb-3">We need to access the contents of <code>/etc/rsyncd.conf</code> to find the configuration details. We can use <code>rsync [target IP]::root</code> to view the root folder shared as we discovered in the previous task.</p>
@@ -33,16 +35,19 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <p class="mb-3">Let's download the config file mentioned by using <code>rsync [target IP]::root/rsyncd.conf .</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image5.png" alt="Dynamic Book Image 5" class="img-fluid mb-3" />
 <p class="mb-5"><strong>Answer:</strong> /etc/rsyncd.conf</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What uid value is the rsync service configured with?</p>
 <p class="mb-3">We can find this by examining the <code>rsyncd.conf</code> file we just downloaded.</p>
 <p class="mb-5"><strong>Answer:</strong> 1001</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> Which user owns the uid value for which the rsync service is configured?</p>
 <p class="mb-3">Since we have access to the root folder, we can download the <code>/etc/passwd</code> file to find the user associated with the uid 1001 by using <code>rsync [target IP]::root/etc/passwd .</code>.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image6.png" alt="Dynamic Book Image 6" class="img-fluid mb-3" />
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image7.png" alt="Dynamic Book Image 7" class="img-fluid mb-3" />
 <p class="mb-5"><strong>Answer:</strong> sasha</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> According to the information in the backup log file, which username was used by the person who tried to connect to SSH with the wrong username?</p>
 <p class="mb-3">The root folder also contains the backup directory, which includes the log files. By examining these logs, we can identify the username used in the failed SSH attempt. We can start off with <code>rsync [target IP]::root/backup/ .</code> to check what are its contents, then download the log file once it is discovered.</p>
@@ -50,6 +55,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 <img src="/assets/hackinglabs/hackviser/warmups/dynamicbook/dynamicbook_hackviser_image9.png" alt="Dynamic Book Image 9" class="img-fluid mb-3" />
 <p class="mb-3">From the log file, the incorrect username is sasja.</p>
 <p class="mb-5"><strong>Answer:</strong> sasja</p>
+<br />
 
 <p class="mb-2"><strong>Question 7:</strong> What is the first and last name of the passenger flying from Miami to Las Vegas?</p>
 <p class="mb-3">In the backups directory, we can access the database directory. Checking the contents of the database directory and attempting to download the SQL backup file results in an error due to lack of permissions. Our next plan is to escalate privileges. Considering that the rsync runs under the privileges of sasha, we need to test if we can upload files to sasha's home directory.</p>
@@ -70,7 +76,7 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/spooler.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

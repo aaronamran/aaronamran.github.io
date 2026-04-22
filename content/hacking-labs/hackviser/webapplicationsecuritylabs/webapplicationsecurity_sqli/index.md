@@ -22,6 +22,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-3">The login authentication is successfully bypassed. If the code checks the username first (which is standard), the username payload likely did all the work. Here is how the query was transformed: <code>SELECT * FROM users WHERE username = 'Sky Raincin' or 1=1 #' AND password = '...'</code> Because of the <code>#</code>, the database actually executed this: <code>SELECT * FROM users WHERE username = 'Sky Raincin' OR 1=1</code>. Since <code>1=1</code> is true, the database returns the first user in the table. If "Sky Raincin" is the first user (or the only one matching that specific string), you're in. Even if the username was wrong, <code>OR 1=1</code> would return the first account in the database which is often the Admin.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/basicsqli_hackviser_image2.png" alt="Web Application Security SQL Injection 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> sraincin0@moonfruit.hv</p>
+<br />
 
 <h5 class="mb-2">2. Union-Based SQL Injection</h5>
 <p class="mb-3"><strong>This lab contains a SQL injection vulnerability in the search function. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To complete the lab, perform a SQL injection UNION attack that retrieves database name. What is the password for the user named "oliverlee" in the database?</strong></p>
@@ -44,6 +45,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-3">Since we already have the column names, we can now retrieve the password for the user named "oliverlee" by using <code>' UNION SELECT 1, username, password, 4 FROM users WHERE username = 'oliverlee'-- -</code>.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/unionbased_sqli_hackviser_image9.png" alt="Web Application Security SQL Injection 11" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> JWa86o4qsUgh</p>
+<br />
 
 <h5 class="mb-2">3. Boolean-Based Blind SQL Injection</h5>
 <p class="mb-3"><strong>This lab contains is a SQL Injection vulnerability in the stock control function. Due to the business logic, only "available in stock" or "not available in stock" response is received from the server. To complete the lab, perform a Blind SQL Injection attack using these two possibilities and retrieve the database name. What is the database name?</strong></p>
@@ -56,6 +58,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image4.png" alt="Web Application Security SQL Injection 15" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">The database name is revealed to be "echo_store".</p>
 <p class="mb-5"><strong>Answer:</strong> echo_store</p>
+<br />
 
 <h5 class="mb-2">4. Time-Based Blind SQL Injection</h5>
 <p class="mb-3"><strong>This lab contains a SQL Injection vulnerability in the forgot password function. Unlike other SQL Injection labs, the answer returned from the server is always the same. To complete the lab, perform a Time-Based Blind SQL Injection attack observing the changes in response time and retrieve the database name. What is the database name?</strong></p>
@@ -64,6 +67,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-3">We can directly use SQLmap to automate the Time-Based Blind SQL Injection attack and retrieve the database name. In the Linux terminal, use <code>sqlmap -u "[target URL]" --data="email=test@test.com" --method=POST --technique=T --current-db</code>. Note that <code>--technique=T</code> specifies the Time-Based Blind SQL Injection technique.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/timebased_blindsqli_hackviser_image2.png" alt="Web Application Security SQL Injection 17" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-5"><strong>Answer:</strong> utopia</p>
+<br />
 
 <h5 class="mb-2">5. Error-Based SQL Injection</h5>
 <p class="mb-3"><strong>This lab contains a SQL injection vulnerability. To complete this lab, perform a Error-Based SQL Injection attack using "img" parameter. What is the database name?</strong></p>
@@ -78,7 +82,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

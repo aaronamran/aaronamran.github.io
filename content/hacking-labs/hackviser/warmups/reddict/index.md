@@ -20,31 +20,39 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 <p class="mb-3">Run a Nmap scan on the target IP using <code>nmap -sC -sV -A -p- [target IP]</code>. It is important to add the <code>-p-</code> flag when running the Nmap scan to ensure Redis' port is detected.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/reddict/reddict_hackviser_image1.png" alt="Reddict CTF nmap scan output" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> 6379</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the version number of the running Redis service?</p>
 <p class="mb-3">The version number was detected in the previous Nmap scan.</p>
 <p class="mb-5"><strong>Answer:</strong> 6.0.16</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the command-line utility lets you interact with a Redis database?</p>
 <p class="mb-5"><strong>Answer:</strong> redis-cli</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the response when the PING command is run after a successful connection is established?</p>
 <img src="/assets/hackinglabs/hackviser/warmups/reddict/reddict_hackviser_image2.png" alt="Reddict CTF redis-cli PING command" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <img src="/assets/hackinglabs/hackviser/warmups/reddict/reddict_hackviser_image3.png" alt="Reddict CTF redis-cli PING command response" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> PONG</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What command returns information and statistics about the server?</p>
 <p class="mb-5"><strong>Answer:</strong> INFO</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> Which command returns all keys?</p>
 <img src="/assets/hackinglabs/hackviser/warmups/reddict/reddict_hackviser_image4.png" alt="Reddict CTF redis-cli KEYS command" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> KEYS *</p>
+<br />
 
 <p class="mb-2"><strong>Question 7:</strong> How many key-value pairs are there?</p>
 <p class="mb-5"><strong>Answer:</strong> 11</p>
+<br />
 
 <p class="mb-2"><strong>Question 8:</strong> Which command retrieves the value of the key?</p>
 <p class="mb-5"><strong>Answer:</strong> GET</p>
+<br />
 
 <p class="mb-2"><strong>Question 9:</strong> What is admin's sessionToken value?</p>
 <p class="mb-3">Use <code>GET "session:admin-001"</code> and look for the sessionToken value.</p>
@@ -52,7 +60,7 @@ prog: 'Hackviser Warmup Stage 1  -  Feb 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/007.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">February 2026</p>
 </section>

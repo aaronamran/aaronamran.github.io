@@ -20,17 +20,21 @@ prog: 'Hackviser Warmup Stage 2  -  March 2026'
 <p class="mb-3">We can open the target IP in a web browser and check the title of the page.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/leaf/leaf_hackviser_image1.png" alt="Leaf Image 1" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> Modish Tech</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> Which GET parameter is used on the page where the product detail is displayed?</p>
 <p class="mb-3">Click on a product to view its details and observe the URL in the browser's address bar.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/leaf/leaf_hackviser_image2.png" alt="Leaf Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> id</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What does SSTI stands for?</p>
 <p class="mb-5"><strong>Answer:</strong> Server-Side Template Injection</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> What is the commonly used SSTI payload that prints 49 on the screen?</p>
 <p class="mb-5"><strong>Answer:</strong> {{7*7}}</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the name of the database used by the application?</p>
 <p class="mb-3">For this task, we need to use SSTI in the comment fields to hack into the target machine. We will first try the payload <code>{7*7}</code> and observe its output.</p>
@@ -46,7 +50,7 @@ prog: 'Hackviser Warmup Stage 2  -  March 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/venomous.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>

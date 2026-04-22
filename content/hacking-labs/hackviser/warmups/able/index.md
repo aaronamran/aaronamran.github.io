@@ -22,10 +22,12 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <p class="mb-3">From the nmap scan results, we can see that there are two open ports: 21 (ftp) and 22 (ssh). Let's connect to port 21 using <code>ftp [target IP_Address]</code> with the username <code>Anonymous</code>. No password is required. Then view the available files and download the files.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_image2.png" alt="Able Image 2" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> readme</p>
+<br />
 
 <p class="mb-2"><strong>Question 2:</strong> What is the username in the readme file that was accidentally leaked?</p>
 <img src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_image3.png" alt="Able Image 3" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> ronald</p>
+<br />
 
 <p class="mb-2"><strong>Question 3:</strong> What is the group of readme file?</p>
 <p class="mb-3">Since we have the username ronald, we need to access the target machine. To do this, we need to brute-force the SSH service using a wordlist. Run <code>hydra -l ronald -P /usr/share/wordlists/rockyou.txt [target IP_Address] ssh -V</code> and wait for a successful attempt.</p>
@@ -35,15 +37,18 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 <img src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_image6.png" alt="Able Image 6" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <img src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_image7.png" alt="Able Image 7" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> sysadmins</p>
+<br />
 
 <p class="mb-2"><strong>Question 4:</strong> In which directory path are the other files with the sysadmins group?</p>
 <p class="mb-3">Use <code>find / -group sysadmins 2>/dev/null</code> to find all files that belong to the sysadmins group.</p>
 <img src="/assets/hackinglabs/hackviser/warmups/able/able_hackviser_image8.png" alt="Able Image 8" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> /configs</p>
+<br />
 
 <p class="mb-2"><strong>Question 5:</strong> What is the file path of the getcap command?</p>
 <p class="mb-3">Use <code>whereis getcap</code> to find the file path of the getcap command.</p>
 <p class="mb-5"><strong>Answer:</strong> /usr/sbin/getcap</p>
+<br />
 
 <p class="mb-2"><strong>Question 6:</strong> What is admin's IP address in the VPN?</p>
 <p class="mb-3">To access the information of the admin user of the VPN, let's try to read the admin.vpn.wg.conf file we found previously. However, due to lack of privileges, we cannot read the file directly. </p>
@@ -58,7 +63,7 @@ prog: 'Hackviser Warmup Stage 3  -  March 2026'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="/hacking-labs/hackviser/warmups/quenovia.html">next Hacking Lab</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">March 2026</p>
 </section>
