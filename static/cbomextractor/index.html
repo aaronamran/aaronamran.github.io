@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOM Extractor</title>
+<style>
+  :root {
+    --bg: #0c1118;
+    --surface: #131c24;
+    --surface2: #1a2535;
+    --border: #1e3040;
+    --accent: #14b8a6;
+    --accent2: #0891b2;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+  header { background: linear-gradient(135deg, #131c24, #1a2535); border-bottom: 1px solid var(--border); padding: 18px 32px; display: flex; align-items: center; gap: 14px; }
+  header h1 { font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: .5px; }
+  header span { font-size: .85rem; color: var(--muted); display: block; margin-top: 8px; line-height: 1.6; }
+  header .credits { font-size: .78rem; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+  header .credits a { color: var(--accent); text-decoration: none; }
+  header .credits a:hover { text-decoration: underline; }
+  header .disclaimer { font-size: .74rem; color: var(--yellow); margin-top: 10px; opacity: .85; line-height: 1.6; }
+  .main { max-width: 1700px; margin: 0 auto; padding: 28px 24px 28px 72px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; }
+  .card h2 { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+  input[type=text], select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 9px 12px; border-radius: 7px; font-size: .9rem; width: 100%; outline: none; }
+  input[type=text]:focus, select:focus { border-color: var(--accent); }
+  .software-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .software-row input { flex: 1; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 7px; border: none; cursor: pointer; font-size: .9rem; font-weight: 600; transition: opacity .15s; }
+  .btn:hover { opacity: .85; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-danger { background: var(--red); color: #fff; padding: 7px 12px; font-size: .8rem; }
+  .btn-secondary { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-warning { background: var(--yellow); color: #000; }
+  .drop-zone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 30px 20px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; position: relative; }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(20,184,166,.06); }
+  .drop-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-zone .dz-icon { font-size: 2rem; margin-bottom: 8px; }
+  .drop-zone p { color: var(--muted); font-size: .9rem; }
+  .file-list { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .file-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: .78rem; color: var(--text); display: flex; align-items: center; gap: 6px; }
+  .file-chip .remove { cursor: pointer; color: var(--red); font-weight: bold; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:768px){ .grid-2 { grid-template-columns: 1fr; } }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  /* Results */
+  #results { display: none; }
+  .results-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stat-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-align: center; min-width: 90px; }
+  .stat-chip .val { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .stat-chip .lbl { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+  .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .filter-bar input, .filter-bar select { width: auto; min-width: 160px; }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  thead th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 10px 10px; text-align: left; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+  tbody tr:hover { background: rgba(20,184,166,.06); }
+  tbody td { padding: 8px 10px; vertical-align: top; white-space: nowrap; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .72rem; font-weight: 600; margin: 1px; white-space: nowrap; }
+  .badge-enc { background: rgba(20,184,166,.2); color: #5eead4; }
+  .badge-hash { background: rgba(245,158,11,.2); color: #fbbf24; }
+  .badge-auth { background: rgba(8,145,178,.2); color: #67e8f9; }
+  .badge-sig { background: rgba(34,197,94,.2); color: #4ade80; }
+  .badge-kex { background: rgba(239,68,68,.2); color: #f87171; }
+  .badge-other { background: rgba(148,163,184,.15); color: #94a3b8; }
+  .source-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: .7rem; color: var(--muted); }
+  .tbl-wrap { overflow-x: auto; max-height: 70vh; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+  .copy-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 3px 8px; border-radius: 5px; cursor: pointer; font-size: .75rem; }
+  .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+  .tab-bar { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+  .tab { padding: 8px 16px; border-radius: 7px 7px 0 0; cursor: pointer; font-size: .85rem; font-weight: 500; color: var(--muted); border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; }
+  .tab.active { background: var(--surface); color: var(--accent); border-color: var(--border); }
+  .tab-count { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; font-size: .68rem; padding: 1px 6px; margin-left: 5px; color: var(--muted); }
+  .tab.active .tab-count { background: rgba(20,184,166,.15); border-color: var(--accent); color: var(--accent); }
+  .tab-empty { opacity: .45; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .progress-wrap { display: none; align-items: center; gap: 12px; color: var(--muted); font-size: .88rem; padding: 12px 0; }
+  .spinner { width: 18px; height: 18px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .no-data { text-align: center; padding: 40px; color: var(--muted); }
+  .excel-hint { background: rgba(20,184,166,.08); border: 1px solid rgba(20,184,166,.25); border-radius: 8px; padding: 12px 16px; font-size: .82rem; color: var(--muted); margin-bottom: 14px; }
+  .excel-hint strong { color: var(--accent); }
+  .row-num { color: var(--muted); font-size: .75rem; }
+  #exportBtn { display: none; }
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  * { scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg); }
+  /* Floating navigation */
+  .float-nav { position: fixed; left: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+  .float-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--accent); cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s, box-shadow .15s; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .float-btn:hover { background: var(--surface2); border-color: var(--accent); box-shadow: 0 4px 14px rgba(20,184,166,.25); }
+  @media(max-width:768px){ .float-nav { display: none; } }
+  /* Step method blocks */
+  .step-method { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .step-method-title { font-size: .88rem; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+  .link-accent { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .link-accent:hover { text-decoration: underline; }
+  code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: .83em; color: var(--text); font-family: 'Consolas', 'Courier New', monospace; }
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+
+<header>
+  <div style="font-size:1.6rem">🔐</div>
+  <div>
+    <h1>Cryptographic Bill of Materials (CBOM) Extractor</h1>
+    <span>CSV Parsing → Table Input &nbsp;·&nbsp; 100% Client-Side Parsing. No backend, no database, no data retention.</span>
+    <div class="credits">Created by <a href="https://aaronamran.github.io/" target="_blank" rel="noopener">@aaronamran</a> &nbsp;·&nbsp; Credits to <a href="https://github.com/msaufyrohmad" target="_blank" rel="noopener">@msaufyrohmad</a> for the Python scan scripts and <a href="https://www.nacsa.gov.my/" target="_blank" rel="noopener">NACSA</a> for the initiative.</div>
+    <div class="disclaimer">⚠ Results depend on CSV scan quality and software name matching accuracy. Always manually review output before including in official compliance reports.</div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- Floating navigation -->
+  <nav class="float-nav" aria-label="Page navigation">
+    <button class="float-btn" onclick="scrollToSection('top')" title="Back to top">1</button>
+    <button class="float-btn" onclick="scrollToSection('softwareCard')" title="Software Components">2</button>
+    <button class="float-btn" onclick="scrollToSection('dropCard')" title="Drop Scan CSV Files">3</button>
+  </nav>
+
+  <!-- Step 1: Extract CSV Files -->
+  <div class="card" id="step1Card">
+    <h2>① Extract CSV Files</h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;">Use one of the methods below to extract cryptographic scan CSV files from your target system.</p>
+    <div class="step-method">
+      <div class="step-method-title">Method 1 - Shell Script (Linux only)</div>
+      <ol style="margin-left:1.2em;margin-top:8px;font-size:.85rem;color:var(--muted);line-height:1.9;">
+        <li>Copy-paste the script from <a href="https://github.com/aaronamran/System-Engineer-Notes/blob/main/scripts/pqccheck.sh" target="_blank" rel="noopener" class="link-accent">pqccheck.sh</a> into a text editor in your Linux terminal and save it as <code>pqccheck.sh</code>.</li>
+        <li>Run <code>chmod +x pqccheck.sh</code> to make it executable.</li>
+        <li>Run the script via <code>./pqccheck.sh</code> to generate the CSV scan files.</li>
+      </ol>
+    </div>
+    <div class="step-method" style="margin-top:12px;">
+      <div class="step-method-title">Method 2 - Python Scripts (Linux &amp; Windows)</div>
+      <p style="font-size:.85rem;color:var(--muted);margin-top:8px;">Download or clone the <a href="https://github.com/msaufyrohmad/CBOM-scanning" target="_blank" rel="noopener" class="link-accent">CBOM-scanning repository by @msaufyrohmad</a> and run the individual Python scripts to generate the CSV output files.</p>
+    </div>
+  </div>
+
+  <!-- Step 2: Software Components -->
+  <div class="card" id="softwareCard">
+    <h2>② Software Components</h2>
+    <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;">
+      <button class="btn btn-secondary" onclick="addSoftwareRow()">＋ Add Component</button>
+      <button class="btn btn-warning" onclick="clearSoftwareList()">✕ Clear All</button>
+      <button class="btn btn-secondary" onclick="loadPreset()"> Load Sample Preset</button>
+    </div>
+    <br />
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;">Enter each software name/version to search for in the scan CSVs.</p>
+    <div id="softwareList"></div>
+  </div>
+
+  <!-- Step 3: Drop CSVs -->
+  <div class="card" id="dropCard">
+    <h2>③ Drag and Drop CSV Files</h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;">
+      Drag and drop any combination of: <code>binaries_at_disk.csv</code>, <code>binaries_used.csv</code>, <code>library.csv</code>, <code>kernel_modules.csv</code>, <code>exec_script.csv</code>, <code>web_app.csv</code>, <code>network_app.csv</code>, <code>crypto_cert_key.csv</code> from your local machine.
+    </p>
+    <div class="drop-zone" id="dropZone">
+      <input type="file" id="fileInput" multiple accept=".csv" onchange="handleFiles(this.files)">
+      <div class="dz-icon">📂</div>
+      <p><strong>Click or drag &amp; drop CSV files here</strong></p>
+      <p style="margin-top:4px;font-size:.8rem;">Multiple files &amp; folders supported</p>
+    </div>
+    <div class="file-list" id="fileList"></div>
+  </div>
+
+  <!-- Step 3: Actions -->
+  <div class="actions">
+    <button class="btn btn-primary" onclick="analyze()">Analyze &amp; Build CBOM</button>
+    <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+    <button class="btn btn-green" id="exportBtn" onclick="exportCSV()">⬇ Export as CSV</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="spinner"></div>
+    <span id="progressMsg">Processing…</span>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <div class="results-header">
+      <h2 style="font-size:1.1rem;font-weight:700;color:var(--accent);">CBOM Results</h2>
+      <div class="stats" id="statsBar"></div>
+    </div>
+
+    <div class="excel-hint">
+      <strong>How to use:</strong> Each row below maps to one line in your CBOM table — copy the <em>Cryptographic Primitive</em>, <em>Algorithm</em>, <em>Key Length</em>, <em>Purpose/Usage</em>, and <em>Crypto Library</em> columns directly. Use the <strong>Export CSV</strong> button to download the full table.
+    </div>
+
+    <div class="tab-bar" id="tabBar"></div>
+
+    <div class="filter-bar">
+      <input type="text" id="filterText" placeholder="Search algorithm, path, purpose…" oninput="renderActiveTab()">
+      <select id="filterPrimitive" onchange="renderActiveTab()">
+        <option value="">All Primitives</option>
+        <option value="Encryption">Encryption</option>
+        <option value="Hashing">Hashing</option>
+        <option value="Authentication">Authentication</option>
+        <option value="Digital Signature">Digital Signature</option>
+        <option value="Key Exchange">Key Exchange</option>
+      </select>
+    </div>
+
+    <div class="tbl-wrap" id="tblWrap">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Component / Version</th>
+            <th>Sub-component / Path</th>
+            <th>Cryptographic Primitive</th>
+            <th>Algorithm</th>
+            <th>Key Length</th>
+            <th>Purpose / Usage</th>
+            <th>Crypto Library</th>
+            <th>Data Category</th>
+            <th>Source File</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ──────────────────────────────────────────────────────────────────
+const state = {
+  files: [],       // { name, content }
+  software: [],    // string[]
+  results: [],     // processed rows
+  activeTab: 'All'
+};
+
+// ─── Algorithm reference list (all known crypto primitives) ─────────────────
+const KNOWN_ALGORITHMS = [
+  // Symmetric Encryption
+  'AES','DES','3DES','Blowfish','Twofish','RC4','Serpent','Camellia','CLEFIA','SEED','HIGHT',
+  'PRESENT','SKINNY','XTS-AES','ChaCha20','HC-128','KCipher-2','MUGI','Rabbit',
+  'Two-key TDEA Decryption','Three-key TDEA Decryption','SKIPJACK Decryption',
+  // Hashing
+  'SHA2','SHA3','PHOTON','SPONGENT','MD5','SM3','SHA-1','SHA-256','SHA-512','SHA-384','SHA-224',
+  // MAC / HMAC
+  'HMAC-SHA256','HMAC-SHA384','HMAC-SHA512','KMAC-128','KMAC-256','CMAC-AES','CMAC',
+  'GMAC','HMAC','KMAC','UMAC','XCBC-MAC','Chaskey-12','LightMAC','MDx-MAC','MDx-MAC-Short',
+  'Poly1305','Tsudik\'s Keymode',
+  // AEAD / Authenticated Encryption
+  'GCM','ASCON-AEAD','ChaCha20-Poly1305','XChaCha20-Poly1305','AES-CCM','GCM-AES-XPN',
+  'AES-GCM','AES-GCM-SIV','Sophie Germain Counter Mode (SGCM)','AES-SIV-CMAC','CCM',
+  'Deoxys-TBC','HMAC Verification','CMAC Verification',
+  // Digital Signatures
+  'RSA-PSS','BLS Signature Scheme','ECDSA','Elliptic Curve Digital Signature Algorithm (ECDSA)',
+  'Elliptic Curve Schnorr DSA (ECSDSA)','ShangMi2 (SM2)','ML-DSA','Falcon',
+  'SLH-DSA-SHA2','SLH-DSA-SHAKE','LMS','XMSS','XMSSᴹᵀ','DSA','RSA',
+  // Key Exchange / Agreement
+  'DH Ephemeral-Ephemeral (C(2e,0s))','DH Ephemeral-Static (C(1e,1s))','DH Ephemeral-Static (C(1e,2s))',
+  'DH Ephemeral-Static (C(2e,2s))','ECDH Ephemeral-Ephemeral (C(2e,0s))','ECDH Ephemeral-Static (C(1e,1s))',
+  'ECDH Ephemeral-Static (C(1e,2s))','ECDH Ephemeral-Static (C(2e,2s))','ECDH','DH',
+  'mceliece','FrodoKEM','eFrodoKEM','HQC','ML-KEM','NTRUHPS','NTRUHRSS','curve25519-sha256',
+];
+
+// ─── Primitive classification maps ───────────────────────────────────────────
+const PRIMITIVE_MAP = {
+  // by primitive field value
+  'block-cipher': 'Encryption',
+  'stream-cipher': 'Encryption',
+  'symmetric': 'Encryption',
+  'hash-function': 'Hashing',
+  'hash': 'Hashing',
+  'mac': 'Authentication',
+  'hmac': 'Authentication',
+  'aead': 'Authentication',
+  'key-agreement': 'Key Exchange',
+  'key-exchange': 'Key Exchange',
+  'public-key': 'Digital Signature',
+  'signature': 'Digital Signature',
+  'digital-signature': 'Digital Signature',
+  'asymmetric': 'Digital Signature',
+  'certificate': 'Digital Signature',
+  'private_key': 'Digital Signature',
+  'protocol': 'Authentication',
+  'tls': 'Authentication',
+  'ssl': 'Authentication',
+  'ssh': 'Authentication',
+};
+
+// Algorithm → Purpose inference
+const ALGO_PURPOSE_MAP = {
+  // Symmetric Encryption
+  'AES': 'Encryption', 'DES': 'Encryption', '3DES': 'Encryption', 'Blowfish': 'Encryption',
+  'Twofish': 'Encryption', 'RC4': 'Encryption', 'Serpent': 'Encryption', 'Camellia': 'Encryption',
+  'CLEFIA': 'Encryption', 'SEED': 'Encryption', 'HIGHT': 'Encryption', 'PRESENT': 'Encryption',
+  'SKINNY': 'Encryption', 'XTS-AES': 'Encryption', 'ChaCha20': 'Encryption', 'HC-128': 'Encryption',
+  'KCipher-2': 'Encryption', 'MUGI': 'Encryption', 'Rabbit': 'Encryption', 'IDEA': 'Encryption',
+  'RC2': 'Encryption', 'ARIA': 'Encryption',
+  'Two-key TDEA Decryption': 'Encryption', 'Three-key TDEA Decryption': 'Encryption',
+  'SKIPJACK Decryption': 'Encryption', 'SKIPJACK': 'Encryption',
+  // Hashing
+  'SHA': 'Hashing', 'SHA1': 'Hashing', 'SHA-1': 'Hashing', 'SHA2': 'Hashing',
+  'SHA-256': 'Hashing', 'SHA256': 'Hashing', 'SHA-384': 'Hashing', 'SHA-512': 'Hashing',
+  'SHA3': 'Hashing', 'MD5': 'Hashing', 'MD2': 'Hashing', 'SM3': 'Hashing',
+  'PHOTON': 'Hashing', 'SPONGENT': 'Hashing', 'bcrypt': 'Hashing',
+  // MAC / Authentication
+  'HMAC': 'Authentication', 'HMAC-SHA256': 'Authentication', 'HMAC-SHA384': 'Authentication',
+  'HMAC-SHA512': 'Authentication', 'CMAC': 'Authentication', 'GMAC': 'Authentication',
+  'KMAC': 'Authentication', 'GCM': 'Authentication', 'CCM': 'Authentication',
+  'AES-GCM': 'Authentication', 'AES-CCM': 'Authentication', 'ChaCha20-Poly1305': 'Authentication',
+  'Poly1305': 'Authentication', 'ASCON-AEAD': 'Authentication',
+  'KMAC-128': 'Authentication', 'KMAC-256': 'Authentication', 'CMAC-AES': 'Authentication',
+  'UMAC': 'Authentication', 'XCBC-MAC': 'Authentication', 'Chaskey-12': 'Authentication',
+  'LightMAC': 'Authentication', 'MDx-MAC': 'Authentication', 'MDx-MAC-Short': 'Authentication',
+  "Tsudik's Keymode": 'Authentication',
+  'XChaCha20-Poly1305': 'Authentication', 'GCM-AES-XPN': 'Authentication',
+  'AES-GCM-SIV': 'Authentication', 'Sophie Germain Counter Mode (SGCM)': 'Authentication',
+  'SGCM': 'Authentication', 'AES-SIV-CMAC': 'Authentication', 'Deoxys-TBC': 'Authentication',
+  'HMAC Verification': 'Authentication', 'CMAC Verification': 'Authentication',
+  // Key Exchange
+  'ECDH': 'Key Exchange', 'DH': 'Key Exchange', 'curve25519-sha256': 'Key Exchange',
+  'ML-KEM': 'Key Exchange', 'FrodoKEM': 'Key Exchange', 'eFrodoKEM': 'Key Exchange',
+  'HQC': 'Key Exchange', 'NTRUHPS': 'Key Exchange', 'NTRUHRSS': 'Key Exchange',
+  'mceliece': 'Key Exchange',
+  // Digital Signature
+  'RSA': 'Digital Signature', 'ECDSA': 'Digital Signature', 'DSA': 'Digital Signature',
+  'RSA-PSS': 'Digital Signature', 'ML-DSA': 'Digital Signature', 'Falcon': 'Digital Signature',
+  'SLH-DSA-SHA2': 'Digital Signature', 'SLH-DSA-SHAKE': 'Digital Signature',
+  'LMS': 'Digital Signature', 'XMSS': 'Digital Signature',
+  'BLS Signature Scheme': 'Digital Signature', 'BLS': 'Digital Signature',
+  'Elliptic Curve Digital Signature Algorithm (ECDSA)': 'Digital Signature',
+  'Elliptic Curve Schnorr DSA (ECSDSA)': 'Digital Signature', 'ECSDSA': 'Digital Signature',
+  'ShangMi2 (SM2)': 'Digital Signature', 'SM2': 'Digital Signature',
+};
+
+// Algorithm → Data category hint
+const ALGO_DATA_CAT = {
+  'AES': 'Data at rest', 'DES': 'Data at rest', '3DES': 'Data at rest',
+  'ChaCha20': 'Data in transit', 'AES-GCM': 'Data at rest',
+  'TLS': 'Data in transit', 'SSL': 'Data in transit', 'SSH': 'Data in transit',
+  'ECDH': 'Data in transit', 'RSA': 'Data at rest', 'ECDSA': 'Data at rest',
+  'SHA': 'Data at rest', 'SHA-256': 'Data at rest', 'MD5': 'Data at rest',
+  'HMAC': 'Data in transit',
+};
+
+// ─── Software path/binary matchers ───────────────────────────────────────────
+const SOFTWARE_PATTERNS = {
+  // Web servers
+  'apache': ['httpd', 'apache', 'apache2', '/usr/sbin/httpd', '/usr/sbin/apache2', 'apache httpd'],
+  'httpd': ['httpd', 'apache', 'apache2', '/usr/sbin/httpd', '/usr/sbin/apache2'],
+  'nginx': ['nginx', '/usr/sbin/nginx', '/usr/bin/nginx'],
+  // Languages / runtimes
+  'php': ['php', 'php-fpm', 'php7', 'php8', 'php-fpm7', 'php-fpm8', '/usr/bin/php'],
+  'python': ['python', 'python3', 'python2', '/usr/bin/python', '/usr/bin/python3', 'Python-3', '.py'],
+  'java': ['java', 'openjdk', 'jre', 'jdk', '/usr/bin/java', '/usr/lib/jvm', 'jvm'],
+  'perl': ['perl', '/usr/bin/perl', '.pl'],
+  'ruby': ['ruby', '/usr/bin/ruby', 'rubygems'],
+  'nodejs': ['node', 'nodejs', '/usr/bin/node', '/usr/bin/nodejs'],
+  // Databases
+  'mysql': ['mysql', 'mysqld', '/usr/bin/mysql', 'mariadb', '/usr/sbin/mysqld'],
+  'postgresql': ['postgresql', 'postgres', 'pg_ctl', 'psql', '/usr/bin/psql', '/usr/lib/postgresql'],
+  'redis': ['redis', 'redis-server', '/usr/bin/redis-server'],
+  'mongodb': ['mongod', 'mongodb', '/usr/bin/mongod'],
+  // System / tools
+  'samba': ['samba', 'smbd', 'nmbd', '/usr/sbin/smbd'],
+  'gcc': ['gcc', 'g++', '/usr/bin/gcc', 'libgcc', 'libstdc++'],
+  'curl': ['curl', 'libcurl', '/usr/bin/curl'],
+  // Crypto / OS
+  'oracle': ['oracle', 'oraclelinux'],
+  'openssl': ['openssl', 'libssl', 'libcrypto', '/usr/bin/openssl'],
+  'openssh': ['openssh', 'sshd', '/usr/sbin/sshd', '/usr/bin/ssh'],
+  'kernel': ['kernel', 'linux', '/lib/modules', '/boot/vmlinuz'],
+};
+
+// ─── UI: Software rows ────────────────────────────────────────────────────────
+function addSoftwareRow(val = '') {
+  const list = document.getElementById('softwareList');
+  const id = Date.now() + Math.random();
+  const div = document.createElement('div');
+  div.className = 'software-row';
+  div.id = 'row_' + id;
+  div.innerHTML = `
+    <input type="text" placeholder="e.g. Apache HTTP Server, nginx, Python" value="${val}" style="flex:1" oninput="saveToStorage()">
+    <button class="btn btn-danger" onclick="removeSoftwareRow('row_${id}')">✕</button>
+  `;
+  list.appendChild(div);
+  saveToStorage();
+}
+
+function removeSoftwareRow(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+  saveToStorage();
+}
+
+function clearSoftwareList() {
+  document.getElementById('softwareList').innerHTML = '';
+  saveToStorage();
+}
+
+function saveToStorage() {
+  try {
+    localStorage.setItem('cbom_software_list', JSON.stringify(getSoftwareList()));
+  } catch(e) {}
+}
+
+function loadFromStorage() {
+  try {
+    const saved = localStorage.getItem('cbom_software_list');
+    if (saved) {
+      const list = JSON.parse(saved);
+      if (Array.isArray(list) && list.length) {
+        document.getElementById('softwareList').innerHTML = '';
+        list.forEach(s => addSoftwareRow(s));
+        return;
+      }
+    }
+  } catch(e) {}
+  // Nothing saved — start with an empty list
+  document.getElementById('softwareList').innerHTML = '';
+}
+
+function getSoftwareList() {
+  return Array.from(document.querySelectorAll('#softwareList input'))
+    .map(i => i.value.trim()).filter(Boolean);
+}
+
+function loadPreset() {
+  document.getElementById('softwareList').innerHTML = '';
+  const preset = [
+    'Apache HTTP Server',
+    'nginx',
+    'PHP',
+    'Python',
+    'Java / OpenJDK',
+    'MySQL',
+    'PostgreSQL',
+    'OpenSSL',
+    'OpenSSH',
+  ];
+  preset.forEach(s => addSoftwareRow(s));
+  saveToStorage();
+}
+
+// ─── File handling ─────────────────────────────────────────────────────────
+function handleFiles(files) {
+  Array.from(files).forEach(f => {
+    if (!f.name.endsWith('.csv')) return;
+    if (state.files.find(x => x.name === f.name && x.size === f.size)) return; // dedupe
+    const reader = new FileReader();
+    reader.onload = e => {
+      state.files.push({ name: f.name, content: e.target.result, size: f.size, path: f.webkitRelativePath || f.name });
+      renderFileList();
+    };
+    reader.readAsText(f);
+  });
+}
+
+function renderFileList() {
+  const list = document.getElementById('fileList');
+  list.innerHTML = state.files.map((f, i) => `
+    <div class="file-chip">
+      📄 ${f.path || f.name}
+      <span class="remove" onclick="removeFile(${i})">✕</span>
+    </div>
+  `).join('');
+}
+
+function removeFile(idx) {
+  state.files.splice(idx, 1);
+  renderFileList();
+}
+
+// Drag and drop
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault();
+  dz.classList.remove('drag-over');
+  handleFiles(e.dataTransfer.files);
+});
+
+// ─── CSV Parser ───────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/);
+  if (!lines.length) return [];
+  const headers = parseCSVLine(lines[0]);
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const vals = parseCSVLine(lines[i]);
+    if (vals.length < 2) continue;
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h.trim()] = (vals[idx] || '').trim(); });
+    rows.push(obj);
+  }
+  return rows;
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '';
+  let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (c === ',' && !inQ) {
+      result.push(cur);
+      cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+// ─── Matching helpers ─────────────────────────────────────────────────────────
+function buildSoftwareKeywords(softwareNames) {
+  return softwareNames.map(name => {
+    const lower = name.toLowerCase();
+    // extract base name (first word or known software)
+    const tokens = lower.split(/[\s\/\-_\.]+/).filter(Boolean);
+    const extra = [];
+    for (const [key, pats] of Object.entries(SOFTWARE_PATTERNS)) {
+      if (tokens.some(t => key.includes(t) || t.includes(key))) {
+        extra.push(...pats);
+      }
+    }
+    return { original: name, tokens, extra: [...new Set(extra)] };
+  });
+}
+
+function matchesSoftware(text, kwEntry) {
+  if (!text) return false;
+  const lower = text.toLowerCase();
+  // Check tokens
+  if (kwEntry.tokens.some(t => t.length > 2 && lower.includes(t))) return true;
+  // Check extra patterns
+  if (kwEntry.extra.some(p => lower.includes(p.toLowerCase()))) return true;
+  return false;
+}
+
+function inferPurpose(primitive, algorithm, params) {
+  const p = (primitive || '').toLowerCase().replace(/[-_]/g,'');
+  const a = (algorithm || '').toLowerCase();
+  // Check algorithm map first
+  for (const [key, val] of Object.entries(ALGO_PURPOSE_MAP)) {
+    if (a.startsWith(key.toLowerCase()) || a === key.toLowerCase()) return val;
+  }
+  // Check primitive map
+  for (const [key, val] of Object.entries(PRIMITIVE_MAP)) {
+    if (p.includes(key.replace(/[-_]/g,''))) return val;
+  }
+  // params hint
+  if (params) {
+    const pl = params.toLowerCase();
+    if (pl.includes('sign')) return 'Digital Signature';
+    if (pl.includes('encrypt')) return 'Encryption';
+    if (pl.includes('hash')) return 'Hashing';
+    if (pl.includes('auth')) return 'Authentication';
+    if (pl.includes('key')) return 'Key Exchange';
+  }
+  return 'n/a';
+}
+
+function normalizeAlgorithm(algo, keySize, curve) {
+  if (!algo || algo === 'unknown' || algo === 'n/a') return 'n/a';
+  let a = algo.trim();
+  // Normalize SHA variants
+  if (/^sha[-_]?1$/i.test(a)) return 'SHA-1';
+  if (/^sha[-_]?224$/i.test(a)) return 'SHA-224';
+  if (/^sha[-_]?256$/i.test(a)) return 'SHA-256';
+  if (/^sha[-_]?384$/i.test(a)) return 'SHA-384';
+  if (/^sha[-_]?512$/i.test(a)) return 'SHA-512';
+  if (/^sha2$/i.test(a)) return 'SHA2 (SHA-256/384/512)';
+  if (/^sha3$/i.test(a)) return 'SHA3';
+  if (/^sha$/i.test(a)) return keySize && keySize !== 'unknown' ? 'SHA-' + keySize : 'SHA';
+  if (/^_RSAPublicKey$/i.test(a) || /^_RSAPrivateKey$/i.test(a) || /rsa/i.test(a)) return 'RSA';
+  // Long-form ECDSA names
+  if (/^elliptic curve digital signature/i.test(a)) return curve ? 'ECDSA (' + curve + ')' : 'ECDSA';
+  if (/^elliptic curve schnorr/i.test(a)) return 'ECSDSA';
+  if (/^_EllipticCurve/i.test(a) || /^ecdsa/i.test(a)) return curve ? 'ECDSA (' + curve + ')' : 'ECDSA';
+  if (/^des3|^3des|^tdea/i.test(a)) return '3DES';
+  if (/^two[-\s]?key\s+tdea/i.test(a) || /^three[-\s]?key\s+tdea/i.test(a)) return '3DES';
+  if (/^skipjack/i.test(a)) return 'SKIPJACK';
+  if (/^des$/i.test(a)) return 'DES';
+  if (/^aes$/i.test(a)) return 'AES';
+  if (/^chacha20[-_]?poly/i.test(a)) return 'ChaCha20-Poly1305';
+  if (/^xchacha20/i.test(a)) return 'XChaCha20-Poly1305';
+  if (/^chacha/i.test(a)) return 'ChaCha20';
+  if (/^shangmi2|^sm2$/i.test(a)) return 'SM2';
+  if (/^bls\s+signature/i.test(a)) return 'BLS';
+  if (/^sophie germain/i.test(a)) return 'SGCM';
+  return a;
+}
+
+function inferCryptoLib(cryptoLib, subcomponent, filePath, algorithm, srcType) {
+  if (cryptoLib && cryptoLib !== 'n/a' && cryptoLib !== '') return cryptoLib;
+  const sub = (subcomponent || '').toLowerCase();
+  const path = (filePath || '').toLowerCase();
+  const algo = (algorithm || '').toLowerCase();
+  const combined = sub + ' ' + path;
+  if (combined.includes('boringssl')) return 'boringssl';
+  if (combined.includes('mbedtls') || combined.includes('polarssl')) return 'mbedtls';
+  if (combined.includes('gnutls') || combined.includes('libgnutls')) return 'gnutls';
+  if (combined.includes('nss') || combined.includes('libnss')) return 'nss';
+  if (combined.includes('gcrypt') || combined.includes('libgcrypt')) return 'libgcrypt';
+  if (combined.includes('openssl') || combined.includes('libssl') || combined.includes('libcrypto')) return 'openssl';
+  if (combined.includes('sshd') || combined.includes('openssh')) return 'openssh';
+  if (combined.includes('httpd') || combined.includes('apache') || combined.includes('nginx')) return 'openssl';
+  if (combined.includes('mysql') || combined.includes('mariadb') || combined.includes('postgres')) return 'openssl';
+  if (combined.includes('java') || combined.includes('jdk') || combined.includes('jre') || combined.includes('jvm')) return 'java.security';
+  if (combined.includes('python') || combined.includes('.py')) return 'python hashlib/cryptography';
+  if (combined.includes('php')) return 'php-openssl';
+  if (algo === 'tls' || algo === 'ssl') return 'openssl';
+  if (algo === 'ssh') return 'openssh';
+  if (srcType === 'kernel') return 'kernel crypto API';
+  if (srcType === 'cert') return 'openssl/pkcs11';
+  return 'n/a';
+}
+
+function inferDataCategory(purpose, primitive, algorithm, filePath) {
+  const a = (algorithm || '').toLowerCase();
+  const fp = (filePath || '').toLowerCase();
+  const prim = (primitive || '').toLowerCase();
+  if (prim.includes('tls') || prim.includes('ssl') || prim.includes('ssh') || a.includes('tls') || a.includes('ssl') || a.includes('ssh')) return 'Data in transit';
+  if (fp.includes('network') || fp.includes('web_app')) return 'Data in transit';
+  if (purpose === 'Key Exchange') return 'Data in transit';
+  if (fp.includes('cert') || fp.includes('pem') || fp.includes('.crt') || fp.includes('.key')) return 'Data at rest';
+  if (purpose === 'Encryption') return 'Data at rest';
+  if (purpose === 'Hashing') return 'Data at rest';
+  if (purpose === 'Authentication') return 'Data in transit';
+  return 'n/a';
+}
+
+// ─── Main Analysis ─────────────────────────────────────────────────────────
+async function analyze() {
+  const softwareNames = getSoftwareList();
+  if (!softwareNames.length) { alert('Please enter at least one software component.'); return; }
+  if (!state.files.length) { alert('Please drop at least one CSV scan file.'); return; }
+
+  showProgress('Parsing CSV files…');
+  await tick();
+
+  const kwList = buildSoftwareKeywords(softwareNames);
+  state.results = [];
+  let rowNum = 1;
+
+  for (const file of state.files) {
+    const rows = parseCSV(file.content);
+    const srcType = detectFileType(file.name);
+
+    showProgress(`Processing ${file.name} (${rows.length} rows)…`);
+    await tick();
+
+    for (const row of rows) {
+      // Build a combined text for matching
+      const combinedText = Object.values(row).join(' ');
+
+      // Try each software keyword
+      for (const kwEntry of kwList) {
+        // Check if this row is relevant to the software
+        const isRelevant = matchesSoftware(combinedText, kwEntry);
+        if (!isRelevant) continue;
+
+        // Extract fields based on file type
+        const extracted = extractFields(row, srcType, file.name);
+        if (!extracted) continue;
+
+        // Only keep rows with meaningful crypto content
+        if (!extracted.algorithm || extracted.algorithm === 'unknown' || extracted.algorithm === 'n/a') continue;
+
+        // Normalize
+        const normAlgo = normalizeAlgorithm(extracted.algorithm, extracted.keySize, extracted.curve);
+        const purpose = inferPurpose(extracted.primitive, extracted.algorithm, extracted.params);
+        const dataCategory = inferDataCategory(purpose, extracted.primitive, extracted.algorithm, extracted.filePath);
+
+        state.results.push({
+          id: rowNum++,
+          component: kwEntry.original,
+          subcomponent: extracted.subcomponent || extracted.filePath || '',
+          primitive: purpose,
+          algorithm: normAlgo,
+          keyLength: extracted.keySize && extracted.keySize !== 'unknown' ? extracted.keySize : 'n/a',
+          purpose: extracted.purpose || purpose.toLowerCase(),
+          cryptoLib: inferCryptoLib(extracted.cryptoLib, extracted.subcomponent, extracted.filePath, normAlgo, srcType),
+          dataCategory,
+          sourceFile: file.name,
+        });
+        break; // only match once per row
+      }
+    }
+  }
+
+  // Deduplicate by (component, algorithm, primitive, cryptoLibrary)
+  const seen = new Set();
+  state.results = state.results.filter(r => {
+    const key = [r.component, r.algorithm, r.primitive, r.cryptoLib].join('||');
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  // Re-number
+  state.results.forEach((r, i) => r.id = i + 1);
+
+  hideProgress();
+  renderResults();
+}
+
+function detectFileType(filename) {
+  const n = filename.toLowerCase();
+  if (n.includes('binaries')) return 'binary';
+  if (n.includes('library')) return 'library';
+  if (n.includes('kernel')) return 'kernel';
+  if (n.includes('exec_script') || n.includes('script')) return 'script';
+  if (n.includes('web_app') || n.includes('webapp')) return 'webapp';
+  if (n.includes('network')) return 'network';
+  if (n.includes('crypto_cert') || n.includes('cert')) return 'cert';
+  return 'binary';
+}
+
+function extractFields(row, srcType, filename) {
+  if (srcType === 'cert') {
+    // crypto_cert_key.csv: path, file_type, algorithm, key_size, curve, signature_algorithm, signature_hash, subject
+    const algo = row['algorithm'] || row['signature_algorithm'] || '';
+    const keySize = row['key_size'] || '';
+    const curve = row['curve'] || '';
+    const fileType = row['file_type'] || '';
+    const path = row['path'] || '';
+    const sigHash = row['signature_hash'] || '';
+
+    if (!algo && !sigHash) return null;
+
+    // Build meaningful sub-component from subject/path
+    const subject = row['subject'] || '';
+    const subComp = subject || path.split('/').pop();
+
+    // Certificate signature algo
+    let mainAlgo = algo;
+    let primitive = fileType === 'certificate' ? 'certificate' : 'private_key';
+    let extraAlgo = sigHash;
+
+    // Return two logical entries: key algo + hash algo
+    // We return the key/signature one; hash will also match via recursive call
+    if (sigHash && sigHash !== 'unknown') {
+      return {
+        algorithm: sigHash,
+        keySize: keySize || 'n/a',
+        curve,
+        primitive: 'hash',
+        subcomponent: subComp,
+        filePath: path,
+        cryptoLib: 'openssl/pkcs11',
+        purpose: 'certificate signing hashing',
+        params: row['signature_algorithm'] || '',
+      };
+    }
+    return {
+      algorithm: mainAlgo,
+      keySize,
+      curve,
+      primitive,
+      subcomponent: subComp,
+      filePath: path,
+      cryptoLib: 'openssl/pkcs11',
+      purpose: fileType === 'certificate' ? 'certificate signing algorithm' : 'private key',
+      params: row['signature_algorithm'] || '',
+    };
+  }
+
+  if (srcType === 'kernel') {
+    return {
+      algorithm: row['crypto_algorithms'] || '',
+      keySize: row['key_sizes'] || '',
+      primitive: row['crypto_primitives'] || '',
+      subcomponent: row['module_name'] || '',
+      filePath: row['module_path'] || '',
+      cryptoLib: 'kernel module',
+      purpose: '',
+      params: row['crypto_functions'] || '',
+    };
+  }
+
+  if (srcType === 'script') {
+    return {
+      algorithm: row['algorithm'] || '',
+      keySize: row['key_size'] || '',
+      primitive: row['primitive'] || '',
+      subcomponent: row['script_path'] ? row['script_path'].split('/').pop() : '',
+      filePath: row['script_path'] || '',
+      cryptoLib: row['language'] || '',
+      purpose: '',
+      params: row['function_pattern'] || '',
+    };
+  }
+
+  if (srcType === 'webapp') {
+    return {
+      algorithm: row['algorithm'] || '',
+      keySize: row['key_size'] || '',
+      primitive: row['primitive'] || '',
+      subcomponent: row['file_path'] ? row['file_path'].split('/').pop() : '',
+      filePath: row['file_path'] || '',
+      cryptoLib: row['library_or_api'] || row['language'] || '',
+      purpose: '',
+      params: row['detection_pattern'] || '',
+    };
+  }
+
+  if (srcType === 'network') {
+    return {
+      algorithm: row['Protocol'] || '',
+      keySize: '',
+      primitive: 'protocol',
+      subcomponent: row['Process'] || '',
+      filePath: row['ExecutablePath'] || '',
+      cryptoLib: '',
+      purpose: (row['Role'] || '').toLowerCase() + ' network',
+      params: row['CryptoDetails'] || '',
+    };
+  }
+
+  if (srcType === 'library') {
+    return {
+      algorithm: row['algorithm'] || '',
+      keySize: row['key_size'] || '',
+      primitive: row['primitive'] || '',
+      subcomponent: row['library'] ? row['library'].split('/').pop() : '',
+      filePath: row['library'] || '',
+      cryptoLib: row['library'] ? row['library'].split('/').pop() : '',
+      purpose: '',
+      params: '',
+    };
+  }
+
+  // binary (binaries_at_disk, binaries_used)
+  return {
+    algorithm: row['algorithm'] || '',
+    keySize: row['key_length'] || row['key_size'] || '',
+    primitive: row['primitive'] || '',
+    subcomponent: row['binary'] ? row['binary'].split('/').pop() : '',
+    filePath: row['binary'] || '',
+    cryptoLib: row['crypto_library'] || '',
+    purpose: '',
+    params: row['parameters'] || '',
+  };
+}
+
+// ─── Rendering ─────────────────────────────────────────────────────────────
+function renderResults() {
+  const resultsEl = document.getElementById('results');
+  resultsEl.style.display = 'block';
+  document.getElementById('exportBtn').style.display = '';
+
+  // Build tabs from the software list so all components are visible even with 0 results
+  const softwareTabs = getSoftwareList();
+  const allTabs = ['All', ...softwareTabs];
+  state.activeTab = 'All';
+
+  const tabBar = document.getElementById('tabBar');
+  tabBar.innerHTML = allTabs.map(c => {
+    const count = c === 'All' ? state.results.length : state.results.filter(r => r.component === c).length;
+    const isEmpty = c !== 'All' && count === 0;
+    return `<div class="tab ${c === 'All' ? 'active' : ''} ${isEmpty ? 'tab-empty' : ''}" data-tab="${escHtml(c)}" onclick="switchTab('${escHtml(c)}')">` +
+      `${escHtml(c)}<span class="tab-count">${count}</span></div>`;
+  }).join('');
+
+  renderActiveTab();
+  renderStats();
+}
+
+function switchTab(name) {
+  state.activeTab = name;
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === name);
+  });
+  renderActiveTab();
+}
+
+function getFilteredRows() {
+  const textFilter = (document.getElementById('filterText').value || '').toLowerCase();
+  const primFilter = (document.getElementById('filterPrimitive').value || '').toLowerCase();
+
+  return state.results.filter(r => {
+    if (state.activeTab !== 'All' && r.component !== state.activeTab) return false;
+    if (primFilter && r.primitive.toLowerCase() !== primFilter) return false;
+    if (textFilter) {
+      const haystack = [r.component, r.subcomponent, r.algorithm, r.primitive, r.purpose, r.cryptoLib].join(' ').toLowerCase();
+      if (!haystack.includes(textFilter)) return false;
+    }
+    return true;
+  });
+}
+
+function renderActiveTab() {
+  const rows = getFilteredRows();
+  const tbody = document.getElementById('tableBody');
+
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="10" class="no-data">No matching results. Try adjusting filters or check that the software name matches paths in your CSVs.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map((r, i) => `
+    <tr>
+      <td class="row-num">${i + 1}</td>
+      <td><strong>${escHtml(r.component)}</strong></td>
+      <td style="font-size:.75rem;color:var(--muted);">${escHtml(r.subcomponent)}</td>
+      <td>${primitiveBadge(r.primitive)}</td>
+      <td><strong>${escHtml(r.algorithm)}</strong></td>
+      <td>${r.keyLength}</td>
+      <td style="font-size:.78rem;">${escHtml(r.purpose)}</td>
+      <td><span class="source-badge">${escHtml(r.cryptoLib)}</span></td>
+      <td style="font-size:.78rem;">${escHtml(r.dataCategory)}</td>
+      <td><span class="source-badge" title="${escHtml(r.sourceFile)}">${escHtml(r.sourceFile.split('/').pop())}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderStats() {
+  const total = state.results.length;
+  const byPrim = {};
+  state.results.forEach(r => {
+    byPrim[r.primitive] = (byPrim[r.primitive] || 0) + 1;
+  });
+  const statsBar = document.getElementById('statsBar');
+  statsBar.innerHTML = `
+    <div class="stat-chip"><div class="val">${total}</div><div class="lbl">Total Entries</div></div>
+    ${Object.entries(byPrim).map(([p,c]) => `<div class="stat-chip"><div class="val">${c}</div><div class="lbl">${p}</div></div>`).join('')}
+  `;
+}
+
+function primitiveBadge(p) {
+  const cls = {
+    'Encryption': 'badge-enc',
+    'Hashing': 'badge-hash',
+    'Authentication': 'badge-auth',
+    'Digital Signature': 'badge-sig',
+    'Key Exchange': 'badge-kex',
+  }[p] || 'badge-other';
+  return `<span class="badge ${cls}">${escHtml(p)}</span>`;
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Export CSV ───────────────────────────────────────────────────────────────
+function exportCSV() {
+  const rows = getFilteredRows();
+  const headers = ['#','Component/Version','Sub-component','Cryptographic Primitive','Algorithm','Key Length','Purpose/Usage','Crypto Library','Data Category','Source File'];
+  const lines = [headers.map(csvEsc).join(',')];
+  rows.forEach((r, i) => {
+    lines.push([
+      i+1, r.component, r.subcomponent, r.primitive, r.algorithm,
+      r.keyLength, r.purpose, r.cryptoLib, r.dataCategory, r.sourceFile
+    ].map(csvEsc).join(','));
+  });
+  const blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.setAttribute('download', 'cbom_crypto_inventory.csv');
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
+
+function csvEsc(v) {
+  const s = String(v || '');
+  if (s.includes(',') || s.includes('"') || s.includes('\n')) return '"' + s.replace(/"/g, '""') + '"';
+  return s;
+}
+
+// ─── Utils ─────────────────────────────────────────────────────────────────
+function scrollToSection(id) {
+  if (id === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+
+function showProgress(msg) {
+  document.getElementById('progressWrap').style.display = 'flex';
+  document.getElementById('progressMsg').textContent = msg;
+}
+function hideProgress() { document.getElementById('progressWrap').style.display = 'none'; }
+function tick() { return new Promise(r => setTimeout(r, 0)); }
+
+function clearAll() {
+  state.files = [];
+  state.results = [];
+  renderFileList();
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('exportBtn').style.display = 'none';
+}
+
+// ─── Init ───────────────────────────────────────────────────────────────────
+loadFromStorage();
+</script>
+</body>
+</html>
