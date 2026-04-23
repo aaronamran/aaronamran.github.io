@@ -63,11 +63,59 @@
   .stat-chip .lbl { font-size: .72rem; color: var(--muted); margin-top: 2px; }
   .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
   .filter-bar input, .filter-bar select { width: auto; min-width: 160px; }
-  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
-  thead th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 10px 10px; text-align: left; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; white-space: nowrap; }
+  /* table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  thead th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 10px 2px 10px 8px; text-align: left; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; white-space: nowrap; }
   tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
   tbody tr:hover { background: rgba(20,184,166,.06); }
-  tbody td { padding: 8px 10px; vertical-align: top; white-space: nowrap; }
+  tbody td { padding: 8px 10px; vertical-align: top; white-space: nowrap; } */
+  table { 
+  width: 100%; 
+  min-width: 1000px; /* Prevents shrinking on small screens/sidebars */
+  border-collapse: collapse; 
+  font-size: .82rem;
+  table-layout: auto; /* Vital for flexible content-based sizing */
+}
+
+thead th { 
+  background: var(--surface2); 
+  color: var(--muted); 
+  font-weight: 600; 
+  padding: 12px 15px; /* Increased horizontal padding for breathing room */
+  text-align: left; 
+  border-bottom: 1px solid var(--border); 
+  position: sticky; 
+  top: 0; 
+  z-index: 2; 
+  white-space: nowrap; 
+}
+
+tbody td { 
+  padding: 10px 15px; 
+  vertical-align: middle; 
+  white-space: nowrap; /* Keeps items like 'libcrypto,libssl' on one line */
+}
+
+/* --- FLEXIBLE SPACING LOGIC --- */
+
+/* 1. Force columns with short values to shrink to their content */
+/* Targets: #, Component, Sub-component, Primitive, Key Length, Purpose */
+th:nth-child(-n+6), 
+td:nth-child(-n+6) {
+  width: 1%; 
+}
+
+/* 2. Allow the "heavier" columns to grow and take up remaining space */
+/* Targets: Algorithm, Crypto Library, Data Category, Source File */
+th:nth-child(n+7),
+td:nth-child(n+7) {
+  width: auto;
+  white-space: normal; /* Allows these specific columns to wrap if necessary */
+  min-width: 120px;     /* Ensures they don't get squashed too thin */
+}
+
+/* 3. Hover Effect (Keep your existing one) */
+tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+tbody tr:hover { background: rgba(20,184,166,.06); }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .72rem; font-weight: 600; margin: 1px; white-space: nowrap; }
   .badge-enc { background: rgba(20,184,166,.2); color: #5eead4; }
   .badge-hash { background: rgba(245,158,11,.2); color: #fbbf24; }
@@ -206,7 +254,7 @@
     <div class="tab-bar" id="tabBar"></div>
 
     <div class="filter-bar">
-      <input type="text" id="filterText" placeholder="Search algorithm, path, purpose…" oninput="renderActiveTab()">
+      <input type="text" id="filterText" placeholder="Search algorithm, etc.." oninput="renderActiveTab()">
       <select id="filterPrimitive" onchange="renderActiveTab()">
         <option value="">All Primitives</option>
         <option value="Encryption">Encryption</option>
