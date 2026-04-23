@@ -926,7 +926,7 @@ function renderActiveTab() {
     <tr>
       <td class="row-num">${i + 1}</td>
       <td><strong>${escHtml(r.component)}</strong></td>
-      <td style="font-size:.75rem;color:var(--muted);">${escHtml(r.subcomponent)}</td>
+      <td style="font-size:.75rem;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;" title="${escHtml(r.subcomponent)}">${escHtml(r.subcomponent)}</td>
       <td>${primitiveBadge(r.primitive)}</td>
       <td><strong>${escHtml(r.algorithm)}</strong></td>
       <td>${r.keyLength}</td>
