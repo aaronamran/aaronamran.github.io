@@ -157,12 +157,14 @@ tbody td {
   .link-accent:hover { text-decoration: underline; }
   code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: .83em; color: var(--text); font-family: 'Consolas', 'Courier New', monospace; }
 </style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+<link rel="icon" href="cbom-lock.svg" type="image/svg+xml">
 </head>
 <body>
 
 <header>
-  <div style="font-size:1.6rem">🔐</div>
+  <div style="width:44px;height:52px;flex-shrink:0">
+    <img src="cbom-lock.svg" width="44" height="52" alt="CBOM padlock icon" draggable="false">
+  </div>
   <div>
     <h1>Cryptographic Bill of Materials (CBOM) Extractor</h1>
     <span>CSV Parsing → Table Input &nbsp;·&nbsp; 100% Client-Side Parsing. No backend, no database, no data retention.</span>
