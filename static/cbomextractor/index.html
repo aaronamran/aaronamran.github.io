@@ -70,10 +70,11 @@
   tbody td { padding: 8px 10px; vertical-align: top; white-space: nowrap; } */
   table { 
   width: 100%; 
-  min-width: 1000px; /* Prevents shrinking on small screens/sidebars */
+  min-width: 1200px; /* Increased slightly to handle the extra wrapped text */
   border-collapse: collapse; 
   font-size: .82rem;
-  table-layout: auto; /* Vital for flexible content-based sizing */
+  line-height: 1.4; /* Improves readability for wrapped text */
+  table-layout: auto; 
 }
 
 thead th { 
@@ -89,33 +90,33 @@ thead th {
   white-space: nowrap; 
 }
 
+/* 1. Component / Version (2nd Column) - STOP THE WRAPPING */
+th:nth-child(2), td:nth-child(2) {
+  min-width: 140px; 
+  white-space: nowrap; /* Keep 'Apache HTTP Server' on one line */
+  font-weight: 600;
+}
+
+/* 2. Sub-component / Path (3rd Column) - CONTROL THE WRAP */
+th:nth-child(3), td:nth-child(3) {
+  width: 25%;             /* Give it a defined share of the table */
+  white-space: normal;     
+  word-break: break-word; /* Better than break-all; tries to break at dots/slashes first */
+  color: var(--muted);    /* Slightly dimming this column helps the bold text stand out */
+}
+
+/* 3. Global Row Alignment */
 tbody td { 
-  padding: 10px 15px; 
-  vertical-align: middle; 
-  white-space: nowrap; /* Keeps items like 'libcrypto,libssl' on one line */
+  padding: 12px 15px; 
+  vertical-align: top;    /* FIX: Align all text to the top so rows look organized */
 }
 
-/* --- FLEXIBLE SPACING LOGIC --- */
-
-/* 1. Force columns with short values to shrink to their content */
-/* Targets: #, Component, Sub-component, Primitive, Key Length, Purpose */
-th:nth-child(-n+6), 
-td:nth-child(-n+6) {
-  width: 1%; 
+/* 4. The 'Pill' Tags - Ensure they don't stretch */
+.tag-container { /* or whatever your class is for 'Encryption', 'Hashing' */
+  display: inline-block;
+  white-space: nowrap;
 }
 
-/* 2. Allow the "heavier" columns to grow and take up remaining space */
-/* Targets: Algorithm, Crypto Library, Data Category, Source File */
-th:nth-child(n+7),
-td:nth-child(n+7) {
-  width: auto;
-  white-space: normal; /* Allows these specific columns to wrap if necessary */
-  min-width: 120px;     /* Ensures they don't get squashed too thin */
-}
-
-/* 3. Hover Effect (Keep your existing one) */
-tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
-tbody tr:hover { background: rgba(20,184,166,.06); }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .72rem; font-weight: 600; margin: 1px; white-space: nowrap; }
   .badge-enc { background: rgba(20,184,166,.2); color: #5eead4; }
   .badge-hash { background: rgba(245,158,11,.2); color: #fbbf24; }
