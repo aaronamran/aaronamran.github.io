@@ -69,11 +69,10 @@
   tbody tr:hover { background: rgba(20,184,166,.06); }
   tbody td { padding: 8px 10px; vertical-align: top; white-space: nowrap; } */
   table { 
-  width: 100%; 
-  min-width: 1200px; /* Increased slightly to handle the extra wrapped text */
+  width: auto;
   border-collapse: collapse; 
   font-size: .82rem;
-  line-height: 1.4; /* Improves readability for wrapped text */
+  line-height: 1.4;
   table-layout: auto; 
 }
 
@@ -81,7 +80,7 @@ thead th {
   background: var(--surface2); 
   color: var(--muted); 
   font-weight: 600; 
-  padding: 12px 15px; /* Increased horizontal padding for breathing room */
+  padding: 12px 15px;
   text-align: left; 
   border-bottom: 1px solid var(--border); 
   position: sticky; 
@@ -90,30 +89,9 @@ thead th {
   white-space: nowrap; 
 }
 
-/* 1. Component / Version (2nd Column) - STOP THE WRAPPING */
-th:nth-child(2), td:nth-child(2) {
-  min-width: 140px; 
-  white-space: nowrap; /* Keep 'Apache HTTP Server' on one line */
-  font-weight: 600;
-}
-
-/* 2. Sub-component / Path (3rd Column) - CONTROL THE WRAP */
-th:nth-child(3), td:nth-child(3) {
-  width: 25%;             /* Give it a defined share of the table */
-  white-space: normal;     
-  word-break: break-word; /* Better than break-all; tries to break at dots/slashes first */
-  color: var(--muted);    /* Slightly dimming this column helps the bold text stand out */
-}
-
-/* 3. Global Row Alignment */
 tbody td { 
   padding: 12px 15px; 
-  vertical-align: top;    /* FIX: Align all text to the top so rows look organized */
-}
-
-/* 4. The 'Pill' Tags - Ensure they don't stretch */
-.tag-container { /* or whatever your class is for 'Encryption', 'Hashing' */
-  display: inline-block;
+  vertical-align: top;
   white-space: nowrap;
 }
 
@@ -128,6 +106,24 @@ tbody td {
   .tbl-wrap { overflow-x: auto; max-height: 70vh; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius); }
   .copy-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 3px 8px; border-radius: 5px; cursor: pointer; font-size: .75rem; }
   .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+  .col-del-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: .68rem; padding: 0 0 0 5px; opacity: 0; vertical-align: middle; line-height: 1; }
+  thead th:hover .col-del-btn { opacity: .55; }
+  .col-del-btn:hover { color: var(--red) !important; opacity: 1 !important; }
+  .col-edit-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: .62rem; padding: 0 0 0 3px; opacity: 0; vertical-align: middle; line-height: 1; }
+  thead th:hover .col-edit-btn { opacity: .5; }
+  .col-edit-btn:hover { color: var(--accent) !important; opacity: 1 !important; }
+  .add-col-panel { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; display: none; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+  .add-col-panel.open { display: flex; }
+  .add-col-field { display: flex; flex-direction: column; gap: 4px; }
+  .add-col-field label { font-size: .76rem; color: var(--muted); margin: 0; }
+  .add-col-field input[type=text], .add-col-field select { width: auto; min-width: 150px; padding: 7px 10px; font-size: .85rem; }
+  .prefix-cell { display: none; align-items: center; }
+  #softwareList.custom-num-on .prefix-cell { display: flex; }
+  .prefix-input { width: 76px; background: var(--surface2); border: 1px solid var(--border); color: var(--accent); padding: 9px 6px; border-radius: 7px; font-size: .82rem; text-align: center; outline: none; font-weight: 600; flex-shrink: 0; }
+  .prefix-input:focus { border-color: var(--accent); }
+  .prefix-input::placeholder { color: var(--muted); font-weight: 400; }
+  .prefix-sep { color: var(--muted); font-size: .75rem; padding: 0 4px 0 2px; flex-shrink: 0; }
+  .btn-active-accent { background: var(--accent) !important; color: #fff !important; }
   .tab-bar { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
   .tab { padding: 8px 16px; border-radius: 7px 7px 0 0; cursor: pointer; font-size: .85rem; font-weight: 500; color: var(--muted); border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; }
   .tab.active { background: var(--surface); color: var(--accent); border-color: var(--border); }
@@ -209,6 +205,7 @@ tbody td {
       <button class="btn btn-secondary" onclick="addSoftwareRow()">＋ Add Component</button>
       <button class="btn btn-warning" onclick="clearSoftwareList()">✕ Clear All</button>
       <button class="btn btn-secondary" onclick="loadPreset()"> Load Sample Preset</button>
+      <button class="btn btn-secondary" id="btnCustomNum" onclick="toggleCustomNumbering()" title="Add a custom prefix number to each component so table rows are numbered like 79.1.1, 79.1.2 …">≡# Custom No. Prefix</button>
     </div>
     <br />
     <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;">Enter each software name/version to search for in the scan CSVs.</p>
@@ -264,12 +261,34 @@ tbody td {
         <option value="Digital Signature">Digital Signature</option>
         <option value="Key Exchange">Key Exchange</option>
       </select>
+      <button class="copy-btn" id="copyWithHdrBtn" onclick="copyTable(true)" title="Copy table with column headers">&#128203; Copy with headers</button>
+      <button class="copy-btn" id="copyNoHdrBtn" onclick="copyTable(false)" title="Copy table without column headers">&#128203; Copy without headers</button>
+      <button class="copy-btn" id="colRestoreBar" onclick="restoreColumns()" style="display:none;color:var(--accent);border-color:var(--accent);" title="Show all hidden columns">↺ Restore Hidden Columns</button>
+      <button class="copy-btn" id="btnAddCol" onclick="showAddColumnPanel()" title="Insert a custom column anywhere in the table" style="color:var(--accent);border-color:var(--accent);">&#xff0b; Add Column</button>
     </div>
 
+    <div id="addColPanel" class="add-col-panel">
+      <div class="add-col-field">
+        <label>Insert after</label>
+        <select id="addColAfterSel"></select>
+      </div>
+      <div class="add-col-field">
+        <label>Column name</label>
+        <input type="text" id="addColName" placeholder="e.g. Asset Name" onkeydown="if(event.key==='Enter')confirmAddColumn()">
+      </div>
+      <div class="add-col-field">
+        <label>Default value (fills all rows)</label>
+        <input type="text" id="addColDefault" placeholder="e.g. System A" onkeydown="if(event.key==='Enter')confirmAddColumn()">
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <button class="btn btn-primary" onclick="confirmAddColumn()" style="padding:7px 14px;font-size:.85rem;">Add</button>
+        <button class="btn btn-secondary" onclick="hideAddColumnPanel()" style="padding:7px 14px;font-size:.85rem;">Cancel</button>
+      </div>
+    </div>
     <div class="tbl-wrap" id="tblWrap">
       <table id="mainTable">
         <thead>
-          <tr>
+          <tr id="tableHeaderRow">
             <th>#</th>
             <th>Component / Version</th>
             <th>Sub-component / Path</th>
@@ -295,8 +314,22 @@ const state = {
   files: [],       // { name, content }
   software: [],    // string[]
   results: [],     // processed rows
-  activeTab: 'All'
+  activeTab: 'All',
+  hiddenColumns: new Set()  // stores column id strings
 };
+
+let COLUMNS = [
+  { id: 'num',          label: '#' },
+  { id: 'component',    label: 'Component / Version' },
+  { id: 'subcomponent', label: 'Sub-component / Path' },
+  { id: 'primitive',    label: 'Cryptographic Primitive' },
+  { id: 'algorithm',    label: 'Algorithm' },
+  { id: 'keyLength',    label: 'Key Length' },
+  { id: 'purpose',      label: 'Purpose / Usage' },
+  { id: 'cryptoLib',    label: 'Crypto Library' },
+  { id: 'dataCategory', label: 'Data Category' },
+  { id: 'sourceFile',   label: 'Source File' },
+];
 
 // ─── Algorithm reference list (all known crypto primitives) ─────────────────
 const KNOWN_ALGORITHMS = [
@@ -436,14 +469,18 @@ const SOFTWARE_PATTERNS = {
 };
 
 // ─── UI: Software rows ────────────────────────────────────────────────────────
-function addSoftwareRow(val = '') {
+function addSoftwareRow(val = '', prefix = '') {
   const list = document.getElementById('softwareList');
   const id = Date.now() + Math.random();
   const div = document.createElement('div');
   div.className = 'software-row';
   div.id = 'row_' + id;
   div.innerHTML = `
-    <input type="text" placeholder="e.g. Apache HTTP Server, nginx, Python" value="${val}" style="flex:1" oninput="saveToStorage()">
+    <div class="prefix-cell">
+      <input type="text" class="prefix-input" placeholder="e.g. 79.1" value="${prefix.replace(/"/g,'&quot;')}" oninput="saveToStorage()" title="Custom prefix for this component (e.g. 79.1)">
+      <span class="prefix-sep">·</span>
+    </div>
+    <input type="text" class="sw-name-input" placeholder="e.g. Apache HTTP Server, nginx, Python" value="${val.replace(/"/g,'&quot;')}" style="flex:1" oninput="saveToStorage()">
     <button class="btn btn-danger" onclick="removeSoftwareRow('row_${id}')">✕</button>
   `;
   list.appendChild(div);
@@ -463,7 +500,11 @@ function clearSoftwareList() {
 
 function saveToStorage() {
   try {
-    localStorage.setItem('cbom_software_list', JSON.stringify(getSoftwareList()));
+    const data = Array.from(document.querySelectorAll('#softwareList .software-row')).map(row => ({
+      name: (row.querySelector('.sw-name-input')?.value || '').trim(),
+      prefix: (row.querySelector('.prefix-input')?.value || '').trim(),
+    })).filter(d => d.name);
+    localStorage.setItem('cbom_software_list', JSON.stringify(data));
   } catch(e) {}
 }
 
@@ -474,18 +515,46 @@ function loadFromStorage() {
       const list = JSON.parse(saved);
       if (Array.isArray(list) && list.length) {
         document.getElementById('softwareList').innerHTML = '';
-        list.forEach(s => addSoftwareRow(s));
+        list.forEach(s => {
+          if (typeof s === 'string') addSoftwareRow(s, '');
+          else addSoftwareRow(s.name || '', s.prefix || '');
+        });
+        // Restore custom-num toggle if any prefix was saved
+        const hadPrefix = list.some(s => typeof s === 'object' && s.prefix);
+        try { const on = localStorage.getItem('cbom_custom_num_on'); if (on === '1' || hadPrefix) _setCustomNum(true); } catch(e) {}
         return;
       }
     }
   } catch(e) {}
-  // Nothing saved — start with an empty list
   document.getElementById('softwareList').innerHTML = '';
 }
 
 function getSoftwareList() {
-  return Array.from(document.querySelectorAll('#softwareList input'))
+  return Array.from(document.querySelectorAll('#softwareList .sw-name-input'))
     .map(i => i.value.trim()).filter(Boolean);
+}
+
+function getSoftwarePrefixMap() {
+  const map = {};
+  document.querySelectorAll('#softwareList .software-row').forEach(row => {
+    const name = (row.querySelector('.sw-name-input')?.value || '').trim();
+    const prefix = (row.querySelector('.prefix-input')?.value || '').trim();
+    if (name) map[name] = prefix;
+  });
+  return map;
+}
+
+function _setCustomNum(on) {
+  const list = document.getElementById('softwareList');
+  const btn = document.getElementById('btnCustomNum');
+  if (on) { list.classList.add('custom-num-on'); if (btn) btn.classList.add('btn-active-accent'); }
+  else { list.classList.remove('custom-num-on'); if (btn) btn.classList.remove('btn-active-accent'); }
+  try { localStorage.setItem('cbom_custom_num_on', on ? '1' : '0'); } catch(e) {}
+}
+
+function toggleCustomNumbering() {
+  const isOn = document.getElementById('softwareList').classList.contains('custom-num-on');
+  _setCustomNum(!isOn);
 }
 
 function loadPreset() {
@@ -710,6 +779,7 @@ async function analyze() {
   await tick();
 
   const kwList = buildSoftwareKeywords(softwareNames);
+  const prefixMap = getSoftwarePrefixMap();
   state.results = [];
   let rowNum = 1;
 
@@ -753,6 +823,7 @@ async function analyze() {
           cryptoLib: inferCryptoLib(extracted.cryptoLib, extracted.subcomponent, extracted.filePath, normAlgo, srcType),
           dataCategory,
           sourceFile: file.name,
+          customPrefix: prefixMap[kwEntry.original] || '',
         });
         break; // only match once per row
       }
@@ -767,6 +838,9 @@ async function analyze() {
     seen.add(key);
     return true;
   });
+
+  // Sort by software list input order
+  state.results.sort((a, b) => softwareNames.indexOf(a.component) - softwareNames.indexOf(b.component));
 
   // Re-number
   state.results.forEach((r, i) => r.id = i + 1);
@@ -919,6 +993,10 @@ function renderResults() {
   const resultsEl = document.getElementById('results');
   resultsEl.style.display = 'block';
 
+  state.hiddenColumns.clear();
+  const bar = document.getElementById('colRestoreBar');
+  if (bar) bar.style.display = 'none';
+
   // Build tabs from the software list so all components are visible even with 0 results
   const softwareTabs = getSoftwareList();
   const allTabs = ['All', ...softwareTabs];
@@ -932,6 +1010,7 @@ function renderResults() {
       `${escHtml(c)}<span class="tab-count">${count}</span></div>`;
   }).join('');
 
+  renderTableHeaders();
   renderActiveTab();
   renderStats();
 }
@@ -964,24 +1043,22 @@ function renderActiveTab() {
   const tbody = document.getElementById('tableBody');
 
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="10" class="no-data">No matching results. Try adjusting filters or check that the software name matches paths in your CSVs.</td></tr>`;
+    const visCount = COLUMNS.filter(c => !state.hiddenColumns.has(c.id)).length;
+    tbody.innerHTML = `<tr><td colspan="${visCount}" class="no-data">No matching results. Try adjusting filters or check that the software name matches paths in your CSVs.</td></tr>`;
     return;
   }
 
-  tbody.innerHTML = rows.map((r, i) => `
-    <tr>
-      <td class="row-num">${i + 1}</td>
-      <td><strong>${escHtml(r.component)}</strong></td>
-      <td style="font-size:.75rem;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;" title="${escHtml(r.subcomponent)}">${escHtml(r.subcomponent)}</td>
-      <td>${primitiveBadge(r.primitive)}</td>
-      <td><strong>${escHtml(r.algorithm)}</strong></td>
-      <td>${r.keyLength}</td>
-      <td style="font-size:.78rem;">${escHtml(r.purpose)}</td>
-      <td><span class="source-badge">${escHtml(r.cryptoLib)}</span></td>
-      <td style="font-size:.78rem;">${escHtml(r.dataCategory)}</td>
-      <td><span class="source-badge" title="${escHtml(r.sourceFile)}">${escHtml(r.sourceFile.split('/').pop())}</span></td>
-    </tr>
-  `).join('');
+  const compCounters = {};
+  tbody.innerHTML = rows.map((r, i) => {
+    let numDisplay;
+    if (r.customPrefix) {
+      compCounters[r.component] = (compCounters[r.component] || 0) + 1;
+      numDisplay = r.customPrefix + '.' + compCounters[r.component];
+    } else {
+      numDisplay = String(i + 1);
+    }
+    return `<tr>${COLUMNS.map(col => state.hiddenColumns.has(col.id) ? '' : renderCell(col, r, i, numDisplay)).join('')}</tr>`;
+  }).join('');
 }
 
 function renderStats() {
@@ -1006,6 +1083,185 @@ function primitiveBadge(p) {
     'Key Exchange': 'badge-kex',
   }[p] || 'badge-other';
   return `<span class="badge ${cls}">${escHtml(p)}</span>`;
+}
+
+function renderCell(col, r, rowIdx, numDisplay) {
+  if (col.custom) {
+    return `<td style="font-size:.82rem;">${escHtml(col.defaultValue || '')}</td>`;
+  }
+  switch (col.id) {
+    case 'num':          return `<td class="row-num">${escHtml(numDisplay !== undefined ? numDisplay : String(rowIdx + 1))}</td>`;
+    case 'component':    return `<td><strong>${escHtml(r.component)}</strong></td>`;
+    case 'subcomponent': return `<td style="font-size:.75rem;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;" title="${escHtml(r.subcomponent)}">${escHtml(r.subcomponent)}</td>`;
+    case 'primitive':    return `<td>${primitiveBadge(r.primitive)}</td>`;
+    case 'algorithm':    return `<td><strong>${escHtml(r.algorithm)}</strong></td>`;
+    case 'keyLength':    return `<td>${escHtml(r.keyLength)}</td>`;
+    case 'purpose':      return `<td style="font-size:.78rem;">${escHtml(r.purpose)}</td>`;
+    case 'cryptoLib':    return `<td><span class="source-badge">${escHtml(r.cryptoLib)}</span></td>`;
+    case 'dataCategory': return `<td style="font-size:.78rem;">${escHtml(r.dataCategory)}</td>`;
+    case 'sourceFile':   return `<td><span class="source-badge" title="${escHtml(r.sourceFile)}">${escHtml(r.sourceFile.split('/').pop())}</span></td>`;
+    default: return '';
+  }
+}
+
+function renderTableHeaders() {
+  const headerRow = document.getElementById('tableHeaderRow');
+  if (!headerRow) return;
+  headerRow.innerHTML = COLUMNS.map(col => {
+    if (state.hiddenColumns.has(col.id)) return '';
+    const sid = col.id.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const delTip = col.custom ? 'Remove column' : 'Hide column';
+    const delBtn = `<button class="col-del-btn" onclick="deleteColumn('${sid}')" title="${delTip}">×</button>`;
+    const editBtn = col.custom ? `<button class="col-edit-btn" onclick="editCustomColumn('${sid}')" title="Edit column">✏</button>` : '';
+    return `<th>${escHtml(col.label)}${editBtn}${delBtn}</th>`;
+  }).join('');
+}
+
+function deleteColumn(id) {
+  const col = COLUMNS.find(c => c.id === id);
+  if (!col) return;
+  if (col.custom) {
+    COLUMNS = COLUMNS.filter(c => c.id !== id);
+    saveCustomColumns();
+    renderTableHeaders();
+    renderActiveTab();
+  } else {
+    state.hiddenColumns.add(id);
+    const bar = document.getElementById('colRestoreBar');
+    if (bar) bar.style.display = 'inline-flex';
+    renderTableHeaders();
+    renderActiveTab();
+  }
+}
+
+function restoreColumns() {
+  state.hiddenColumns.clear();
+  const bar = document.getElementById('colRestoreBar');
+  if (bar) bar.style.display = 'none';
+  renderTableHeaders();
+  renderActiveTab();
+}
+
+function copyTable(includeHeaders) {
+  const rows = getFilteredRows();
+  const visibleCols = COLUMNS.filter(col => !state.hiddenColumns.has(col.id));
+
+  const lines = [];
+
+  if (includeHeaders) {
+    lines.push(visibleCols.map(col => col.label).join('\t'));
+  }
+
+  const compCounters = {};
+  rows.forEach((r, idx) => {
+    let numDisplay;
+    if (r.customPrefix) {
+      compCounters[r.component] = (compCounters[r.component] || 0) + 1;
+      numDisplay = r.customPrefix + '.' + compCounters[r.component];
+    } else {
+      numDisplay = String(idx + 1);
+    }
+    const cells = visibleCols.map(col => {
+      if (col.custom) return col.defaultValue || '';
+      switch (col.id) {
+        case 'num':          return numDisplay;
+        case 'component':    return r.component;
+        case 'subcomponent': return r.subcomponent;
+        case 'primitive':    return r.primitive;
+        case 'algorithm':    return r.algorithm;
+        case 'keyLength':    return r.keyLength;
+        case 'purpose':      return r.purpose;
+        case 'cryptoLib':    return r.cryptoLib;
+        case 'dataCategory': return r.dataCategory;
+        case 'sourceFile':   return r.sourceFile;
+        default: return '';
+      }
+    });
+    lines.push(cells.join('\t'));
+  });
+
+  const text = lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btnId = includeHeaders ? 'copyWithHdrBtn' : 'copyNoHdrBtn';
+    const btn = document.getElementById(btnId);
+    const orig = btn.textContent;
+    btn.textContent = '\u2713 Copied!';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 1800);
+  }).catch(() => {
+    alert('Copy failed. Please allow clipboard access.');
+  });
+}
+
+// ─── Custom Columns ────────────────────────────────────────────────────────
+function showAddColumnPanel() {
+  const sel = document.getElementById('addColAfterSel');
+  sel.innerHTML = COLUMNS.map(col =>
+    `<option value="${col.id.replace(/"/g,'&quot;')}">${escHtml(col.label)}</option>`
+  ).join('');
+  sel.selectedIndex = COLUMNS.length - 1;
+  document.getElementById('addColName').value = '';
+  document.getElementById('addColDefault').value = '';
+  document.getElementById('addColPanel').classList.add('open');
+  document.getElementById('addColName').focus();
+}
+
+function hideAddColumnPanel() {
+  document.getElementById('addColPanel').classList.remove('open');
+}
+
+function confirmAddColumn() {
+  const afterId = document.getElementById('addColAfterSel').value;
+  const name = document.getElementById('addColName').value.trim();
+  const defVal = document.getElementById('addColDefault').value;
+  if (!name) { document.getElementById('addColName').focus(); return; }
+  const newCol = { id: 'custom_' + Date.now(), label: name, custom: true, defaultValue: defVal };
+  const afterIdx = COLUMNS.findIndex(c => c.id === afterId);
+  COLUMNS.splice(afterIdx + 1, 0, newCol);
+  saveCustomColumns();
+  hideAddColumnPanel();
+  renderTableHeaders();
+  renderActiveTab();
+}
+
+function editCustomColumn(id) {
+  const col = COLUMNS.find(c => c.id === id);
+  if (!col || !col.custom) return;
+  const newLabel = prompt('Column name:', col.label);
+  if (newLabel === null) return;
+  if (newLabel.trim()) col.label = newLabel.trim();
+  const newDefault = prompt('Default value for all rows:', col.defaultValue || '');
+  if (newDefault === null) return;
+  col.defaultValue = newDefault;
+  saveCustomColumns();
+  renderTableHeaders();
+  renderActiveTab();
+}
+
+function saveCustomColumns() {
+  const customs = [];
+  COLUMNS.forEach((col, i) => {
+    if (!col.custom) return;
+    const prevId = i > 0 ? COLUMNS[i - 1].id : null;
+    customs.push({ id: col.id, label: col.label, defaultValue: col.defaultValue || '', prevId });
+  });
+  try { localStorage.setItem('cbom_custom_columns', JSON.stringify(customs)); } catch(e) {}
+}
+
+function loadCustomColumns() {
+  try {
+    const saved = localStorage.getItem('cbom_custom_columns');
+    if (!saved) return;
+    const customs = JSON.parse(saved);
+    if (!Array.isArray(customs)) return;
+    for (const c of customs) {
+      if (COLUMNS.find(x => x.id === c.id)) continue;
+      const col = { id: c.id, label: c.label || 'Column', custom: true, defaultValue: c.defaultValue || '' };
+      const prevIdx = c.prevId ? COLUMNS.findIndex(x => x.id === c.prevId) : -1;
+      COLUMNS.splice(prevIdx + 1, 0, col);
+    }
+  } catch(e) {}
 }
 
 function escHtml(s) {
@@ -1041,6 +1297,8 @@ function clearAll() {
 
 // ─── Init ───────────────────────────────────────────────────────────────────
 loadFromStorage();
+loadCustomColumns();
+try { if (localStorage.getItem('cbom_custom_num_on') === '1') _setCustomNum(true); } catch(e) {}
 </script>
 </body>
 </html>
