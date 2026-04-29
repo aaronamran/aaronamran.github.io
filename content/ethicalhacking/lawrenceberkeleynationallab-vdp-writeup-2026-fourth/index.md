@@ -35,7 +35,7 @@ prog: 'VDP'
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the <a href="./newsouthwalesparliamentaustralia-vdp-2026-first.html">next hack</a>.</p>
+<p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next hack.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
 <p class="text-muted small mt-1">January 2026</p>
 </section>
