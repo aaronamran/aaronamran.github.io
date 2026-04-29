@@ -19,6 +19,12 @@
 
 $ErrorActionPreference = "Continue"
 
+# Force UTF-8 for pipeline and console encoding so Python output is decoded
+# correctly through 2>&1 | Tee-Object, and all file writes are BOM-free.
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding           = [System.Text.Encoding]::UTF8
+$Script:Utf8NoBom         = New-Object System.Text.UTF8Encoding $false
+
 # =============================================================================
 # SCRIPT-LEVEL STATE  (equivalent to bash globals)
 # =============================================================================
@@ -61,7 +67,7 @@ function Write-Log {
     param([string]$Msg, [switch]$Verbose)
     if ([string]::IsNullOrEmpty($Script:LogFile)) { return }
     $line = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $Msg"
-    Add-Content -Path $Script:LogFile -Value $line -ErrorAction SilentlyContinue
+    try { [System.IO.File]::AppendAllText($Script:LogFile, "$line`n", $Script:Utf8NoBom) } catch {}
     if ($Verbose) { Write-Host $line }
 }
 
@@ -167,9 +173,41 @@ function Invoke-EnsureRepo {
                 winget install --id Git.Git -e --source winget --silent
                 Update-SessionPath
             } else {
-                Write-Err "winget is not available. Please install Git for Windows manually."
-                Write-Err "  https://git-scm.com/download/win"
-                exit 1
+                Write-Info "winget not available — downloading Git for Windows installer directly..."
+                $gitInstallerPath = Join-Path $env:TEMP "git-installer.exe"
+                try {
+                    $gitRelease = Invoke-RestMethod `
+                        -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" `
+                        -UseBasicParsing -Headers @{ "User-Agent" = "pqccheck-ps1" }
+                    $gitAsset = $gitRelease.assets | Where-Object {
+                        $_.name -match '64-bit\.exe$'
+                    } | Select-Object -First 1
+                    if (-not $gitAsset) {
+                        Write-Err "Could not find Git for Windows 64-bit installer in the latest release."
+                        Write-Err "Install manually: https://git-scm.com/download/win"
+                        exit 1
+                    }
+                    Write-Info "Downloading $($gitAsset.name)..."
+                    Invoke-WebRequest -Uri $gitAsset.browser_download_url `
+                        -OutFile $gitInstallerPath -UseBasicParsing
+                    Write-Info "Running Git installer silently (no reboot required)..."
+                    $p = Start-Process -FilePath $gitInstallerPath `
+                        -ArgumentList '/VERYSILENT', '/NORESTART', '/NOCANCEL', '/SP-', `
+                                      '/COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh' `
+                        -Wait -PassThru
+                    if ($p.ExitCode -ne 0) {
+                        Write-Err "Git installer exited with code $($p.ExitCode)."
+                        exit 1
+                    }
+                    Update-SessionPath
+                    Write-Ok "Git installed successfully."
+                } catch {
+                    Write-Err "Failed to download/install Git: $_"
+                    Write-Err "Install manually: https://git-scm.com/download/win"
+                    exit 1
+                } finally {
+                    Remove-Item $gitInstallerPath -Force -ErrorAction SilentlyContinue
+                }
             }
         } else {
             Write-Err "git is required. Please install it and re-run."
@@ -337,8 +375,36 @@ function Invoke-SetupPythonEnv {
                     }
                 }
             } else {
-                Write-Err "winget not available. Install Python 3 manually from https://www.python.org/downloads/"
-                exit 1
+                Write-Info "winget not available — downloading Python 3.11 installer directly..."
+                $pyInstallerPath = Join-Path $env:TEMP "python-installer.exe"
+                try {
+                    # Python 3.11 LTS — latest patch as of 2026; update URL for newer patch if needed
+                    $pyUrl = "https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe"
+                    Write-Info "Downloading Python 3.11.9 (amd64)..."
+                    Invoke-WebRequest -Uri $pyUrl -OutFile $pyInstallerPath -UseBasicParsing
+                    Write-Info "Running Python installer silently (no reboot required)..."
+                    $p = Start-Process -FilePath $pyInstallerPath `
+                        -ArgumentList '/quiet', 'InstallAllUsers=1', 'PrependPath=1', 'Include_test=0' `
+                        -Wait -PassThru
+                    if ($p.ExitCode -ne 0) {
+                        Write-Err "Python installer exited with code $($p.ExitCode)."
+                        exit 1
+                    }
+                    Update-SessionPath
+                    foreach ($candidate in @("python", "python3")) {
+                        if (Test-Command $candidate) {
+                            $ver = & $candidate --version 2>&1
+                            if ($ver -match "Python 3") { $sysPython = $candidate; break }
+                        }
+                    }
+                    Write-Ok "Python installed successfully."
+                } catch {
+                    Write-Err "Failed to download/install Python: $_"
+                    Write-Err "Install manually: https://www.python.org/downloads/"
+                    exit 1
+                } finally {
+                    Remove-Item $pyInstallerPath -Force -ErrorAction SilentlyContinue
+                }
             }
         } else {
             Write-Err "Python 3 is required. Please install it and re-run."
@@ -563,8 +629,31 @@ function Invoke-CheckSystemTools {
                 }
 
                 if (-not $installed) {
-                    Write-Warn "Could not install nmap automatically."
-                    Write-Warn "Download the Windows installer from: https://nmap.org/download.html"
+                    Write-Info "Downloading Nmap for Windows installer directly..."
+                    $nmapInstallerPath = Join-Path $env:TEMP "nmap-setup.exe"
+                    try {
+                        # Parse nmap.org/download.html for the latest Windows setup exe
+                        $nmapPage = Invoke-WebRequest -Uri "https://nmap.org/download.html" -UseBasicParsing
+                        $nmapMatch = [regex]::Match($nmapPage.Content, 'href="(https://nmap\.org/dist/nmap-[\d.]+-setup\.exe)"')
+                        $nmapUrl = if ($nmapMatch.Success) { $nmapMatch.Groups[1].Value } `
+                                   else { "https://nmap.org/dist/nmap-7.95-setup.exe" }
+                        Write-Info "Downloading $nmapUrl..."
+                        Invoke-WebRequest -Uri $nmapUrl -OutFile $nmapInstallerPath -UseBasicParsing
+                        Write-Info "Running Nmap installer silently (no reboot required)..."
+                        $p = Start-Process -FilePath $nmapInstallerPath -ArgumentList '/S' -Wait -PassThru
+                        if ($p.ExitCode -ne 0) {
+                            Write-Warn "Nmap installer exited with code $($p.ExitCode). DISCOVERY/Script 9 may not work."
+                        } else {
+                            Update-SessionPath
+                            Write-Ok "Nmap installed successfully."
+                            Write-Log "nmap installed via direct download"
+                        }
+                    } catch {
+                        Write-Warn "Could not download/install nmap: $_"
+                        Write-Warn "Download manually: https://nmap.org/download.html"
+                    } finally {
+                        Remove-Item $nmapInstallerPath -Force -ErrorAction SilentlyContinue
+                    }
                 }
             }
 
@@ -601,6 +690,152 @@ function Invoke-CheckSystemTools {
             }
         }
     }
+}
+
+# =============================================================================
+# INSTALLED SOFTWARE PRE-FLIGHT CHECK
+# Reads the same registry hives as swversion.ps1.
+# Identifies missing critical dependencies (Python, git, winget) and flags
+# installed software that is relevant to specific CBOM scan scripts.
+# =============================================================================
+function Invoke-CheckInstalledSoftware {
+    Write-Header "Installed software pre-flight check"
+
+    # Read 64-bit and 32-bit uninstall hives
+    $regPaths = @(
+        'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+        'HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
+    )
+    $installed = $regPaths | ForEach-Object {
+        Get-ItemProperty $_ -ErrorAction SilentlyContinue
+    } | Where-Object { $_.DisplayName -ne $null } |
+        Select-Object DisplayName, DisplayVersion |
+        Sort-Object DisplayName
+
+    if (-not $installed) {
+        Write-Warn "Could not read installed software from registry."
+        return
+    }
+
+    # -------------------------------------------------------------------------
+    # Critical dependencies
+    # -------------------------------------------------------------------------
+    Write-Host ""
+    Write-Host "  -- Critical dependencies --" -ForegroundColor White
+
+    # Python — required for all CBOM scan scripts
+    $pyEntries = $installed | Where-Object { $_.DisplayName -match '(?i)python\s+3' }
+    if ($pyEntries) {
+        foreach ($p in $pyEntries) {
+            Write-Ok "  $($p.DisplayName)  $($p.DisplayVersion)"
+        }
+    } else {
+        Write-Warn "  Python 3 — NOT installed"
+        Write-Info "    -> REQUIRED: all CBOM scan scripts need Python 3"
+        if (Test-Command "winget") {
+            Write-Info "    -> Auto-install available: winget install --id Python.Python.3.11 -e"
+        } else {
+            Write-Info "    -> winget not found on this server"
+            Write-Info "    -> Manual install: https://www.python.org/downloads/"
+            Write-Info "    -> Or: download the embeddable package for Windows Server 2019 (x64)"
+        }
+    }
+
+    # git — required to clone the CBOM-scanning repo
+    $gitEntry = $installed | Where-Object { $_.DisplayName -match '(?i)^git(\s|$)' }
+    if ($gitEntry -or (Test-Command "git")) {
+        $ver = if ($gitEntry) { $gitEntry[0].DisplayVersion } else { (& git --version 2>&1) -replace 'git version ','' }
+        Write-Ok "  Git  $ver"
+    } else {
+        Write-Warn "  Git — NOT installed"
+        Write-Info "    -> REQUIRED: needed to clone https://github.com/msaufyrohmad/CBOM-scanning"
+        Write-Info "    -> Manual install: https://git-scm.com/download/win"
+    }
+
+    # winget — enables automatic installation of Python / git / nmap / strings
+    if (Test-Command "winget") {
+        $wgVer = (winget --version 2>&1)
+        Write-Ok "  winget  $wgVer  (automatic installs available)"
+    } else {
+        Write-Warn "  winget — NOT available"
+        Write-Info "    -> Windows Server 2019 does not ship winget by default"
+        Write-Info "    -> Install 'App Installer' from: https://aka.ms/getwinget"
+        Write-Info "    -> Or install Python/Git/nmap manually using the links above"
+    }
+
+    # -------------------------------------------------------------------------
+    # Syslog / monitoring software — contextual scan advice
+    # -------------------------------------------------------------------------
+    Write-Host ""
+    Write-Host "  -- Syslog / monitoring software detected --" -ForegroundColor White
+
+    # Patterns: display name regex -> which scan scripts are relevant
+    $checks = [ordered]@{
+        '(?i)kiwi syslog server'          = @{
+            Scripts = '1 (processes), 8 (network: UDP/TCP 514, TLS 6514), 9 (TLS on web interface)'
+            Note    = 'Main syslog daemon — crypto in transport and stored log data'
+        }
+        '(?i)kiwi syslog web access'      = @{
+            Scripts = '7 (web app dirs), 9 (TLS cipher scan on web UI)'
+            Note    = 'Web interface — check TLS config and cipher suites'
+        }
+        '(?i)ultidev web server'          = @{
+            Scripts = '7 (web app dirs), 9 (TLS scan)'
+            Note    = 'Hosts Kiwi Web Access — check TLS and certificate'
+        }
+        '(?i)solarwinds event log forward' = @{
+            Scripts = '1 (processes), 8 (forwarding connections)'
+            Note    = 'Log forwarding agent — check encryption on forwarded traffic'
+        }
+        '(?i)solarwinds license'          = @{
+            Scripts = '8 (network connections to SolarWinds cloud)'
+            Note    = 'License manager — outbound connection worth auditing'
+        }
+        '(?i)zabbix agent'                = @{
+            Scripts = '1 (processes), 8 (agent port 10050/10051)'
+            Note    = 'Monitoring agent — check if agent traffic is encrypted (PSK/TLS)'
+        }
+        '(?i)anydesk'                     = @{
+            Scripts = '8 (outbound AnyDesk relay connections), 9 (TLS)'
+            Note    = 'Remote access tool — verify TLS and cipher suite'
+        }
+        '(?i)vmoptimization|sangfor'      = @{
+            Scripts = '1 (processes), 8 (network connections)'
+            Note    = 'Hypervisor guest agent — outbound connections worth auditing'
+        }
+    }
+
+    $foundAny = $false
+    foreach ($pattern in $checks.Keys) {
+        $matches_ = $installed | Where-Object { $_.DisplayName -match $pattern }
+        if ($matches_) {
+            $foundAny = $true
+            foreach ($m in $matches_) {
+                Write-Ok "  $($m.DisplayName)  $($m.DisplayVersion)"
+            }
+            $info = $checks[$pattern]
+            Write-Info "    -> Relevant scripts: $($info.Scripts)"
+            Write-Info "    -> $($info.Note)"
+        }
+    }
+
+    if (-not $foundAny) {
+        Write-Info "  No syslog/monitoring software detected in registry."
+    }
+
+    # -------------------------------------------------------------------------
+    # Recommended script order for this host
+    # -------------------------------------------------------------------------
+    Write-Host ""
+    Write-Host "  -- Recommended scan order for this syslog server --" -ForegroundColor White
+    Write-Info "  Script 1  — enumerate syslog/Zabbix/SolarWinds processes and their crypto libs"
+    Write-Info "  Script 8  — live connections: syslog ports (514/6514), Zabbix (10050), forwarders"
+    Write-Info "  Script 9  — TLS/SSL cipher scan on Kiwi Syslog Web Access (needs target host file)"
+    Write-Info "  Script 7  — web application directories under UltiDev / Kiwi Web"
+    Write-Info "  Script 5  — full C:\ certificate and key scan (slow — run off-peak)"
+    Write-Host ""
+
+    Write-Log "Installed software pre-flight check done"
 }
 
 # =============================================================================
@@ -679,7 +914,7 @@ function Invoke-SetupScript9 {
                 $Script:RunScript9 = $false
                 return
             }
-            $hosts | Set-Content -Path $Script:TargetFile -Encoding UTF8
+            [System.IO.File]::WriteAllLines($Script:TargetFile, [string[]]$hosts, $Script:Utf8NoBom)
             Write-Ok "Target file saved: $($Script:TargetFile) ($($hosts.Count) hosts)"
             Write-Log "Target file created: $($Script:TargetFile)"
             break
@@ -989,6 +1224,7 @@ function Main {
     # ------------------------------------------------------------------
     # Phase 2 — Dependencies
     # ------------------------------------------------------------------
+    Invoke-CheckInstalledSoftware
     Invoke-SetupPythonEnv
     Invoke-CheckSystemTools
     Invoke-CheckPythonPackages
@@ -1019,10 +1255,10 @@ function Main {
                 $s1Tmp     = [System.IO.Path]::GetTempFileName()  # .tmp extension is fine for Python
                 $patcherTmp = [System.IO.Path]::GetTempFileName()
 
-                @'
+                $patcherContent = @'
 import sys, re
 src_path, dst_path = sys.argv[1], sys.argv[2]
-with open(src_path) as fh:
+with open(src_path, encoding='utf-8') as fh:
     src = fh.read()
 patched = re.sub(
     r'[ \t]*(third_party\s*,\s*system\s*=\s*classify_libraries\(binary\))',
@@ -1032,9 +1268,10 @@ patched = re.sub(
     ),
     src
 )
-with open(dst_path, 'w') as fh:
+with open(dst_path, 'w', encoding='utf-8') as fh:
     fh.write(patched)
-'@ | Set-Content $patcherTmp -Encoding UTF8
+'@
+                [System.IO.File]::WriteAllText($patcherTmp, $patcherContent, $Script:Utf8NoBom)
 
                 & $Script:Python $patcherTmp $s1Src $s1Tmp 2>>$Script:LogFile
                 Remove-Item $patcherTmp -Force -ErrorAction SilentlyContinue
@@ -1195,9 +1432,9 @@ with open(dst_path, 'w') as fh:
                     # Apply capture_output compatibility patch to a temp copy
                     $s9Src = Join-Path $Script:RepoDir "9NetworkProtocol.py"
                     $s9Tmp = [System.IO.Path]::GetTempFileName()
-                    (Get-Content $s9Src -Raw) `
-                        -replace 'capture_output=True', 'stdout=subprocess.PIPE, stderr=subprocess.PIPE' |
-                        Set-Content $s9Tmp -Encoding UTF8
+                    $s9Content = (Get-Content $s9Src -Raw -Encoding UTF8) `
+                        -replace 'capture_output=True', 'stdout=subprocess.PIPE, stderr=subprocess.PIPE'
+                    [System.IO.File]::WriteAllText($s9Tmp, $s9Content, $Script:Utf8NoBom)
                     Write-Log "Patched 9NetworkProtocol.py -> $s9Tmp (capture_output compat fix)"
 
                     Write-Sep
@@ -1241,13 +1478,14 @@ with open(dst_path, 'w') as fh:
                     Write-Log "START DISCOVERY.py range=$($Script:NetworkRange)"
 
                     $wrapperTmp = [System.IO.Path]::GetTempFileName()
-                    @"
+                    $wrapperContent = @"
 import sys, os
 sys.path.insert(0, r'$($Script:RepoDir)')
 os.chdir(r'$($Script:RepoDir)')
-exec(open(r'$(Join-Path $Script:RepoDir "DISCOVERY.py")').read())
+exec(open(r'$(Join-Path $Script:RepoDir "DISCOVERY.py")', encoding='utf-8').read())
 scan_network('$($Script:NetworkRange)')
-"@ | Set-Content $wrapperTmp -Encoding UTF8
+"@
+                    [System.IO.File]::WriteAllText($wrapperTmp, $wrapperContent, $Script:Utf8NoBom)
 
                     Push-Location $Script:RepoDir
                     & $Script:Python $wrapperTmp 2>&1 |

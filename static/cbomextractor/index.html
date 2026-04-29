@@ -199,9 +199,10 @@ tbody td {
     <div class="step-method" style="margin-top:12px;">
       <div class="step-method-title">Method 2 - PowerShell Script (Windows only)</div>
       <ol style="margin-left:1.2em;margin-top:8px;font-size:.85rem;color:var(--muted);line-height:1.9;">
+        <li>Copy-paste the script from <a href="https://github.com/aaronamran/System-Engineer-Notes/blob/main/scripts/swversion.ps1" target="_blank" rel="noopener" class="link-accent">swversion.ps1</a> into a text editor and save it as <code>swversion.ps1</code>.</li>
         <li>Copy-paste the script from <a href="https://github.com/aaronamran/System-Engineer-Notes/blob/main/scripts/pqccheck.ps1" target="_blank" rel="noopener" class="link-accent">pqccheck.ps1</a> into a text editor and save it as <code>pqccheck.ps1</code>.</li>
         <li>Open PowerShell and run <code>Set-ExecutionPolicy Bypass -Scope Process -Force</code> to allow script execution.</li>
-        <li>Run the script via <code>.\pqccheck.ps1</code> to generate the CSV scan files.</li>
+        <li>Run the script <code>.\swversion.ps1</code> to get a list of installed softwares to be added as Software Components in the next section and run <code>.\pqccheck.ps1</code> to generate the CSV scan files.</li>
       </ol>
     </div>
     <div class="step-method" style="margin-top:12px;">
@@ -478,6 +479,19 @@ const SOFTWARE_PATTERNS = {
   'openssl': ['openssl', 'libssl', 'libcrypto', '/usr/bin/openssl'],
   'openssh': ['openssh', 'sshd', '/usr/sbin/sshd', '/usr/bin/ssh'],
   'kernel': ['kernel', 'linux', '/lib/modules', '/boot/vmlinuz'],
+  // Syslog / monitoring / remote access (Windows Server)
+  'kiwi': ['kiwi', 'kiwisyslog', 'kiwi syslog', 'kiwi_syslog', 'kiwisyslogserver', 'kiwi log viewer'],
+  'syslog': ['syslog', 'syslogd', 'rsyslog', 'kiwisyslog', 'syslog-ng'],
+  'zabbix': ['zabbix', 'zabbix_agent', 'zabbix_agentd', 'zabbixw', 'zabbix agentd'],
+  'solarwinds': ['solarwinds', 'swieventlogforwarder', 'solar winds', 'solarwindslicensemanager', 'event log forwarder'],
+  'ultidev': ['ultidev', 'uweb', 'ultidevwebserver', 'ultidev web'],
+  'anydesk': ['anydesk', 'anydesk.exe'],
+  'putty': ['putty', 'plink', 'puttygen', 'pageant', 'putty.exe'],
+  'mobaxterm': ['mobaxterm', 'mobatek', 'moba xterm'],
+  // Windows crypto infrastructure
+  'schannel': ['schannel', 'schannel.dll'],
+  'cng': ['bcrypt.dll', 'ncrypt.dll', 'cng', 'cryptbase.dll', 'cryptsp.dll'],
+  'wincrypt': ['crypt32.dll', 'wincrypt', 'advapi32.dll'],
 };
 
 // ─── UI: Software rows ────────────────────────────────────────────────────────
@@ -764,6 +778,17 @@ function inferCryptoLib(cryptoLib, subcomponent, filePath, algorithm, srcType) {
   if (algo === 'ssh') return 'openssh';
   if (srcType === 'kernel') return 'kernel crypto API';
   if (srcType === 'cert') return 'openssl/pkcs11';
+  // Windows syslog / monitoring software
+  if (combined.includes('kiwi') || combined.includes('kiwisyslog')) return 'schannel/openssl';
+  if (combined.includes('zabbix')) return 'openssl';
+  if (combined.includes('solarwinds') || combined.includes('swieventlog')) return 'openssl';
+  if (combined.includes('anydesk')) return 'openssl';
+  if (combined.includes('putty') || combined.includes('plink')) return 'putty (embedded crypto)';
+  if (combined.includes('mobaxterm') || combined.includes('mobatek')) return 'openssl';
+  // Windows crypto providers
+  if (combined.includes('schannel') || combined.includes('ncrypt') || combined.includes('bcrypt.dll')) return 'windows cng/schannel';
+  if (combined.includes('crypt32') || combined.includes('advapi32')) return 'windows capi';
+  if (combined.includes('cryptbase') || combined.includes('cryptsp')) return 'windows cng';
   return 'n/a';
 }
 
