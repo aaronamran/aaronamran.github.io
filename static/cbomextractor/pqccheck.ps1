@@ -296,7 +296,7 @@ function Invoke-CheckForUpdates {
 
         if ($local -eq $remote) {
             $short = & git rev-parse --short HEAD 2>$null
-            Write-Ok "Repository is already up to date ($short)."
+            Write-Ok "Repository is already up to date ($short) — skipping pull."
             Write-Log "Repo up to date at $local"
             return
         }
@@ -425,6 +425,7 @@ function Invoke-SetupPythonEnv {
     # ---- Create virtual environment ----
     # Using a venv isolates all packages and avoids permission issues on Windows
     $Script:VenvDir = Join-Path $Script:RepoDir ".venv"
+    $venvCreated = $false
 
     if (-not (Test-Path $Script:VenvDir)) {
         Write-Info "Creating virtual environment at $($Script:VenvDir)..."
@@ -434,6 +435,7 @@ function Invoke-SetupPythonEnv {
             exit 1
         }
         Write-Ok "Virtual environment created."
+        $venvCreated = $true
     } else {
         Write-Ok "Existing virtual environment: $($Script:VenvDir)"
     }
@@ -446,17 +448,26 @@ function Invoke-SetupPythonEnv {
         exit 1
     }
 
+    # Force UTF-8 for all Python I/O so that non-ASCII characters in print()
+    # (e.g. arrows, box-drawing) don't crash on Windows cp1252 consoles.
+    $env:PYTHONUTF8 = "1"
+
     $venvVer = & $Script:Python --version 2>&1
     Write-Ok "Python : $($Script:Python) ($venvVer)"
 
-    # Upgrade pip inside the venv
-    Write-Info "Upgrading pip inside virtual environment..."
-    & $Script:Python -m pip install --upgrade pip --quiet 2>>$Script:LogFile
-    if ($LASTEXITCODE -eq 0) {
-        $pipVer = & $Script:Pip --version 2>&1
-        Write-Ok "pip upgraded: $pipVer"
+    # Upgrade pip only when the venv was just created — not on every run.
+    if ($venvCreated) {
+        Write-Info "Upgrading pip inside new virtual environment..."
+        & $Script:Python -m pip install --upgrade pip --quiet 2>>$Script:LogFile
+        if ($LASTEXITCODE -eq 0) {
+            $pipVer = & $Script:Pip --version 2>&1
+            Write-Ok "pip upgraded: $pipVer"
+        } else {
+            Write-Warn "pip upgrade failed — continuing with current version."
+        }
     } else {
-        Write-Warn "pip upgrade failed — continuing with current version."
+        $pipVer = & $Script:Pip --version 2>&1
+        Write-Ok "pip        : $pipVer"
     }
 
     Write-Log "PYTHON=$($Script:Python)  PIP=$($Script:Pip)  VENV=$($Script:VenvDir)"
@@ -469,41 +480,42 @@ function Invoke-CheckPythonPackages {
     Write-Header "Python package check"
     Push-Location $Script:RepoDir
     try {
-        # If nothing changed since last run, skip reinstall
-        if (-not $Script:Updated) {
-            $allOk = $true
-            foreach ($pkg in $Script:RequiredPackages) {
-                $importName = if ($pkg -eq "python-nmap") { "nmap" } else { $pkg }
-                & $Script:Python -c "import $importName" 2>$null
-                if ($LASTEXITCODE -ne 0) { $allOk = $false; break }
-            }
-            if ($allOk) {
-                Write-Ok "All required packages already installed in virtual environment."
-                Write-Log "All packages present"
-                return
-            }
-        }
-
         # Pin older versions for Python <= 3.6 (modern cryptography requires Rust)
         $pyMinor = [int](& $Script:Python -c "import sys; print(sys.version_info.minor)" 2>$null)
         $pyMajor = [int](& $Script:Python -c "import sys; print(sys.version_info.major)" 2>$null)
 
-        $installList = @()
+        # Always check each package individually — only install what's missing.
+        # This applies even after a repo update ($Script:Updated = true).
+        $toInstall = @()
         foreach ($pkg in $Script:RequiredPackages) {
-            if ($pyMajor -eq 3 -and $pyMinor -le 6) {
-                switch ($pkg) {
-                    "cryptography" { $installList += "cryptography==3.3.2" }
-                    "psutil"       { $installList += "psutil==5.8.0"        }
-                    default        { $installList += $pkg                   }
-                }
+            $importName = if ($pkg -eq "python-nmap") { "nmap" } else { $pkg }
+            & $Script:Python -c "import $importName" 2>$null
+            if ($LASTEXITCODE -eq 0) {
+                Write-Ok "  $pkg  (already installed)"
             } else {
-                $installList += $pkg
+                Write-Warn "  $pkg  (missing)"
+                # Apply version pin for old Python if needed
+                if ($pyMajor -eq 3 -and $pyMinor -le 6) {
+                    switch ($pkg) {
+                        "cryptography" { $toInstall += "cryptography==3.3.2" }
+                        "psutil"       { $toInstall += "psutil==5.8.0"        }
+                        default        { $toInstall += $pkg                   }
+                    }
+                } else {
+                    $toInstall += $pkg
+                }
             }
         }
 
-        Write-Info "Installing packages into virtual environment..."
+        if ($toInstall.Count -eq 0) {
+            Write-Ok "All required packages already installed — skipping install."
+            Write-Log "All packages present"
+            return
+        }
+
+        Write-Info "Installing $($toInstall.Count) missing package(s)..."
         $failCount = 0
-        foreach ($pkg in $installList) {
+        foreach ($pkg in $toInstall) {
             & $Script:Pip install $pkg --quiet 2>>$Script:LogFile
             if ($LASTEXITCODE -eq 0) {
                 Write-Ok "  $pkg"
@@ -515,7 +527,7 @@ function Invoke-CheckPythonPackages {
             }
         }
 
-        if ($failCount -eq 0) { Write-Ok "All packages installed." }
+        if ($failCount -eq 0) { Write-Ok "All missing packages installed." }
         else { Write-Warn "$failCount package(s) failed. Check log for details." }
 
     } finally {
@@ -611,6 +623,21 @@ function Invoke-CheckSystemTools {
                         Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
                     }
                 }
+
+                # Pre-accept the Sysinternals EULA so strings.exe never hangs
+                # waiting for interactive EULA input (applies to both winget and
+                # direct-download installs).
+                try {
+                    $null = New-Item -Path "HKCU:\Software\Sysinternals\Strings" `
+                        -Force -ErrorAction SilentlyContinue
+                    Set-ItemProperty -Path "HKCU:\Software\Sysinternals\Strings" `
+                        -Name "EulaAccepted" -Value 1 -Type DWord -Force
+                    Write-Ok "Sysinternals strings EULA pre-accepted (registry key set)."
+                    Write-Log "strings EULA pre-accepted via registry"
+                } catch {
+                    Write-Warn "Could not pre-accept strings EULA via registry: $_"
+                    Write-Warn "strings.exe may hang on first run — if so, run: strings /accepteula"
+                }
             }
 
             # ------------------------------------------------------------------
@@ -630,6 +657,45 @@ function Invoke-CheckSystemTools {
 
                 if (-not $installed) {
                     Write-Info "Downloading Nmap for Windows installer directly..."
+
+                    # ---- Npcap (required by Nmap silent install) ----
+                    # Nmap's /S installer pops a GUI dialog if Npcap is absent.
+                    # NOTE: the free Npcap installer does NOT support /S (OEM only).
+                    # Install Npcap interactively first (one-time) so subsequent
+                    # Nmap /S installs run fully unattended.
+                    $npcapKey = "HKLM:\SOFTWARE\Npcap"
+                    if (-not (Test-Path $npcapKey)) {
+                        Write-Info "Npcap not found — required by Nmap."
+                        Write-Warn "Npcap requires a one-time interactive install. Please click through the installer window."
+                        $npcapInstallerPath = Join-Path $env:TEMP "npcap-setup.exe"
+                        try {
+                            $npcapPage  = Invoke-WebRequest -Uri "https://npcap.com/dist/" -UseBasicParsing
+                            $npcapMatch = [regex]::Match($npcapPage.Content, 'href="(npcap-[\d.]+\.exe)"')
+                            $npcapFile  = if ($npcapMatch.Success) { $npcapMatch.Groups[1].Value } `
+                                            else { "npcap-1.87.exe" }
+                            $npcapUrl   = "https://npcap.com/dist/$npcapFile"
+                            Write-Info "Downloading $npcapUrl..."
+                            Invoke-WebRequest -Uri $npcapUrl -OutFile $npcapInstallerPath -UseBasicParsing
+                            Write-Info "Launching Npcap installer — complete it to continue..."
+                            $pn = Start-Process -FilePath $npcapInstallerPath -Wait -PassThru
+                            if ($pn.ExitCode -ne 0) {
+                                Write-Warn "Npcap installer exited with code $($pn.ExitCode) — Nmap may not function correctly."
+                                Write-Log "npcap install exit code $($pn.ExitCode)"
+                            } else {
+                                Write-Ok "Npcap installed."
+                                Write-Log "npcap installed interactively"
+                            }
+                        } catch {
+                            Write-Warn "Could not download/install Npcap: $_ — Nmap installer may show a dialog."
+                        } finally {
+                            Remove-Item $npcapInstallerPath -Force -ErrorAction SilentlyContinue
+                        }
+                    } else {
+                        Write-Ok "Npcap already installed — skipping."
+                        Write-Log "npcap already present"
+                    }
+
+                    # ---- Nmap ----
                     $nmapInstallerPath = Join-Path $env:TEMP "nmap-setup.exe"
                     try {
                         # Parse nmap.org/download.html for the latest Windows setup exe
@@ -799,6 +865,26 @@ function Invoke-CheckInstalledSoftware {
             Scripts = '8 (outbound AnyDesk relay connections), 9 (TLS)'
             Note    = 'Remote access tool — verify TLS and cipher suite'
         }
+        '(?i)teamviewer'                  = @{
+            Scripts = '8 (outbound TeamViewer relay/UDP), 9 (TLS on web interface)'
+            Note    = 'Remote access tool — verify TLS version and cipher suite'
+        }
+        '(?i)trend micro|apex one'        = @{
+            Scripts = '1 (processes), 8 (outbound update/telemetry connections)'
+            Note    = 'AV/EDR agent — check encryption on update traffic and C2 channel'
+        }
+        '(?i)putty'                       = @{
+            Scripts = '1 (processes), 8 (SSH outbound port 22)'
+            Note    = 'SSH/SCP client — verify key exchange algorithms and host-key types in config'
+        }
+        '(?i)deltacopy'                   = @{
+            Scripts = '1 (processes), 8 (rsync port 873 or SSH)'
+            Note    = 'rsync-based backup — check if transfer channel is encrypted'
+        }
+        '(?i)sql server|sqlserver'        = @{
+            Scripts = '1 (sqlservr.exe process), 8 (TCP 1433/1434 TLS), 5 (certificates)'
+            Note    = 'Database engine — verify TLS for client connections and certificate strength'
+        }
         '(?i)vmoptimization|sangfor'      = @{
             Scripts = '1 (processes), 8 (network connections)'
             Note    = 'Hypervisor guest agent — outbound connections worth auditing'
@@ -806,6 +892,18 @@ function Invoke-CheckInstalledSoftware {
     }
 
     $foundAny = $false
+    # Track which script numbers are relevant based on what was found, so the
+    # recommended order below is built from actual detections, not hardcoded.
+    $scriptReasons = [ordered]@{
+        '1' = [System.Collections.Generic.List[string]]::new()
+        '2' = [System.Collections.Generic.List[string]]::new()
+        '3' = [System.Collections.Generic.List[string]]::new()
+        '5' = [System.Collections.Generic.List[string]]::new()
+        '7' = [System.Collections.Generic.List[string]]::new()
+        '8' = [System.Collections.Generic.List[string]]::new()
+        '9' = [System.Collections.Generic.List[string]]::new()
+    }
+
     foreach ($pattern in $checks.Keys) {
         $matches_ = $installed | Where-Object { $_.DisplayName -match $pattern }
         if ($matches_) {
@@ -816,23 +914,69 @@ function Invoke-CheckInstalledSoftware {
             $info = $checks[$pattern]
             Write-Info "    -> Relevant scripts: $($info.Scripts)"
             Write-Info "    -> $($info.Note)"
+
+            # Parse the Scripts string (e.g. "1 (processes), 8 (port 1433), 9 (TLS)")
+            # to extract just the script numbers for the dynamic recommendation below.
+            foreach ($m in $matches_) {
+                $scriptNums = [regex]::Matches($info.Scripts, '\b([1-9]|d)\b') | ForEach-Object { $_.Value }
+                foreach ($num in $scriptNums) {
+                    if ($scriptReasons.Contains($num)) {
+                        $label = $m.DisplayName
+                        if (-not $scriptReasons[$num].Contains($label)) {
+                            $scriptReasons[$num].Add($label)
+                        }
+                    }
+                }
+            }
         }
     }
 
     if (-not $foundAny) {
-        Write-Info "  No syslog/monitoring software detected in registry."
+        Write-Info "  No known monitoring/remote-access/database software detected in registry."
+        Write-Info "  Running a full scan (scripts 1-8) is recommended to cover unknown software."
     }
 
     # -------------------------------------------------------------------------
-    # Recommended script order for this host
+    # Recommended script order — built dynamically from what was detected above.
+    # Scripts 1, 2, 5, 8 are always useful on any Windows host; the rest are
+    # added only when relevant software was found.
     # -------------------------------------------------------------------------
     Write-Host ""
-    Write-Host "  -- Recommended scan order for this syslog server --" -ForegroundColor White
-    Write-Info "  Script 1  — enumerate syslog/Zabbix/SolarWinds processes and their crypto libs"
-    Write-Info "  Script 8  — live connections: syslog ports (514/6514), Zabbix (10050), forwarders"
-    Write-Info "  Script 9  — TLS/SSL cipher scan on Kiwi Syslog Web Access (needs target host file)"
-    Write-Info "  Script 7  — web application directories under UltiDev / Kiwi Web"
-    Write-Info "  Script 5  — full C:\ certificate and key scan (slow — run off-peak)"
+    Write-Host "  -- Recommended scan order for this host --" -ForegroundColor White
+
+    # Always-relevant scripts
+    $always = [ordered]@{
+        '1' = 'running processes and their loaded crypto libraries'
+        '8' = 'live network connections and their encryption'
+        '5' = 'certificates and private keys (full C:\ walk — run off-peak)'
+        '2' = 'binaries on disk (PATH + install directories)'
+        '3' = 'system DLLs / shared libraries'
+    }
+    foreach ($num in $always.Keys) {
+        $extra = ''
+        if ($scriptReasons[$num] -and $scriptReasons[$num].Count -gt 0) {
+            $extra = "  [detected: $($scriptReasons[$num] -join ', ')]"
+        }
+        Write-Info "  Script $num  — $($always[$num])$extra"
+    }
+
+    # Conditionally-relevant scripts — only shown when matching software found
+    $conditional = [ordered]@{
+        '7' = 'web application directories'
+        '9' = 'TLS/SSL cipher scan on exposed HTTPS interfaces (needs target host file)'
+        '6' = 'executable scripts — .py/.sh/.ps1/.bat (full walk — slow)'
+        '4' = 'kernel modules (Linux only — produces no output on Windows)'
+    }
+    $condShown = $false
+    foreach ($num in $conditional.Keys) {
+        if ($scriptReasons.Contains($num) -and $scriptReasons[$num] -and $scriptReasons[$num].Count -gt 0) {
+            if (-not $condShown) {
+                Write-Info "  -- Also recommended based on detected software --"
+                $condShown = $true
+            }
+            Write-Info "  Script $num  — $($conditional[$num])  [detected: $($scriptReasons[$num] -join ', ')]"
+        }
+    }
     Write-Host ""
 
     Write-Log "Installed software pre-flight check done"
@@ -1245,10 +1389,13 @@ function Main {
 
             # ----------------------------------------------------------
             # Script 1 — Running processes
-            # Patched: classify_libraries() returns None when ldd is absent
-            # (static binaries on Linux, or no ldd at all on Windows).
-            # The patch replaces the bare tuple-unpack with a safe fallback
-            # so the scan continues rather than crashing with TypeError.
+            # Two patches applied to 1BinariesUsed.py:
+            #   Patch 1: add an early-return in classify_libraries() when
+            #            running on Windows so that the ldd subprocess call
+            #            is never reached (FileNotFoundError on Windows).
+            #   Patch 2: safe call-site fallback in case classify_libraries()
+            #            returns None (static binaries on Linux, or after the
+            #            Windows early-return from Patch 1).
             # ----------------------------------------------------------
             "1" {
                 $s1Src     = Join-Path $Script:RepoDir "1BinariesUsed.py"
@@ -1260,13 +1407,22 @@ import sys, re
 src_path, dst_path = sys.argv[1], sys.argv[2]
 with open(src_path, encoding='utf-8') as fh:
     src = fh.read()
+# Patch 1: insert Windows early-return at the top of classify_libraries()
+# so the ldd subprocess call is never reached on Windows.
+patched = re.sub(
+    r'(def classify_libraries\([^)]*\)\s*:\s*\n)',
+    lambda m: m.group(1) + '    import platform\n    if platform.system() == "Windows": return None\n',
+    src
+)
+# Patch 2: safe call-site fallback — handle None return (Windows early-return
+# above, or static binaries on Linux where ldd produces no output).
 patched = re.sub(
     r'[ \t]*(third_party\s*,\s*system\s*=\s*classify_libraries\(binary\))',
     lambda m: m.group(0).replace(
         m.group(1),
         '_cl=classify_libraries(binary); third_party,system=_cl if _cl is not None else ([],[])'
     ),
-    src
+    patched
 )
 with open(dst_path, 'w', encoding='utf-8') as fh:
     fh.write(patched)
@@ -1275,7 +1431,7 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
 
                 & $Script:Python $patcherTmp $s1Src $s1Tmp 2>>$Script:LogFile
                 Remove-Item $patcherTmp -Force -ErrorAction SilentlyContinue
-                Write-Log "Patched 1BinariesUsed.py -> $s1Tmp (static binary / no-ldd None crash fix)"
+                Write-Log "Patched 1BinariesUsed.py -> $s1Tmp (Windows ldd fix + None call-site fallback)"
 
                 Write-Sep
                 Write-Info "Starting : Running processes"
@@ -1366,6 +1522,11 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
             # ----------------------------------------------------------
             # Script 5 — Certificates and keys  (full C:\ walk — slow)
             # 5CertKeys.py detects Windows and scans from C:\ by default.
+            # Patched: cryptography >= 42 deprecated cert.not_valid_before and
+            # cert.not_valid_after (return naive datetimes) in favour of
+            # cert.not_valid_before_utc / cert.not_valid_after_utc.
+            # The patch replaces both call sites with a hasattr guard so the
+            # same patched file works on both old and new cryptography versions.
             # ----------------------------------------------------------
             "5" {
                 Write-Host ""
@@ -1376,9 +1537,69 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
                     Write-Skip "Script 5 skipped."
                     Write-Log "5CertKeys.py skipped"
                 } else {
-                    if (Invoke-RunPythonScript "5CertKeys.py" "Certificates and keys" "crypto_cert_key.csv") {
+                    $s5Src = Join-Path $Script:RepoDir "5CertKeys.py"
+                    $s5Tmp = [System.IO.Path]::GetTempFileName()
+                    $s5PatcherTmp = [System.IO.Path]::GetTempFileName()
+
+                    $s5PatcherContent = @'
+import sys, re
+src_path, dst_path = sys.argv[1], sys.argv[2]
+with open(src_path, encoding='utf-8') as fh:
+    src = fh.read()
+# Replace deprecated naive-datetime properties with UTC-aware equivalents.
+# The hasattr guard keeps the patched file compatible with older cryptography.
+patched = re.sub(
+    r'\bcert\.not_valid_before(?!_utc)\b',
+    '(cert.not_valid_before_utc if hasattr(cert, "not_valid_before_utc") else cert.not_valid_before)',
+    src
+)
+patched = re.sub(
+    r'\bcert\.not_valid_after(?!_utc)\b',
+    '(cert.not_valid_after_utc if hasattr(cert, "not_valid_after_utc") else cert.not_valid_after)',
+    patched
+)
+# Replace non-ASCII arrows that crash on Windows cp1252 consoles.
+# PYTHONUTF8=1 is set by pqccheck.ps1, but patch defensively in case the
+# script is ever run standalone without that env var.
+patched = patched.replace('\u2192', '->')
+with open(dst_path, 'w', encoding='utf-8') as fh:
+    fh.write(patched)
+'@
+                    [System.IO.File]::WriteAllText($s5PatcherTmp, $s5PatcherContent, $Script:Utf8NoBom)
+                    & $Script:Python $s5PatcherTmp $s5Src $s5Tmp 2>>$Script:LogFile
+                    Remove-Item $s5PatcherTmp -Force -ErrorAction SilentlyContinue
+                    Write-Log "Patched 5CertKeys.py -> $s5Tmp (not_valid_before/after_utc compat fix)"
+
+                    Write-Sep
+                    Write-Info "Starting : Certificates and keys"
+                    Write-Info "Script   : 5CertKeys.py (patched for cryptography >= 42)"
+                    Write-Info "Output   : crypto_cert_key.csv"
+                    Write-Host ""
+                    Write-Log "START 5CertKeys.py"
+
+                    Push-Location $Script:ScanDir
+                    & $Script:Python $s5Tmp 2>&1 | Tee-Object -Append -FilePath $Script:LogFile | Out-Host
+                    $s5rc = $LASTEXITCODE
+                    Pop-Location
+                    Remove-Item $s5Tmp -Force -ErrorAction SilentlyContinue
+
+                    Write-Host ""
+                    if ($s5rc -eq 0) {
+                        $csvPath = Join-Path $Script:ScanDir "crypto_cert_key.csv"
+                        if (Test-Path $csvPath) {
+                            $lines = (Get-Content $csvPath | Measure-Object -Line).Lines
+                            Write-Ok "Certificates and keys - done  (crypto_cert_key.csv: $lines lines)"
+                            Write-Log "SUCCESS 5CertKeys.py -> crypto_cert_key.csv ($lines lines)"
+                        } else {
+                            Write-Ok "Certificates and keys - done"
+                            Write-Log "SUCCESS 5CertKeys.py"
+                        }
                         $pass++
-                    } else { $fail++ }
+                    } else {
+                        Write-Err "Certificates and keys - FAILED (see log)"
+                        Write-Log "FAILED 5CertKeys.py (rc=$s5rc)"
+                        $fail++
+                    }
                 }
             }
 
@@ -1412,11 +1633,66 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
             # ----------------------------------------------------------
             # Script 8 — Live network connections
             # 8NetworkApp.py uses psutil which is fully supported on Windows.
+            # Patched: datetime.utcnow() is deprecated in Python 3.12+ in favour
+            # of datetime.now(timezone.utc). The patch prevents DeprecationWarning
+            # from being written to stderr and surfacing as NativeCommandError.
             # ----------------------------------------------------------
             "8" {
-                if (Invoke-RunPythonScript "8NetworkApp.py" "Live network connections" "network_app.csv") {
+                $s8Src = Join-Path $Script:RepoDir "8NetworkApp.py"
+                $s8Tmp = [System.IO.Path]::GetTempFileName()
+                $s8PatcherTmp = [System.IO.Path]::GetTempFileName()
+
+                $s8PatcherContent = @'
+import sys, re
+src_path, dst_path = sys.argv[1], sys.argv[2]
+with open(src_path, encoding='utf-8') as fh:
+    src = fh.read()
+# Add timezone to datetime import so datetime.now(timezone.utc) is available
+patched = re.sub(
+    r'\bfrom datetime import datetime\b',
+    'from datetime import datetime, timezone',
+    src
+)
+# Replace deprecated datetime.utcnow() with timezone-aware equivalent
+patched = patched.replace('datetime.utcnow()', 'datetime.now(timezone.utc)')
+with open(dst_path, 'w', encoding='utf-8') as fh:
+    fh.write(patched)
+'@
+                [System.IO.File]::WriteAllText($s8PatcherTmp, $s8PatcherContent, $Script:Utf8NoBom)
+                & $Script:Python $s8PatcherTmp $s8Src $s8Tmp 2>>$Script:LogFile
+                Remove-Item $s8PatcherTmp -Force -ErrorAction SilentlyContinue
+                Write-Log "Patched 8NetworkApp.py -> $s8Tmp (datetime.utcnow -> datetime.now(timezone.utc))"
+
+                Write-Sep
+                Write-Info "Starting : Live network connections"
+                Write-Info "Script   : 8NetworkApp.py (patched for Python 3.12+ datetime)"
+                Write-Info "Output   : network_app.csv"
+                Write-Host ""
+                Write-Log "START 8NetworkApp.py"
+
+                Push-Location $Script:ScanDir
+                & $Script:Python $s8Tmp 2>&1 | Tee-Object -Append -FilePath $Script:LogFile | Out-Host
+                $s8rc = $LASTEXITCODE
+                Pop-Location
+                Remove-Item $s8Tmp -Force -ErrorAction SilentlyContinue
+
+                Write-Host ""
+                if ($s8rc -eq 0) {
+                    $csvPath = Join-Path $Script:ScanDir "network_app.csv"
+                    if (Test-Path $csvPath) {
+                        $lines = (Get-Content $csvPath | Measure-Object -Line).Lines
+                        Write-Ok "Live network connections - done  (network_app.csv: $lines lines)"
+                        Write-Log "SUCCESS 8NetworkApp.py -> network_app.csv ($lines lines)"
+                    } else {
+                        Write-Ok "Live network connections - done"
+                        Write-Log "SUCCESS 8NetworkApp.py"
+                    }
                     $pass++
-                } else { $fail++ }
+                } else {
+                    Write-Err "Live network connections - FAILED (see log)"
+                    Write-Log "FAILED 8NetworkApp.py (rc=$s8rc)"
+                    $fail++
+                }
             }
 
             # ----------------------------------------------------------
@@ -1465,8 +1741,13 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
 
             # ----------------------------------------------------------
             # Script d — Network discovery (DISCOVERY.py via nmap)
-            # A small wrapper script is written to a temp file so that
-            # scan_network() receives the user-supplied CIDR range.
+            # DISCOVERY.py contains:  if __name__ == "__main__": scan_network("10.220.27.0/24")
+            # The old exec() approach ran the wrapper as __main__, which caused that
+            # hardcoded guard to fire — scanning 10.220.27.0/24 before the user's
+            # CIDR, wasting time and potentially scanning the wrong network.
+            # Fixed: load DISCOVERY.py as a named module via importlib so that
+            # __name__ is "DISCOVERY" (not "__main__"), suppressing the guard.
+            # Output files are written to $Script:ScanDir (not the repo root).
             # ----------------------------------------------------------
             "d" {
                 Invoke-SetupDiscovery
@@ -1479,11 +1760,13 @@ with open(dst_path, 'w', encoding='utf-8') as fh:
 
                     $wrapperTmp = [System.IO.Path]::GetTempFileName()
                     $wrapperContent = @"
-import sys, os
+import sys, os, importlib.util
 sys.path.insert(0, r'$($Script:RepoDir)')
-os.chdir(r'$($Script:RepoDir)')
-exec(open(r'$(Join-Path $Script:RepoDir "DISCOVERY.py")', encoding='utf-8').read())
-scan_network('$($Script:NetworkRange)')
+os.chdir(r'$($Script:ScanDir)')
+spec = importlib.util.spec_from_file_location('DISCOVERY', r'$(Join-Path $Script:RepoDir "DISCOVERY.py")')
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+mod.scan_network('$($Script:NetworkRange)')
 "@
                     [System.IO.File]::WriteAllText($wrapperTmp, $wrapperContent, $Script:Utf8NoBom)
 
@@ -1519,3 +1802,4 @@ scan_network('$($Script:NetworkRange)')
 # Entry point
 # =============================================================================
 Main
+Read-Host "`nDone. Press Enter to exit"
