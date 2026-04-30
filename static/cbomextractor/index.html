@@ -156,6 +156,18 @@ tbody td {
   .link-accent { color: var(--accent); text-decoration: none; font-weight: 500; }
   .link-accent:hover { text-decoration: underline; }
   code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: .83em; color: var(--text); font-family: 'Consolas', 'Courier New', monospace; }
+  /* Excel paste panel */
+  .paste-panel { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-top: 12px; display: none; }
+  .paste-panel.open { display: block; }
+  .paste-panel textarea { width: 100%; height: 140px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 7px; padding: 10px 12px; font-size: .83rem; font-family: 'Consolas', 'Courier New', monospace; resize: vertical; outline: none; line-height: 1.5; }
+  .paste-panel textarea:focus { border-color: var(--accent); }
+  .paste-panel textarea::placeholder { color: var(--muted); }
+  .paste-options { display: flex; gap: 16px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .paste-radio { display: flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--muted); cursor: pointer; }
+  .paste-radio input { accent-color: var(--accent); cursor: pointer; }
+  .paste-hint { font-size: .75rem; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+  .paste-hint strong { color: var(--accent); }
+  .paste-preview { font-size: .75rem; color: var(--green); margin-top: 6px; min-height: 18px; }
 </style>
 <link rel="icon" href="cbom-lock.svg" type="image/svg+xml">
 </head>
@@ -216,9 +228,31 @@ tbody td {
     <h2>② Software Components</h2>
     <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;">
       <button class="btn btn-secondary" onclick="addSoftwareRow()">＋ Add Component</button>
+      <button class="btn btn-secondary" id="btnPasteExcel" onclick="togglePastePanel()">📋 Paste from Excel</button>
       <button class="btn btn-warning" onclick="clearSoftwareList()">✕ Clear All</button>
       <button class="btn btn-secondary" onclick="loadPreset()"> Load Sample Preset</button>
       <button class="btn btn-secondary" id="btnCustomNum" onclick="toggleCustomNumbering()" title="Add a custom prefix number to each component so table rows are numbered like 79.1.1, 79.1.2 …">≡# Custom No. Prefix</button>
+    </div>
+    <div class="paste-panel" id="pastePanel">
+      <div style="font-size:.82rem;color:var(--accent);font-weight:600;margin-bottom:10px;">📋 Paste from Excel</div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px;">
+        <div>
+          <label style="font-size:.76rem;color:var(--muted);margin-bottom:4px;display:block;">Prefix Numbers <span style="opacity:.6;">(optional)</span></label>
+          <textarea id="pasteAreaPrefix" placeholder="83.1&#10;83.2&#10;83.3&#10;…" oninput="onPasteAreaInput()" style="width:100%;height:140px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:10px 12px;font-size:.83rem;font-family:'Consolas','Courier New',monospace;resize:vertical;outline:none;line-height:1.5;"></textarea>
+        </div>
+        <div>
+          <label style="font-size:.76rem;color:var(--muted);margin-bottom:4px;display:block;">Software Components <span style="opacity:.6;">(required)</span></label>
+          <textarea id="pasteAreaNames" placeholder="Apache httpd 2.4.37&#10;PHP 7.4.19&#10;Java OpenJDK 1.8&#10;…" oninput="onPasteAreaInput()" style="width:100%;height:140px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:10px 12px;font-size:.83rem;font-family:'Consolas','Courier New',monospace;resize:vertical;outline:none;line-height:1.5;"></textarea>
+        </div>
+      </div>
+      <div class="paste-preview" id="pastePreview"></div>
+      <div class="paste-options">
+        <label class="paste-radio"><input type="radio" name="pasteMode" value="append" checked> Append to existing list</label>
+        <label class="paste-radio"><input type="radio" name="pasteMode" value="replace"> Replace existing list</label>
+        <button class="btn btn-primary" onclick="importFromPaste()" style="padding:7px 16px;font-size:.85rem;">Import</button>
+        <button class="btn btn-secondary" onclick="togglePastePanel()" style="padding:7px 14px;font-size:.85rem;">Cancel</button>
+      </div>
+      <div class="paste-hint">Paste each column separately from Excel. <strong>Prefix Numbers:</strong> one number per line (e.g.&nbsp;83.1). <strong>Software Components:</strong> one name per line. Rows are matched by position — counts don't need to match (missing prefixes will be left blank).</div>
     </div>
     <br />
     <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;">Enter each software name/version to search for in the scan CSVs.</p>
@@ -585,6 +619,76 @@ function _setCustomNum(on) {
 function toggleCustomNumbering() {
   const isOn = document.getElementById('softwareList').classList.contains('custom-num-on');
   _setCustomNum(!isOn);
+}
+
+// ─── Excel paste ─────────────────────────────────────────────────────────────
+function togglePastePanel() {
+  const panel = document.getElementById('pastePanel');
+  const btn = document.getElementById('btnPasteExcel');
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.classList.remove('btn-active-accent');
+  } else {
+    panel.classList.add('open');
+    btn.classList.add('btn-active-accent');
+    document.getElementById('pasteAreaNames').focus();
+  }
+}
+
+function splitPasteLines(text) {
+  return text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+}
+
+function parsePasteData() {
+  const prefixes = splitPasteLines(document.getElementById('pasteAreaPrefix').value);
+  const names = splitPasteLines(document.getElementById('pasteAreaNames').value);
+  return names.map((name, i) => ({ name, prefix: prefixes[i] || '' }));
+}
+
+function onPasteAreaInput() {
+  const rows = parsePasteData();
+  const prefixes = splitPasteLines(document.getElementById('pasteAreaPrefix').value);
+  const names = splitPasteLines(document.getElementById('pasteAreaNames').value);
+  const preview = document.getElementById('pastePreview');
+  if (names.length === 0) {
+    preview.textContent = '';
+    preview.style.color = 'var(--green)';
+    return;
+  }
+  const hasPrefixes = prefixes.length > 0;
+  let msg = `✓ ${names.length} component${names.length !== 1 ? 's' : ''}`;
+  if (hasPrefixes) {
+    if (prefixes.length === names.length) {
+      msg += ` · ${prefixes.length} prefix numbers matched`;
+      preview.style.color = 'var(--green)';
+    } else {
+      msg += ` · ⚠ ${prefixes.length} prefix number${prefixes.length !== 1 ? 's' : ''} (count mismatch — extras ignored, missing left blank)`;
+      preview.style.color = 'var(--yellow)';
+    }
+    _setCustomNum(true);
+  } else {
+    preview.style.color = 'var(--green)';
+  }
+  preview.textContent = msg;
+}
+
+function importFromPaste() {
+  const rows = parsePasteData();
+  if (rows.length === 0) return;
+  const mode = document.querySelector('input[name="pasteMode"]:checked')?.value || 'append';
+  if (mode === 'replace') {
+    document.getElementById('softwareList').innerHTML = '';
+  }
+  const hasPrefixes = rows.some(r => r.prefix);
+  if (hasPrefixes) _setCustomNum(true);
+  rows.forEach(r => addSoftwareRow(r.name, r.prefix));
+  saveToStorage();
+  // Reset and close panel
+  document.getElementById('pasteAreaPrefix').value = '';
+  document.getElementById('pasteAreaNames').value = '';
+  document.getElementById('pastePreview').textContent = '';
+  togglePastePanel();
 }
 
 function loadPreset() {
