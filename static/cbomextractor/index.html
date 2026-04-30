@@ -893,6 +893,7 @@ function inferCryptoLib(cryptoLib, subcomponent, filePath, algorithm, srcType) {
   if (combined.includes('anydesk')) return 'openssl';
   if (combined.includes('putty') || combined.includes('plink')) return 'putty (embedded crypto)';
   if (combined.includes('mobaxterm') || combined.includes('mobatek')) return 'openssl';
+  if (combined.includes('trendmicro') || combined.includes('trend micro') || combined.includes('apex one') || combined.includes('apexone') || combined.includes('ntrtscan') || combined.includes('tmlisten') || combined.includes('coreserviceshell') || combined.includes('pccnt') || combined.includes('tmccsf')) return 'windows cng/schannel';
   // Windows crypto providers
   if (combined.includes('schannel') || combined.includes('ncrypt') || combined.includes('bcrypt.dll')) return 'windows cng/schannel';
   if (combined.includes('crypt32') || combined.includes('advapi32')) return 'windows capi';
@@ -975,6 +976,9 @@ async function analyze() {
     }
   }
 
+  // Track raw hit count before deduplication
+  const rawCount = state.results.length;
+
   // Deduplicate by (component, algorithm, primitive, cryptoLibrary)
   const seen = new Set();
   state.results = state.results.filter(r => {
@@ -983,6 +987,9 @@ async function analyze() {
     seen.add(key);
     return true;
   });
+
+  state.rawCount = rawCount;
+  state.dedupCount = state.results.length;
 
   // Sort by software list input order
   state.results.sort((a, b) => softwareNames.indexOf(a.component) - softwareNames.indexOf(b.component));
@@ -1208,15 +1215,56 @@ function renderActiveTab() {
 
 function renderStats() {
   const total = state.results.length;
+  const raw = state.rawCount || total;
+  const removed = raw - total;
+  const remPct = raw > 0 ? Math.round(removed / raw * 100) : 0;
   const byPrim = {};
   state.results.forEach(r => {
     byPrim[r.primitive] = (byPrim[r.primitive] || 0) + 1;
   });
   const statsBar = document.getElementById('statsBar');
   statsBar.innerHTML = `
-    <div class="stat-chip"><div class="val">${total}</div><div class="lbl">Total Entries</div></div>
+    <div class="stat-chip"><div class="val">${total}</div><div class="lbl">Unique Entries</div></div>
+    ${raw > total ? `<div class="stat-chip" title="${removed} duplicate (same component+algorithm+primitive+library) rows were collapsed into the ${total} unique entries above."><div class="val" style="color:var(--muted);font-size:1rem;">${raw}</div><div class="lbl">Raw Matches</div></div>` : ''}
     ${Object.entries(byPrim).map(([p,c]) => `<div class="stat-chip"><div class="val">${c}</div><div class="lbl">${p}</div></div>`).join('')}
   `;
+
+  // Dedup warning banner
+  const warningId = 'dedupWarning';
+  let warn = document.getElementById(warningId);
+  if (!warn) {
+    warn = document.createElement('div');
+    warn.id = warningId;
+    warn.style.cssText = 'border-radius:8px;padding:10px 14px;font-size:.82rem;margin-bottom:12px;line-height:1.6;display:none;';
+    const statsHeader = document.querySelector('.results-header');
+    if (statsHeader) statsHeader.insertAdjacentElement('afterend', warn);
+  }
+  if (remPct >= 60 && removed > 5) {
+    const isLow = total <= 25;
+    warn.style.display = 'block';
+    warn.style.background = isLow ? 'rgba(245,158,11,.1)' : 'rgba(20,184,166,.08)';
+    warn.style.border = isLow ? '1px solid rgba(245,158,11,.4)' : '1px solid rgba(20,184,166,.25)';
+    warn.style.color = isLow ? 'var(--yellow)' : 'var(--muted)';
+    if (isLow) {
+      warn.innerHTML = `⚠ <strong>Heavy deduplication detected:</strong> ${raw} raw matches were collapsed to ${total} unique entries (${remPct}% removed). `
+        + `This typically happens with <strong>Windows AV/security agents</strong> (e.g. Trend Micro, CrowdStrike) where many binaries share the same crypto algorithms and the Windows crypto library cannot be distinguished from the CSV data — so all entries collapse to the same key. `
+        + `The ${total} entries shown are the correct unique cryptographic primitives for this component. `
+        + `If you expect more detail, check that your CSV scan data contains a populated <em>crypto_library</em> column for the matched binaries.`;
+    } else {
+      warn.innerHTML = `ℹ <strong>Deduplication applied:</strong> ${raw} raw matches → ${total} unique entries (${removed} duplicates collapsed). `
+        + `Rows with identical component + algorithm + primitive + crypto library are merged. This is expected CBOM behaviour.`;
+    }
+  } else if (raw > total * 3) {
+    warn.style.display = 'block';
+    warn.style.background = 'rgba(239,68,68,.08)';
+    warn.style.border = '1px solid rgba(239,68,68,.3)';
+    warn.style.color = 'var(--red)';
+    warn.innerHTML = `⚠ <strong>Possible over-matching:</strong> ${raw} raw CSV rows matched against your software list, but only ${total} unique entries were produced. `
+      + `A very high raw count can mean a software name (e.g. "syslog") is too generic and is matching unrelated rows. `
+      + `Consider using a more specific component name such as "Kiwi Syslog Server" or "SolarWinds Syslog".`;
+  } else {
+    warn.style.display = 'none';
+  }
 }
 
 function primitiveBadge(p) {
