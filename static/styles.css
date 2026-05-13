@@ -160,14 +160,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tl.active {
-  color: var(--text);
+  color: var(--accent);
   font-weight: 500;
 }
 
 /* Green dot prefix on active link */
 .tl.active::before {
-  content: '•\00a0';
-  color: var(--accent);
+  content: none;
 }
 
 .topbar-actions {
