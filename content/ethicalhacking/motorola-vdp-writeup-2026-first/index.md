@@ -1,7 +1,7 @@
 ---
 title: 'Motorola Solutions Pre-Authentication PII Leak'
 date: '2026-05-19'
-excerpt: 'Listed in Motorola Solutions 2026 Security Hall of Fame.'
+excerpt: 'Motorola Solutions Security Hall of Fame 2026 Member.'
 prog: 'VDP'
 ---
 
