@@ -51,7 +51,7 @@
 }
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Site frame ── */
 .site-frame {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1200px;
   height: calc(100vh - 2.5rem);
   border: 1px solid var(--border);
   background: var(--bg-surface);
