@@ -42,7 +42,7 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <br />
 
 <h5 class="mb-2"><strong>5. Command Injection via User-Agent Log Entries</strong></h5>
-<p class="mb-3"><strong>This lab contains a Command Injection vulnerability that leads to remote command execution. The web application logs the User Agent information of visiting users in a log file. Find a way to execute commands on the system. What is the hostname address of the server where the website is running?</strong></p>
+<p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application logs the User Agent information of visiting users in a log file. Find a way to execute commands on the system. What is the hostname address of the server where the website is running?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 
 

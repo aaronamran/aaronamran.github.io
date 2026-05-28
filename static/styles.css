@@ -757,6 +757,48 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: none;
 }
 
+/* Perspectives / blog cards */
+.blog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
+
+.blog-post-card {
+  display: block;
+  border: 1px solid var(--border);
+  padding: 0.9rem 1rem;
+  background: transparent;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+}
+
+.blog-post-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-mid);
+  transform: translateY(-3px);
+}
+
+.blog-meta {
+  margin-bottom: 0.4rem;
+}
+
+.blog-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.blog-excerpt {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
 .about-contact-line {
   font-size: 0.72rem;
   color: var(--text-dim);
