@@ -15,8 +15,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice XML External Entity (XXE) attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Basic XXE</h5>
-<p class="mb-3"><strong>This lab contains a XML External Entity Injection (XXE) vulnerability that leads to unauthorized access to local files within the system. To complete the lab, exploit the XXE vulnerability in the contact form on the web page and access the contents of the /etc/passwd file. What is the username of the last user added in /etc/passwd?</strong></p>
+<h5 class="mb-2"><strong>1. Basic XXE</strong></h5>
+<p class="mb-3">This lab contains a XML External Entity Injection (XXE) vulnerability that leads to unauthorized access to local files within the system. To complete the lab, exploit the XXE vulnerability in the contact form on the web page and access the contents of the /etc/passwd file. What is the username of the last user added in /etc/passwd?</p>
 <p class="mb-3">The web app contains the contact form shown below.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xxe/xxe_hackviser_image1.png" alt="Web Application Security XXE 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Reading the source code shows how the JavaScript function <code>submitForm()</code> manually constructs an XML string using template literals and sends it to contact.php with the header <code>Content-type: application/xml</code>.</p>

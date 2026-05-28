@@ -15,13 +15,13 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice Cross-Site Request Forgery (CSRF) attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Change Password (CSRF)</h5>
-<p class="mb-3"><strong>This lab contains a CSRF vulnerability. To complete the lab, create a custom URL with the password change endpoint and submit the link via live support at the bottom right. The support staff will run the link you sent and the password will be changed. Login to the admin user's account with the new password. What is the e-mail address seen when logging into the admin user's account?</strong></p>
+<h5 class="mb-2"><strong>1. Change Password (CSRF)</strong></h5>
+<p class="mb-3">This lab contains a CSRF vulnerability. To complete the lab, create a custom URL with the password change endpoint and submit the link via live support at the bottom right. The support staff will run the link you sent and the password will be changed. Login to the admin user's account with the new password. What is the e-mail address seen when logging into the admin user's account?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h5 class="mb-2">2. Money Transfer (CSRF)</h5>
-<p class="mb-3"><strong>This lab contains a CSRF vulnerability. To complete the lab, create a URL to transfer funds to your account and send the link via live support on the bottom right. The support staff will execute the link you sent and transfer money to your account unintentionally. What is the transfer ID that appears when money arrives in the user account?</strong></p>
+<h5 class="mb-2"><strong>2. Money Transfer (CSRF)</strong></h5>
+<p class="mb-3">This lab contains a CSRF vulnerability. To complete the lab, create a URL to transfer funds to your account and send the link via live support on the bottom right. The support staff will execute the link you sent and transfer money to your account unintentionally. What is the transfer ID that appears when money arrives in the user account?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 
 <hr />

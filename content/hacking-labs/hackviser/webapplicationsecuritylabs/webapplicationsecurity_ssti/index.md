@@ -15,8 +15,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice Server-Side Template Injection (SSTI) attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Basic SSTI</h5>
-<p class="mb-3"><strong>This lab contains a Server-Side Template Injection (SSTI) vulnerability in a PHP-based web application that uses the Twig template engine. To complete the lab, exploit the SSTI vulnerability in the search box to access the contents of the config.php file. What is the database password in config.php?</strong></p>
+<h5 class="mb-2"><strong>1. Basic SSTI</strong></h5>
+<p class="mb-3">This lab contains a Server-Side Template Injection (SSTI) vulnerability in a PHP-based web application that uses the Twig template engine. To complete the lab, exploit the SSTI vulnerability in the search box to access the contents of the config.php file. What is the database password in config.php?</p>
 <p class="mb-3">Upon page load, we see a search field. Let's directly test for template injection using the payload <code>{{5*5}}</code>.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_ssti/ssti_hackviser_image1.png" alt="Web Application Security SSTI 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">To test if the web app uses Jinja2 (Python) or Twig (PHP), we will use the payload <code>{{7*'7'}}</code>.</p>

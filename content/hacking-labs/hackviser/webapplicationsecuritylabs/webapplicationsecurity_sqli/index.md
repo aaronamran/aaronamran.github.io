@@ -15,8 +15,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice SQL Injection attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Basic SQL Injection</h5>
-<p class="mb-3"><strong>This lab contains a SQL Injection vulnerability in the login function. To complete the lab, bypass the login step by performing a SQL Injection attack. What is the email address of the user named Sky Raincin?</strong></p>
+<h5 class="mb-2"><strong>1. Basic SQL Injection</strong></h5>
+<p class="mb-3">This lab contains a SQL Injection vulnerability in the login function. To complete the lab, bypass the login step by performing a SQL Injection attack. What is the email address of the user named Sky Raincin?</p>
 <p class="mb-3">This lab challenge is straightforward. Try entering <code>Sky Raincin&apos; or 1=1 #</code> in the username field and <code>pw&apos; or 1=1 #</code> in the password field. The statement <code>1=1</code> is a "tautology" as it is always true. In SQL logic, when you use <code>OR</code>, the entire statement becomes true if either side is true. The <code>#</code> (or <code>--</code> in some databases) tells the SQL engine to ignore everything after it. This is the "secret sauce" of the bypass.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/basicsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">The login authentication is successfully bypassed. If the code checks the username first (which is standard), the username payload likely did all the work. Here is how the query was transformed: <code>SELECT * FROM users WHERE username = 'Sky Raincin' or 1=1 #' AND password = '...'</code> Because of the <code>#</code>, the database actually executed this: <code>SELECT * FROM users WHERE username = 'Sky Raincin' OR 1=1</code>. Since <code>1=1</code> is true, the database returns the first user in the table. If "Sky Raincin" is the first user (or the only one matching that specific string), you're in. Even if the username was wrong, <code>OR 1=1</code> would return the first account in the database which is often the Admin.</p>
@@ -24,8 +24,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> sraincin0@moonfruit.hv</p>
 <br />
 
-<h5 class="mb-2">2. Union-Based SQL Injection</h5>
-<p class="mb-3"><strong>This lab contains a SQL injection vulnerability in the search function. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To complete the lab, perform a SQL injection UNION attack that retrieves database name. What is the password for the user named "oliverlee" in the database?</strong></p>
+<h5 class="mb-2"><strong>2. Union-Based SQL Injection</strong></h5>
+<p class="mb-3">This lab contains a SQL injection vulnerability in the search function. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To complete the lab, perform a SQL injection UNION attack that retrieves database name. What is the password for the user named "oliverlee" in the database?</p>
 <p class="mb-3">There is a search input field for us to try out SQL injection. The overall process is to first determine the number of columns, find the database name, find the table and column names, and finally retrieve oliverlee's password.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/unionbased_sqli_hackviser_image1.png" alt="Web Application Security SQL Injection 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">We can see that there are four columns visible, so our base payload would likely need four columns. We can test this first with the payload <code>Ford' ORDER BY 1 --</code>. This payload however does not work due to syntax mismatch, which explains why we are getting HTTP 500 errors.</p>
@@ -47,8 +47,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> JWa86o4qsUgh</p>
 <br />
 
-<h5 class="mb-2">3. Boolean-Based Blind SQL Injection</h5>
-<p class="mb-3"><strong>This lab contains is a SQL Injection vulnerability in the stock control function. Due to the business logic, only "available in stock" or "not available in stock" response is received from the server. To complete the lab, perform a Blind SQL Injection attack using these two possibilities and retrieve the database name. What is the database name?</strong></p>
+<h5 class="mb-2"><strong>3. Boolean-Based Blind SQL Injection</strong></h5>
+<p class="mb-3">This lab contains is a SQL Injection vulnerability in the stock control function. Due to the business logic, only "available in stock" or "not available in stock" response is received from the server. To complete the lab, perform a Blind SQL Injection attack using these two possibilities and retrieve the database name. What is the database name?</p>
 <p class="mb-3">We see that the website shows a dropdown list of items to select from for checking stock availability.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/booleanbased_blindsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 12" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">By intercepting the POST request in Burp Suite, we discover the parameter responsible for checking stock availability.</p>
@@ -60,8 +60,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> echo_store</p>
 <br />
 
-<h5 class="mb-2">4. Time-Based Blind SQL Injection</h5>
-<p class="mb-3"><strong>This lab contains a SQL Injection vulnerability in the forgot password function. Unlike other SQL Injection labs, the answer returned from the server is always the same. To complete the lab, perform a Time-Based Blind SQL Injection attack observing the changes in response time and retrieve the database name. What is the database name?</strong></p>
+<h5 class="mb-2"><strong>4. Time-Based Blind SQL Injection</strong></h5>
+<p class="mb-3">This lab contains a SQL Injection vulnerability in the forgot password function. Unlike other SQL Injection labs, the answer returned from the server is always the same. To complete the lab, perform a Time-Based Blind SQL Injection attack observing the changes in response time and retrieve the database name. What is the database name?</p>
 <p class="mb-3">The website shows a reset password form.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/timebased_blindsqli_hackviser_image1.png" alt="Web Application Security SQL Injection 16" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">We can directly use SQLmap to automate the Time-Based Blind SQL Injection attack and retrieve the database name. In the Linux terminal, use <code>sqlmap -u "[target URL]" --data="email=test@test.com" --method=POST --technique=T --current-db</code>. Note that <code>--technique=T</code> specifies the Time-Based Blind SQL Injection technique.</p>
@@ -69,8 +69,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> utopia</p>
 <br />
 
-<h5 class="mb-2">5. Error-Based SQL Injection</h5>
-<p class="mb-3"><strong>This lab contains a SQL injection vulnerability. To complete this lab, perform a Error-Based SQL Injection attack using "img" parameter. What is the database name?</strong></p>
+<h5 class="mb-2"><strong>5. Error-Based SQL Injection</strong></h5>
+<p class="mb-3">This lab contains a SQL injection vulnerability. To complete this lab, perform a Error-Based SQL Injection attack using "img" parameter. What is the database name?</p>
 <p class="mb-3">The website shows an image gallery of various places. Notice the <code>img</code> parameter in the URL.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image1.png" alt="Web Application Security SQL Injection 18" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_sqli/errorbased_sqli_hackviser_image2.png" alt="Web Application Security SQL Injection 19" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />

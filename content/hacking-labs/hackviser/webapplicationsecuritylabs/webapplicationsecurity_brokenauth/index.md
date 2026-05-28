@@ -15,14 +15,15 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice Broken Authentication attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Dictionary Attack</h5>
-<p class="mb-3"><strong>This lab contains a login form with weak login credentials. To complete the lab, find the password of "admin" user with a dictionary attack. What is the password of the admin user?</strong></p>
+<h5 class="mb-2"><strong>1. Dictionary Attack</strong></h5>
+<p class="mb-3">This lab contains a login form with weak login credentials. To complete the lab, find the password of "admin" user with a dictionary attack. What is the password of the admin user?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h5 class="mb-2">2. Execution After Redirect (EAR)</h5>
-<p class="mb-3"><strong>This lab contains a Execution After Redirect (EAR) vulnerability. To complete the lab, interrupt the web page loading before it redirects and read its content. What is the phone number of the user whose account was accessed without authorization?</strong></p>
+<h5 class="mb-2"><strong>2. Execution After Redirect (EAR)</strong></h5>
+<p class="mb-3">This lab contains a Execution After Redirect (EAR) vulnerability. To complete the lab, interrupt the web page loading before it redirects and read its content. What is the phone number of the user whose account was accessed without authorization?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
+
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">

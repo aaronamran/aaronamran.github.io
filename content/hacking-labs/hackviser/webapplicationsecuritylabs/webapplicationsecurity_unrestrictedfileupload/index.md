@@ -15,8 +15,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice unrestricted file upload attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Basic Unrestricted File Upload</h5>
-<p class="mb-3"><strong>This lab contains a Unrestricted File Upload vulnerability. The application has an image upload function, but the uploaded file content or type is not checked on the server. To complete the lab, upload a malicious PHP script and read the "config.php" file. What is the database password in the config.php file?</strong></p>
+<h5 class="mb-2"><strong>1. Basic Unrestricted File Upload</strong></h5>
+<p class="mb-3">This lab contains a Unrestricted File Upload vulnerability. The application has an image upload function, but the uploaded file content or type is not checked on the server. To complete the lab, upload a malicious PHP script and read the "config.php" file. What is the database password in the config.php file?</p>
 <p class="mb-3">We will create a simple PHP web shell using the following code and upload it.</p>
 
 ```html
@@ -46,23 +46,23 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> 8jv77mvXwR7LVU5v</p>
 <br />
 
-<h5 class="mb-2">2. MIME Type Filter Bypass</h5>
-<p class="mb-3"><strong>This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the Mime-Type. To complete the lab, upload a malicious PHP script by changing the Mime-Type and read the "config.php" file. What is the database password in the config.php file?</strong></p>
+<h5 class="mb-2"><strong>2. MIME Type Filter Bypass</strong></h5>
+<p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the Mime-Type. To complete the lab, upload a malicious PHP script by changing the Mime-Type and read the "config.php" file. What is the database password in the config.php file?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h5 class="mb-2">3. File Signature Filter Bypass</h5>
-<p class="mb-3"><strong>This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file signature (a.k.a magic bytes). To complete the lab, upload a malicious PHP script by manipulating the file signature and read the "config.php" file. What is the database password in the config.php file?</strong></p>
+<h5 class="mb-2"><strong>3. File Signature Filter Bypass</strong></h5>
+<p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file signature (a.k.a magic bytes). To complete the lab, upload a malicious PHP script by manipulating the file signature and read the "config.php" file. What is the database password in the config.php file?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h5 class="mb-2">4. File Extension Filter Bypass</h5>
-<p class="mb-3"><strong>This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Many file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</strong></p>
+<h5 class="mb-2"><strong>4. File Extension Filter Bypass</strong></h5>
+<p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Many file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h5 class="mb-2">5. File Extension Improved Filter Bypass</h5>
-<p class="mb-3"><strong>This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Almost all file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</strong></p>
+<h5 class="mb-2"><strong>5. File Extension Improved Filter Bypass</strong></h5>
+<p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Almost all file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 
 

@@ -15,8 +15,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 </div>
 <p class="lead mb-4">Practice Cross-Site Scripting (XSS) attacks in multiple lab exercises.</p>
 
-<h5 class="mb-2">1. Reflected XSS</h5>
-<p class="mb-3"><strong>This lab is an example of a Reflected XSS (Cross-Site Scripting) vulnerability. To complete it, you must run a malicious script on the website using the search box on the website. Find a way to trigger XSS via search box.</strong></p>
+<h5 class="mb-2"><strong>1. Reflected XSS</strong></h5>
+<p class="mb-3">This lab is an example of a Reflected XSS (Cross-Site Scripting) vulnerability. To complete it, you must run a malicious script on the website using the search box on the website. Find a way to trigger XSS via search box.</p>
 <p class="mb-3">This lab challenge is straightforward. Try entering the following payload in the search box: <code>&lt;script&gt;alert("Reflected XSS")&lt;/script&gt;</code></p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/reflectedxss_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">You should see an alert box with the message "Reflected XSS". This indicates that the script was executed successfully, confirming the presence of the vulnerability.</p>
@@ -24,8 +24,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> &lt;script&gt;alert("Reflected XSS")&lt;/script&gt;</p>
 <br />
 
-<h5 class="mb-2">2. Stored XSS</h5>
-<p class="mb-3"><strong>This lab is an example of a Stored XSS (Cross-Site Scripting) vulnerability. The messages you send from the chat screen on the website are saved to the database without being filtered by the server. Find a way to trigger the XSS vulnerability in all users by sending a message.</strong></p>
+<h5 class="mb-2"><strong>2. Stored XSS</strong></h5>
+<p class="mb-3">This lab is an example of a Stored XSS (Cross-Site Scripting) vulnerability. The messages you send from the chat screen on the website are saved to the database without being filtered by the server. Find a way to trigger the XSS vulnerability in all users by sending a message.</p>
 <p class="mb-3">First we need to login with the given credentials.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/storedxss_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">We try entering the following payload in the chat box: <code>&lt;u&gt;XSS here!&lt;script&gt;alert(&quot;Stored XSS&quot;)&lt;/script&gt;&lt;/u&gt;</code></p>
@@ -35,8 +35,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> &lt;u&gt;XSS here!&lt;script&gt;alert("Stored XSS")&lt;/script&gt;&lt;/u&gt;</p>
 <br />
 
-<h5 class="mb-2">3. DOM-Based XSS</h5>
-<p class="mb-3"><strong>This lab is an example of a DOM-Based XSS (Cross-Site Scripting) vulnerability. A look at the JavaScript code of the calculation form on the website shows that the "height" and "base" parameters received with the URL are written between the "&lt;script&gt;" tags without filtering. Find a way to trigger the XSS vulnerability without disrupting the operation of the website.</strong></p>
+<h5 class="mb-2"><strong>3. DOM-Based XSS</strong></h5>
+<p class="mb-3">This lab is an example of a DOM-Based XSS (Cross-Site Scripting) vulnerability. A look at the JavaScript code of the calculation form on the website shows that the "height" and "base" parameters received with the URL are written between the "&lt;script&gt;" tags without filtering. Find a way to trigger the XSS vulnerability without disrupting the operation of the website.</p>
 <p class="mb-3">The website shows a triangle area calculator. We initially test with height value of 3 and base value of 4.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/dombasedxss_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">We try entering the height value of 3 and use the following payload in the base input field: <code>4&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code>. Notice the new information appearing in the output area.</p>
@@ -48,8 +48,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> 4; alert("DOM-Based XSS"); //</p>
 <br />
 
-<h5 class="mb-2">4. Reflected XSS via HTML Attribute Manipulation</h5>
-<p class="mb-3"><strong>This lab is an example that requires the Reflected XSS vulnerability to be triggered from within an HTML Attribute. To complete the lab, the parameter "q" in the URL must be given a payload that escapes through the HTML Attribute "value". Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</strong></p>
+<h5 class="mb-2"><strong>4. Reflected XSS via HTML Attribute Manipulation</strong></h5>
+<p class="mb-3">This lab is an example that requires the Reflected XSS vulnerability to be triggered from within an HTML Attribute. To complete the lab, the parameter "q" in the URL must be given a payload that escapes through the HTML Attribute "value". Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</p>
 <p class="mb-3">The website shows a search form. We test out with the payload <code>&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code> to see what will happen.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/reflectedxss_htmlmanipulation_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Apparently our payload does not trigger because it is being encoded server-side before placing it into the HTML.</p>
@@ -61,8 +61,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> " autofocus onfocus="alert(document.domain)</p>
 <br />
 
-<h5 class="mb-2">5. Stored XSS in Anchor Href Attribute HTML-Encoded</h5>
-<p class="mb-3"><strong>This lab is an example that requires the Stored XSS vulnerability to be triggered from within an HTML Attribute. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</strong></p>
+<h5 class="mb-2"><strong>5. Stored XSS in Anchor Href Attribute HTML-Encoded</strong></h5>
+<p class="mb-3">This lab is an example that requires the Stored XSS vulnerability to be triggered from within an HTML Attribute. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</p>
 <p class="mb-3">The website shows a news submission form. We notice that other submitted news appear at the bottom of the page. There are two input fields; the Title and the URL. For the Title input field, we use a random title such as <code>Click Me</code>, and the URL input field is where we will insert our payload. The payload we use is <code>javascript:alert(document.domain)</code>.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/storedxss_anchorhref_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">To understand why the XSS payload works, we need to understand the Anchor <code>href</code> sink. When an input lands inside <code>href</code>, we don't actually need to break out of it using double quotes (<code>"..."</code>). We can use the <code>javascript:</code> pseudo-protocol. Browsers recognize <code>javascript:</code> just like how they recognize <code>http:</code> or <code>https:</code>. Since our lab also mentions that HTML is being encoded, any payload with angle brackets (<code>&lt;...&gt;</code>) will not work.</p>
@@ -70,8 +70,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> javascript:alert(document.domain)</p>
 <br />
 
-<h5 class="mb-2">6. Manipulating Images with the HTML Href Attribute</h5>
-<p class="mb-3"><strong>This lab is an example that requires the Reflected XSS vulnerability to be triggered from within an HTML Attribute. To complete the lab, the "art" parameter in the URL must be given a payload that escapes through the HTML Attribute "href". Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</strong></p>
+<h5 class="mb-2"><strong>6. Manipulating Images with the HTML Href Attribute</strong></h5>
+<p class="mb-3">This lab is an example that requires the Reflected XSS vulnerability to be triggered from within an HTML Attribute. To complete the lab, the "art" parameter in the URL must be given a payload that escapes through the HTML Attribute "href". Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</p>
 <p class="mb-3">We see that the website is an art gallery showcasing famous artworks. Notice the <code>art</code> parameter in the URL.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/manipulateimages_href_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/manipulateimages_href_hackviser_image2.png" alt="Web Application Security XSS 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
@@ -85,8 +85,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> x" onerror="alert(document.domain)</p>
 <br />
 
-<h5 class="mb-2">7. Stored XSS via User Agent</h5>
-<p class="mb-3"><strong>This lab is an example that requires the Stored XSS vulnerability to be triggered using the User Agent value in the HTTP request header and body. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</strong></p>
+<h5 class="mb-2"><strong>7. Stored XSS via User Agent</strong></h5>
+<p class="mb-3">This lab is an example that requires the Stored XSS vulnerability to be triggered using the User Agent value in the HTTP request header and body. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</p>
 <p class="mb-3">The website shows logs for last visited User-Agents. Since I am lazy to fire up BurpSuite, I use HackBar installed in Developer Tools. Click Load and we can see the HTTP Request headers on the right side.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/storedxss_useragent_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Checking the page HTML code reveals how the User-Agent value is being reflected.</p>
@@ -96,8 +96,8 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 <p class="mb-5"><strong>Answer:</strong> &lt;script&gt;alert("User Agent XSS")&lt;/script&gt;</p>
 <br />
 
-<h5 class="mb-2">8. Stored XSS Vulnerability via Image Upload-Induced</h5>
-<p class="mb-3"><strong>This lab is an example that requires the Stored XSS vulnerability to be triggered by the uploaded photo file. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</strong></p>
+<h5 class="mb-2"><strong>8. Stored XSS Vulnerability via Image Upload-Induced</strong></h5>
+<p class="mb-3">This lab is an example that requires the Stored XSS vulnerability to be triggered by the uploaded photo file. Find a way to trigger the XSS vulnerability without disrupting the functioning of the website.</p>
 <p class="mb-3">We see a user profile page where we are allowed to upload a profile picture. By manipulating the image file, we can inject a malicious payload.</p>
 <img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_xss/storedxss_imageupload_hackviser_image1.png" alt="Web Application Security XSS 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">We try with an SVG image with the following payload:</p>
