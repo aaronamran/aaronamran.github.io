@@ -31,7 +31,7 @@
     iconMoon.style.display = t === 'dark'  ? '' : 'none';
     iconSun.style.display  = t === 'light' ? '' : 'none';
     localStorage.setItem('demo-theme', t);
-    applyPalette(localStorage.getItem('accent-palette') || 'green');
+    applyPalette(localStorage.getItem('accent-palette') || 'pink');
   }
 
   applyTheme(localStorage.getItem('demo-theme') || 'dark');
