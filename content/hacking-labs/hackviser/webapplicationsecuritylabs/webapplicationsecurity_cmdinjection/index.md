@@ -17,12 +17,18 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 
 <h5 class="mb-2"><strong>1. Basic Command Injection</strong></h5>
 <p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application gives the domain name you want to check as a parameter to the "nslookup" utility running on the terminal. Find a way to run a command on the system. What is the hostname address of the server where the website is running?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">The page shows a DNS lookup functionality.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image1.png" alt="Web Application Security Command Injection 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">To smuggle a command while we enter a domain name, we use the payload <code>google.com; hostname</code>. Then scroll down and see the server's hostname on the screen.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image2.png" alt="Web Application Security Command Injection 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> squirrel</p>
 <br />
 
 <h5 class="mb-2"><strong>2. Command Injection Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application gives the domain name you want to check as a parameter to the "nslookup" utility running on the terminal. If the domain name you are sending contains common commands or operators, your query will be blocked. Find a way to run a command on the system. What is the hostname address of the server where the website is running?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We get a similar looking DNS Lookup web application like in the previous task. To bypass the filter, we use <code>google.com`hostname`</code>. The server's hostname will be appended to the output message.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image3.png" alt="Web Application Security Command Injection 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> legend</p>
 <br />
 
 <h5 class="mb-2"><strong>3. Command Injection Improved Filter Bypass</strong></h5>
