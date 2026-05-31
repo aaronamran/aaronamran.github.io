@@ -12,7 +12,7 @@ prog: "RedTiger's Hackit"
 <div class="writeup-date">May 2026</div>
 </div>
 </div>
-<p class="lead mb-4">This is a full walkthrough of the <a href="https://redtiger.labs.overthewire.org/" target="_blank" referrerpolicy="no-referrer">RedTiger's Hackit challenges on OverTheWire</a>.</p>
+<p class="lead mb-4">This is a walkthrough of the <a href="https://redtiger.labs.overthewire.org/" target="_blank" referrerpolicy="no-referrer">RedTiger's Hackit challenges on OverTheWire</a>.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Level 1:</strong> Simple SQL-Injection</p>

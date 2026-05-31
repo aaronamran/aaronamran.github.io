@@ -12,7 +12,7 @@ prog: 'OverTheWire Wargames'
 <div class="writeup-date">March 2026</div>
 </div>
 </div>
-<p class="lead mb-4">This is a full walkthrough of the <a href="https://overthewire.org/wargames/bandit/" target="_blank" referrerpolicy="no-referrer">Bandit challenges on OverTheWire</a>. Passwords for levels are not saved automatically. If you do not save them yourself, you will need to start over from bandit0. Passwords also occasionally change. It is recommended to take notes on how to solve each challenge. As levels get more challenging, detailed notes are useful to return to where you left off, reference for later problems, or help others after you’ve completed the challenge.</p>
+<p class="lead mb-4">This is a walkthrough of the <a href="https://overthewire.org/wargames/bandit/" target="_blank" referrerpolicy="no-referrer">Bandit challenges on OverTheWire</a>. Passwords for levels are not saved automatically. If you do not save them yourself, you will need to start over from bandit0. Passwords also occasionally change. It is recommended to take notes on how to solve each challenge. As levels get more challenging, detailed notes are useful to return to where you left off, reference for later problems, or help others after you’ve completed the challenge.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Level 0:</strong> The goal of this level is for you to log into the game using SSH. The host to which you need to connect is bandit.labs.overthewire.org, on port 2220. The username is bandit0 and the password is bandit0. Once logged in, go to the Level 1 page to find out how to beat Level 1.</p>
@@ -252,6 +252,7 @@ prog: 'OverTheWire Wargames'
 <p class="mb-2"><strong>Level 33 to Level 34:</strong> There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit33). If the password is correct, it will transmit the password for the next level (bandit34).</p>
 <p class="mb-3">.</p>
 <p class="mb-5"><strong>Password:</strong> </p> -->
+
 
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
