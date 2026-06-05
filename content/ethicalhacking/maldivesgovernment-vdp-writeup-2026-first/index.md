@@ -1,7 +1,7 @@
 ---
 title: 'The Republic of Maldives Ministry of Defence Laravel Debug Leak'
 date: '2026-05-25'
-excerpt: 'Ranked 13 on National Cyber Security Agency (NCSA) of Maldives Bug Bounty Hall of Fame Leaderboards'
+excerpt: 'Ranked 13 on National Cyber Security Agency (NCSA) of Maldives Bug Bounty Hall of Fame Leaderboards.'
 prog: 'VDP'
 ---
 
