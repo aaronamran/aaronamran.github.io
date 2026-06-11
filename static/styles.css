@@ -988,32 +988,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .cert-panel.active {
   display: block;
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) transparent;
 }
 
 /* Custom scrollbar for WebKit browsers */
-.cert-panel.active::-webkit-scrollbar {
-  width: 6px;
-}
-
-.cert-panel.active::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.cert-panel.active::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 3px;
-}
-
-.cert-panel.active::-webkit-scrollbar-thumb:hover {
-  opacity: 0.8;
-}
-
 .cert-table {
   width: 100%;
   border-collapse: collapse;
@@ -1077,6 +1054,217 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text);
   font-size: 0.68rem;
   white-space: nowrap;
+}
+
+/* ══════════════════════
+   PRIMITIVES TABS + TABLE
+   ══════════════════════ */
+.primitives-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+  margin-top: 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.primitives-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.primitives-tab {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.45rem;
+  margin-bottom: -1px;
+  letter-spacing: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.primitives-tab:hover {
+  color: var(--text-dim);
+}
+
+.primitives-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.primitives-panel {
+  display: none;
+}
+
+.primitives-panel.active {
+  display: block;
+  overflow-x: hidden;
+}
+
+.primitives-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.primitives-table thead tr {
+  border-bottom: 1px solid var(--border-mid);
+}
+
+.primitives-table th {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 0 0.75rem 0.55rem 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.primitives-table td {
+  padding: 0.6rem 0.75rem 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  vertical-align: top;
+}
+
+.primitives-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.primitives-table tbody tr:hover td {
+  background: var(--bg-hover);
+}
+
+.primitives-table td:first-child {
+  white-space: nowrap;
+  color: var(--text-faint);
+  font-size: 0.68rem;
+  width: 110px;
+}
+
+.primitives-table td:nth-child(2) {
+  font-family: var(--mono);
+  color: var(--accent);
+  font-weight: 500;
+  width: 180px;
+}
+
+.primitives-table td:nth-child(2) code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+
+.primitives-table td:nth-child(3) {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.primitives-table td:nth-child(3) code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.primitives-table td:nth-child(3) a {
+  color: var(--accent);
+  transition: color 0.15s;
+}
+
+.primitives-table td:nth-child(3) a:hover {
+  opacity: 0.75;
+}
+
+.primitives-panel h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.primitives-panel p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.primitives-panel blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 0.75rem;
+  margin: 1rem 0;
+  background: var(--bg-hover);
+  padding: 0.75rem;
+  border-radius: 2px;
+}
+
+.primitives-panel blockquote p {
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dim);
+}
+
+.primitives-panel blockquote strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.primitives-panel pre {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 0.6rem;
+  overflow-x: auto;
+  margin: 0.5rem 0 0 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--accent);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.primitives-panel pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+.primitives-panel pre::-webkit-scrollbar {
+  height: 5px;
+}
+
+.primitives-panel pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.primitives-panel pre::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.primitives-panel pre::-webkit-scrollbar-thumb:hover {
+  opacity: 0.75;
 }
 
 /* ══════════════════════

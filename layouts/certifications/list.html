@@ -1,6 +1,23 @@
 {{ define "main" }}
 
   <style>
+    .posts-col {
+      overflow-y: auto;
+      min-height: 0;
+    }
+    .posts-col::-webkit-scrollbar {
+      width: 5px;
+    }
+    .posts-col::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .posts-col::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+    .posts-col::-webkit-scrollbar-thumb:hover {
+      opacity: 0.75;
+    }
     .cert-subcategory {
       margin-bottom: 2rem;
     }
@@ -122,6 +139,7 @@
               <tr data-cert="MSIT"><td>Sep 2024</td><td class="cert-code">MSIT</td><td><a href="https://coursera.org/verify/professional-cert/35Q1E110BC6U" target="_blank" rel="noopener">Microsoft IT Support Specialist</a></td><td>Microsoft on Coursera</td></tr>
               <tr data-cert="GITS"><td>Jul 2024</td><td class="cert-code">GITS</td><td><a href="https://coursera.org/verify/professional-cert/LLQAC264PMTT" target="_blank" rel="noopener">Google IT Support</a></td><td>Google on Coursera</td></tr>
               <tr data-cert="IBMIT"><td>Apr 2024</td><td class="cert-code">IBMIT</td><td><a href="https://coursera.org/verify/professional-cert/94UHH3X6YL6E" target="_blank" rel="noopener">IBM IT Support</a></td><td>IBM on Coursera</td></tr>
+              <tr data-cert="CHB"><td>Jun 2024</td><td class="cert-code">CHB</td><td><a href="https://www.credly.com/badges/e95f2c9e-e6fa-465b-9a12-1e77237e9136" target="_blank" rel="noopener">Cisco Networking Academy Computer Hardware Basics</a></td><td>Cisco Networking Academy</td></tr>
             </tbody>
           </table>
         </div>
@@ -142,7 +160,10 @@
           <table class="cert-table">
             <thead><tr><th>Date</th><th>Code</th><th>Certification</th><th>Issuer</th></tr></thead>
             <tbody>
+              <tr data-cert="JSE2"><td>Jun 2026</td><td class="cert-code">JSE2</td><td><a href="https://www.credly.com/badges/6fbb39a2-1113-4f0e-ae43-ec654887c06b" target="_blank" rel="noopener">Cisco Networking Academy JavaScript Essentials 2</a></td><td>Cisco Networking Academy</td></tr>
               <tr data-cert="API"><td>Feb 2026</td><td class="cert-code">API</td><td><a href="https://badges.parchment.com/public/assertions/wQp_GxOTSQKK0SvzHJlsXg?identity__email=aaronamranba@gmail.com" target="_blank" rel="noopener">Postman API Fundamentals Student Expert</a></td><td>Postman</td></tr>
+              <tr data-cert="OSB"><td>Apr 2025</td><td class="cert-code">OSB</td><td><a href="https://www.credly.com/badges/3c748344-a72e-402c-a7f6-8837320a4147" target="_blank" rel="noopener">Cisco Networking Academy Operating Systems Basics</a></td><td>Cisco Networking Academy</td></tr>
+              <tr data-cert="JSE1"><td>Mar 2024</td><td class="cert-code">JSE1</td><td><a href="https://www.credly.com/badges/0ee1f6d0-a04c-4f94-8cb6-85537cbc5ab5" target="_blank" rel="noopener">Cisco Networking Academy JavaScript Essentials 1</a></td><td>Cisco Networking Academy</td></tr>
               <tr data-cert="GenAI"><td>Jan 2024</td><td class="cert-code">GenAI</td><td><a href="https://credentials.databricks.com/9178a806-8fc3-4215-a680-7298f6487afb" target="_blank" rel="noopener">Databricks Generative AI Fundamentals</a></td><td>Databricks</td></tr>
             </tbody>
           </table>
@@ -223,7 +244,11 @@
     'A+': 'CompTIA_A_Badge.webp',
     'MSIT': 'Microsoft_IT_Support_Specialist_Badge.webp',
     'GITS': 'Google_IT_Support_Badge.webp',
-    'IBMIT': 'IBM_IT_Support_Badge.webp'
+    'IBMIT': 'IBM_IT_Support_Badge.webp',
+    'JSE1': 'Cisco_Netacad_JavaScript_Essentials_1_Badge.webp',
+    'JSE2': 'Cisco_Netacad_JavaScript_Essentials_2_Badge.webp',
+    'CHB': 'Cisco_Netacad_Computer_Hardware_Basics_Badge.webp',
+    'OSB': 'Cisco_Netacad_Operating_Systems_Basics_Badge.webp'
   };
   const badgeImg  = document.getElementById('badge-preview-img');
   const badgeText = document.getElementById('badge-preview-text');
