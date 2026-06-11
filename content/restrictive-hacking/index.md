@@ -17,7 +17,7 @@ date: '2026-05-28'
 <p class="lead mb-4">If you watch modern enterprise penetration testing or standard security education, it often looks like a corporate software exposition. Security professionals load up expensive graphical suites, point automated scanners at a target subnet, and press a giant button. Out-of-the-box tools pack their payloads with loud, static signatures. Running them against a mature enterprise network is the digital equivalent of walking into a bank wearing squeaky clown shoes and firing a flare gun into the ceiling. The Endpoint Detection and Response agents isolate the footprint instantly, the Web Application Firewall drops the traffic, and the security operations team blocks the IP address before the scanner even reaches ten percent completion.</p>
 <p class="lead mb-4">That is not emulation. It is just noise.</p>
 <p class="lead mb-4">As I spend more time engineering systems, my disdain for commercial, automated tools grows. They might give fast results against unpatched legacy systems, but they completely fail to emulate a silent, harmless visitor.</p>
-<p class="lead mb-4">To solve this, I choose to practice what I call <strong><a href="./zero-dependency-system-primitives/" target="_blank" rel="noopener noreferrer">Restrictive Hacking (Click to read Zero-Dependency System Primitives here)</a></strong>.</p>
+<p class="lead mb-4">To solve this, I choose to practice what I call <strong><a href="../zero-dependency-system-primitives/" target="_blank" rel="noopener noreferrer">Restrictive Hacking (Click to read Zero-Dependency System Primitives here)</a></strong>.</p>
 <br />
 
 <figure>

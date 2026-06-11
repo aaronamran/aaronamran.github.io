@@ -2,7 +2,7 @@ baseURL = 'https://aaronamran.github.io/'
 languageCode = 'en-us'
 title = 'aaronamran'
 
-disableKinds = ['taxonomy', 'term']
+disableKinds = ['taxonomy', 'term', 'rss']
 
 [markup.goldmark.renderer]
   unsafe = true
