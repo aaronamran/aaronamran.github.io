@@ -38,13 +38,9 @@ SSH username: <code>guest</code>
 SSH password: <code>guest</code>
 <br />
 What is the secret inside the <code>/root/secret.txt</code> file?</p>
-<p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-44228</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<!-- <img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-44228/cvelabs_cve-2021-44228_image1.png" alt="CVE-2021-44228 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. Apparently an error in exploit execution occured.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-44228/cvelabs_cve-2021-44228_image2.png" alt="CVE-2021-44228 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">To solve this problem, we need to enter <code>set SRVHOST [local_IP]</code>. Then run <code>exploit</code> again. A command shell will open and we can query the contents of secret.txt</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-44228/cvelabs_cve-2021-44228_image3.png" alt="CVE-2021-44228 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First we need to SSH to the target machine with the credentials given. Then we enter <code>vi exp.c</code> and paste the payload from <a href="https://github.com/V4bel/dirtyfrag/blob/master/exp.c" rel="noopener noreferrer" target="_blank">this link containing the Dirty Frag exploit</a>. Then enter <code>gcc -O0 -Wall -o exp exp.c -lutil && ./exp</code> and an interactive shell will spawn. When we use <code>whoami</code>, we can see that we are currently the root user, and this allows us to read the secret in the target file.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-43284_cve-2026-43500/cvelabs_cve-2026-43284_cve-2026-43500_image1.png" alt="CVE-2026-43283 & CVE-2026-43500 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Oblivion</p>
 <br />
 
 <h4 class="mb-2">2. NGINX Rewrite Module RCE via Heap Buffer Overflow (CVE-2026-42945)</h4>
