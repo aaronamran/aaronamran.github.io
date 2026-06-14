@@ -12,7 +12,7 @@ prog: 'BreachLab'
 <div class="writeup-date">June 2026</div>
 </div>
 </div>
-<p class="lead mb-4">This is a walkthrough of the <a href="https://breachlab.org/tracks/ghost" target="_blank" referrerpolicy="no-referrer">Ghost challenges on BreachLab</a>. Passwords for levels are not saved automatically. If you do not save them yourself, you will need to start over from bandit0. Passwords also occasionally change. It is recommended to take notes on how to solve each challenge. As levels get more challenging, detailed notes are useful to return to where you left off, reference for later problems, or help others after you’ve completed the challenge.</p>
+<p class="lead mb-4">This is a walkthrough of the <a href="https://breachlab.org/tracks/ghost" target="_blank" referrerpolicy="no-referrer">Ghost challenges on BreachLab</a>. Passwords for levels are not saved automatically. If you do not save them yourself, you will need to start over. Passwords also occasionally change. It is recommended to take notes on how to solve each challenge. As levels get more challenging, detailed notes are useful to return to where you left off, reference for later problems, or help others after you’ve completed the challenge.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Level 0: First Contact</strong> Use the password for <code>ghost0</code> that you captured on the previous level, then: <code>ssh ghost0@204.168.229.209 -p 2222</code>.</p>
