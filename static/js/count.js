@@ -1,24 +1,6 @@
 // count.js — Update these numbers when adding new content.
 // Cert counts are derived from the DOM automatically (index.html cert tables).
 
-const counts = {
-  vulnerabilityDisclosures: 10,
-  algorithmsSolved: 2,
-  ctfChallenges: {
-    hackthebox:      0,
-    hacksmarter:     0,
-    hackviser:       26,
-    overthewire:     1,
-    k8slanparty:     0,
-    redtigershackit: 0,
-    underthewire:    0
-  }
-};
-
-function getTotalCTF() {
-  return Object.values(counts.ctfChallenges).reduce((sum, n) => sum + n, 0);
-}
-
 // Count <tbody tr> rows across all cert panels in the DOM.
 // Only has a non-zero result on index.html where the panels exist.
 function getTotalCerts() {
