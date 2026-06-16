@@ -2,6 +2,7 @@
   <nav class="topbar-inner">
     <div class="topbar-links">
       <a href="/"                class="tl{{ if .IsHome }} active{{ end }}">About</a>
+      <!-- <a href="/cves/"     class="tl{{ if eq .RelPermalink "/cves/" }} active{{ end }}">CVEs</a> -->
       <a href="/ethicalhacking/" class="tl{{ if eq .RelPermalink "/ethicalhacking/" }} active{{ end }}">Ethical Hacking</a>
       <a href="/hacking-labs/"   class="tl{{ if eq .RelPermalink "/hacking-labs/" }} active{{ end }}">Hacking Labs</a>
       <!-- <a href="/algorithms/"     class="tl{{ if eq .RelPermalink "/algorithms/" }} active{{ end }}">Algorithms</a> -->
