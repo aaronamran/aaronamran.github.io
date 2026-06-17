@@ -35,18 +35,22 @@ prog: 'Arrays · April 2026'
     <li>0 ≤ height of each mountain ≤ 10<sup>9</sup></li>
 </ul>
 <h4 class="mb-3">Sample Input</h4>
-<pre>1
+
+```
+1
 5
 4 7 6 3 1
-</pre>
+```
 <h4 class="mb-3">Sample Output</h4>
-<pre>7
-</pre>
+
+```
+7
+```
 
 <h4 class="mb-3">Solution (C++)</h4>
 <p class="mb-3"><strong>Complexity:</strong> Time O(N) &nbsp;•&nbsp; Space O(1)</p>
 
-<pre>// C++
+```c++
 #include <iostream>
 #include <algorithm> // For std::max
 
@@ -75,33 +79,52 @@ int main() {
     }
     return 0;
 }
-</pre>
+```
 
 <h4 class="mb-3">Code Explanation</h4>
 
 <p class="mb-2"><strong>1. The Setup (Speeding things up)</strong></p>
-<pre>ios_base::sync_with_stdio(false);
-cin.tie(NULL);</pre>
+
+```c++
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+```
+
 <p class="mb-2">In competitive programming, you often deal with millions of numbers. C++ normally keeps "safe" settings that make cin and cout communicate with older C-language systems. By setting <code>sync_with_stdio(false)</code> and <code>cin.tie(NULL)</code>, you tell the program: "Ignore the old C rules, I want you to read and write data as fast as possible."</p>
+<br />
 
 <p class="mb-2"><strong>2. The Test Case Loop</strong></p>
-<pre>int T;
+
+```c++
+int T;
 cin >> T;
-while (T--) { ... }</pre>
+while (T--) { ... }
+```
+
 <p class="mb-2">The problem provides <code>T</code> batches (test cases). The <code>while (T--)</code> is a clean way of saying: "Run this block of code <code>T</code> times, subtracting 1 from <code>T</code> each time until we hit 0."</p>
+<br />
 
 <p class="mb-2"><strong>3. The "Record-Keeper" Variable</strong></p>
-<pre>int N;
+
+```c++
+int N;
 cin >> N;
-int max_h = 0;</pre>
+int max_h = 0;
+```
+
 <p class="mb-2">For every batch, we first read how many mountains (<code>N</code>) exist. We create <code>max_h</code> (the record holder) and initialize it to 0. Since the problem says mountain heights are &ge; 0, starting at 0 is perfectly safe.</p>
+<br />
 
 <p class="mb-2"><strong>4. Processing One-by-One (The Loop)</strong></p>
-<pre>for (int i = 0; i < N; i++) {
+
+```c++
+for (int i = 0; i < N; i++) {
     int current_h;
     cin >> current_h;
     max_h = max(max_h, current_h);
-}</pre>
+}
+```
+
 <p class="mb-2">
 This is the heart of the code:
 <ul>
@@ -110,9 +133,14 @@ This is the heart of the code:
 <li><code>max(max_h, current_h)</code> does exactly this comparison. If the new one is taller, <code>max_h</code> updates to the new value. If it's shorter, <code>max_h</code> stays the same.</li>
 </ul>
 </p>
+<br />
 
 <p class="mb-2"><strong>5. Efficient Printing</strong></p>
-<pre>cout << max_h << "\n";</pre>
+
+```C++
+cout << max_h << "\n";
+```
+
 <p class="mb-2">You print the result after checking every mountain in the batch. By using <code>"\n"</code> instead of <code>endl</code>, you avoid a process called "flushing the buffer." Flushing is like hitting "Enter" on a printer—it forces the printer to print immediately, which is slow if you have thousands of lines to print. <code>"\n"</code> is like just moving to the next line on the page, allowing the system to print more efficiently.</p>
 
 

@@ -1,4 +1,4 @@
 ---
-title: "Arrays"
+title: "Time Complexity"
 layout: "codechef-topics"
 ---

@@ -31,7 +31,7 @@ Output: NO</pre>
 <h4 class="mb-3">Solution (C++)</h4>
 <p class="mb-3"><strong>Complexity:</strong> Time O(N) &nbsp;•&nbsp; Space O(1)</p>
 
-<pre>// C++
+```C++
 #include <iostream>
 using namespace std;
 
@@ -58,36 +58,58 @@ int main() {
     
     return 0;
 }
-</pre>
+```
 
 <h4 class="mb-3">Code Explanation</h4>
 
 <p class="mb-2"><strong>1. Fast I/O Optimization</strong></p>
-<pre>ios_base::sync_with_stdio(false);</pre>
+
+```C++
+ios_base::sync_with_stdio(false);
+```
+
 <p class="mb-2">By default, C++ streams are synchronized with C stdio (such as <code>printf</code> and <code>scanf</code>). Disabling this synchronization makes <code>cin</code>/<code>cout</code> faster for large input/output.</p>
-<pre>cin.tie(NULL);</pre>
+
+```C++
+cin.tie(NULL);
+```
+
 <p class="mb-3">By default, <code>cin</code> is tied to <code>cout</code>, so <code>cout</code> is flushed before every input operation. Untying avoids unnecessary flushes and improves performance.</p>
+<br />
 
 <p class="mb-2"><strong>2. Input Handling</strong></p>
-<pre>if (!(cin &gt;&gt; N &gt;&gt; X)) return 0;</pre>
+
+```C++
+if (!(cin >> N >> X)) return 0;
+```
+
 <p class="mb-3">This safely reads <code>N</code> and <code>X</code>. If input fails (for example, empty input), the program exits gracefully.</p>
 
 <p class="mb-2"><strong>3. On-the-fly Search Logic</strong></p>
-<pre>bool found = false;
-for (int i = 0; i &lt; N; i++) {
+
+```C++
+bool found = false;
+for (int i = 0; i < N; i++) {
     int element;
-    cin &gt;&gt; element;
+    cin >> element;
     if (element == X) {
         found = true;
     }
-}</pre>
+}
+```
+
 <p class="mb-2">We do not store the whole array. Each element is read, checked, then discarded.</p>
 <p class="mb-2"><strong>Why this is better for memory:</strong> space becomes <code>O(1)</code> instead of <code>O(N)</code>.</p>
 <p class="mb-3"><strong>Important:</strong> even if <code>X</code> is found early, we still continue reading all remaining values so input is fully consumed.</p>
+<br />
 
 <p class="mb-2"><strong>4. Output</strong></p>
-<pre>if (found) cout &lt;&lt; "YES" &lt;&lt; "\n";
-else cout &lt;&lt; "NO" &lt;&lt; "\n";</pre>
+
+```C++
+if (found) cout << "YES" << "\n";
+else cout << "NO" << "\n";
+```
+
 <p class="mb-3">Using <code>"\n"</code> is typically faster than <code>endl</code> because <code>endl</code> also flushes the output buffer.</p>
 
 

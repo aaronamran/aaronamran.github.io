@@ -1,4 +1,4 @@
 ---
-title: "Arrays"
+title: "Strings"
 layout: "codechef-topics"
 ---

@@ -31,7 +31,9 @@ prog: 'Arrays · April 2026'
     <li>1 ≤ <code>A<sub>i</sub></code> ≤ 10<sup>5</sup></li>
 </ul>
 <h4 class="mb-3">Input</h4>
-<pre>5
+
+```
+5
 4 30 10
 15 8 22 6
 4 40 10
@@ -42,19 +44,22 @@ prog: 'Arrays · April 2026'
 60 80
 3 30 5
 50 60 50
-</pre>
+```
+
 <h4 class="mb-3">Output</h4>
-<pre>COUPON
+
+```
+COUPON
 NO COUPON
 NO COUPON
 COUPON
 NO COUPON
-</pre>
+```
 
 <h4 class="mb-3">Solution (C++)</h4>
 <p class="mb-3"><strong>Complexity:</strong> Time O(N) &nbsp;•&nbsp; Space O(1)</p>
 
-<pre>// C++
+```C++
 class Solution {
 public:
     string checkCoupon(int n, int x, int y, vector<int>& prices) {
@@ -74,7 +79,7 @@ public:
         }
     }
 };
-</pre>
+```
 
 <h4 class="mb-3">Code Explanation</h4>
 <p class="mb-2"><strong>1. The Mathematical Objective</strong></p>
@@ -84,6 +89,7 @@ public:
     <li><strong>With coupon:</strong> pay <code>X</code> plus the discounted prices of all items.</li>
 </ul>
 <p class="mb-2">The coupon is useful only when the money saved is more than its cost.</p>
+<br />
 
 <p class="mb-2"><strong>2. How Your Code Implements This</strong></p>
 <p class="mb-2">Your code tracks savings directly with <code>min(price, Y)</code>:</p>
@@ -92,6 +98,7 @@ public:
     <li>If <code>A<sub>i</sub> < Y</code>, the item becomes free, so the saving is <code>A_i</code>.</li>
 </ul>
 <p class="mb-2">Adding <code>min(price, Y)</code> for every item gives the total savings from the coupon.</p>
+<br />
 
 <p class="mb-2"><strong>3. Summary of Logic</strong></p>
 <p class="mb-2"><code>total_saved += min(price, Y);</code> keeps a running total of the savings.</p>

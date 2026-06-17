@@ -1,4 +1,4 @@
 ---
-title: "Arrays"
+title: "Linked Lists"
 layout: "codechef-topics"
 ---
