@@ -21,8 +21,548 @@ prog: 'Hackviser Reverse Engineering Labs  -  June 2026'
 To complete the laboratory, you need to find the license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We start off with static analysis. We run <code>strings xor.exe</code> in our Linux machine and will receive the following output:</p>
+
+```bash
+user@linux:~$ strings xor.exe
+!This program cannot be run in DOS mode.
+bRich
+.text
+`.rdata
+@.data
+# [truncated for layout]
+SendMessageW
+CreateWindowExW
+SetWindowPos
+DestroyWindow
+GetWindowRect
+DefWindowProcW
+GetMessageW
+GetWindowLongW
+GetDlgItemTextA
+MessageBoxW
+USER32.dll
+# [truncated for layout]
+```
+
+<p class="mb-3">We notice imports like <code>GetDlgItemTextA</code>, <code>CreateWindowExW</code>, and <code>MessageBoxW</code>. This instantly proved that the binary was a standard Graphical User Interface (GUI) application, not a console app. Therefore, we knew the program would wait for user interaction (clicking a button) to check the license key. We also spotted a weird cluster of characters (.4=#, )J"S, etc.). In low-level programming, plain text character patterns are obvious. When characters look like broken punctuation, it usually means standard text has been modified by a mathematical offset—like an XOR operation. </code>
+
+<p class="mb-3">Now for the second phase which is code traversal, we will be peeling the layers of the code using a tool created by the NSA called Ghidra. Upon loading and analyzing the binary in Ghidra, we navigated the Symbol Tree to locate the absolute starting address vector. </p>
+
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image1.png" alt="Data Obfuscation 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Looking at the right side of the screen, the compiler-generated initialization wrapper, labeled <code>entry</code>, sets up core binary security cookies <code>(___security_init_cookie())</code> to minimize exploitation risks prior to invoking the primary application runtime wrapper.</p>
+
+```C++
+void entry(void)
+
+{
+  ___security_init_cookie();
+  FUN_00403446();
+  return;
+}
+```
+
+<p class="mb-3">Now we need to isolate runtime initialisation by double-clicking on <code>FUN_00403446</code> which transitioned our view into the C Runtime (CRT) setup logic.</p> 
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image2.png" alt="Data Obfuscation 2" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+/* WARNING: Function: __SEH_prolog4 replaced with injection: SEH_prolog4 */
+
+int FUN_00403446(void)
+
+{
+  code *pcVar1;
+  bool bVar2;
+  undefined4 uVar3;
+  int iVar4;
+  int *piVar5;
+  uint uVar6;
+  int unaff_ESI;
+  undefined4 uVar7;
+  undefined4 uVar8;
+  void *local_14;
+  
+  uVar3 = ___scrt_initialize_crt(1);
+  if ((char)uVar3 != '\0') {
+    bVar2 = false;
+    uVar3 = ___scrt_acquire_startup_lock();
+    if (DAT_004075bc != 1) {
+      if (DAT_004075bc == 0) {
+        DAT_004075bc = 1;
+        iVar4 = initterm_e(&DAT_004051bc,&DAT_004051c8);
+        if (iVar4 != 0) {
+          ExceptionList = local_14;
+          return 0xff;
+        }
+        initterm(&DAT_004051b0,&DAT_004051b8);
+        DAT_004075bc = 2;
+      }
+      else {
+        bVar2 = true;
+      }
+      ___scrt_release_startup_lock((char)uVar3);
+      piVar5 = (int *)FUN_00403a86();
+      if ((*piVar5 != 0) &&
+         (uVar3 = ___scrt_is_nonwritable_in_current_image((int)piVar5), (char)uVar3 != '\0')) {
+        pcVar1 = (code *)*piVar5;
+        uVar8 = 0;
+        uVar7 = 2;
+        uVar3 = 0;
+        guard_check_icall();
+        (*pcVar1)(uVar3,uVar7,uVar8);
+      }
+      piVar5 = (int *)FUN_00403a8c();
+      if ((*piVar5 != 0) &&
+         (uVar3 = ___scrt_is_nonwritable_in_current_image((int)piVar5), (char)uVar3 != '\0')) {
+        register_thread_local_exe_atexit_callback(*piVar5);
+      }
+      ___scrt_get_show_window_mode();
+      get_narrow_winmain_command_line();
+      unaff_ESI = FUN_00403110((HINSTANCE)&IMAGE_DOS_HEADER_00400000);
+      uVar6 = FUN_00403be3();
+      if ((char)uVar6 != '\0') {
+        if (!bVar2) {
+          _cexit();
+        }
+        ___scrt_uninitialize_crt(1,'\0');
+        ExceptionList = local_14;
+        return unaff_ESI;
+      }
+      goto LAB_004035b3;
+    }
+  }
+  FUN_00403a92();
+LAB_004035b3:
+                    /* WARNING: Subroutine does not return */
+  exit(unaff_ESI);
+}
+```
+
+<p class="mb-3">While mostly filled with environment setup wrappers, the definitive structural landmark appeared at the bottom of the routine:</p>
+
+```C++
+unaff_ESI = FUN_00403110((HINSTANCE)&IMAGE_DOS_HEADER_00400000);
+```
+
+<p class="mb-3">Passing the baseline image allocation address (<code>IMAGE_DOS_HEADER_00400000</code>) directly as an execution handle is the standard structural signature of a compiler handing execution control off to the true application main loop: <code>WinMain</code>.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image3.png" alt="Data Obfuscation 3" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+
+<p class="mb-3">Next step is inspecting window layout & registration (<code>FUN_00403110</code>). Double-clicking into <code>FUN_00403110</code> exposed the GUI assembly architecture.</p> 
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image4.png" alt="Data Obfuscation 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void FUN_00403110(HINSTANCE param_1)
+
+{
+  HWND hWndParent;
+  int iVar1;
+  undefined1 local_3c [20];
+  POINT local_28;
+  undefined8 local_20;
+  wchar_t *local_18;
+  undefined8 local_14;
+  uint local_c;
+  
+  local_c = DAT_00407004 ^ (uint)local_3c;
+  local_14 = ZEXT48(param_1);
+  local_3c._16_4_ = param_1;
+  local_3c._0_4_ = (HWND)0x0;
+  local_3c._8_4_ = 0;
+  local_3c._12_4_ = 0;
+  local_28.x = 0;
+  local_28.y = 0;
+  local_20._0_4_ = (HBRUSH)0x0;
+  local_20._4_4_ = (LPCWSTR)0x0;
+  local_3c._4_4_ = FUN_00402bf0;
+  local_18 = L"LicenseKeyWindowClass";
+  RegisterClassW((WNDCLASSW *)local_3c);
+  hWndParent = CreateWindowExW(0,L"LicenseKeyWindowClass",L"License Key",0xcf0000,-0x80000000,
+                               -0x80000000,0x140,100,(HWND)0x0,(HMENU)0x0,(HINSTANCE)local_14,
+                               &local_14);
+  local_14._4_4_ = hWndParent;
+  if (hWndParent == (HWND)0x0) {
+    MessageBoxW((HWND)0x0,L"Window creation failed",L"Error",0x10);
+  }
+  else {
+    CreateWindowExW(0,L"EDIT",(LPCWSTR)0x0,0x50800080,10,10,200,0x19,hWndParent,(HMENU)0x1,
+                    (HINSTANCE)local_14,(LPVOID)0x0);
+    CreateWindowExW(0,L"BUTTON",L"Submit",0x50000001,0xdc,10,0x50,0x19,local_14._4_4_,(HMENU)0x2,
+                    (HINSTANCE)local_14,(LPVOID)0x0);
+    ShowWindow(local_14._4_4_,1);
+    UpdateWindow(local_14._4_4_);
+  }
+  iVar1 = GetMessageW((LPMSG)local_3c,(HWND)0x0,0,0);
+  while (iVar1 != 0) {
+    TranslateMessage((MSG *)local_3c);
+    DispatchMessageW((MSG *)local_3c);
+    iVar1 = GetMessageW((LPMSG)local_3c,(HWND)0x0,0,0);
+  }
+  FUN_00403312(local_c ^ (uint)local_3c);
+  return;
+}
+```
+
+<p class="mb-3">Here, the binary calls <code>RegisterClassW</code> and uses <code>CreateWindowExW</code> to draw the interface layout, instantiate an "<b>EDIT</b>" text input field, and create a "<b>Submit</b>" button. The key pivot point found within this layout registration block was the configuration of the class callback vector:</p>
+
+```C++
+local_3c._4_4_ = FUN_00402bf0;
+```
+
+<p class="mb-3">In native Win32 engineering, this specific memory block assignment registers the Window Procedure (<code>WndProc</code>). Because Windows operates on an event-driven loop, any user interaction with the GUI window drops messages directly into this function.</p>
+<p class="mb-3">Now we need to intercept Window Events (<code>FUN_00402bf0</code>) by double-clicking <code>FUN_00402bf0</code>.</p> 
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image5.png" alt="Data Obfuscation 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+LRESULT FUN_00402bf0(HWND param_1,UINT param_2,WPARAM param_3,LONG *param_4)
+
+{
+  undefined4 *dwNewLong;
+  LRESULT LVar1;
+  
+  if (param_2 == 0x81) {
+    dwNewLong = (undefined4 *)*param_4;
+    SetWindowLongW(param_1,-0x15,(LONG)dwNewLong);
+    dwNewLong[1] = param_1;
+  }
+  else {
+    dwNewLong = (undefined4 *)GetWindowLongW(param_1,-0x15);
+  }
+  if (dwNewLong == (undefined4 *)0x0) {
+    LVar1 = DefWindowProcW(param_1,param_2,param_3,(LPARAM)param_4);
+    return LVar1;
+  }
+  if (param_2 == 2) {
+    PostQuitMessage(0);
+  }
+  else {
+    if (param_2 != 0x111) {
+      LVar1 = DefWindowProcW((HWND)dwNewLong[1],param_2,param_3,(LPARAM)param_4);
+      return LVar1;
+    }
+    if ((short)param_3 == 2) {
+      FUN_00402c90(dwNewLong);
+      return 0;
+    }
+  }
+  return 0;
+}
+```
+
+<p class="mb-3">We entered the event distribution engine. This routine actively monitors Windows message codes. We isolated the specific branch managing user button interaction:</p>
+
+```C++
+if (param_2 != 0x111) { ... } // 0x111 = WM_COMMAND (Button Interaction)
+if ((short)param_3 == 2) {     // Menu ID 2 = The "Submit" Button ID
+  FUN_00402c90(dwNewLong);
+  return 0;
+}
+```
+
+<p class="mb-3">This routine proved that clicking the graphical "<b>Submit</b>" button flags execution down a deterministic pipeline directly into <code>FUN_00402c90</code>. This function represents the actual software key verification terminal.</p>
+
+<p class="mb-3">The third phase is cryptographic deconstruction for <code>FUN_00402c90</code>.</p> 
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/dataobfuscation/dataobfuscation_hackviser_image6.png" alt="Data Obfuscation 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void __fastcall FUN_00402c90(undefined4 *param_1)
+
+{
+  char cVar1;
+  undefined4 *puVar2;
+  code *pcVar3;
+  void *pvVar4;
+  undefined4 ***pppuVar5;
+  undefined4 ****ppppuVar6;
+  uint uVar7;
+  uint uVar8;
+  char *pcVar9;
+  uint uVar10;
+  uint uVar11;
+  undefined4 ***local_198;
+  undefined4 uStack_194;
+  undefined4 uStack_190;
+  undefined4 uStack_18c;
+  uint local_188;
+  uint local_184;
+  undefined4 *local_180;
+  undefined4 *local_17c;
+  byte local_178 [32];
+  uint local_158;
+  undefined4 *local_154;
+  undefined4 ***local_150;
+  undefined4 local_14c;
+  undefined8 local_148;
+  undefined4 local_140;
+  undefined4 uStack_13c;
+  undefined4 uStack_138;
+  undefined4 uStack_134;
+  uint local_130;
+  uint local_12c;
+  CHAR local_128 [260];
+  uint local_24;
+  undefined1 *puStack_20;
+  void *local_1c;
+  undefined1 *puStack_18;
+  undefined4 local_14;
+  
+  puStack_20 = &stack0xfffffffc;
+  local_14 = 0xffffffff;
+  puStack_18 = &LAB_00404240;
+  local_1c = ExceptionList;
+  local_24 = DAT_00407004 ^ (uint)&stack0xfffffff0;
+  ExceptionList = &local_1c;
+  local_180 = param_1;
+  GetDlgItemTextA((HWND)param_1[1],1,local_128,0x100);
+  local_130 = 0;
+  pcVar9 = local_128;
+  local_12c = 0;
+  local_140 = (undefined4 *)0x0;
+  uStack_13c = 0;
+  uStack_138 = 0;
+  uStack_134 = 0;
+  do {
+    cVar1 = *pcVar9;
+    pcVar9 = pcVar9 + 1;
+  } while (cVar1 != '\0');
+  uVar10 = (int)pcVar9 - (int)(local_128 + 1);
+  if (uVar10 < 0x80000000) {
+    local_12c = 0xf;
+    if (uVar10 < 0x10) {
+      local_130 = uVar10;
+      memcpy(&local_140,local_128,uVar10);
+      *(undefined1 *)((int)&local_140 + uVar10) = 0;
+      local_158 = local_12c;
+      local_154 = local_140;
+      uVar10 = local_130;
+      uVar11 = local_12c;
+    }
+    else {
+      uVar11 = uVar10 | 0xf;
+      if (uVar11 < 0x80000000) {
+        if (uVar11 < 0x16) {
+          uVar11 = 0x16;
+        }
+        uVar8 = uVar11 + 1;
+        local_158 = uVar11;
+        if (0xfff < uVar8) {
+          uVar7 = uVar11 + 0x24;
+          if (uVar7 <= uVar8) goto LAB_004030f1;
+          goto LAB_00402da5;
+        }
+        if (uVar8 == 0) {
+          local_154 = (undefined4 *)0x0;
+        }
+        else {
+          local_154 = (undefined4 *)operator_new(uVar8);
+          local_158 = uVar11;
+        }
+      }
+      else {
+        local_158 = 0x7fffffff;
+        uVar7 = 0x80000023;
+LAB_00402da5:
+        uVar11 = local_158;
+        pvVar4 = operator_new(uVar7);
+        if (pvVar4 == (void *)0x0) goto LAB_004030e6;
+        local_154 = (undefined4 *)((int)pvVar4 + 0x23U & 0xffffffe0);
+        local_154[-1] = pvVar4;
+      }
+      local_140 = local_154;
+      local_130 = uVar10;
+      local_12c = uVar11;
+      memcpy(local_154,local_128,uVar10);
+      *(undefined1 *)((int)local_154 + uVar10) = 0;
+    }
+    local_14 = 0;
+    local_184 = 0;
+    local_17c = &local_140;
+    if (0xf < uVar11) {
+      local_17c = local_154;
+    }
+    local_198 = (undefined4 ****)0x0;
+    uStack_194 = 0;
+    uStack_190 = 0;
+    uStack_18c = 0;
+    if (uVar10 < 0x80000000) {
+      if (uVar10 < 0x10) {
+        uVar11 = 0xf;
+        local_188 = uVar10;
+        local_184 = 0xf;
+        local_198 = (undefined4 ****)*local_17c;
+        uStack_194 = local_17c[1];
+        uStack_190 = local_17c[2];
+        uStack_18c = local_17c[3];
+        local_150 = (undefined4 ****)*local_17c;
+      }
+      else {
+        local_184 = 0xf;
+        uVar11 = uVar10 | 0xf;
+        if (uVar11 < 0x80000000) {
+          if (uVar11 < 0x16) {
+            uVar11 = 0x16;
+          }
+          uVar8 = uVar11 + 1;
+          if (0xfff < uVar8) {
+            uVar7 = uVar11 + 0x24;
+            if (uVar7 <= uVar8) goto LAB_004030fb;
+            goto LAB_00402ebd;
+          }
+          if (uVar8 == 0) {
+            local_198 = (undefined4 ****)0x0;
+          }
+          else {
+            local_198 = (undefined4 ***)operator_new(uVar8);
+          }
+        }
+        else {
+          uVar11 = 0x7fffffff;
+          uVar7 = 0x80000023;
+LAB_00402ebd:
+          pppuVar5 = (undefined4 ***)operator_new(uVar7);
+          if (pppuVar5 == (undefined4 ***)0x0) goto LAB_004030e6;
+          local_198 = (undefined4 ***)((int)pppuVar5 + 0x23U & 0xffffffe0);
+          ((undefined4 ****)local_198)[-1] = pppuVar5;
+        }
+        local_188 = uVar10;
+        local_184 = uVar11;
+        local_150 = local_198;
+        memcpy(local_198,local_17c,uVar10 + 1);
+      }
+      uVar8 = 0;
+      local_178[0] = 0x2e;
+      local_178[1] = 0x34;
+      local_178[2] = 0x3d;
+      local_178[3] = 0x23;
+      local_178[4] = 0x29;
+      local_178[5] = 0x4a;
+      local_178[6] = 0x22;
+      local_178[7] = 0x53;
+      local_178[8] = 0x29;
+      local_178[9] = 0x54;
+      local_178[10] = 0x55;
+      local_178[0xb] = 0x4a;
+      local_178[0xc] = 0x2b;
+      local_178[0xd] = 0x5f;
+      local_178[0xe] = 0x2b;
+      local_178[0xf] = 0x25;
+      local_178[0x10] = 0x22;
+      local_178[0x11] = 0x4a;
+      local_178[0x12] = 0x30;
+      local_178[0x13] = 0x22;
+      local_178[0x14] = 0x2a;
+      local_178[0x15] = 0x2f;
+      local_178[0x16] = 0x32;
+      local_178[0x17] = 0x4a;
+      local_178[0x18] = 0x34;
+      local_178[0x19] = 0x5f;
+      local_178[0x1a] = 0x29;
+      local_178[0x1b] = 0x53;
+      local_178[0x1c] = 0x3e;
+      if (uVar10 != 0) {
+        do {
+          ppppuVar6 = &local_198;
+          if (0xf < uVar11) {
+            ppppuVar6 = (undefined4 ****)local_150;
+          }
+          if ((uint)local_178[uVar8] != ((int)*(char *)((int)ppppuVar6 + uVar8) ^ 0x67U)) {
+            if (0xf < uVar11) {
+              ppppuVar6 = (undefined4 ****)local_150;
+              if ((0xfff < uVar11 + 1) &&
+                 (ppppuVar6 = (undefined4 ****)local_150[-1],
+                 0x1f < (uint)((int)local_150 + (-4 - (int)ppppuVar6)))) goto LAB_004030e6;
+              FUN_00403350(ppppuVar6);
+            }
+            MessageBoxW((HWND)0x0,L"License key is invalid.",L"Error",0x10);
+            goto LAB_0040303b;
+          }
+          uVar8 = uVar8 + 1;
+        } while (uVar8 < uVar10);
+      }
+      if (0xf < uVar11) {
+        ppppuVar6 = (undefined4 ****)local_150;
+        if ((0xfff < uVar11 + 1) &&
+           (ppppuVar6 = (undefined4 ****)local_150[-1],
+           0x1f < (uint)((int)local_150 + (-4 - (int)ppppuVar6)))) goto LAB_004030e6;
+        FUN_00403350(ppppuVar6);
+      }
+      MessageBoxW((HWND)0x0,L"License key verified.",L"Verified",0x40);
+      puVar2 = local_180;
+      SendMessageW((HWND)local_180[1],0x10,0,0);
+      local_14c = *puVar2;
+      local_148 = 0;
+      FUN_00401170(&local_14c);
+LAB_0040303b:
+      if (0xf < local_158) {
+        if ((0xfff < local_158 + 1) &&
+           (puVar2 = (undefined4 *)local_154[-1], uVar10 = (int)local_154 + (-4 - (int)puVar2),
+           local_154 = puVar2, 0x1f < uVar10)) {
+LAB_004030e6:
+                    /* WARNING: Subroutine does not return */
+          _invalid_parameter_noinfo_noreturn();
+        }
+        FUN_00403350(local_154);
+      }
+      ExceptionList = local_1c;
+      FUN_00403312(local_24 ^ (uint)&stack0xfffffff0);
+      return;
+    }
+  }
+  else {
+    FUN_00401160();
+LAB_004030f1:
+    FUN_004010c0();
+  }
+  FUN_00401160();
+LAB_004030fb:
+  FUN_004010c0();
+  pcVar3 = (code *)swi(3);
+  (*pcVar3)();
+  return;
+}
+```
+
+<p class="mb-3">Double-clicking into <code>FUN_00402c90</code> exposed the raw validation logic, revealing two critical low-level behaviors executing back-to-back: Input extraction and ciphertext array hardcoding.</p>
+
+<p class="mb-3">The input extraction routine utilizes <code>GetDlgItemTextA</code> to copy user text typed inside the GUI window's edit field into a local buffer. In ciphertext array hardcoding, the stack directly populates a local 29-byte array (<code>local_178</code>) with a hardcoded hexadecimal sequence matching the precise characters observed during our initial static triage:
+
+```C++
+local_178[0] = 0x2e;  // '.'
+local_178[1] = 0x34;  // '4'
+local_178[2] = 0x3d;  // '='
+// ... [Truncated for layout]
+local_178[0x1c] = 0x3e;
+```
+
+<p class="mb-3">The logic then uses a basic counter loop to evaluate the parsed user input array sequentially against the static ciphertext block using an inline logical evaluation check:</p>
+
+```C++
+if ((uint)local_178[uVar8] != ((int)*(char *)((int)ppppuVar6 + uVar8) ^ 0x67U))
+```
+
+<p class="mb-3">This condition indicates that the program applies an inline XOR (<code>^</code>) transformation against each individual user-input byte using the single-byte master hex key <code>0x67</code>, checking for a strict mathematical identity against the stored array elements. If all characters pass this check, a <code>MessageBoxW</code> displaying "<b>License key verified.</b>" is spawned.</p>
+
+<p class="mb-3">The bitwise Exclusive-OR operation (<code>XOR</code>) is intrinsically symmetric. This foundational mathematical identity states that if:</p>
+<div class">A &oplus; B = C</div>
+
+<p class="mb-3">Then it is a mathematical certainty that:</p>
+<div class>C &oplus; B = A</div>
+<br />
+<p class="mb-3"><strong>Algorithmic Translation:</strong></p>
+<ul>
+  <li><strong>Binary Routine:</strong> <span>User Input Byte</span> &oplus; <span>0x67</span> == <span>Encrypted Hex Array Byte</span></li>
+  <li><strong>Reversal Approach:</strong> <span>Encrypted Hex Array Byte</span> &oplus; <span>0x67</span> == <span>Plaintext License Key Character</span></li>
+</ul>
+
+<p class="mb-3">By taking the complete raw 29-byte array string extracted from the Ghidra decompiler window, we wrote a quick Python 3 execution script to loop through the ciphertext data array, apply the bitwise symmetric key transformation (<code>0x67</code>), and assemble the flag output stream:</p>
+
+```bash
+user@linux:~$ python3 -c 'cipher = [0x2e, 0x34, 0x3d, 0x23, 0x29, 0x4a, 0x22, 0x53, 0x29, 0x54, 0x55, 0x4a, 0x2b, 0x5f, 0x2b, 0x25, 0x22, 0x4a, 0x30, 0x22, 0x2a, 0x2f, 0x32, 0x4a, 0x34, 0x5f, 0x29, 0x53, 0x3e]; print("".join(chr(b ^ 0x67) for b in cipher))'
+ISZDN-E4N32-L8LBE-WEMHU-S8N4Y
+```
+
+
+<p class="mb-5"><strong>Answer:</strong> ISZDN-E4N32-L8LBE-WEMHU-S8N4Y</p>
 <br />
 
 
