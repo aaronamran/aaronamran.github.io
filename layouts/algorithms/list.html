@@ -42,8 +42,10 @@
         </div>
       </div>
       <div class="sb-block sb-stats">
-        <div class="stat-box"><span class="stat-num" id="platform-count">0</span><span class="stat-label">platforms</span></div>
-        <div class="stat-box"><span class="stat-num" id="algo-count">0</span><span class="stat-label">solved</span></div>
+        {{ $total := 0 }}
+        {{ range .Sections }}{{ $total = add $total (len .Pages) }}{{ end }}
+        <div class="stat-box"><span class="stat-num">{{ len .Sections }}</span><span class="stat-label">topics</span></div>
+        <div class="stat-box"><span class="stat-num">{{ $total }}</span><span class="stat-label">solved</span></div>
       </div>
     </aside>
   </div>
