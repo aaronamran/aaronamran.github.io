@@ -450,8 +450,283 @@ uStack_268 = 0xc3d2e1f0;
 To complete the lab, you need to find the license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We open the application in Ghidra. Then we go to <code>Window &gt; Defined Strings</code> and search for relevant keywords related to 'License'.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image7.png" alt="Cracking 7" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+<p class="mb-3">Double clicking on the <code>XREF</code> in the Listing window takes us to the validation logic in <code>FUN_00402bf0</code>.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image8.png" alt="Cracking 8" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void FUN_00402bf0(HWND param_1,UINT param_2,WPARAM param_3,LONG *param_4)
+
+{
+  char cVar1;
+  undefined4 *dwNewLong;
+  char *in_stack_fffffdb8;
+  undefined1 auStack_224 [4];
+  LONG *local_220;
+  undefined4 uStack_21c;
+  undefined8 uStack_218;
+  WCHAR aWStack_210 [258];
+  uint local_c;
+  
+  local_c = DAT_00407004 ^ (uint)auStack_224;
+  local_220 = param_4;
+  if (param_2 == 0x81) {
+    dwNewLong = (undefined4 *)*param_4;
+    SetWindowLongW(param_1,-0x15,(LONG)dwNewLong);
+    dwNewLong[1] = param_1;
+  }
+  else {
+    dwNewLong = (undefined4 *)GetWindowLongW(param_1,-0x15);
+  }
+  if (dwNewLong == (undefined4 *)0x0) {
+LAB_00402d4e:
+    DefWindowProcW(param_1,param_2,param_3,(LPARAM)local_220);
+    FUN_0040330b(local_c ^ (uint)auStack_224);
+    return;
+  }
+  if (param_2 == 2) {
+    PostQuitMessage(0);
+  }
+  else {
+    if (param_2 != 0x111) {
+      param_1 = (HWND)dwNewLong[1];
+      goto LAB_00402d4e;
+    }
+    if ((short)param_3 == 2) {
+      GetDlgItemTextW((HWND)dwNewLong[1],1,aWStack_210,0x100);
+      FUN_00402d70((undefined4 *)&stack0xfffffdb8,aWStack_210);
+      cVar1 = FUN_00402f00(in_stack_fffffdb8);
+      if (cVar1 == '\0') {
+        MessageBoxW((HWND)0x0,L"License key is invalid.",L"Error",0x10);
+        FUN_0040330b(local_c ^ (uint)auStack_224);
+        return;
+      }
+      MessageBoxW((HWND)0x0,L"License key verified.",L"Verified",0x40);
+      SendMessageW((HWND)dwNewLong[1],0x10,0,0);
+      uStack_21c = *dwNewLong;
+      uStack_218 = 0;
+      FUN_00401170(&uStack_21c);
+      FUN_0040330b(local_c ^ (uint)auStack_224);
+      return;
+    }
+  }
+  FUN_0040330b(local_c ^ (uint)auStack_224);
+  return;
+}
+```
+<p class="mb-3">Analysing the code reveals that <code>cVar1</code> stores the stores the boolean result (0 or 1) of the license key validation check performed by <code>FUN_00402f00</code>.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image9.png" alt="Cracking 9" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+undefined1 FUN_00402f00(char *param_1)
+
+{
+  char **ppcVar1;
+  char *pcVar2;
+  undefined1 uVar3;
+  int in_stack_00000014;
+  uint in_stack_00000018;
+  
+  if (in_stack_00000014 == 0x1e) {
+    ppcVar1 = &param_1;
+    if (0xf < in_stack_00000018) {
+      ppcVar1 = (char **)param_1;
+    }
+    if (*(char *)ppcVar1 == 'S') {
+      ppcVar1 = &param_1;
+      if (0xf < in_stack_00000018) {
+        ppcVar1 = (char **)param_1;
+      }
+      if (*(char *)((int)ppcVar1 + 1) == 'B') {
+        ppcVar1 = &param_1;
+        if (0xf < in_stack_00000018) {
+          ppcVar1 = (char **)param_1;
+        }
+        if (*(char *)((int)ppcVar1 + 2) == 'R') {
+          ppcVar1 = &param_1;
+          if (0xf < in_stack_00000018) {
+            ppcVar1 = (char **)param_1;
+          }
+          if (*(char *)((int)ppcVar1 + 3) == 'Q') {
+            ppcVar1 = &param_1;
+            if (0xf < in_stack_00000018) {
+              ppcVar1 = (char **)param_1;
+            }
+            if (*(char *)(ppcVar1 + 1) == '9') {
+              ppcVar1 = &param_1;
+              if (0xf < in_stack_00000018) {
+                ppcVar1 = (char **)param_1;
+              }
+              if (*(char *)((int)ppcVar1 + 5) == '-') {
+                ppcVar1 = &param_1;
+                if (0xf < in_stack_00000018) {
+                  ppcVar1 = (char **)param_1;
+                }
+                if (*(char *)((int)ppcVar1 + 6) == 'W') {
+                  ppcVar1 = &param_1;
+                  if (0xf < in_stack_00000018) {
+                    ppcVar1 = (char **)param_1;
+                  }
+                  if (*(char *)((int)ppcVar1 + 7) == '8') {
+                    ppcVar1 = &param_1;
+                    if (0xf < in_stack_00000018) {
+                      ppcVar1 = (char **)param_1;
+                    }
+                    if (*(char *)(ppcVar1 + 2) == 'Z') {
+                      ppcVar1 = &param_1;
+                      if (0xf < in_stack_00000018) {
+                        ppcVar1 = (char **)param_1;
+                      }
+                      if (*(char *)((int)ppcVar1 + 9) == '1') {
+                        ppcVar1 = &param_1;
+                        if (0xf < in_stack_00000018) {
+                          ppcVar1 = (char **)param_1;
+                        }
+                        if (*(char *)((int)ppcVar1 + 10) == 'J') {
+                          ppcVar1 = &param_1;
+                          if (0xf < in_stack_00000018) {
+                            ppcVar1 = (char **)param_1;
+                          }
+                          if (*(char *)((int)ppcVar1 + 0xb) == '-') {
+                            ppcVar1 = &param_1;
+                            if (0xf < in_stack_00000018) {
+                              ppcVar1 = (char **)param_1;
+                            }
+                            if (*(char *)(ppcVar1 + 3) == '2') {
+                              ppcVar1 = &param_1;
+                              if (0xf < in_stack_00000018) {
+                                ppcVar1 = (char **)param_1;
+                              }
+                              if (*(char *)((int)ppcVar1 + 0xd) == '9') {
+                                ppcVar1 = &param_1;
+                                if (0xf < in_stack_00000018) {
+                                  ppcVar1 = (char **)param_1;
+                                }
+                                if (*(char *)((int)ppcVar1 + 0xe) == '5') {
+                                  ppcVar1 = &param_1;
+                                  if (0xf < in_stack_00000018) {
+                                    ppcVar1 = (char **)param_1;
+                                  }
+                                  if (*(char *)((int)ppcVar1 + 0xf) == 'I') {
+                                    ppcVar1 = &param_1;
+                                    if (0xf < in_stack_00000018) {
+                                      ppcVar1 = (char **)param_1;
+                                    }
+                                    if (*(char *)(ppcVar1 + 4) == 'G') {
+                                      ppcVar1 = &param_1;
+                                      if (0xf < in_stack_00000018) {
+                                        ppcVar1 = (char **)param_1;
+                                      }
+                                      if (*(char *)((int)ppcVar1 + 0x11) == '-') {
+                                        ppcVar1 = &param_1;
+                                        if (0xf < in_stack_00000018) {
+                                          ppcVar1 = (char **)param_1;
+                                        }
+                                        if (*(char *)((int)ppcVar1 + 0x12) == 'W') {
+                                          ppcVar1 = &param_1;
+                                          if (0xf < in_stack_00000018) {
+                                            ppcVar1 = (char **)param_1;
+                                          }
+                                          if (*(char *)((int)ppcVar1 + 0x13) == 'B') {
+                                            ppcVar1 = &param_1;
+                                            if (0xf < in_stack_00000018) {
+                                              ppcVar1 = (char **)param_1;
+                                            }
+                                            if (*(char *)(ppcVar1 + 5) == 'S') {
+                                              ppcVar1 = &param_1;
+                                              if (0xf < in_stack_00000018) {
+                                                ppcVar1 = (char **)param_1;
+                                              }
+                                              if (*(char *)((int)ppcVar1 + 0x15) == 'M') {
+                                                ppcVar1 = &param_1;
+                                                if (0xf < in_stack_00000018) {
+                                                  ppcVar1 = (char **)param_1;
+                                                }
+                                                if (*(char *)((int)ppcVar1 + 0x16) == 'K') {
+                                                  ppcVar1 = &param_1;
+                                                  if (0xf < in_stack_00000018) {
+                                                    ppcVar1 = (char **)param_1;
+                                                  }
+                                                  if (*(char *)((int)ppcVar1 + 0x17) == '-') {
+                                                    ppcVar1 = &param_1;
+                                                    if (0xf < in_stack_00000018) {
+                                                      ppcVar1 = (char **)param_1;
+                                                    }
+                                                    if (*(char *)(ppcVar1 + 6) == 'S') {
+                                                      ppcVar1 = &param_1;
+                                                      if (0xf < in_stack_00000018) {
+                                                        ppcVar1 = (char **)param_1;
+                                                      }
+                                                      if (*(char *)((int)ppcVar1 + 0x19) == '3') {
+                                                        ppcVar1 = &param_1;
+                                                        if (0xf < in_stack_00000018) {
+                                                          ppcVar1 = (char **)param_1;
+                                                        }
+                                                        if (*(char *)((int)ppcVar1 + 0x1a) == 'E') {
+                                                          ppcVar1 = &param_1;
+                                                          if (0xf < in_stack_00000018) {
+                                                            ppcVar1 = (char **)param_1;
+                                                          }
+                                                          if (*(char *)((int)ppcVar1 + 0x1b) == 'S' )
+                                                          {
+                                                            ppcVar1 = &param_1;
+                                                            if (0xf < in_stack_00000018) {
+                                                              ppcVar1 = (char **)param_1;
+                                                            }
+                                                            if (*(char *)(ppcVar1 + 7) == 'K') {
+                                                              uVar3 = 1;
+                                                              goto LAB_0040311c;
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  uVar3 = 0;
+LAB_0040311c:
+  if (0xf < in_stack_00000018) {
+    pcVar2 = param_1;
+    if (0xfff < in_stack_00000018 + 1) {
+      pcVar2 = *(char **)(param_1 + -4);
+      if ((char *)0x1f < param_1 + (-4 - (int)pcVar2)) {
+                    /* WARNING: Subroutine does not return */
+        _invalid_parameter_noinfo_noreturn();
+      }
+    }
+    FUN_00403349(pcVar2);
+  }
+  return uVar3;
+}
+```
+
+<p class="mb-3">Reading the nested <code>if</code> statements reveals to us the license key.</p>
+<p class="mb-5"><strong>Answer:</strong> SBRQ9-W8Z1J-295IG-WBSMK-S3ESK</p>
 <br />
 
 
@@ -461,8 +736,150 @@ What is the license key?</p>
 To complete the lab, you need to register and send a message.
 
 What is the name and surname of the user who responded to your messages?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We open the file <code>chatapp.jar</code> in JD-GUI (Java Decompiler GUI). Reading each of the <code>.class</code> gives us a rough idea of the app functionalities. The following code is from <code>ChatAppUI.class</code>.</p>
+
+```Java
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+public class ChatAppUI extends JFrame {
+  private JTextArea chatTextArea;
+  
+  private JTextField messageTextField;
+  
+  private JButton sendButton;
+  
+  public ChatAppUI() {
+    setTitle("Chat App");
+    setSize(400, 300);
+    setResizable(false);
+    setDefaultCloseOperation(3);
+    initComponents();
+    layoutComponents();
+    setVisible(true);
+  }
+  
+  private void initComponents() {
+    this.chatTextArea = new JTextArea();
+    this.chatTextArea.setEditable(false);
+    this.messageTextField = new JTextField();
+    this.messageTextField.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent param1ActionEvent) {
+            ChatAppUI.this.sendMessage();
+          }
+        });
+    this.sendButton = new JButton("Send");
+    this.sendButton.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent param1ActionEvent) {
+            Person person = new Person();
+            try {
+              person = person.readFromFile("person.ser");
+            } catch (ClassNotFoundException|java.io.IOException classNotFoundException) {
+              classNotFoundException.printStackTrace();
+            } 
+            if (person.getVip()) {
+              ChatAppUI.this.sendMessage();
+            } else {
+              JOptionPane.showMessageDialog(ChatAppUI.this.chatTextArea, "Access Denied.", "Error", 0);
+            } 
+          }
+        });
+  }
+  
+  private void layoutComponents() {
+    setLayout(new BorderLayout());
+    JScrollPane jScrollPane = new JScrollPane(this.chatTextArea);
+    add(jScrollPane, "Center");
+    JPanel jPanel = new JPanel(new BorderLayout());
+    jPanel.add(this.messageTextField, "Center");
+    jPanel.add(this.sendButton, "East");
+    add(jPanel, "South");
+  }
+  
+  private void sendMessage() {
+    String str = this.messageTextField.getText().trim();
+    if (!str.isEmpty()) {
+      appendMessage("You: " + str);
+      appendMessage("\t\t" + ChatAes.getName() + ":" + str);
+      this.messageTextField.setText("");
+    } 
+  }
+  
+  private void appendMessage(String paramString) {
+    this.chatTextArea.append(paramString + "\n");
+  }
+  
+  public static void main(String[] paramArrayOfString) {
+    SwingUtilities.invokeLater(new Runnable() {
+          public void run() {
+            new ChatAppUI();
+          }
+        });
+  }
+}
+```
+
+<p class="mb-3">Looking at the <code>sendMessage()</code> method reveals that the application gets a reply from an identity retrieved from <code>ChatAes.getName()</code>. So we read the code in <code>ChatAes.class</code> which happens to decrypt a hardcoded hexadecimal string using an AES key.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image10.png" alt="Cracking 10" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```Java
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
+public class ChatAes {
+  private static final String ALGORITHM = "AES";
+  
+  private static final String MODE = "AES/ECB/PKCS5Padding";
+  
+  private static byte[] encrypt(String paramString1, String paramString2) throws Exception {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(paramString2.getBytes(), "AES");
+    Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+    cipher.init(1, secretKeySpec);
+    return cipher.doFinal(paramString1.getBytes());
+  }
+  
+  private static String decrypt(byte[] paramArrayOfbyte, String paramString) throws Exception {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(paramString.getBytes(), "AES");
+    Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+    cipher.init(2, secretKeySpec);
+    byte[] arrayOfByte = cipher.doFinal(paramArrayOfbyte);
+    return new String(arrayOfByte);
+  }
+  
+  private static byte[] hexStringToByteArray(String paramString) {
+    int i = paramString.length();
+    byte[] arrayOfByte = new byte[i / 2];
+    for (byte b = 0; b < i; b += 2)
+      arrayOfByte[b / 2] = 
+        (byte)((Character.digit(paramString.charAt(b), 16) << 4) + Character.digit(paramString.charAt(b + 1), 16)); 
+    return arrayOfByte;
+  }
+  
+  public static String getName() {
+    try {
+      String str = "ThisIsASecretKey";
+      return decrypt(hexStringToByteArray("6A642F2BC1BC4E07C1990034CBA6C66D"), str);
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return "";
+    } 
+  }
+}
+```
+
+<p class="mb-3">To get the name and surname needed, we can use CyberChef tool. First we drag <code>From Hex</code> into the Recipe area. Then we drag <code>AES Decrypt</code> into the Recipe area right below it. To configure the <code>AES Decrypt</code> options, for <code>Key</code>, change the dropdown from <code>HEX</code> to <code>UTF8</code> (or <code>Text/Raw</code>) and type <code>ThisIsASecretKey</code>. The Mode will be <code>ECB</code> and the input format is <code>Raw</code>. Then we paste <code>6A642F2BC1BC4E07C1990034CBA6C66D</code> into the <b>Input</b> box. The actual name and surname will appear perfectly in the <b>Output</b> box.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image11.png" alt="Cracking 11" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+<p class="mb-5"><strong>Answer:</strong> Ravi Tan</p>
 <br />
 
 
@@ -472,8 +889,94 @@ What is the name and surname of the user who responded to your messages?</p>
 To complete the lab, you need to find the code snippet that checks the demo period within the application using reverse engineering techniques.
 
 What is the date (year-month-day) when the demo period of the app ends?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We open and analyse the application in Ghidra.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image12.png" alt="Cracking 12" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+<p class="mb-3">Then we go to <code>Windows &gt; Defined Strings</code> and we search for the keyword 'demo' and find the reference address to it, which is <code>004adf6d</code>. In the Listing window, we notice there is a cross-reference (XREF) to <code>004c6de8</code>, which we double-click.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image13.png" alt="Cracking 13" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+<p class="mb-3">We are now taken to the reference and can see the string <code>gostr_Your_demo_period_has_expired,_pu</code>. Scrolling the Listing window more to the right and we can see the XREF to <code>main.main:00489dfd</code>. Double-clicking on this brings us to the main function of the demo expiration logic.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image14.png" alt="Cracking 14" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+
+```Golang
+/* DWARF original prototype: void main.main(void)
+   Golang function info: Flags: []
+   Golang source: /Users/user1/system_info_collect/beta_version/v1.1/main.go:27
+   Golang stacktrace signature: undefined main.main() */
+
+void main::main.main(void)
+
+{
+  bool bVar1;
+  io.Writer w;
+  io.Writer w_00;
+  io.Writer w_01;
+  io.Writer w_02;
+  time.Time t;
+  time.Time u;
+  []interface_{} a;
+  []interface_{} a_00;
+  []interface_{} a_01;
+  []interface_{} a_02;
+  internal/abi.Type *local_48;
+  string *psStack_40;
+  internal/abi.Type *local_38;
+  string *psStack_30;
+  internal/abi.Type *local_28;
+  string *psStack_20;
+  internal/abi.Type *local_18;
+  string *psStack_10;
+  
+  while (&psStack_20 <= CURRENT_G.stackguard0) {
+    runtime::runtime.morestack_noctxt();
+  }
+  local_18 = &string___internal/abi.Type;
+  psStack_10 = &gostr_============>_Welcome_System_Inf;
+  w.data = os.Stdout;
+  w.tab = &os::*os.File__implements__io.Writer___runtime.itab;
+  a.len = 1;
+  a.array = (interface_{} *)&local_18;
+  a.cap = 1;
+  fmt::fmt.Fprintln(w,a);
+  local_28 = &string___internal/abi.Type;
+  psStack_20 = &gostr_============================>_De;
+  w_00.data = os.Stdout;
+  w_00.tab = &os::*os.File__implements__io.Writer___runtime.itab;
+  a_00.len = 1;
+  a_00.array = (interface_{} *)&local_28;
+  a_00.cap = 1;
+  fmt::fmt.Fprintln(w_00,a_00);
+  local_38 = &string___internal/abi.Type;
+  psStack_30 = &gostr_;
+  w_01.data = os.Stdout;
+  w_01.tab = &os::*os.File__implements__io.Writer___runtime.itab;
+  a_01.len = 1;
+  a_01.array = (interface_{} *)&local_38;
+  a_01.cap = 1;
+  fmt::fmt.Fprint(w_01,a_01);
+  t = time::time.Now();
+  u = time::time.Date(1999,4,10,0,0,0,0,time.UTC);
+  bVar1 = time::time.Time.Before(t,u);
+  if (bVar1) {
+    main.CollectData();
+  }
+  else {
+    local_48 = &string___internal/abi.Type;
+    psStack_40 = &gostr_Your_demo_period_has_expired,_pu;
+    w_02.data = os.Stdout;
+    w_02.tab = &os::*os.File__implements__io.Writer___runtime.itab;
+    a_02.len = 1;
+    a_02.array = (interface_{} *)&local_48;
+    a_02.cap = 1;
+    fmt::fmt.Fprintln(w_02,a_02);
+  }
+  return;
+}
+```
+
+<p class=mb-3">The parameters passed to <code>time.Date</code> are explicitly defined in standard decimal values (<code>1999, 4, 10</code>).</p>
+<p class="mb-5"><strong>Answer:</strong> 1999-04-10</p>
 <br />
 
 
@@ -483,8 +986,94 @@ What is the date (year-month-day) when the demo period of the app ends?</p>
 To complete the lab, you need to identify the user with VIP privileges.
 
 What is the ID value of the VIP user?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We open the application in Ghidra. Then in the <b>Symbol Tree</b> section, we expand <code>Imports</code> and <code>ADVAPI32.DLL</code>, which then shows <code>RegGetValueA</code>. Viewing the XREF of this function and double-clicking on <code>FUN_00402bd0</code> brings us to the function that reads the registry and determines if the user is a VIP.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image15.png" alt="Cracking 15" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+/* WARNING: Type propagation algorithm not settling */
+
+void FUN_00402bd0(undefined4 param_1)
+
+{
+  int iVar1;
+  uint local_470 [21];
+  undefined8 local_41c;
+  undefined4 local_414;
+  int local_410 [2];
+  char local_408 [1024];
+  uint local_8;
+  
+  local_8 = DAT_00406004 ^ (uint)&stack0xfffffffc;
+  local_410[1] = 4;
+  iVar1 = RegGetValueA(0x80000002,
+                       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\ProcessMonitor.exe"
+                       ,&DAT_00404370,0x10,0,local_410,local_410 + 1);
+  if ((iVar1 == 0) && (local_410[0] != 0)) {
+    memset(local_408,0,0x400);
+    local_414 = 0x400;
+    iVar1 = RegGetValueA(0x80000002,
+                         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\ProcessMonitor.ex e"
+                         ,"userid",2,0,local_408,&local_414);
+    if (iVar1 == 0) {
+      local_470[0] = 0x66;
+      iVar1 = 0;
+      local_470[1] = 0x7a;
+      local_470[2] = 0x77;
+      local_470[3] = 0x1e;
+      local_470[4] = 0x66;
+      local_470[5] = 0x51;
+      local_470[6] = 0x51;
+      local_470[7] = 0x7e;
+      local_470[8] = 0x60;
+      local_470[9] = 0x6a;
+      local_470[10] = 10;
+      local_470[0xb] = 0x79;
+      local_470[0xc] = 7;
+      local_470[0xd] = 0x66;
+      local_470[0xe] = 0x67;
+      local_470[0xf] = 0x69;
+      local_470[0x10] = 0x59;
+      local_470[0x11] = 0x43;
+      local_470[0x12] = 0x47;
+      local_470[0x13] = 10;
+      while (((int)local_408[iVar1] ^ 0x33U) == local_470[iVar1]) {
+        iVar1 = iVar1 + 1;
+        if (0x13 < iVar1) {
+          local_470[0x14] = param_1;
+          local_41c = 0;
+          FUN_00401170();
+          FUN_00402de7();
+          return;
+        }
+      }
+    }
+  }
+  MessageBoxW(0,L"You\'re not VIP",L"Error",0x10);
+  FUN_00402de7();
+  return;
+}
+```
+
+<p class=mb-3">To retrieve the true VIP User ID, we just need to reverse the XOR math. Because XOR is symmetrical, we can take the elements of <code>local_470</code> and XOR each one back with <code>0x33</code> to convert them into standard readable characters using the Python script below:</p>
+
+```Python
+# The hardcoded array values from local_470 in your Ghidra output
+local_470 = [
+    0x66, 0x7a, 0x77, 0x1e, 0x66, 0x51, 0x51, 0x7e, 0x60, 0x6a,
+    10,   0x79, 7,    0x66, 0x67, 0x69, 0x59, 0x43, 0x47, 10
+]
+
+# The key used in the loop: ((int)local_408[iVar1] ^ 0x33U)
+xor_key = 0x33
+
+# Reversing the XOR cipher to reconstruct the user ID string
+vip_id = "".join(chr(val ^ xor_key) for val in local_470)
+
+print("Decrypted VIP User ID:")
+print(vip_id)
+```
+
+<p class="mb-5"><strong>Answer:</strong> UID-UbbMSY9J4UTZjpt9</p>
 <br />
 
 
@@ -494,8 +1083,177 @@ What is the ID value of the VIP user?</p>
 To complete the lab you need to manipulate the license control process.
 
 What is the title of the application window that opens after bypassing the license check?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>Despite the application not having any specific extension, we open it in Ghidra and analyse it.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image16.png" alt="Cracking 16" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+undefined8 main(void)
+
+{
+  int iVar1;
+  long lVar2;
+  
+  gtk_init(&stack0xfffffffffff0bd94,&stack0xfffffffffff0bd88);
+  lVar2 = curl_easy_init();
+  if (lVar2 != 0) {
+    curl_easy_setopt(lVar2,0x2712,"user.control.awesometexteditoronworld.com");
+    curl_easy_setopt(lVar2,0x34,1);
+    curl_easy_setopt(lVar2,0x4e2b,write_callback);
+    curl_easy_setopt(lVar2,0x2711,&stack0xfffffffffff0bd98);
+    iVar1 = curl_easy_perform(lVar2);
+    if (iVar1 == 0) {
+      RunEditor();
+    }
+    else {
+      show_error_message("License Connection Failed!");
+    }
+    curl_easy_cleanup(lVar2);
+  }
+  gtk_main();
+  return 0;
+}
+```
+
+<p class="mb-3">In the <b>Symbol Tree</b>, we expand the <b>Functions</b> to search for <code>RunEditor</code> and double-click on it.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image17.png" alt="Cracking 17" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void RunEditor(void)
+
+{
+  undefined8 uVar1;
+  undefined8 local_78;
+  undefined3 local_70;
+  undefined5 uStack_6d;
+  undefined3 uStack_68;
+  undefined8 local_65;
+  undefined8 local_50;
+  undefined8 local_48;
+  undefined8 local_40;
+  undefined8 local_38;
+  undefined8 local_30;
+  undefined8 local_28;
+  undefined8 local_20;
+  undefined8 local_18;
+  undefined8 local_10;
+  
+  gtk_init(0,0);
+  local_10 = gtk_window_new(0);
+  uVar1 = gtk_window_get_type();
+  uVar1 = g_type_check_instance_cast(local_10,uVar1);
+  gtk_window_set_default_size(uVar1,800,600);
+  local_78 = 0x694b206772777647;
+  local_70 = 0x76756c;
+  uStack_6d = 0x6d6c726868;
+  uStack_68 = 0x206f7a;
+  local_65 = 0x6d6c7267727756;
+  atbash_decode_string(&local_78);
+  uVar1 = gtk_window_get_type();
+  uVar1 = g_type_check_instance_cast(local_10,uVar1);
+  gtk_window_set_title(uVar1,&local_78);
+  g_signal_connect_data(local_10,"destroy",gtk_main_quit,0,0,0);
+  local_18 = gtk_box_new(1,0);
+  uVar1 = gtk_container_get_type();
+  uVar1 = g_type_check_instance_cast(local_10,uVar1);
+  gtk_container_add(uVar1,local_18);
+  local_20 = gtk_menu_bar_new();
+  local_28 = gtk_menu_new();
+  local_30 = gtk_menu_item_new_with_label(&DAT_0010305d);
+  local_38 = gtk_menu_item_new_with_label(&DAT_00103062);
+  local_40 = gtk_menu_item_new_with_label(&DAT_00103067);
+  uVar1 = gtk_menu_item_get_type();
+  uVar1 = g_type_check_instance_cast(local_30,uVar1);
+  gtk_menu_item_set_submenu(uVar1,local_28);
+  uVar1 = gtk_menu_shell_get_type();
+  uVar1 = g_type_check_instance_cast(local_28,uVar1);
+  gtk_menu_shell_append(uVar1,local_38);
+  uVar1 = gtk_menu_shell_get_type();
+  uVar1 = g_type_check_instance_cast(local_28,uVar1);
+  gtk_menu_shell_append(uVar1,local_40);
+  uVar1 = gtk_menu_shell_get_type();
+  uVar1 = g_type_check_instance_cast(local_20,uVar1);
+  gtk_menu_shell_append(uVar1,local_30);
+  uVar1 = gtk_box_get_type();
+  uVar1 = g_type_check_instance_cast(local_18,uVar1);
+  gtk_box_pack_start(uVar1,local_20,0,0,0);
+  local_48 = gtk_text_view_new();
+  uVar1 = gtk_box_get_type();
+  uVar1 = g_type_check_instance_cast(local_18,uVar1);
+  gtk_box_pack_start(uVar1,local_48,1,1,0);
+  uVar1 = gtk_text_view_get_type();
+  uVar1 = g_type_check_instance_cast(local_48,uVar1);
+  local_50 = gtk_text_view_get_buffer(uVar1);
+  g_signal_connect_data(local_38,"activate",open_file,local_50,0,0);
+  g_signal_connect_data(local_40,"activate",save_file,local_50,0,0);
+  gtk_widget_show_all(local_10);
+  gtk_main();
+  return;
+}
+```
+
+<p class="mb-3">The developers obfuscated the window title string directly on the stack and pass it through a decoding function right before setting it, so we use the following Python script to decode the window title.</p>
+
+```Python
+import string
+
+def decrypt_atbash(text):
+    lowercase = string.ascii_lowercase
+    uppercase = string.ascii_uppercase
+    
+    # Create Atbash translation table
+    translation_table = str.maketrans(
+        lowercase + uppercase, 
+        lowercase[::-1] + uppercase[::-1]
+    )
+    return text.translate(translation_table)
+
+def hex_to_ascii_little_endian(hex_values):
+    ascii_string = ""
+    
+    for h_val in hex_values:
+        # Remove '0x' prefix if present
+        cleaned_hex = h_val.replace("0x", "")
+        
+        # Ensure even number of characters by padding with a leading zero if necessary
+        if len(cleaned_hex) % 2 != 0:
+            cleaned_hex = "0" + cleaned_hex
+            
+        # Convert hex string to raw bytes
+        byte_data = bytes.fromhex(cleaned_hex)
+        
+        # Reverse the bytes because x86/x64 uses Little Endian storage
+        reversed_bytes = byte_data[::-1]
+        
+        # Decode bytes into readable text and append
+        ascii_string += reversed_bytes.decode('ascii', errors='ignore')
+        
+    return ascii_string
+
+# 1. Paste the raw values straight from the Ghidra function variables
+ghidra_stack_values = [
+    "0x694b206772777647", # local_78
+    "0x76756c",           # local_70
+    "0x6d6c726868",       # uStack_6d
+    "0x206f7a",           # uStack_68
+    "0x6d6c7267727756"    # local_65
+]
+
+# 2. Automatically handle the endianness conversion
+encoded_text = hex_to_ascii_little_endian(ghidra_stack_values)
+print(f"Extracted Encoded String: '{encoded_text}'")
+
+# 3. Decode the Atbash cipher
+final_answer = decrypt_atbash(encoded_text)
+print(f"Decoded Window Title:     '{final_answer}'")
+```
+
+```Bash
+user@linux:~$ python3 tedit.py
+Extracted Encoded String: 'Gvwrg Kiluvhhrlmzo Vwrgrlm'
+Decoded Window Title:     'Tedit Professional Edition'
+```
+
+<p class="mb-5"><strong>Answer:</strong> Tedit Professional Edition</p>
 <br />
 
 
@@ -505,8 +1263,115 @@ What is the title of the application window that opens after bypassing the licen
 You will need to find the admin password to complete the lab.
 
 What is the admin password?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong> Since the application is a <code>.pyc</code> file which is compiled Python bytecode, we cannot use tools like Ghidra. Instead we need to install and use tools like <code>decompyle3</code> or <code>uncompyle6</code>. We will be using <code>decompyle3</code>, so we install it using <code>pip install decompyle3</code>, then we simply run <code>decompyle3 tasks.pyc</code> in the terminal. We get the following Python code:</p>
+
+```Python
+import tkinter as tk
+from tkinter import messagebox
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.Protocol.KDF import PBKDF2
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+def aes_decrypt(iv, ct, key):
+    iv = base64.b64decode(iv)
+    ct = base64.b64decode(ct)
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    pt = unpad(cipher.decrypt(ct), AES.block_size)
+    return pt.decode("utf-8")
+
+
+def check_password():
+    iv = "SNcwvdOH6KWto7rm3u98AQ=="
+    ct = "gufUuc8wX9a4RXIh9kSjGTAh7y74Il6V5dReVzWH57Y="
+    key = b'\x0c\xd3\xe8\xb1gw\x7f\xdb+\x92\x0b^\x86\xb4}\x10=Kz\x80}\xd2\x9c\x00X|\x1cQ\xdaf\xed"'
+    decrypted_check = aes_decrypt(iv, ct, key)
+    password = password_entry.get()
+    if password == decrypted_check:
+        root.destroy()
+        run_todo_list_app()
+    else:
+        messagebox.showerror("Error", "Incorrect password!")
+
+
+def run_todo_list_app():
+
+    def add_task():
+        task = task_entry.get().strip()
+        if task:
+            task_listbox.insert(tk.END, task)
+            task_entry.delete(0, tk.END)
+        else:
+            messagebox.showwarning("Warning", "Please enter a task.")
+
+    def remove_task():
+        try:
+            selected_index = task_listbox.curselection()[0]
+            task_listbox.delete(selected_index)
+        except IndexError:
+            messagebox.showwarning("Warning", "Please select a task to remove.")
+
+    root = tk.Tk()
+    root.title("Admin To-Do List")
+    main_frame = tk.Frame(root)
+    main_frame.pack(fill=(tk.BOTH), expand=True)
+    task_listbox = tk.Listbox(main_frame, width=50, height=15, font=('Arial', 12))
+    task_listbox.pack(pady=10)
+    task_entry = tk.Entry(main_frame, width=40, font=('Arial', 12))
+    task_entry.pack(side=(tk.LEFT), padx=5)
+    add_task_button = tk.Button(main_frame, text="Add Task", command=add_task, font=('Arial',
+                                                                                     12))
+    add_task_button.pack(side=(tk.LEFT))
+    remove_task_button = tk.Button(main_frame, text="Remove Task", command=remove_task, font=('Arial',
+                                                                                              12))
+    remove_task_button.pack(side=(tk.LEFT), padx=5)
+    tasks = []
+    for task in tasks:
+        task_listbox.insert(tk.END, task)
+
+    root.mainloop()
+
+
+root = tk.Tk()
+root.title("Admin Page")
+root.geometry("300x150")
+root.configure(background="#f0f0f0")
+label = tk.Label(root, text="Enter admin password:", bg="#f0f0f0")
+label.pack()
+password_entry = tk.Entry(root, show="*", width=20)
+password_entry.pack()
+submit_button = tk.Button(root, text="Submit", command=check_password, bg="#4CAF50", fg="white")
+submit_button.pack(pady=10)
+root.mainloop()
+```
+
+<p class="mb-3">The application relies on an AES-256 decryption routine to determine what the correct password is. Instead of trying to guess it, we can let Python calculate the decrypted string for us. We will need the <code>pycryptodome</code> library which can be installed using <code>pip install pycryptodome</code> to run the Python script below:</p>
+
+```Python
+import base64
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+
+def get_admin_password():
+    # Extracted values from the decompiled pyc file
+    iv = "SNcwvdOH6KWto7rm3u98AQ=="
+    ct = "gufUuc8wX9a4RXIh9kSjGTAh7y74Il6V5dReVzWH57Y="
+    key = b'\x0c\xd3\xe8\xb1gw\x7f\xdb+\x92\x0b^\x86\xb4}\x10=Kz\x80}\xd2\x9c\x00X|\x1cQ\xdaf\xed"'
+    
+    # Standard AES-CBC Decryption
+    iv_bytes = base64.b64decode(iv)
+    ct_bytes = base64.b64decode(ct)
+    
+    cipher = AES.new(key, AES.MODE_CBC, iv_bytes)
+    pt_bytes = unpad(cipher.decrypt(ct_bytes), AES.block_size)
+    
+    return pt_bytes.decode("utf-8")
+
+print(f"The Admin Password is: {get_admin_password()}")
+```
+
+<p class="mb-5"><strong>Answer:</strong> 6WK1G-CEIZF-G7SR6-D9RHE-NFVZO</p>
 <br />
 
 
@@ -516,8 +1381,302 @@ What is the admin password?</p>
 To complete the lab, you need to find the license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>We open and analyse the application in Ghidra. Then we go to <code>Windows &gt; Defined Strings</code> and search fro the keyword 'license'. We select the results with the string value 'License key verified.'.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image18.png" alt="Cracking 18" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```Assembly
+                             u_License_key_verified._0040547c                XREF[1]:     FUN_00402e90:0040303f (*)   
+        0040547c 4c  00  69       unicode    u"License key verified."
+                 00  63  00 
+                 65  00  6e 
+```
+<p class="mb-3">In the Listing window, notice the XREF is <code>FUN_00402e90</code> which we double click on.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image19.png" alt="Cracking 19" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void __fastcall FUN_00402e90(undefined4 *param_1)
+
+{
+  ushort uVar1;
+  uint uVar2;
+  ushort *puVar3;
+  ushort *puVar4;
+  uint uVar5;
+  uint uVar6;
+  undefined4 *puVar7;
+  uint uVar8;
+  bool bVar9;
+  uint local_250 [4];
+  undefined4 local_240;
+  uint local_23c;
+  undefined4 *local_238;
+  undefined4 uStack_234;
+  undefined4 uStack_230;
+  undefined4 uStack_22c;
+  undefined4 local_228;
+  uint local_224;
+  undefined4 local_220;
+  undefined8 local_21c;
+  ushort local_214 [256];
+  uint local_14;
+  void *local_10;
+  undefined1 *puStack_c;
+  undefined4 local_8;
+  
+  local_8 = 0xffffffff;
+  puStack_c = &LAB_00404380;
+  local_10 = ExceptionList;
+  uVar2 = DAT_00407000 ^ (uint)&stack0xfffffffc;
+  ExceptionList = &local_10;
+  local_14 = uVar2;
+  GetDlgItemTextW(param_1[1],1,local_214,0x100);
+  local_238 = (undefined4 *)0x0;
+  uStack_234 = 0;
+  uStack_230 = 0;
+  uStack_22c = 0;
+  local_238 = (undefined4 *)operator_new(0x40);
+  local_228 = 0x1d;
+  local_224 = 0x1f;
+  *local_238 = 0x4f004e;
+  local_238[1] = 0x5a0038;
+  local_238[2] = 0x2d0057;
+  local_238[3] = 0x54005a;
+  local_238[4] = 0x590056;
+  local_238[5] = 0x2d004c;
+  local_238[6] = 0x470057;
+  local_238[7] = 0x4e0055;
+  local_238[8] = 0x2d0039;
+  local_238[9] = 0x460042;
+  local_238[10] = 0x4e0051;
+  local_238[0xb] = 0x2d0030;
+  *(undefined8 *)(local_238 + 0xc) = 0x4b004e004e0033;
+  *(undefined2 *)(local_238 + 0xe) = 0x4f;
+  *(undefined2 *)((int)local_238 + 0x3a) = 0;
+  local_8 = 0;
+  puVar3 = (ushort *)FUN_00402d30(local_250,&local_238);
+  if (7 < *(uint *)(puVar3 + 10)) {
+    puVar3 = *(ushort **)puVar3;
+  }
+  puVar4 = local_214;
+  do {
+    uVar1 = *puVar4;
+    bVar9 = uVar1 < *puVar3;
+    if (uVar1 != *puVar3) {
+LAB_00402f8d:
+      uVar8 = -(uint)bVar9 | 1;
+      goto LAB_00402f92;
+    }
+    if (uVar1 == 0) break;
+    uVar1 = puVar4[1];
+    bVar9 = uVar1 < puVar3[1];
+    if (uVar1 != puVar3[1]) goto LAB_00402f8d;
+    puVar4 = puVar4 + 2;
+    puVar3 = puVar3 + 2;
+  } while (uVar1 != 0);
+  uVar8 = 0;
+LAB_00402f92:
+  if (7 < local_23c) {
+    uVar5 = local_23c * 2 + 2;
+    uVar6 = local_250[0];
+    if (0xfff < uVar5) {
+      uVar6 = *(uint *)(local_250[0] - 4);
+      uVar5 = local_23c * 2 + 0x25;
+      if (0x1f < (local_250[0] - uVar6) - 4) goto LAB_00403024;
+    }
+    FUN_00403422(uVar6,uVar5,uVar2);
+  }
+  local_8 = 0xffffffff;
+  local_240 = 0;
+  local_23c = 7;
+  local_250[0] = local_250[0] & 0xffff0000;
+  if (7 < local_224) {
+    uVar5 = local_224 * 2 + 2;
+    puVar7 = local_238;
+    if (0xfff < uVar5) {
+      puVar7 = (undefined4 *)local_238[-1];
+      uVar5 = local_224 * 2 + 0x25;
+      if (0x1f < (uint)((int)local_238 + (-4 - (int)puVar7))) {
+LAB_00403024:
+                    /* WARNING: Subroutine does not return */
+        invalid_parameter_noinfo_noreturn();
+      }
+    }
+    FUN_00403422(puVar7,uVar5,uVar2);
+  }
+  if (uVar8 == 0) {
+    MessageBoxW(0,L"License key verified.",L"Verified",0x40);
+    SendMessageW(param_1[1],0x10,0,0);
+    local_220 = *param_1;
+    local_21c = 0;
+    FUN_00401170();
+  }
+  else {
+    MessageBoxW(0,L"License key is invalid.",L"Error",0x10);
+  }
+  ExceptionList = local_10;
+  FUN_004033e4();
+  return;
+}
+```
+
+<p class="mb-3">Notice <code>FUN_00402d30</code>. It takes a reference to the fake key (<code>&local_238</code>) and returns <code>puVar3</code>, which is the string the user input is actually compared against.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/cracking/cracking_hackviser_image20.png" alt="Cracking 20" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+undefined4 * FUN_00402d30(undefined4 *param_1,short *param_2)
+
+{
+  short *psVar1;
+  uint uVar2;
+  int iVar3;
+  undefined4 *puVar4;
+  uint uVar5;
+  uint uVar6;
+  short sVar7;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  short *local_14;
+  void *local_10;
+  undefined1 *puStack_c;
+  undefined4 local_8;
+  
+  local_10 = ExceptionList;
+  puStack_c = &LAB_0040434e;
+  uVar2 = DAT_00407000 ^ (uint)&stack0xfffffffc;
+  ExceptionList = &local_10;
+  *param_1 = 0;
+  param_1[1] = 0;
+  param_1[2] = 0;
+  param_1[3] = 0;
+  param_1[4] = 0;
+  param_1[5] = 0;
+  param_1[4] = 0;
+  param_1[5] = 7;
+  *(undefined2 *)param_1 = 0;
+  local_8 = 0;
+  if (*(uint *)(param_2 + 10) < 8) {
+    local_14 = param_2;
+  }
+  else {
+    local_14 = *(short **)param_2;
+  }
+  psVar1 = local_14 + *(int *)(param_2 + 8);
+  do {
+    if (local_14 == psVar1) {
+      ExceptionList = local_10;
+      return param_1;
+    }
+    sVar7 = *local_14;
+    iVar3 = iswalpha(sVar7,uVar2);
+    if (iVar3 == 0) {
+      uVar5 = param_1[4];
+      uVar6 = param_1[5];
+      if (uVar6 <= uVar5) {
+        local_24 = local_24 & 0xffffff00;
+        uVar6 = local_24;
+        goto LAB_00402e5a;
+      }
+LAB_00402e36:
+      param_1[4] = uVar5 + 1;
+      puVar4 = param_1;
+      if (7 < uVar6) {
+        puVar4 = (undefined4 *)*param_1;
+      }
+      *(short *)((int)puVar4 + uVar5 * 2) = sVar7;
+      *(undefined2 *)((int)puVar4 + uVar5 * 2 + 2) = 0;
+    }
+    else {
+      iVar3 = iswupper(sVar7);
+      if (iVar3 == 0) {
+        iVar3 = iswlower(sVar7);
+        if (iVar3 == 0) goto LAB_00402e62;
+        uVar5 = param_1[4];
+        uVar6 = param_1[5];
+        sVar7 = 0xdb - sVar7;
+        if (uVar5 < uVar6) goto LAB_00402e36;
+        local_20 = local_20 & 0xffffff00;
+        uVar6 = local_20;
+      }
+      else {
+        uVar5 = param_1[4];
+        uVar6 = param_1[5];
+        sVar7 = 0x9b - sVar7;
+        if (uVar5 < uVar6) goto LAB_00402e36;
+        local_1c = local_1c & 0xffffff00;
+        uVar6 = local_1c;
+      }
+LAB_00402e5a:
+      FUN_00403250(uVar5,uVar6,sVar7);
+    }
+LAB_00402e62:
+    local_14 = local_14 + 1;
+  } while( true );
+}
+```
+
+<p class="mb-3">The function <code>FUN_00402d30</code> acts as a dynamic string obfuscation handler that implements an Atbash cipher to decode the actual license key at runtime. It iterates character-by-character through the hardcoded decoy string, passing each character through wide-character classification functions like <code>iswalpha</code>, <code>iswupper</code>, and <code>iswlower</code>. If a character is identified as a non-alphabetic symbol (such as hyphens or digits), it is written to the destination buffer completely unchanged.</p>
+
+<p class="mb-3">However, if the character is a letter, the function applies a symmetric alphabetic reflection: uppercase letters are transformed via the mathematical expression <code>0x9b - sVar7</code> (effectively mapping 'A' to 'Z', 'B' to 'Y', etc.), while lowercase letters are flipped using <code>0xdb - sVar7</code>. To obtain the license key we need, we use the Python script below:</p>
+
+```Python
+# The raw hex values copied directly from your Ghidra output
+stack_data = [
+    (0x4f004e, 3),   # (value, size in bytes)
+    (0x5a0038, 3),
+    (0x2d0057, 3),
+    (0x54005a, 3),
+    (0x590056, 3),
+    (0x2d004c, 3),
+    (0x470057, 3),
+    (0x4e0055, 3),
+    (0x2d0039, 3),
+    (0x460042, 3),
+    (0x4e0051, 3),
+    (0x2d0030, 3),
+    (0x4b004e004e0033, 7), 
+    (0x4f, 1)        
+]
+
+extracted_bytes = bytearray()
+
+for value, size in stack_data:
+    # Convert integer to bytes using Little-Endian
+    byte_len = (size + 1) // 2 * 2
+    chunk = value.to_bytes(byte_len, byteorder='little')
+    extracted_bytes.extend(chunk)
+
+# Decode initial UTF-16 representation
+decoy_key = extracted_bytes.decode('utf-16le').rstrip('\x00')
+
+# Run the string through the Atbash cipher transformation from FUN_00402d30
+real_key_chars = []
+for char in decoy_key:
+    if char.isalpha():
+        if char.isupper():
+            # sVar7 = 0x9b - sVar7
+            real_char = chr(0x9b - ord(char))
+        else:
+            # sVar7 = 0xdb - sVar7
+            real_char = chr(0xdb - ord(char))
+        real_key_chars.append(real_char)
+    else:
+        # Non-alphabet characters pass through untouched
+        real_key_chars.append(char)
+
+real_license_key = "".join(real_key_chars)
+
+print(f"Decoy Stack Key:  {decoy_key}")
+print(f"Real License Key: {real_license_key}")
+```
+
+```Bash
+user@linux:~$ python3 fake-instruction.py
+Decoy Stack Key:  NO8ZW-ZTVYL-WGUN9-BFQN0-3NNKO
+Real License Key: ML8AD-AGEBO-DTFM9-YUJM0-3MMPL
+```
+
+<p class="mb-5"><strong>Answer:</strong> ML8AD-AGEBO-DTFM9-YUJM0-3MMPL</p>
 
 
 <hr />
