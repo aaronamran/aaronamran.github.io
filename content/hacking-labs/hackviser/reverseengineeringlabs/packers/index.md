@@ -427,8 +427,24 @@ LAB_00402cbf:
 To complete the lab, you need to unpack the application and access the license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>First we need to prepare our tool environment. We will be using a tool called x32dbg (32-bit version of x64dbg). For this specific Themida lab, we need to download and install <a href="https://github.com/x64dbg/scyllahide" target="_blank" rel="noreferrer noopener">the ScyllaHide plugin from here</a>. The plugins should be located in <code>ScyllaHide_[release_date]\x64dbg\x32\plugins</code>. Copy the plugin files (<code>scylla_hide.ini</code>, <code>HookLibraryx86.dll</code> and <code>ScyllaHideX64DBGPlugin.dp32</code> into the folder location <code>\[x64dbg_folder]\release\x32\plugins</code>. Then we open x32dbg.exe and navigate to <code>Plugins &gt; ScyllaHide &gt; Load Profile &gt; Themida x86/x64</code> and <code>Plugins &gt; ScyllaHide &gt; Options</code> which will show us the following:</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image5.png" alt="Packers 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">In ScyllaHide Options, enable DRx Protection, click Apply then OK. Now we open the <code>themida.exe</code> file in x32dbg. Press F9 repeatedly (2–3 times or more) to get past the entry breakpoint and Themida's "demo version" nag splash.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image6.png" alt="Packers 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">In the command input bar located at the bottom, enter the command <code>bp MessageBoxW</code> to set one breakpoint.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image7.png" alt="Packers 7" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Then we press F9 again until the GUI prompting us to enter a valid license key appears. We enter a random and intentionally wrong string as the license key and click Submit.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image8.png" alt="Packers 8" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">Execution breaks inside <code>user32.MessageBoxW</code>. Check the stack panel for the return address as it will show return to <code>themida.XXXXXXXX</code>. In our case it will be <code>themida.00402E45</code>. Now to jump there, we enter <code>disasm 00402E45</code> in the command bar, then scroll up roughly 30 to 40 lines in the disassembly.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image9.png" alt="Packers 9" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">We can read the comparison directly off the disassembly. We will see in order, a Base64-encoding loop (recognizable by the alphabet table reference "<code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</code>") being the encoding for our typed input, a <code>mov eax, themida.[addr]</code> loading a hardcoded wide string that looks like Base64, a wide-char comparison loop (<code>cmp cx, word ptr ds:[eax]</code> in a loop) between your encoded input and that hardcoded string and a conditional jump to either the "verified" or "invalid" MessageBox branch. The hardcoded string is the target, which means there is no need to trace further or patch anything. We can decode the string using the following one-liner Python command:</p>
+
+```Bash
+user@linux:~$ python3 -c "import base64; print(base64.b64decode('AFQAVQBLAEoANwAtADcAWQBNAEkATQAtAE4ASQBLAEMARQAtAEoANwBZADgAVQAtAFgARwA5AEoATA==').decode('utf-16-be'))"
+TUKJ7-7YMIM-NIKCE-J7Y8U-XG9JL
+```
+
+<p class="mb-5"><strong>Answer:</strong> TUKJ7-7YMIM-NIKCE-J7Y8U-XG9JL</p>
 <br />
 
 
@@ -438,8 +454,120 @@ What is the license key?</p>
 To complete the lab, you need to unpack the application and access the license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong> .</p>
+
+```Bash
+user@linux:~$ sudo apt install upx-ucl -y
+user@linux:~$ upx --version
+upx 3.95
+UCL data compression library 1.03
+zlib data compression library 1.2.11
+LZMA SDK version 4.43
+Copyright (C) 1996-2018 Markus Franz Xaver Johannes Oberhumer
+Copyright (C) 1996-2018 Laszlo Molnar
+Copyright (C) 2000-2018 John F. Reiser
+Copyright (C) 2002-2018 Jens Medoch
+Copyright (C) 1995-2005 Jean-loup Gailly and Mark Adler
+Copyright (C) 1999-2006 Igor Pavlov
+UPX comes with ABSOLUTELY NO WARRANTY; for details type 'upx -L'.
+user@linux:~$ upx -d upx.exe -o upx_unpacked.exe
+                       Ultimate Packer for eXecutables
+                          Copyright (C) 1996 - 2018
+UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
+
+        File size         Ratio      Format      Name
+   --------------------   ------   -----------   -----------
+     24576 <-     13824   56.25%    win32/pe     upx_unpacked.exe
+
+Unpacked 1 file.
+```
+
+<p class="mb-3">We open and analyse the unpacked application in Ghidra. Then we go to <code>Window &gt; Defined Strings</code> and search for 'license'. Clicking on the address location of the string value containing 'License key verified.' brings us to the relevant section in the Listing window.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image10.png" alt="Packers 10" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+<p class="mb-3">In the Listing window, double-clicking on the function <code>FUN_00402bf0</code> referenced by XREF brings us the function code in the decompiler window.</p>
+<img src="/assets/hackinglabs/hackviser/reverseengineeringlabs/packers/packers_hackviser_image11.png" alt="Packers 11" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+
+```C++
+void FUN_00402bf0(HWND param_1,UINT param_2,WPARAM param_3,LONG *param_4)
+
+{
+  WCHAR WVar1;
+  undefined4 *dwNewLong;
+  WCHAR *pWVar2;
+  uint uVar3;
+  WCHAR *pWVar4;
+  bool bVar5;
+  undefined4 local_218;
+  undefined8 local_214;
+  WCHAR local_20c [258];
+  uint local_8;
+  
+  local_8 = DAT_00406004 ^ (uint)&stack0xfffffffc;
+  if (param_2 == 0x81) {
+    dwNewLong = (undefined4 *)*param_4;
+    SetWindowLongW(param_1,-0x15,(LONG)dwNewLong);
+    dwNewLong[1] = param_1;
+  }
+  else {
+    dwNewLong = (undefined4 *)GetWindowLongW(param_1,-0x15);
+  }
+  if (dwNewLong == (undefined4 *)0x0) {
+LAB_00402d69:
+    DefWindowProcW(param_1,param_2,param_3,(LPARAM)param_4);
+    FUN_00402f3b(local_8 ^ (uint)&stack0xfffffffc);
+    return;
+  }
+  if (param_2 == 2) {
+    PostQuitMessage(0);
+  }
+  else {
+    if (param_2 != 0x111) {
+      param_1 = (HWND)dwNewLong[1];
+      goto LAB_00402d69;
+    }
+    if ((short)param_3 == 2) {
+      GetDlgItemTextW((HWND)dwNewLong[1],1,local_20c,0x100);
+      pWVar4 = L"8GLPA-NBVYT-9JAFR-K0ZDJ-BU0JA";
+      pWVar2 = local_20c;
+      do {
+        WVar1 = *pWVar2;
+        bVar5 = (ushort)WVar1 < (ushort)*pWVar4;
+        if (WVar1 != *pWVar4) {
+LAB_00402cba:
+          uVar3 = -(uint)bVar5 | 1;
+          goto LAB_00402cbf;
+        }
+        if (WVar1 == L'\0') break;
+        WVar1 = pWVar2[1];
+        bVar5 = (ushort)WVar1 < (ushort)pWVar4[1];
+        if (WVar1 != pWVar4[1]) goto LAB_00402cba;
+        pWVar2 = pWVar2 + 2;
+        pWVar4 = pWVar4 + 2;
+      } while (WVar1 != L'\0');
+      uVar3 = 0;
+LAB_00402cbf:
+      if (uVar3 != 0) {
+        MessageBoxW((HWND)0x0,L"License key is invalid.",L"Error",0x10);
+        FUN_00402f3b(local_8 ^ (uint)&stack0xfffffffc);
+        return;
+      }
+      MessageBoxW((HWND)0x0,L"License key verified.",L"Verified",0x40);
+      SendMessageW((HWND)dwNewLong[1],0x10,0,0);
+      local_218 = *dwNewLong;
+      local_214 = 0;
+      FUN_00401170(&local_218);
+      FUN_00402f3b(local_8 ^ (uint)&stack0xfffffffc);
+      return;
+    }
+  }
+  FUN_00402f3b(local_8 ^ (uint)&stack0xfffffffc);
+  return;
+}
+```
+
+<p class="mb-3">From the function code above, notice the line <code>pWVar4 = L"8GLPA-NBVYT-9JAFR-K0ZDJ-BU0JA";</code> containing the license key we need.</p> 
+<p class="mb-5"><strong>Answer:</strong> 8GLPA-NBVYT-9JAFR-K0ZDJ-BU0JA</p>
 <br />
 
 
@@ -449,8 +577,118 @@ What is the license key?</p>
 To complete the lab, you need to unpack the application and find the 29-character license key.
 
 What is the license key?</p>
-<p class="mb-3"><strong>Steps: </strong>.</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3"><strong>Steps: </strong>For this lab exercise, we will be mainly using this tool called <a href="https://github.com/Lil-House/Pyarmor-Static-Unpack-1shot" rel="noopener noreferer" target="_blank">Pyarmor Static Unpack One-Shot Tool</a>. So we run each of the commands below sequentially to clone the repo and build it.</p>
+
+```Bash
+git clone https://github.com/Lil-House/Pyarmor-Static-Unpack-1shot.git
+cd Pyarmor-Static-Unpack-1shot
+sudo apt install build-essential cmake
+mkdir build && cd build
+cmake ../pycdc
+cmake --build .
+cmake --install .
+```
+
+<p class="mb-3">Then we run it against the obfuscated file, pointing directly at the runtime <code>.so</code>.</p>
+
+```Bash
+cd ../oneshot
+python3 shot.py /path/to/App.py -r /path/to/pyarmor_runtime_000000/pyarmor_runtime.so
+```
+
+<p class="mb-3">Now we read the decompiled output, written next to the source file:</p>
+
+```Bash
+cat /path/to/App.py.1shot.py
+```
+
+<p class="mb-3">The original source is recovered which includes the plaintext check.</p>
+
+```Python
+# File: App.py.1shot.seq (Python 3.11)
+# Source generated by Pyarmor-Static-Unpack-1shot (v0.4.0), powered by Decompyle++ (pycdc)
+
+# Note: Decompiled code can be incomplete and incorrect.
+# Please also check the correct and complete disassembly file: App.py.1shot.das
+
+'__pyarmor_enter_1451__(...)'
+import tkinter as tk
+from tkinter import messagebox
+
+def check_password():
+    '__pyarmor_enter_1454__(...)'
+    password = password_entry.get()
+    if password == 'CS2OC-U5PKV-NUR1L-64LTC-NUWLX':
+        root.destroy()
+        run_todo_list_app()
+    else:
+        messagebox.showerror('Error', 'Incorrect password!')
+    '__pyarmor_exit_1455__(...)'
+    return None
+    '__pyarmor_exit_1455__(...)'
+
+
+def run_todo_list_app():
+    '__pyarmor_enter_1457__(...)'
+
+    def add_task():
+        '__pyarmor_enter_1460__(...)'
+        task = task_entry.get().strip()
+        if task:
+            task_listbox.insert(tk.END, task)
+            task_entry.delete(0, tk.END)
+        else:
+            messagebox.showwarning('Warning', 'Please enter a task.')
+        '__pyarmor_exit_1461__(...)'
+        return None
+        '__pyarmor_exit_1461__(...)'
+
+
+    def remove_task():
+        '__pyarmor_enter_1463__(...)'
+        selected_index = task_listbox.curselection()[0]
+        task_listbox.delete(selected_index)
+        '__pyarmor_exit_1464__(...)'
+        return None
+        '__pyarmor_exit_1464__(...)'
+
+    root = tk.Tk()
+    root.title('Admin To-Do List')
+    main_frame = tk.Frame(root)
+    main_frame.pack(fill = tk.BOTH, expand = True)
+    task_listbox = tk.Listbox(main_frame, width = 50, height = 15, font = ('Arial', 12))
+    task_listbox.pack(pady = 10)
+    task_entry = tk.Entry(main_frame, width = 40, font = ('Arial', 12))
+    task_entry.pack(side = tk.LEFT, padx = 5)
+    add_task_button = tk.Button(main_frame, text = 'Add Task', command = add_task, font = ('Arial', 12))
+    add_task_button.pack(side = tk.LEFT)
+    remove_task_button = tk.Button(main_frame, text = 'Remove Task', command = remove_task, font = ('Arial', 12))
+    remove_task_button.pack(side = tk.LEFT, padx = 5)
+    tasks = []
+    for task in tasks:
+        task_listbox.insert(tk.END, task)
+        root.mainloop()
+        '__pyarmor_exit_1458__(...)'
+        return None
+        '__pyarmor_exit_1458__(...)'
+
+root = tk.Tk()
+root.title('Admin Page')
+root.geometry('300x150')
+root.configure(background = '#f0f0f0')
+label = tk.Label(root, text = 'Enter admin password:', bg = '#f0f0f0')
+label.pack()
+password_entry = tk.Entry(root, show = '*', width = 20)
+password_entry.pack()
+submit_button = tk.Button(root, text = 'Submit', command = check_password, bg = '#4CAF50', fg = 'white')
+submit_button.pack(pady = 10)
+root.mainloop()
+'__pyarmor_exit_1452__(...)'
+return None
+'__pyarmor_exit_1452__(...)'
+``` 
+
+<p class="mb-5"><strong>Answer:</strong> CS2OC-U5PKV-NUR1L-64LTC-NUWLX</p>
 
 
 <hr />
