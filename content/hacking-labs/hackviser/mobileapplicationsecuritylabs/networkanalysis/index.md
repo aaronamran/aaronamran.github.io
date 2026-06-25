@@ -17,7 +17,7 @@ prog: 'Hackviser Mobile Application Security Labs  -  June 2026'
 
 
 <h5 class="mb-2"><strong>1. SSL Pinning Bypass</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java where SSL pinning bypass technique can be practiced in android applications.
+<p class="mb-3">This lab includes a mobile application developed in Java where SSL pinning bypass technique can be practiced in android applications.
 
 To complete the lab you need to analyze the application traffic.
 
@@ -86,7 +86,7 @@ except Exception as e:
 
 
 <h5 class="mb-2"><strong>2. HTTP Traffic Analysis</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java.
+<p class="mb-3">This lab includes a mobile application developed in Java.
 
 To complete the lab you need to analyze HTTP requests.
 
@@ -150,7 +150,7 @@ except Exception as e:
 
 
 <h5 class="mb-2"><strong>3. Response Code Manipulation</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java.
+<p class="mb-3">This lab includes a mobile application developed in Java.
 
 The HTTP response needs to be modified to complete the lab.
 

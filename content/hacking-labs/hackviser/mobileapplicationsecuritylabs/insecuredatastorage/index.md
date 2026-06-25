@@ -17,7 +17,7 @@ prog: 'Hackviser Mobile Application Security Labs  -  June 2026'
 
 
 <h5 class="mb-2"><strong>1. Authentication Bypass</strong></h5>
-<p class="mb-3">This lab contains a mobile application developed in java that requires analyzing and bypassing authentication methods used in android applications.
+<p class="mb-3">This lab contains a mobile application developed in Java that requires analyzing and bypassing authentication methods used in android applications.
 
 To complete the lab you need to analyze the database of the application.
 
@@ -55,7 +55,7 @@ print(decrypted.decode('utf-8', errors='ignore').strip())
 
 
 <h5 class="mb-2"><strong>2. Secret Chat</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed with java that also accidentally logs sensitive data.
+<p class="mb-3">This lab includes a mobile application developed with Java that also accidentally logs sensitive data.
 
 To complete the lab you need to analyze the logs.
 
@@ -95,7 +95,7 @@ print(decrypted.decode('utf-8', errors='ignore').strip())
 
 
 <h5 class="mb-2"><strong>3. Activity Access</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java that contains unused function and class structures.
+<p class="mb-3">This lab includes a mobile application developed in Java that contains unused function and class structures.
 
 To complete the lab, you will need to examine the unused function and class structures.
 
@@ -141,7 +141,7 @@ print(decrypted.decode('utf-8', errors='ignore').strip())
 
 
 <h5 class="mb-2"><strong>4. Shared Preferences</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java that contains a shared preferences file with important data.
+<p class="mb-3">This lab includes a mobile application developed in Java that contains a shared preferences file with important data.
 
 To complete the lab, you need to examine the shared preferences file.
 
@@ -181,7 +181,7 @@ print(decrypted.decode('utf-8', errors='ignore').strip())
 
 
 <h5 class="mb-2"><strong>5. Memory Analysis</strong></h5>
-<p class="mb-3">This lab includes a mobile application developed in java.
+<p class="mb-3">This lab includes a mobile application developed in Java.
 
 To complete the lab you need to perform memory analysis.
 
