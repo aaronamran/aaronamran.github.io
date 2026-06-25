@@ -22,7 +22,7 @@ prog: 'Hackviser Mobile Application Security Labs  -  June 2026'
 To complete the lab you need to analyze the database of the application.
 
 What is the Login ID value?</p>
-<p class="mb-3"><strong>Steps: </strong> We will be using JADX-GUI tool (with JRE) to solve this lab exercise. Once we open the apk file in JADX-GUI, in the left panel, we navigate to <code>Source code &gt; com &gt; selector.checkdb &gt; ChatApp</code> to read the code.</p>
+<p class="mb-3"><strong>Steps: </strong>We will be using JADX-GUI tool (with JRE) to solve this lab exercise. Once we open the apk file in JADX-GUI, in the left panel, we navigate to <code>Source code &gt; com &gt; selector.checkdb &gt; ChatApp</code> to read the code.</p>
 <img src="/assets/hackinglabs/hackviser/mobileapplicationsecuritylabs/insecuredatastorage/insecuredatastorage_hackviser_image1.png" alt="Insecure Data Storage 1" class="img-fluid mb-4" width="720" height="405" loading="lazy" decoding="async" />
 <p class="mb-3">Notice the code snippet below which is literally hardcoding a cipher text string and decrypting it locally to display the very first message in the chat view.</p>
 
