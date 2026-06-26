@@ -6,7 +6,6 @@ prog: 'Hackviser Cryptanalysis Labs  -  April 2026'
 ---
 
 <div class="writeup-header">
-<img src="/assets/hackinglabs/hackviser/cryptanalysislabs/encodingtechniques_hackviser_logo.webp" alt="Hackviser logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Hackviser</div>
 <h1 class="writeup-title">Encoding Techniques</h1>

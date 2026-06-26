@@ -6,7 +6,6 @@ prog: 'Hackviser Warmup Stage 3 -  2026'
 ---
 
 <div class="writeup-header">
-<img src="/assets/hackinglabs/hackviser/warmups/findandcrack/findandcrack_hackviser_logo.png" alt="Find and Crack logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Hackviser</div>
 <h1 class="writeup-title">Find and Crack</h1>

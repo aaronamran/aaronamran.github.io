@@ -6,7 +6,6 @@ prog: 'Hackviser Web Application Security Labs  -  May 2026'
 ---
 
 <div class="writeup-header">
-<img src="/assets/hackinglabs/hackviser/webapplicationsecuritylabs/webapplicationsecurity_fileinclusion/fileinclusion_hackviser_logo.png" alt="Hackviser logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Hackviser</div>
 <h1 class="writeup-title">File Inclusion</h1>

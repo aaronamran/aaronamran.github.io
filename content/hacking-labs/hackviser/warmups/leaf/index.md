@@ -6,7 +6,6 @@ prog: 'Hackviser Warmup Stage 2  -  March 2026'
 ---
 
 <div class="writeup-header">
-<img src="/assets/hackinglabs/hackviser/warmups/leaf/leaf_hackviser_logo.png" alt="Leaf logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Hackviser</div>
 <h1 class="writeup-title">Leaf</h1>
