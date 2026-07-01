@@ -37,7 +37,7 @@ Do not store passwords in plaintext notes.
 <p class="mb-2"><strong>Level 1: Name Game</strong> Use the password that you captured on the previous level, then: <code>ssh ghost1@204.168.229.209 -p 2222</code>.</p>
 <p class="mb-3"><strong>Steps:</strong> SSH to the given IP address and login. When we use <code>ls -al</code>, we see the following:</p>
 
-```bash
+```Bash
 ghost1@breachlab:~$ ls -al
 total 100
 -rw-r----- 1 ghost1 ghost1   13 May 19 12:05  -
@@ -65,8 +65,35 @@ drwxrwxr-x 4 ghost1 ghost1 4096 Jun 10 06:41  LazyOwn
 <p class="mb-2"><strong>Level 2: In The Shadows</strong> Use the password that you captured on the previous level, then: <code>ssh ghost2@204.168.229.209 -p 2222</code>.</p>
 <p class="mb-3"><strong>Steps:</strong> SSH to the given IP address and login.</p>
 
-<p class="mb-3">.</p>
-<p class="mb-5"><strong>Password:</strong> </p>
+```Bash
+ghost2@breachlab:~$ ls -a
+.  ..  .bash_logout  .bashrc  .cache  .local  .memo  .profile  .ssh  .terminfo  investigation
+ghost2@breachlab:~$ cd investigation
+ghost2@breachlab:~/investigation$ ls -la
+total 40
+drwxr-x--- 1 ghost2 ghost2 4096 Jun 22 13:41 .
+drwx------ 1 ghost2 ghost2 4096 Jun 26 04:04 ..
+drwxr-x--- 1 ghost2 ghost2 4096 Jun 22 13:41 .leads
+-rw-r----- 1 ghost2 ghost2  201 Jun 22 13:41 report.txt
+-rw-r----- 1 ghost2 ghost2  205 Jun 22 13:41 summary.txt
+ghost2@breachlab:~/investigation$ cd .leads
+ghost2@breachlab:~/investigation/.leads$ ls -la
+total 40
+drwxr-x--- 1 ghost2 ghost2 4096 Jun 22 13:41 .
+drwxr-x--- 1 ghost2 ghost2 4096 Jun 22 13:41 ..
+-rw-r----- 1 ghost2 ghost2   13 Jun 22 13:41 .source_alpha
+-rw-r----- 1 ghost2 ghost2   13 Jun 22 13:41 .source_beta
+-rw-r----- 1 ghost2 ghost2   15 Jun 22 13:41 .source_omega
+ghost2@breachlab:~/investigation/.leads$ cat .*
+cat: .: Is a directory
+cat: ..: Is a directory
+7a4e91c63d2f
+bb50d8e4a11c
+H1dd3nInSh4dow
+```
+
+<p class="mb-3">Once we are logged in, we use <code>ls -la</code> to view hidden folders and files. Running <code>cat .*</code> attempts to read all items in the current directory, which reveals the password to the next level.</p>
+<p class="mb-5"><strong>Password:</strong> H1dd3nInSh4dow</p>
 <br />
 
 
