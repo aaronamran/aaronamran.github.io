@@ -59,7 +59,7 @@ prog: 'Hackviser Scenarios -  July 2026'
 
 <p class="mb-2"><strong>Question 5:</strong> Which IP address did the attacker scan for ports and services?</p>
 <p class="mb-3">First we use <code>find / -name "*nmap*" -o -name "*scan*" 2>/dev/null</code> to do a system-wide search. Then we redo the search using <code>find / -name "*nmap*" -o -name "*scan*" 2>/dev/null | grep results</code> to narrow down on only the results. Reading the relevant XML file using <code>cat /nmap/scan_results.xml</code> gives us the IP address required.</p>
-<img src="/assets/hackinglabs/hackviser/scenarios/void/void_hackviser_image10.png" alt="Void 10" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
+<img src="/assets/hackinglabs/hackviser/scenarios/void/void_hackviser_image11.png" alt="Void 11" class="img-fluid rounded mb-3" style="max-width: 720px;" width="720" height="405" loading="lazy" decoding="async">
 <p class="mb-5"><strong>Answer:</strong> 45.76.59.241</p>
 
 <hr />
