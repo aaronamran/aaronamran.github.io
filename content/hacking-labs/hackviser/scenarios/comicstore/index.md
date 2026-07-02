@@ -12,7 +12,9 @@ prog: 'Hackviser Scenarios -  July 2026'
 <div class="writeup-date">July 2026 &middot; Scenarios</div>
 </div>
 </div>
-<p class="lead mb-4">The person who runs a comic store claims to have a rare collection, but engages in misleading behavior. He makes false promises to customers, such as exchanging comics or selling them for cash, which he never fulfills. This behavior raises concerns about the legitimacy of this rare comic book collection. Furthermore, his habit of regularly backing up MP3 files suggests a tech-savvy approach and possibly a sophisticated structure to his fraudulent activities.These allegations should be investigated to confirm the veracity of the rare comic book collection claims and to protect potential victim customers from this scam. Investigate and report back!</p>
+<p class="lead mb-4">The person who runs a comic store claims to have a rare collection, but engages in misleading behavior. He makes false promises to customers, such as exchanging comics or selling them for cash, which he never fulfills. 
+<br /><br />
+This behavior raises concerns about the legitimacy of this rare comic book collection. Furthermore, his habit of regularly backing up MP3 files suggests a tech-savvy approach and possibly a sophisticated structure to his fraudulent activities. These allegations should be investigated to confirm the veracity of the rare comic book collection claims and to protect potential victim customers from this scam. Investigate and report back!</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> What could be a potential username?</p>
