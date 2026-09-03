@@ -1,0 +1,25 @@
+{
+  "category": "Error Messages & Debug",
+  "dorks": [
+    {
+      "title": "Server Errors",
+      "google": "site:example.com inurl:\"error\" | intitle:\"exception\" | intitle:\"failure\" | \"database error\" | \"SQL syntax\" | \"undefined index\" | \"unhandled exception\" | \"stack trace\" | \"Uncaught Error: Call to undefined function\" | \"error in your SQL\" | \"WordPress database error:\" | \"PHP Fatal\" | \"not found in C:\" | \"not found in D:\" | \"not found in E:\" | \"not found in F:\" | \"Unclosed quotation mark\" | \"Error Executing Database Query\" | \"mysql_num_rows()\" \"error\" | \"mysql_fetch_array()\" \"error\" | \"mysql_query()\" \"error\"",
+      "bing": "site:example.com (title:exception OR title:error OR \"database error\" OR \"SQL syntax\" OR \"Uncaught Error\" OR \"error in your SQL\" OR \"WordPress database error\" OR \"PHP Fatal\" OR \"not found in C:\" OR \"not found in D:\" OR \"Unclosed quotation mark\" OR \"Error Executing Database Query\" OR \"mysql_num_rows()\" OR \"mysql_fetch_array()\" OR \"mysql_query()\")",
+      "duckduckgo": "site:example.com (\"error\" OR \"exception\" OR \"database error\" OR \"Uncaught Error\" OR \"error in your SQL\" OR \"WordPress database error\" OR \"PHP Fatal\" OR \"not found in C:\" OR \"Unclosed quotation mark\" OR \"Error Executing Database Query\" OR \"mysql_num_rows()\" OR \"mysql_fetch_array()\" OR \"mysql_query()\")",
+      "yandex": "site:example.com (title:exception | \"database error\" | \"SQL syntax\" | \"Uncaught Error\" | \"error in your SQL\" | \"WordPress database error\" | \"PHP Fatal\" | \"not found in C:\" | \"Error Executing Database Query\" | \"mysql_num_rows()\" | \"mysql_fetch_array()\" | \"mysql_query()\")",
+      "brave": "site:example.com (\"exception\" OR \"error\" OR \"stack trace\" OR \"Uncaught Error\" OR \"error in your SQL\" OR \"WordPress database error\" OR \"PHP Fatal\" OR \"not found in C:\" OR \"Unclosed quotation mark\" OR \"Error Executing Database Query\" OR \"mysql_num_rows()\" OR \"mysql_fetch_array()\" OR \"mysql_query()\")",
+      "baidu": "site:example.com (error OR exception OR \"database error\" OR \"WordPress database error\" OR \"PHP Fatal\" OR \"mysql_num_rows()\" OR \"mysql_fetch_array()\" OR \"mysql_query()\")",
+      "mojeek": "site:example.com (error OR exception OR database OR \"WordPress database error\" OR \"PHP Fatal\" OR mysql)"
+    },
+    {
+      "title": "CSP Reports",
+      "google": "site:example.com inurl:/csp-report | inurl:/csp_report | intext:\"csp-report\"",
+      "bing": "site:example.com (url:/csp-report OR url:/csp_report)",
+      "duckduckgo": "site:example.com (/csp-report OR /csp_report)",
+      "yandex": "site:example.com (url:/csp-report | url:/csp_report)",
+      "brave": "site:example.com (url:/csp-report OR url:/csp_report)",
+      "baidu": "site:example.com csp-report",
+      "mojeek": "site:example.com csp report"
+    }
+  ]
+}

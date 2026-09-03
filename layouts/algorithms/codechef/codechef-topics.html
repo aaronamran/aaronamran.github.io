@@ -1,0 +1,39 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .problem-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .problem-list li { border-bottom: 1px solid var(--border, rgba(255,255,255,0.07)); }
+    .problem-list li a { display: block; padding: 0.45rem 0.25rem; font-size: 0.85rem; color: var(--accent); text-decoration: none; }
+    .problem-list li a:hover { text-decoration: underline; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <a href="/algorithms/codechef/" class="back-link">&larr; CodeChef</a>
+      <p class="col-label" style="margin-top:1rem">{{ .Title }}</p>
+
+      <ul class="problem-list">
+      {{ range .Pages }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+      </ul>
+
+      {{ if not .Pages }}
+      <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">No problems solved yet.</p>
+      {{ end }}
+    </main>
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Platform</p>
+        <a href="https://www.codechef.com" target="_blank" rel="noopener" class="about-link">&#8599; codechef.com</a>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">{{ len .Pages }}</span><span class="stat-label">solved</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

@@ -1,0 +1,57 @@
+{{ define "main" }}
+  <style>
+    .content-grid { overflow: hidden; }
+    .posts-col { overflow-y: auto; min-height: 0; }
+    .posts-col::-webkit-scrollbar { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <p class="about-quote">100% hands-on cybersecurity labs and CTF challenges.</p>
+      <div class="platform-grid">
+        <a href="/hacking-labs/hackthebox/" class="platform-card">
+          <div class="platform-card-name">Hack The Box</div>
+          <div class="platform-card-url">hackthebox.com</div>
+        </a>
+        <a href="/hacking-labs/webverse/" class="platform-card">
+          <div class="platform-card-name">WebVerse Pro</div>
+          <div class="platform-card-url">webverselabs-pro.com</div>
+        </a>
+        <a href="/hacking-labs/hacksmarter/" class="platform-card">
+          <div class="platform-card-name">Hack Smarter</div>
+          <div class="platform-card-url">hacksmarter.org/catalog</div>
+        </a>
+        <a href="/hacking-labs/hackinghub/" class="platform-card">
+          <div class="platform-card-name">HackingHub</div>
+          <div class="platform-card-url">app.hackinghub.io/hubs</div>
+        </a>
+        <a href="/hacking-labs/breachlab/" class="platform-card">
+          <div class="platform-card-name">BreachLab</div>
+          <div class="platform-card-url">breachlab.org</div>
+        </a>
+        <a href="/hacking-labs/portswigger/" class="platform-card">
+          <div class="platform-card-name">PortSwigger</div>
+          <div class="platform-card-url">portswigger.net</div>
+        </a>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Focus Areas</p>
+        <div class="cert-badges">
+          <span class="cert-tag">Web App Sec</span>
+          <span class="cert-tag">Crypto</span>
+          <span class="cert-tag">Rev Eng</span>
+          <span class="cert-tag">CVE Labs</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num" id="platform-count">0</span><span class="stat-label">platforms</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}

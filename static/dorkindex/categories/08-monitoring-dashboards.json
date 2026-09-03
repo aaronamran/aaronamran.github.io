@@ -1,0 +1,105 @@
+{
+  "category": "Monitoring & Dashboards",
+  "dorks": [
+    {
+      "title": "Grafana",
+      "google": "site:example.com intitle:\"Grafana\" -inurl:blog",
+      "bing": "site:example.com title:\"Grafana\" -url:blog",
+      "duckduckgo": "site:example.com \"Grafana\" -blog",
+      "yandex": "site:example.com title:\"Grafana\" -url:blog",
+      "brave": "site:example.com title:\"Grafana\" -url:blog",
+      "baidu": "site:example.com Grafana -blog",
+      "mojeek": "site:example.com Grafana -blog"
+    },
+    {
+      "title": "Kibana",
+      "google": "site:example.com intitle:\"Kibana\" inurl:app/kibana",
+      "bing": "site:example.com title:\"Kibana\" url:app/kibana",
+      "duckduckgo": "site:example.com \"Kibana\" app/kibana",
+      "yandex": "site:example.com title:\"Kibana\" url:app/kibana",
+      "brave": "site:example.com title:\"Kibana\" url:app/kibana",
+      "baidu": "site:example.com Kibana",
+      "mojeek": "site:example.com Kibana"
+    },
+    {
+      "title": "Prometheus",
+      "google": "site:example.com intitle:\"Prometheus Time Series Collection\"",
+      "bing": "site:example.com title:\"Prometheus Time Series Collection\"",
+      "duckduckgo": "site:example.com \"Prometheus Time Series Collection\"",
+      "yandex": "site:example.com title:\"Prometheus Time Series Collection\"",
+      "brave": "site:example.com title:\"Prometheus Time Series Collection\"",
+      "baidu": "site:example.com Prometheus",
+      "mojeek": "site:example.com Prometheus"
+    },
+    {
+      "title": "Netdata",
+      "google": "site:example.com intitle:\"Netdata\" inurl:19999",
+      "bing": "site:example.com title:\"Netdata\" url:19999",
+      "duckduckgo": "site:example.com \"Netdata\" 19999",
+      "yandex": "site:example.com title:\"Netdata\" url:19999",
+      "brave": "site:example.com title:\"Netdata\" url:19999",
+      "baidu": "site:example.com Netdata",
+      "mojeek": "site:example.com Netdata"
+    },
+    {
+      "title": "Flower (Celery)",
+      "google": "site:example.com intitle:\"Flower\" inurl:dashboard",
+      "bing": "site:example.com title:\"Flower\" url:dashboard",
+      "duckduckgo": "site:example.com \"Flower\" dashboard",
+      "yandex": "site:example.com title:\"Flower\" url:dashboard",
+      "brave": "site:example.com title:\"Flower\" url:dashboard",
+      "baidu": "site:example.com Flower Celery",
+      "mojeek": "site:example.com Flower Celery"
+    },
+    {
+      "title": "Zabbix",
+      "google": "site:example.com intitle:\"Zabbix\" inurl:dashboard",
+      "bing": "site:example.com title:\"Zabbix\" url:dashboard",
+      "duckduckgo": "site:example.com \"Zabbix\" dashboard",
+      "yandex": "site:example.com title:\"Zabbix\" url:dashboard",
+      "brave": "site:example.com title:\"Zabbix\" url:dashboard",
+      "baidu": "site:example.com Zabbix",
+      "mojeek": "site:example.com Zabbix"
+    },
+    {
+      "title": "Exposed Dashboards",
+      "google": "site:example.com inurl:kibana | inurl:grafana | inurl:prometheus | inurl:k8s | intitle:\"Kubernetes Dashboard\" | intitle:\"Grafana\" | intitle:\"Kibana\"",
+      "bing": "site:example.com (url:kibana OR url:grafana OR url:prometheus OR title:\"Dashboard\")",
+      "duckduckgo": "site:example.com (kibana OR grafana OR prometheus OR kubernetes)",
+      "yandex": "site:example.com (url:kibana | url:grafana | url:prometheus | title:\"Dashboard\")",
+      "brave": "site:example.com (url:kibana OR url:grafana OR url:prometheus)",
+      "baidu": "site:example.com kibana grafana",
+      "mojeek": "site:example.com kibana grafana dashboard"
+    },
+    {
+      "title": "Nagios",
+      "google": "site:example.com inurl:/nagios/ | intitle:\"Nagios\" inurl:/cgi-bin/",
+      "bing": "site:example.com (url:/nagios/ OR title:\"Nagios\")",
+      "duckduckgo": "site:example.com (/nagios/ OR \"Nagios\")",
+      "yandex": "site:example.com (url:/nagios/ | title:\"Nagios\")",
+      "brave": "site:example.com (url:/nagios/ OR title:\"Nagios\")",
+      "baidu": "site:example.com Nagios",
+      "mojeek": "site:example.com Nagios"
+    },
+    {
+      "title": "Metabase",
+      "google": "site:example.com inurl:/metabase/ | intitle:\"Metabase\"",
+      "bing": "site:example.com (url:/metabase/ OR title:\"Metabase\")",
+      "duckduckgo": "site:example.com (/metabase/ OR \"Metabase\")",
+      "yandex": "site:example.com (url:/metabase/ | title:\"Metabase\")",
+      "brave": "site:example.com (url:/metabase/ OR title:\"Metabase\")",
+      "baidu": "site:example.com Metabase",
+      "mojeek": "site:example.com Metabase"
+    },
+    {
+      "title": "Splunk",
+      "google": "site:example.com inurl:/en-US/app/search/ | intitle:\"Splunk\"",
+      "bing": "site:example.com (url:/en-US/app/search/ OR title:\"Splunk\")",
+      "duckduckgo": "site:example.com (/en-US/app/search/ OR \"Splunk\")",
+      "yandex": "site:example.com (url:/en-US/app/search/ | title:\"Splunk\")",
+      "brave": "site:example.com (url:/en-US/app/search/ OR title:\"Splunk\")",
+      "baidu": "site:example.com Splunk",
+      "mojeek": "site:example.com Splunk"
+    }
+  ]
+}

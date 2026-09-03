@@ -1,0 +1,55 @@
+{
+  "category": "Code Repositories",
+  "dorks": [
+    {
+      "title": "GitHub Exposure",
+      "google": "site:github.com \"example.com\" password | api_key | secret | credentials | token | ssh | aws_access | \"BEGIN RSA PRIVATE KEY\" | \"DB_PASSWORD\"",
+      "bing": "site:github.com \"example.com\" (password OR api_key OR secret OR credentials OR token)",
+      "duckduckgo": "site:github.com example.com (password OR api_key OR secret OR token)",
+      "yandex": "site:github.com \"example.com\" (password | api_key | secret | credentials | token)",
+      "brave": "site:github.com example.com (password OR api_key OR secret OR token)",
+      "baidu": "site:github.com example.com password",
+      "mojeek": "site:github.com example.com password secret"
+    },
+    {
+      "title": "GitLab Leaks",
+      "google": "site:gitlab.com \"example.com\" (DB_PASSWORD OR AWS_ACCESS_KEY)",
+      "bing": "site:gitlab.com \"example.com\" (DB_PASSWORD OR AWS_ACCESS_KEY)",
+      "duckduckgo": "site:gitlab.com example.com (DB_PASSWORD OR AWS_ACCESS_KEY)",
+      "yandex": "site:gitlab.com \"example.com\" (DB_PASSWORD | AWS_ACCESS_KEY)",
+      "brave": "site:gitlab.com example.com (DB_PASSWORD OR AWS_ACCESS_KEY)",
+      "baidu": "site:gitlab.com example.com DB_PASSWORD",
+      "mojeek": "site:gitlab.com example.com DB_PASSWORD AWS_ACCESS_KEY"
+    },
+    {
+      "title": "Bitbucket Leaks",
+      "google": "site:bitbucket.org \"example.com\" (password OR token OR secret)",
+      "bing": "site:bitbucket.org \"example.com\" (password OR token OR secret)",
+      "duckduckgo": "site:bitbucket.org example.com (password OR token OR secret)",
+      "yandex": "site:bitbucket.org \"example.com\" (password | token | secret)",
+      "brave": "site:bitbucket.org example.com (password OR token OR secret)",
+      "baidu": "site:bitbucket.org example.com password",
+      "mojeek": "site:bitbucket.org example.com password token secret"
+    },
+    {
+      "title": "Sourcegraph",
+      "google": "site:sourcegraph.com \"example.com\"",
+      "bing": "site:sourcegraph.com \"example.com\"",
+      "duckduckgo": "site:sourcegraph.com example.com",
+      "yandex": "site:sourcegraph.com \"example.com\"",
+      "brave": "site:sourcegraph.com example.com",
+      "baidu": "site:sourcegraph.com example.com",
+      "mojeek": "site:sourcegraph.com example.com"
+    },
+    {
+      "title": "Code Leaks",
+      "google": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "bing": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "duckduckgo": "site:pastebin.com example.com\nsite:jsfiddle.net example.com\nsite:codebeautify.org example.com\nsite:codepen.io example.com",
+      "yandex": "site:pastebin.com \"example.com\"\nsite:jsfiddle.net \"example.com\"\nsite:codebeautify.org \"example.com\"\nsite:codepen.io \"example.com\"",
+      "brave": "site:pastebin.com example.com\nsite:jsfiddle.net example.com\nsite:codebeautify.org example.com\nsite:codepen.io example.com",
+      "baidu": "site:pastebin.com example.com\nsite:jsfiddle.net example.com",
+      "mojeek": "site:pastebin.com example.com\nsite:jsfiddle.net example.com"
+    }
+  ]
+}

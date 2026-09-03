@@ -1,0 +1,195 @@
+{
+  "category": "Sensitive Files & Data",
+  "dorks": [
+    {
+      "title": "Juicy Extensions",
+      "google": "site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old",
+      "bing": "site:example.com (ext:log OR ext:txt OR ext:conf OR ext:ini OR ext:env OR ext:bak OR ext:backup)",
+      "duckduckgo": "site:example.com (.log OR .txt OR .conf OR .env OR .bak OR .backup)",
+      "yandex": "site:example.com (ext:log | ext:txt | ext:conf | ext:env | ext:bak)",
+      "brave": "site:example.com (ext:log OR ext:txt OR ext:env OR ext:bak)",
+      "baidu": "site:example.com (filetype:log OR filetype:txt OR filetype:conf)",
+      "mojeek": "site:example.com (log OR config OR backup)"
+    },
+    {
+      "title": "Backup Files",
+      "google": "site:example.com ext:bak | ext:backup | ext:old | ext:save | ext:sql | ext:zip | ext:tar.gz | ext:tar | inurl:backup | inurl:dump",
+      "bing": "site:example.com (ext:bak OR ext:backup OR ext:old OR ext:sql OR ext:zip OR url:backup OR url:dump)",
+      "duckduckgo": "site:example.com (.bak OR .backup OR .old OR .sql OR backup OR dump)",
+      "yandex": "site:example.com (ext:bak | ext:backup | ext:old | ext:sql | url:backup)",
+      "brave": "site:example.com (ext:bak OR ext:backup OR ext:sql OR url:backup)",
+      "baidu": "site:example.com (filetype:bak OR filetype:backup OR filetype:sql)",
+      "mojeek": "site:example.com backup sql dump"
+    },
+    {
+      "title": "Exposed .env Files",
+      "google": "site:example.com ext:env | intext:\"DB_PASSWORD\" | intext:\"DATABASE_PASSWORD\" | intext:\"API_KEY\" | intext:\"SECRET_KEY\" | intext:\"AWS_ACCESS\" | intext:\"AWS_SECRET\" | intext:\"AWS_ACCESS_KEY_ID\" | intext:\"API_KEY=\"",
+      "bing": "site:example.com (ext:env OR \"DB_PASSWORD\" OR \"API_KEY\" OR \"SECRET_KEY\" OR \"AWS_ACCESS_KEY_ID\")",
+      "duckduckgo": "site:example.com (.env OR \"DB_PASSWORD\" OR \"API_KEY\" OR \"AWS_ACCESS_KEY_ID\")",
+      "yandex": "site:example.com (ext:env | \"DB_PASSWORD\" | \"API_KEY\")",
+      "brave": "site:example.com (ext:env OR \"DB_PASSWORD\" OR \"API_KEY\")",
+      "baidu": "site:example.com env DB_PASSWORD",
+      "mojeek": "site:example.com env password"
+    },
+    {
+      "title": "Version Control Exposure",
+      "google": "site:example.com inurl:\".git\" | inurl:\"/.git/config\" | inurl:\"/.git/HEAD\" | inurl:\"/.git/index\" | inurl:\".svn\" | inurl:\"/.svn/entries\"",
+      "bing": "site:example.com (url:.git OR url:/.git/config OR url:/.git/HEAD OR url:.svn)",
+      "duckduckgo": "site:example.com (\".git\" OR \"/.git/config\" OR \"/.git/HEAD\" OR \".svn\")",
+      "yandex": "site:example.com (url:.git | url:/.git/config | url:/.git/HEAD | url:.svn)",
+      "brave": "site:example.com (url:.git OR url:/.git/config OR url:.svn)",
+      "baidu": "site:example.com (.git OR .svn)",
+      "mojeek": "site:example.com .git .svn config"
+    },
+    {
+      "title": "Sensitive Documents",
+      "google": "site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx intext:\"confidential\" | intext:\"Not for Public Release\" | intext:\"internal use only\"",
+      "bing": "site:example.com (ext:pdf OR ext:doc OR ext:docx OR ext:xls OR ext:xlsx) (\"confidential\" OR \"internal use only\")",
+      "duckduckgo": "site:example.com (.pdf OR .doc OR .xls) (confidential OR \"internal use\")",
+      "yandex": "site:example.com (ext:pdf | ext:doc | ext:xls) (\"confidential\" | \"internal\")",
+      "brave": "site:example.com (ext:pdf OR ext:doc) confidential",
+      "baidu": "site:example.com (filetype:pdf OR filetype:doc) confidential",
+      "mojeek": "site:example.com document confidential"
+    },
+    {
+      "title": "Sensitive Parameters",
+      "google": "site:example.com inurl:email= | inurl:phone= | inurl:name= | inurl:user= inurl:&",
+      "bing": "site:example.com (url:email= OR url:phone= OR url:user=)",
+      "duckduckgo": "site:example.com (\"?email=\" OR \"?phone=\" OR \"?user=\")",
+      "yandex": "site:example.com (url:email= | url:phone= | url:user=)",
+      "brave": "site:example.com (url:email= OR url:user=)",
+      "baidu": "site:example.com email phone user",
+      "mojeek": "site:example.com email phone"
+    },
+    {
+      "title": "High % inurl keywords",
+      "google": "site:example.com inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php",
+      "bing": "site:example.com (url:conf OR url:env OR url:admin OR url:backup OR url:sql)",
+      "duckduckgo": "site:example.com (conf OR env OR admin OR backup OR sql)",
+      "yandex": "site:example.com (url:conf | url:env | url:admin | url:backup)",
+      "brave": "site:example.com (url:admin OR url:backup OR url:config)",
+      "baidu": "site:example.com (admin OR backup OR config)",
+      "mojeek": "site:example.com admin backup config"
+    },
+    {
+      "title": "Directory Listings",
+      "google": "site:example.com intitle:\"index of\" | intitle:\"directory listing\" | intitle:\"directory of\" | intext:\"parent directory\"",
+      "bing": "site:example.com (title:\"index of\" OR title:\"directory listing\" OR \"parent directory\")",
+      "duckduckgo": "site:example.com (\"index of\" OR \"directory listing\")",
+      "yandex": "site:example.com (title:\"index of\" | title:\"directory listing\")",
+      "brave": "site:example.com (title:\"index of\" OR \"directory listing\")",
+      "baidu": "site:example.com index directory",
+      "mojeek": "site:example.com index directory listing"
+    },
+    {
+      "title": "Archive Files",
+      "google": "site:example.com ext:zip | ext:tar | ext:gz | ext:rar | ext:7z | ext:tgz",
+      "bing": "site:example.com (ext:zip OR ext:tar OR ext:gz OR ext:rar OR ext:7z)",
+      "duckduckgo": "site:example.com (.zip OR .tar OR .gz OR .rar OR .7z)",
+      "yandex": "site:example.com (ext:zip | ext:tar | ext:gz | ext:rar)",
+      "brave": "site:example.com (ext:zip OR ext:tar OR ext:gz OR ext:rar)",
+      "baidu": "site:example.com (filetype:zip OR filetype:tar OR filetype:gz OR filetype:rar)",
+      "mojeek": "site:example.com zip tar gz rar archive"
+    },
+    {
+      "title": "Source Code Files",
+      "google": "site:example.com inurl:/src/ | inurl:/source/ | inurl:/code/",
+      "bing": "site:example.com (url:/src/ OR url:/source/ OR url:/code/)",
+      "duckduckgo": "site:example.com (/src/ OR /source/ OR /code/)",
+      "yandex": "site:example.com (url:/src/ | url:/source/ | url:/code/)",
+      "brave": "site:example.com (url:/src/ OR url:/source/ OR url:/code/)",
+      "baidu": "site:example.com /src/ /source/",
+      "mojeek": "site:example.com src source code"
+    },
+    {
+      "title": "Nginx Config Files",
+      "google": "site:example.com (\"nginx.conf\" ext:conf) | intitle:\"index of\" \"nginx.conf\" | intext:\"nginx\" \"config\" ext:txt",
+      "bing": "site:example.com (\"nginx.conf\" ext:conf OR title:\"index of\" \"nginx.conf\")",
+      "duckduckgo": "site:example.com (\"nginx.conf\" OR \"nginx config\")",
+      "yandex": "site:example.com (\"nginx.conf\" ext:conf | title:\"index of\" \"nginx.conf\")",
+      "brave": "site:example.com (\"nginx.conf\" OR \"nginx config\")",
+      "baidu": "site:example.com nginx.conf",
+      "mojeek": "site:example.com nginx config"
+    },
+    {
+      "title": "Credentials Files",
+      "google": "site:example.com inurl:/credentials/ | intext:\"username\" intext:\"password\" ext:txt | ext:log",
+      "bing": "site:example.com (url:/credentials/ OR \"username\" \"password\")",
+      "duckduckgo": "site:example.com (/credentials/ OR \"username\" \"password\")",
+      "yandex": "site:example.com (url:/credentials/ | \"username\" \"password\")",
+      "brave": "site:example.com (url:/credentials/ OR \"username\" \"password\")",
+      "baidu": "site:example.com credentials username password",
+      "mojeek": "site:example.com credentials username password"
+    },
+    {
+      "title": "Local Storage Data",
+      "google": "site:example.com intext:\"localStorage\" | intext:\"sessionStorage\" | intext:\"localStorage.setItem\"",
+      "bing": "site:example.com (\"localStorage\" OR \"sessionStorage\")",
+      "duckduckgo": "site:example.com (\"localStorage\" OR \"sessionStorage\")",
+      "yandex": "site:example.com (\"localStorage\" | \"sessionStorage\")",
+      "brave": "site:example.com (\"localStorage\" OR \"sessionStorage\")",
+      "baidu": "site:example.com localStorage sessionStorage",
+      "mojeek": "site:example.com localStorage sessionStorage"
+    },
+    {
+      "title": "Email Addresses",
+      "google": "site:example.com intext:\"@example.com\" | intext:\"email\" | intext:\"contact\"",
+      "bing": "site:example.com (\"@example.com\" OR email OR contact)",
+      "duckduckgo": "site:example.com (\"@example.com\" OR email)",
+      "yandex": "site:example.com (\"@example.com\" | email)",
+      "brave": "site:example.com (\"@example.com\" OR email)",
+      "baidu": "site:example.com @example.com email",
+      "mojeek": "site:example.com email contact"
+    },
+    {
+      "title": "Sitemap Files",
+      "google": "site:example.com ext:xml inurl:sitemap | inurl:sitemap.xml",
+      "bing": "site:example.com (ext:xml url:sitemap OR url:sitemap.xml)",
+      "duckduckgo": "site:example.com (sitemap.xml OR sitemap)",
+      "yandex": "site:example.com (ext:xml url:sitemap | url:sitemap.xml)",
+      "brave": "site:example.com (ext:xml url:sitemap OR url:sitemap.xml)",
+      "baidu": "site:example.com filetype:xml sitemap",
+      "mojeek": "site:example.com sitemap xml"
+    },
+    {
+      "title": "SQL Files",
+      "google": "site:example.com ext:sql | intext:\"INSERT INTO\" ext:sql | intext:\"CREATE TABLE\" ext:sql",
+      "bing": "site:example.com (ext:sql OR \"INSERT INTO\" OR \"CREATE TABLE\")",
+      "duckduckgo": "site:example.com (.sql OR \"INSERT INTO\" OR \"CREATE TABLE\")",
+      "yandex": "site:example.com (ext:sql | \"INSERT INTO\" | \"CREATE TABLE\")",
+      "brave": "site:example.com (ext:sql OR \"INSERT INTO\" OR \"CREATE TABLE\")",
+      "baidu": "site:example.com filetype:sql",
+      "mojeek": "site:example.com sql INSERT CREATE"
+    },
+    {
+      "title": "Debug Log Files",
+      "google": "site:example.com inurl:debug.log | inurl:/debug/ | inurl:error.log | inurl:errors.log",
+      "bing": "site:example.com (url:debug.log OR url:/debug/ OR url:error.log)",
+      "duckduckgo": "site:example.com (debug.log OR /debug/ OR error.log)",
+      "yandex": "site:example.com (url:debug.log | url:/debug/ | url:error.log)",
+      "brave": "site:example.com (url:debug.log OR url:/debug/ OR url:error.log)",
+      "baidu": "site:example.com debug.log error.log",
+      "mojeek": "site:example.com debug error log"
+    },
+    {
+      "title": "Application Log Files",
+      "google": "site:example.com inurl:/logs/ intext:\"API\" | inurl:/logs/ intext:\"audit\" | inurl:/logs/ intext:\"transaction\" | inurl:/logs/ intext:\"user login\"",
+      "bing": "site:example.com url:/logs/ (API OR audit OR transaction OR \"user login\")",
+      "duckduckgo": "site:example.com /logs/ (API OR audit OR transaction)",
+      "yandex": "site:example.com url:/logs/ (API | audit | transaction | \"user login\")",
+      "brave": "site:example.com url:/logs/ (API OR audit OR transaction)",
+      "baidu": "site:example.com /logs/ API audit",
+      "mojeek": "site:example.com logs API audit transaction"
+    },
+    {
+      "title": "Database Credentials",
+      "google": "site:example.com intext:\"DB_HOST=\" | intext:\"DB_USER=\" | intext:\"DB_PASS=\" | intext:\"DB_PASSWORD=\" | intext:\"DATABASE_URL=\"",
+      "bing": "site:example.com (\"DB_HOST=\" OR \"DB_USER=\" OR \"DB_PASS=\" OR \"DB_PASSWORD=\" OR \"DATABASE_URL=\")",
+      "duckduckgo": "site:example.com (\"DB_HOST=\" OR \"DB_USER=\" OR \"DB_PASS=\" OR \"DATABASE_URL=\")",
+      "yandex": "site:example.com (\"DB_HOST=\" | \"DB_USER=\" | \"DB_PASS=\" | \"DB_PASSWORD=\")",
+      "brave": "site:example.com (\"DB_HOST=\" OR \"DB_USER=\" OR \"DB_PASS=\" OR \"DATABASE_URL=\")",
+      "baidu": "site:example.com DB_HOST DB_USER DB_PASSWORD",
+      "mojeek": "site:example.com database credentials DB_HOST DB_USER"
+    }
+  ]
+}

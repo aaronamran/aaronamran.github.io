@@ -1,0 +1,85 @@
+{
+  "category": "People & Organization",
+  "dorks": [
+    {
+      "title": "LinkedIn - Technical Staff",
+      "google": "site:linkedin.com/in/ \"example.com\" (\"DevOps\" OR \"SRE\" OR \"Security Engineer\")",
+      "bing": "site:linkedin.com/in/ \"example.com\" (\"DevOps\" OR \"SRE\" OR \"Security Engineer\")",
+      "duckduckgo": "site:linkedin.com/in/ example.com (DevOps OR SRE OR \"Security Engineer\")",
+      "yandex": "site:linkedin.com/in/ \"example.com\" (\"DevOps\" | \"SRE\" | \"Security Engineer\")",
+      "brave": "site:linkedin.com/in/ example.com (DevOps OR SRE OR \"Security Engineer\")",
+      "baidu": "site:linkedin.com/in/ example.com DevOps SRE",
+      "mojeek": "site:linkedin.com/in/ example.com DevOps SRE Security"
+    },
+    {
+      "title": "LinkedIn - Tech Developers",
+      "google": "site:linkedin.com/in/ \"example.com\" (\"Solr\" OR \"Keycloak\" OR \"Shibboleth\")",
+      "bing": "site:linkedin.com/in/ \"example.com\" (\"Solr\" OR \"Keycloak\" OR \"Shibboleth\")",
+      "duckduckgo": "site:linkedin.com/in/ example.com (Solr OR Keycloak OR Shibboleth)",
+      "yandex": "site:linkedin.com/in/ \"example.com\" (\"Solr\" | \"Keycloak\" | \"Shibboleth\")",
+      "brave": "site:linkedin.com/in/ example.com (Solr OR Keycloak OR Shibboleth)",
+      "baidu": "site:linkedin.com/in/ example.com Solr Keycloak",
+      "mojeek": "site:linkedin.com/in/ example.com Solr Keycloak Shibboleth"
+    },
+    {
+      "title": "LinkedIn - Employee Emails",
+      "google": "site:linkedin.com/in/ \"example.com\" intext:\"@example.com\"",
+      "bing": "site:linkedin.com/in/ \"example.com\" \"@example.com\"",
+      "duckduckgo": "site:linkedin.com/in/ example.com @example.com",
+      "yandex": "site:linkedin.com/in/ \"example.com\" \"@example.com\"",
+      "brave": "site:linkedin.com/in/ example.com @example.com",
+      "baidu": "site:linkedin.com/in/ example.com",
+      "mojeek": "site:linkedin.com/in/ example.com"
+    },
+    {
+      "title": "LinkedIn - Leadership Roles",
+      "google": "site:linkedin.com/in/ \"example.com\" (\"VP of Engineering\" OR \"CTO\" OR \"CISO\")",
+      "bing": "site:linkedin.com/in/ \"example.com\" (\"VP of Engineering\" OR \"CTO\" OR \"CISO\")",
+      "duckduckgo": "site:linkedin.com/in/ example.com (\"VP of Engineering\" OR CTO OR CISO)",
+      "yandex": "site:linkedin.com/in/ \"example.com\" (\"VP of Engineering\" | \"CTO\" | \"CISO\")",
+      "brave": "site:linkedin.com/in/ example.com (\"VP of Engineering\" OR CTO OR CISO)",
+      "baidu": "site:linkedin.com/in/ example.com CTO CISO",
+      "mojeek": "site:linkedin.com/in/ example.com CTO CISO"
+    },
+    {
+      "title": "Trello Boards",
+      "google": "site:trello.com \"example.com\"",
+      "bing": "site:trello.com \"example.com\"",
+      "duckduckgo": "site:trello.com example.com",
+      "yandex": "site:trello.com \"example.com\"",
+      "brave": "site:trello.com example.com",
+      "baidu": "site:trello.com example.com",
+      "mojeek": "site:trello.com example.com"
+    },
+    {
+      "title": "Google Groups",
+      "google": "site:groups.google.com \"example.com\"",
+      "bing": "site:groups.google.com \"example.com\"",
+      "duckduckgo": "site:groups.google.com example.com",
+      "yandex": "site:groups.google.com \"example.com\"",
+      "brave": "site:groups.google.com example.com",
+      "baidu": "site:groups.google.com example.com",
+      "mojeek": "site:groups.google.com example.com"
+    },
+    {
+      "title": "Third-Party Integrations",
+      "google": "site:drive.google.com \"example.com\"\nsite:docs.google.com \"example.com\"\nsite:docs.google.com/forms \"example.com\"\nsite:docs.google.com/spreadsheets \"example.com\"\nsite:notion.so \"example.com\"\nsite:slack.com \"example.com\"\nsite:discord.gg \"example.com\"\nsite:zoom.us \"example.com\"\nsite:app.asana.com \"example.com\"\nsite:teams.microsoft.com \"example.com\"\nsite:webex.com \"example.com\"\nsite:service-now.com \"example.com\"\nsite:salesforce.com \"example.com\"\nsite:webflow.io \"example.com\"\nsite:evernote.com \"example.com\"\nsite:workers.dev \"example.com\"\nsite:freshdesk.com \"example.com\"\nsite:dev.azure.com \"example.com\"\nsite:clickup.com \"example.com\"\nsite:workfront.com \"example.com\"",
+      "bing": "site:drive.google.com \"example.com\"\nsite:docs.google.com \"example.com\"\nsite:notion.so \"example.com\"\nsite:slack.com \"example.com\"\nsite:teams.microsoft.com \"example.com\"\nsite:salesforce.com \"example.com\"\nsite:freshdesk.com \"example.com\"\nsite:dev.azure.com \"example.com\"",
+      "duckduckgo": "site:drive.google.com example.com\nsite:docs.google.com example.com\nsite:notion.so example.com\nsite:slack.com example.com\nsite:salesforce.com example.com",
+      "yandex": "site:drive.google.com \"example.com\"\nsite:docs.google.com \"example.com\"\nsite:notion.so \"example.com\"\nsite:slack.com \"example.com\"\nsite:salesforce.com \"example.com\"",
+      "brave": "site:drive.google.com example.com\nsite:docs.google.com example.com\nsite:notion.so example.com\nsite:slack.com example.com\nsite:salesforce.com example.com",
+      "baidu": "site:drive.google.com example.com\nsite:docs.google.com example.com",
+      "mojeek": "site:drive.google.com example.com\nsite:docs.google.com example.com"
+    },
+    {
+      "title": "Pastebin & Code Sharing",
+      "google": "site:pastebin.com \"example.com\" | site:paste.centos.org \"example.com\" | site:haveibeenpwned.com \"example.com\"",
+      "bing": "site:pastebin.com \"example.com\"",
+      "duckduckgo": "site:pastebin.com example.com",
+      "yandex": "site:pastebin.com \"example.com\"",
+      "brave": "site:pastebin.com example.com",
+      "baidu": "site:pastebin.com example.com",
+      "mojeek": "site:pastebin.com example.com"
+    }
+  ]
+}

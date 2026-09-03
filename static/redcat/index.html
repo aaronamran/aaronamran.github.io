@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aaronamran</title>
+    <link rel="icon" type="image/png" href="redcat.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-overlay" class="landing-overlay">
+        <div class="landing-content">
+            <div class="landing-header">
+                <img src="redcat.png" alt="Red Cat Logo" class="landing-logo">
+                <h1 class="landing-title">Red Cat</h1>
+                <h3 class="landing-subtitle">A RHCSA exam practice created by <a href="https://aaronamran.github.io" target="_blank">@aaronamran</a></h3>
+                <p class="landing-subtitle">RHEL 9 EX200 Exam Preparation</p>
+                <a href="https://ko-fi.com/aaronamran" target="_blank" class="kofi-link">
+                    <svg class="kofi-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.310.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/>
+                    </svg>
+                    Support on Ko-fi
+                </a>
+            </div>
+
+            <div class="landing-options">
+                <div class="practice-mode-section">
+                    <h2>Choose Your Practice Mode</h2>
+                    
+                    <button id="default-practice-btn" class="practice-mode-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                        <div class="btn-text">
+                            <div class="btn-title">Default Practice</div>
+                            <div class="btn-description">Start from Section 1 and progress through all 15 sections sequentially</div>
+                        </div>
+                    </button>
+
+                    <button id="select-chapter-btn" class="practice-mode-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        <div class="btn-text">
+                            <div class="btn-title">Select Chapter</div>
+                            <div class="btn-description">Jump to any specific section to practice targeted topics</div>
+                        </div>
+                    </button>
+
+                    <button id="free-terminal-btn" class="practice-mode-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="9" y1="9" x2="15" y2="9"/>
+                            <line x1="9" y1="15" x2="15" y2="15"/>
+                        </svg>
+                        <div class="btn-text">
+                            <div class="btn-title">Free Terminal</div>
+                            <div class="btn-description">Use the Linux terminal freely without guided practice</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Chapter Selection (Hidden by default) -->
+                <div id="chapter-selection" class="chapter-selection" style="display: none;">
+                    <div class="chapter-selection-header">
+                        <h2>Select a Chapter</h2>
+                        <button id="back-to-mode" class="back-btn">← Back</button>
+                    </div>
+                    <div id="chapter-grid" class="chapter-grid">
+                        <!-- Chapters will be dynamically generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Section Data (needed for chapter selection) -->
+    <script src="sections/section1-users-and-groups.js"></script>
+    <script src="sections/section2-permissions-and-acls.js"></script>
+    <script src="sections/section3-storage-and-filesystems.js"></script>
+    <script src="sections/section4-essential-tools.js"></script>
+    <script src="sections/section5-running-systems.js"></script>
+    <script src="sections/section6-file-systems.js"></script>
+    <script src="sections/section7-systems-maintenance.js"></script>
+    <script src="sections/section8-networking.js"></script>
+    <script src="sections/section9-containers.js"></script>
+    <script src="sections/section10-remote-resources.js"></script>
+    <script src="sections/section11-selinux.js"></script>
+    <script src="sections/section12-shell-scripting.js"></script>
+    <script src="sections/section13-task-scheduling.js"></script>
+    <script src="sections/section14-boot-grub.js"></script>
+    <script src="sections/section15-time-services.js"></script>
+    
+    <!-- Data Loader -->
+    <script src="data.js"></script>
+    
+    <!-- Landing Page Module -->
+    <script src="landing.js"></script>
+
+    <!-- Clear localStorage on first access to ensure clean state -->
+    <script>
+        // Check if this is a fresh access (not from internal navigation)
+        // We use sessionStorage to track if user has already been to landing this session
+        if (!sessionStorage.getItem('redcat-session-active')) {
+            console.log('🧹 First access detected, clearing localStorage...');
+            // Clear only Red Cat related localStorage items
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                // Remove Red Cat specific keys
+                if (key && (key.includes('redcat') || key.includes('appState') || 
+                    key.includes('terminal') || key.includes('section'))) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            console.log(`✅ Cleared ${keysToRemove.length} localStorage items`);
+            
+            // Mark session as active
+            sessionStorage.setItem('redcat-session-active', 'true');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{{- /*
+  Render hook for Markdown images: ![alt](src)
+  Priority:
+    1. Page bundle resource (image co-located with index.md)
+    2. Global assets/ directory resource
+    3. Fallback: raw URL passthrough (external URLs or static/ files)
+  Processing: resize to max 1000px wide, convert to WebP at q100
+*/ -}}
+
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+
+{{- $img := .Page.Resources.GetMatch $src -}}
+{{- if not $img -}}
+  {{- $img = resources.Get $src -}}
+{{- end -}}
+
+{{- if $img -}}
+  {{- $processed := $img.Resize "1000x webp q100" -}}
+  <img src="{{ $processed.RelPermalink }}" alt="{{ $alt }}"
+    {{- if $title }} title="{{ $title }}"{{ end }}
+    width="{{ $processed.Width }}" height="{{ $processed.Height }}"
+    loading="lazy" decoding="async" class="img-fluid mb-3" />
+{{- else -}}
+  <img src="{{ $src | safeURL }}" alt="{{ $alt }}"
+    {{- if $title }} title="{{ $title }}"{{ end }}
+    loading="lazy" decoding="async" class="img-fluid mb-3" />
+{{- end -}}

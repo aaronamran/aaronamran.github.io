@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div class="note-layout toc-left">
+  <aside class="note-toc">
+    <p class="col-label">Chapters</p>
+    <nav id="tocNav">
+      {{ .TableOfContents }}
+    </nav>
+  </aside>
+
+  <div class="writeup-body knowledge-body">
+    <a href="{{ .FirstSection.RelPermalink }}" class="back-link">&larr; Back to {{ .FirstSection.Title }}</a>
+    {{ .Content }}
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const scrollEl = document.querySelector(".note-layout");
+  const links = Array.from(document.querySelectorAll("#tocNav a"));
+  const headings = links
+    .map(a => document.getElementById(decodeURIComponent(a.getAttribute("href").replace("#", ""))))
+    .filter(Boolean);
+  if (!scrollEl || !headings.length) return;
+
+  // top-level <li> (chapters) that may own a nested <ul> of subsections.
+  // Hugo wraps the TOC in its own <nav id="TableOfContents">, so the first
+  // <ul> found under #tocNav (in document order) is always the outermost/chapter list.
+  const topUl = document.querySelector("#tocNav ul");
+  const chapters = topUl ? Array.from(topUl.children) : [];
+
+  const openChapter = (chapterEl) => {
+    chapters.forEach(li => li.classList.toggle("open", li === chapterEl));
+  };
+
+  // stays active for the whole chapter, not just while the heading itself is on screen
+  const onScroll = () => {
+    const triggerLine = scrollEl.getBoundingClientRect().top + scrollEl.clientHeight * 0.15;
+    let activeIndex = 0;
+    headings.forEach((h, i) => {
+      if (h.getBoundingClientRect().top <= triggerLine) activeIndex = i;
+    });
+    links.forEach((a, i) => a.classList.toggle("active", i === activeIndex));
+
+    const activeLink = links[activeIndex];
+    const activeChapter = chapters.find(li => li.contains(activeLink));
+    if (activeChapter) openChapter(activeChapter);
+  };
+
+  // expand a chapter's subsections immediately on click, before the scroll event catches up
+  chapters.forEach(li => {
+    const chapterLink = li.querySelector(":scope > a");
+    if (chapterLink) chapterLink.addEventListener("click", () => openChapter(li));
+  });
+
+  scrollEl.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+});
+</script>
+{{ end }}

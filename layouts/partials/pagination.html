@@ -1,0 +1,33 @@
+{{ if gt .Paginator.TotalPages 1 }}
+{{ $cur := .Paginator.PageNumber }}
+{{ $total := .Paginator.TotalPages }}
+<div class="sb-block sb-pagination">
+  <p class="col-label">Page</p>
+  <div class="pg-links">
+    {{ if .Paginator.HasPrev }}
+      <a class="pg-btn" href="{{ .Paginator.Prev.URL }}">&larr;</a>
+    {{ else }}
+      <span class="pg-btn disabled">&larr;</span>
+    {{ end }}
+
+    {{ range .Paginator.Pagers }}
+      {{ $n := .PageNumber }}
+      {{ if or (le $total 7) (or (le $n 2) (or (ge $n (sub $total 1)) (and (ge $n (sub $cur 2)) (le $n (add $cur 2))))) }}
+        {{ if eq $n $cur }}
+          <span class="pg-btn active">{{ $n }}</span>
+        {{ else }}
+          <a class="pg-btn" href="{{ .URL }}">{{ $n }}</a>
+        {{ end }}
+      {{ else if and (or (eq $n 3) (eq $n (sub $total 2))) (or (lt $n (sub $cur 2)) (gt $n (add $cur 2))) }}
+        <span class="pg-btn disabled">&hellip;</span>
+      {{ end }}
+    {{ end }}
+
+    {{ if .Paginator.HasNext }}
+      <a class="pg-btn" href="{{ .Paginator.Next.URL }}">&rarr;</a>
+    {{ else }}
+      <span class="pg-btn disabled">&rarr;</span>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,97 @@
+{{ define "main" }}
+  <style>
+    .site-frame    { overflow: hidden !important; display: flex; flex-direction: column; height: calc(100vh - 2.5rem); }
+    .content-grid  { flex: 1; min-height: 0; overflow: hidden; }
+    .posts-col     { overflow-y: auto; overflow-x: hidden; min-height: 0; }
+    .sidebar       { overflow-y: auto; }
+    .posts-col::-webkit-scrollbar       { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+  </style>
+
+  {{ $general := .Site.GetPage "/knowledge/general" }}
+  {{ $certRoot := .Site.GetPage "/knowledge/certifications" }}
+  {{ $generalPages := $general.Pages }}
+  {{ $certSections := $certRoot.Pages }}
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <p class="about-quote">Personal centralised knowledge vault.</p>
+
+      <div class="cert-tabs" id="knowledgeTabs">
+        <button class="cert-tab active" data-tab="general">General</button>
+        <button class="cert-tab" data-tab="certs">Certification Exams</button>
+      </div>
+
+      <div class="cert-panel active" id="knowledge-general">
+        <div class="platform-grid">
+          {{ range $generalPages }}
+          <a href="{{ .RelPermalink }}" class="platform-card">
+            <div class="platform-card-name">{{ .Title }}</div>
+            <div class="platform-card-url">{{ or .Params.category "Notes" }}</div>
+          </a>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="cert-panel" id="knowledge-certs">
+        {{ if $certSections }}
+          <div class="platform-grid">
+            {{ range $certSections }}
+              {{ if .IsSection }}
+              <div class="cert-subcategory">
+                <h3 class="subcategory-title">{{ .Title }}</h3>
+                <div class="platform-grid">
+                  {{ range .Pages }}
+                  <a href="{{ .RelPermalink }}" class="platform-card">
+                    <div class="platform-card-name">{{ .Title }}</div>
+                    <div class="platform-card-url">{{ or .Params.category "Notes" }}</div>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ else }}
+              <a href="{{ .RelPermalink }}" class="platform-card">
+                <div class="platform-card-name">{{ .Title }}</div>
+                <div class="platform-card-url">{{ or .Params.category "Notes" }}</div>
+              </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        {{ else }}
+          <p class="about-quote">No certification-specific notes yet.</p>
+        {{ end }}
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Focus Areas</p>
+        <div class="cert-badges">
+          <span class="cert-tag">OS</span>
+          <span class="cert-tag">Web Security</span>
+          <span class="cert-tag">Penetration Testing</span>
+          <span class="cert-tag">Red Teaming</span>
+          <span class="cert-tag">LOTL</span>
+        </div>
+      </div>
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">{{ len $generalPages }}</span><span class="stat-label">general</span></div>
+        <div class="stat-box"><span class="stat-num">{{ len $certSections }}</span><span class="stat-label">certs</span></div>
+      </div>
+    </aside>
+  </div>
+{{ end }}
+
+{{ define "pagescripts" }}
+<script>
+  document.getElementById('knowledgeTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.cert-tab');
+    if (!btn) return;
+    document.querySelectorAll('#knowledgeTabs .cert-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cert-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('knowledge-' + btn.dataset.tab).classList.add('active');
+  });
+</script>
+{{ end }}

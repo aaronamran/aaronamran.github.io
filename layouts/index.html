@@ -1,0 +1,137 @@
+{{ define "main" }}
+
+  <style>
+    .posts-col {
+      overflow-y: auto;
+      min-height: 0;
+    }
+    .posts-col::-webkit-scrollbar {
+      width: 5px;
+    }
+    .posts-col::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .posts-col::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+    .posts-col::-webkit-scrollbar-thumb:hover {
+      opacity: 0.75;
+    }
+  </style>
+
+  <div class="content-grid">
+    <main class="posts-col">
+      <div class="about-intro">
+        <div class="about-intro-text">
+          <h1 class="about-name"><span class="name-swap"><span class="name-real">Aaron Amran</span><span class="name-handle">@aaronamran</span></span><span class="about-accent">.</span></h1>
+          <p class="about-quote">Endless journey of exploring code, circuits, networks, exploits.</p>
+        </div>
+        <img class="profile-pic" src="/assets/img/profile.jpg" alt="Aaron Amran">
+      </div>
+
+      <div class="about-terminal">
+        <p><span class="t-dim">~$</span> cat about.txt</p>
+        <p class="t-dim">Location <span class="t-light">Kuching, Sarawak &middot; Malaysia</span></p>
+        <p class="t-dim">Role     <span class="t-light">System Engineer (System Storage Infrastructure) &middot; Hobbyist Hacker</span></p>
+        <p class="t-dim">Focus    <span class="t-light">Vulnerability Research ({{ len (.Site.GetPage "section" "cves").Pages }} CVEs) &middot; Offensive Security</span></p>
+        <p><span class="t-dim">~$</span> <span class="cursor-blink">&#x2587;</span></p>
+      </div>
+
+      <div class="about-section">
+        <p class="col-label">Contact</p>
+        <p class="about-contact-line">
+          <a href="https://github.com/aaronamran" target="_blank" rel="noopener">@aaronamran</a>
+          <span class="contact-sep">//</span>
+          <a href="https://github.com/aaronamran" target="_blank" rel="noopener">github.com/aaronamran</a>
+          <span class="contact-sep">//</span>
+          <a href="mailto:aaronamranba@gmail.com">aaronamranba@gmail.com</a>
+        </p>
+      </div>
+
+      <!-- <div class="about-section">
+        <p class="col-label">Perspectives</p>
+        <div class="platform-card">
+          <a href="/restrictive-hacking/">
+            <div class="blog-meta">
+              <span class="platform-card-url">Ghost in the Machine: The Art of Restrictive Hacking</span>
+            </div>
+            <p class="platform-card-desc">Why automated tools fail against mature networks, the certification paradox, and why a cheap, bare-metal terminal is the ultimate weapon.</p>
+          </a>
+        </div>
+      </div> -->
+
+      <div class="about-section">
+        <p class="col-label">Try It Live</p>
+        <div class="platform-grid">
+          <a href="/redcat/" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card-url">Red Cat</div>
+            <div class="platform-card-desc">Practice commands for RHCSA exam.</div>
+          </a>
+          <a href="/dorkindex/" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card-url">DorkIndex</div>
+            <div class="platform-card-desc">Dorks for recon via search engines.</div>
+          </a>
+          <a href="/cbomextractor/" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card-url">CBOM Extractor</div>
+            <div class="platform-card-desc">Extract cryptographic BOMs from CSVs.</div>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sb-block">
+        <p class="col-label">Acknowledged By</p>
+        <div class="cert-badges">
+          <span class="cert-tag">NASA</span>
+          <span class="cert-tag">UN</span>
+          <span class="cert-tag">WHO</span>
+          <span class="cert-tag">UNESCO</span>
+          <span class="cert-tag">UNICEF</span>
+          <span class="cert-tag">NSW Parliament</span>
+          <span class="cert-tag">Berkeley Lab</span>
+          <span class="cert-tag">Bayer</span>
+          <span class="cert-tag">Motorola Solutions</span>
+          <span class="cert-tag">Maldives Government</span>
+          <span class="cert-tag">Indonesian Government</span>
+        </div>
+      </div>
+      <div class="sb-block">
+        <p class="col-label">Currently</p>
+        <div class="sb-exp">
+          <span class="sb-exp-dot">&#9658;</span>
+          <div>
+            <p class="sb-exp-date">Aug 2025 &mdash; Present</p>
+            <p class="sb-exp-role">System Engineer<br><a href="https://www.sains.com.my" target="_blank" rel="noopener">SAINS</a></p>
+          </div>
+        </div>
+      </div>
+      {{ $cvesSection := .Site.GetPage "section" "cves" }}
+      {{ if $cvesSection }}
+      <div class="sb-block sb-stats">
+        <div class="stat-box"><span class="stat-num">{{ len $cvesSection.Pages }}</span><span class="stat-label">CVEs</span></div>
+      </div>
+      {{ end }}
+      <!-- <div class="sb-block">
+        <p class="col-label">Perspectives</p>
+        <div class="sb-exp">
+          <span class="sb-exp-dot">&#9658;</span>
+          <div>
+            <p class="sb-exp-date">June 2026</p>
+            <p class="sb-exp-role"><a href="./zero-dependency-system-primitives" target="_blank" rel="noopener">Zero-Dependency System Primitives</a></p>
+          </div>
+        </div>
+        <br />
+        <div class="sb-exp">
+          <span class="sb-exp-dot">&#9658;</span>
+          <div>
+            <p class="sb-exp-date">May 2026</p>
+            <p class="sb-exp-role"><a href="./restrictive-hacking/" target="_blank" rel="noopener">The Art of Restrictive Hacking</a></p>
+          </div>
+        </div>
+      </div> -->
+    </aside>
+  </div>
+
+{{ end }}

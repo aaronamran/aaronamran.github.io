@@ -1,0 +1,75 @@
+{
+  "category": "CI/CD & DevOps",
+  "dorks": [
+    {
+      "title": "Jenkins & CI/CD",
+      "google": "site:example.com inurl:jenkins | inurl:ci | inurl:hudson | intitle:\"Dashboard [Jenkins]\" | intitle:\"Jenkins\" | inurl:job | inurl:build",
+      "bing": "site:example.com (url:jenkins OR url:ci OR url:hudson OR title:\"Jenkins\")",
+      "duckduckgo": "site:example.com (jenkins OR hudson OR \"ci/cd\")",
+      "yandex": "site:example.com (url:jenkins | url:ci | url:hudson | title:\"Jenkins\")",
+      "brave": "site:example.com (url:jenkins OR url:ci OR title:\"Jenkins\")",
+      "baidu": "site:example.com jenkins hudson",
+      "mojeek": "site:example.com jenkins hudson"
+    },
+    {
+      "title": "TeamCity",
+      "google": "site:example.com intitle:\"TeamCity\" inurl:/login.html",
+      "bing": "site:example.com title:\"TeamCity\" url:/login.html",
+      "duckduckgo": "site:example.com \"TeamCity\" /login.html",
+      "yandex": "site:example.com title:\"TeamCity\" url:/login.html",
+      "brave": "site:example.com title:\"TeamCity\" url:/login.html",
+      "baidu": "site:example.com TeamCity",
+      "mojeek": "site:example.com TeamCity"
+    },
+    {
+      "title": "Drone CI",
+      "google": "site:example.com intitle:\"Drone\" inurl:login",
+      "bing": "site:example.com title:\"Drone\" url:login",
+      "duckduckgo": "site:example.com \"Drone\" login",
+      "yandex": "site:example.com title:\"Drone\" url:login",
+      "brave": "site:example.com title:\"Drone\" url:login",
+      "baidu": "site:example.com Drone",
+      "mojeek": "site:example.com Drone"
+    },
+    {
+      "title": "Harbor",
+      "google": "site:example.com intitle:\"Harbor\" inurl:harbor",
+      "bing": "site:example.com title:\"Harbor\" url:harbor",
+      "duckduckgo": "site:example.com \"Harbor\" harbor",
+      "yandex": "site:example.com title:\"Harbor\" url:harbor",
+      "brave": "site:example.com title:\"Harbor\" url:harbor",
+      "baidu": "site:example.com Harbor",
+      "mojeek": "site:example.com Harbor"
+    },
+    {
+      "title": "Portainer",
+      "google": "site:example.com intitle:\"Portainer\" inurl:#!/login",
+      "bing": "site:example.com title:\"Portainer\" url:login",
+      "duckduckgo": "site:example.com \"Portainer\" login",
+      "yandex": "site:example.com title:\"Portainer\" url:login",
+      "brave": "site:example.com title:\"Portainer\" url:login",
+      "baidu": "site:example.com Portainer",
+      "mojeek": "site:example.com Portainer"
+    },
+    {
+      "title": "Pipeline Configs",
+      "google": "site:example.com inurl:/pipeline/ | ext:yml \"pipeline\" | ext:yaml \"pipeline\"",
+      "bing": "site:example.com (url:/pipeline/ OR ext:yml \"pipeline\")",
+      "duckduckgo": "site:example.com (/pipeline/ OR pipeline.yml)",
+      "yandex": "site:example.com (url:/pipeline/ | ext:yml \"pipeline\")",
+      "brave": "site:example.com (url:/pipeline/ OR pipeline.yml)",
+      "baidu": "site:example.com pipeline",
+      "mojeek": "site:example.com pipeline config"
+    },
+    {
+      "title": "Rundeck",
+      "google": "site:example.com inurl:/rundeck/ | intitle:\"Rundeck\"",
+      "bing": "site:example.com (url:/rundeck/ OR title:\"Rundeck\")",
+      "duckduckgo": "site:example.com (/rundeck/ OR \"Rundeck\")",
+      "yandex": "site:example.com (url:/rundeck/ | title:\"Rundeck\")",
+      "brave": "site:example.com (url:/rundeck/ OR title:\"Rundeck\")",
+      "baidu": "site:example.com Rundeck",
+      "mojeek": "site:example.com Rundeck"
+    }
+  ]
+}

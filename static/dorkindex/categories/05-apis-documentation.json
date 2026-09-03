@@ -1,0 +1,65 @@
+{
+  "category": "APIs & Documentation",
+  "dorks": [
+    {
+      "title": "API Endpoints",
+      "google": "site:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3",
+      "bing": "site:example.com (url:api OR url:rest OR url:v1 OR url:v2 OR url:v3)",
+      "duckduckgo": "site:example.com (api OR rest OR v1 OR v2 OR v3)",
+      "yandex": "site:example.com (url:api | url:rest | url:v1 | url:v2)",
+      "brave": "site:example.com (url:api OR url:rest OR url:v1)",
+      "baidu": "site:example.com api",
+      "mojeek": "site:example.com api rest"
+    },
+    {
+      "title": "API Docs",
+      "google": "site:example.com inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:swagger-ui.html | inurl:swagger.json | inurl:api-explorer | inurl:redoc | inurl:openapi | intitle:\"Swagger UI\"",
+      "bing": "site:example.com (url:apidocs OR url:swagger OR url:swagger-ui.html OR url:swagger.json OR url:api-docs OR title:\"Swagger UI\")",
+      "duckduckgo": "site:example.com (apidocs OR swagger OR swagger-ui.html OR swagger.json OR \"api documentation\")",
+      "yandex": "site:example.com (url:apidocs | url:swagger | url:swagger-ui.html | url:swagger.json | url:api-docs)",
+      "brave": "site:example.com (url:swagger OR url:swagger-ui.html OR url:apidocs OR url:redoc)",
+      "baidu": "site:example.com (swagger OR swagger-ui OR api documentation)",
+      "mojeek": "site:example.com (api documentation OR swagger)"
+    },
+    {
+      "title": "GraphQL Endpoints",
+      "google": "site:example.com inurl:graphql | inurl:graphiql | inurl:playground | intitle:\"GraphQL Playground\" | intitle:\"GraphiQL\"",
+      "bing": "site:example.com (url:graphql OR url:graphiql OR url:playground OR title:\"GraphQL\")",
+      "duckduckgo": "site:example.com (graphql OR graphiql OR playground)",
+      "yandex": "site:example.com (url:graphql | url:graphiql | url:playground)",
+      "brave": "site:example.com (url:graphql OR url:graphiql OR url:playground)",
+      "baidu": "site:example.com graphql",
+      "mojeek": "site:example.com graphql playground"
+    },
+    {
+      "title": "Postman Collections",
+      "google": "site:example.com inurl:getpostman.com",
+      "bing": "site:example.com url:getpostman.com",
+      "duckduckgo": "site:example.com getpostman.com",
+      "yandex": "site:example.com url:getpostman.com",
+      "brave": "site:example.com url:getpostman.com",
+      "baidu": "site:example.com getpostman.com",
+      "mojeek": "site:example.com getpostman"
+    },
+    {
+      "title": "Kong",
+      "google": "site:example.com inurl:/dev-portal/",
+      "bing": "site:example.com url:/dev-portal/",
+      "duckduckgo": "site:example.com /dev-portal/",
+      "yandex": "site:example.com url:/dev-portal/",
+      "brave": "site:example.com url:/dev-portal/",
+      "baidu": "site:example.com Kong",
+      "mojeek": "site:example.com Kong"
+    },
+    {
+      "title": "Apache APISIX",
+      "google": "site:example.com intitle:\"Apache APISIX Dashboard\"",
+      "bing": "site:example.com title:\"Apache APISIX Dashboard\"",
+      "duckduckgo": "site:example.com \"Apache APISIX Dashboard\"",
+      "yandex": "site:example.com title:\"Apache APISIX Dashboard\"",
+      "brave": "site:example.com title:\"Apache APISIX Dashboard\"",
+      "baidu": "site:example.com \"Apache APISIX\"",
+      "mojeek": "site:example.com Apache APISIX"
+    }
+  ]
+}

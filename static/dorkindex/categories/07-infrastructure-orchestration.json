@@ -1,0 +1,115 @@
+{
+  "category": "Infrastructure & Orchestration",
+  "dorks": [
+    {
+      "title": "Kubernetes Dashboard",
+      "google": "site:example.com intitle:\"Kubernetes Dashboard\"",
+      "bing": "site:example.com title:\"Kubernetes Dashboard\"",
+      "duckduckgo": "site:example.com \"Kubernetes Dashboard\"",
+      "yandex": "site:example.com title:\"Kubernetes Dashboard\"",
+      "brave": "site:example.com title:\"Kubernetes Dashboard\"",
+      "baidu": "site:example.com \"Kubernetes Dashboard\"",
+      "mojeek": "site:example.com Kubernetes Dashboard"
+    },
+    {
+      "title": "Consul",
+      "google": "site:example.com intitle:\"Consul\" inurl:ui",
+      "bing": "site:example.com title:\"Consul\" url:ui",
+      "duckduckgo": "site:example.com \"Consul\" ui",
+      "yandex": "site:example.com title:\"Consul\" url:ui",
+      "brave": "site:example.com title:\"Consul\" url:ui",
+      "baidu": "site:example.com Consul",
+      "mojeek": "site:example.com Consul"
+    },
+    {
+      "title": "HashiCorp Nomad",
+      "google": "site:example.com intitle:\"Nomad\" inurl:ui",
+      "bing": "site:example.com title:\"Nomad\" url:ui",
+      "duckduckgo": "site:example.com \"Nomad\" ui",
+      "yandex": "site:example.com title:\"Nomad\" url:ui",
+      "brave": "site:example.com title:\"Nomad\" url:ui",
+      "baidu": "site:example.com Nomad",
+      "mojeek": "site:example.com Nomad"
+    },
+    {
+      "title": "HashiCorp Vault",
+      "google": "site:example.com intitle:\"Vault\" inurl:ui | inurl:\"/ui/\"",
+      "bing": "site:example.com title:\"Vault\" (url:ui OR url:\"/ui/\")",
+      "duckduckgo": "site:example.com \"Vault\" (ui OR \"/ui/\")",
+      "yandex": "site:example.com title:\"Vault\" (url:ui | url:\"/ui/\")",
+      "brave": "site:example.com title:\"Vault\" (url:ui OR url:\"/ui/\")",
+      "baidu": "site:example.com Vault",
+      "mojeek": "site:example.com Vault"
+    },
+    {
+      "title": "Apache Airflow",
+      "google": "site:example.com intitle:\"Airflow\" inurl:login | inurl:/dags/ | inurl:/admin/airflow/tree",
+      "bing": "site:example.com title:\"Airflow\" (url:login OR url:/dags/ OR url:/admin/airflow/tree)",
+      "duckduckgo": "site:example.com \"Airflow\" (login OR /dags/ OR /admin/airflow/tree)",
+      "yandex": "site:example.com title:\"Airflow\" (url:login | url:/dags/ | url:/admin/airflow/tree)",
+      "brave": "site:example.com title:\"Airflow\" (url:login OR url:/dags/)",
+      "baidu": "site:example.com Airflow",
+      "mojeek": "site:example.com Airflow"
+    },
+    {
+      "title": "Traefik",
+      "google": "site:example.com intitle:\"Traefik\" inurl:dashboard",
+      "bing": "site:example.com title:\"Traefik\" url:dashboard",
+      "duckduckgo": "site:example.com \"Traefik\" dashboard",
+      "yandex": "site:example.com title:\"Traefik\" url:dashboard",
+      "brave": "site:example.com title:\"Traefik\" url:dashboard",
+      "baidu": "site:example.com Traefik",
+      "mojeek": "site:example.com Traefik"
+    },
+    {
+      "title": "Kubernetes API",
+      "google": "site:example.com inurl:/api/v1/namespaces/ | inurl:/api/v1/namespaces/kube-system/",
+      "bing": "site:example.com (url:/api/v1/namespaces/ OR url:/api/v1/namespaces/kube-system/)",
+      "duckduckgo": "site:example.com (/api/v1/namespaces/ OR /api/v1/namespaces/kube-system/)",
+      "yandex": "site:example.com (url:/api/v1/namespaces/ | url:/api/v1/namespaces/kube-system/)",
+      "brave": "site:example.com (url:/api/v1/namespaces/ OR url:/api/v1/namespaces/kube-system/)",
+      "baidu": "site:example.com /api/v1/namespaces/",
+      "mojeek": "site:example.com kubernetes api namespaces"
+    },
+    {
+      "title": "Proxmox",
+      "google": "site:example.com inurl:/pve/ | intitle:\"Proxmox Virtual Environment\"",
+      "bing": "site:example.com (url:/pve/ OR title:\"Proxmox Virtual Environment\")",
+      "duckduckgo": "site:example.com (/pve/ OR \"Proxmox Virtual Environment\")",
+      "yandex": "site:example.com (url:/pve/ | title:\"Proxmox Virtual Environment\")",
+      "brave": "site:example.com (url:/pve/ OR title:\"Proxmox Virtual Environment\")",
+      "baidu": "site:example.com Proxmox",
+      "mojeek": "site:example.com Proxmox"
+    },
+    {
+      "title": "Home Assistant",
+      "google": "site:example.com inurl:/lovelace/ | intitle:\"Home Assistant\"",
+      "bing": "site:example.com (url:/lovelace/ OR title:\"Home Assistant\")",
+      "duckduckgo": "site:example.com (/lovelace/ OR \"Home Assistant\")",
+      "yandex": "site:example.com (url:/lovelace/ | title:\"Home Assistant\")",
+      "brave": "site:example.com (url:/lovelace/ OR title:\"Home Assistant\")",
+      "baidu": "site:example.com \"Home Assistant\"",
+      "mojeek": "site:example.com Home Assistant"
+    },
+    {
+      "title": "OpenProject",
+      "google": "site:example.com inurl:/openproject/ | intitle:\"OpenProject\"",
+      "bing": "site:example.com (url:/openproject/ OR title:\"OpenProject\")",
+      "duckduckgo": "site:example.com (/openproject/ OR \"OpenProject\")",
+      "yandex": "site:example.com (url:/openproject/ | title:\"OpenProject\")",
+      "brave": "site:example.com (url:/openproject/ OR title:\"OpenProject\")",
+      "baidu": "site:example.com OpenProject",
+      "mojeek": "site:example.com OpenProject"
+    },
+    {
+      "title": "Docker Registry",
+      "google": "site:example.com inurl:/v2/_catalog | inurl:/v2/ | intitle:\"Docker Registry\"",
+      "bing": "site:example.com (url:/v2/_catalog OR url:/v2/ OR title:\"Docker Registry\")",
+      "duckduckgo": "site:example.com (/v2/_catalog OR /v2/ OR \"Docker Registry\")",
+      "yandex": "site:example.com (url:/v2/_catalog | url:/v2/ | title:\"Docker Registry\")",
+      "brave": "site:example.com (url:/v2/_catalog OR url:/v2/ OR title:\"Docker Registry\")",
+      "baidu": "site:example.com /v2/_catalog Docker",
+      "mojeek": "site:example.com Docker Registry catalog"
+    }
+  ]
+}

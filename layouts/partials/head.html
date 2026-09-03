@@ -1,0 +1,87 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}aaronamran{{ else }}{{ .Title }} | aaronamran{{ end }}</title>
+<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/styles.css">
+{{ if .IsHome }}
+{{ $cvePages := (.Site.GetPage "section" "cves").Pages }}
+{{ $hackPages := (.Site.GetPage "section" "ethicalhacking").Pages }}
+{{ $authorRef := dict "@type" "Person" "name" "Aaron Amran Bin Amiruddin" "url" "https://aaronamran.github.io" }}
+{{ $fallbackImage := "assets/img/profile.jpg" | absURL }}
+
+{{ $cveIdentifiers := slice }}
+{{ range $cvePages }}
+  {{ $cveIdentifiers = $cveIdentifiers | append (dict
+    "@type" "PropertyValue"
+    "propertyID" "CVE"
+    "value" .Params.prog
+    "url" (printf "https://nvd.nist.gov/vuln/detail/%s" .Params.prog)
+  ) }}
+{{ end }}
+
+{{ $subjectOf := slice }}
+{{ range $cvePages }}
+  {{ $subjectOf = $subjectOf | append (dict
+    "@type" "Article"
+    "name" .Title
+    "headline" .Title
+    "url" .Permalink
+    "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00")
+    "author" $authorRef
+    "image" ($fallbackImage)
+  ) }}
+{{ end }}
+{{ range $hackPages }}
+  {{ $subjectOf = $subjectOf | append (dict
+    "@type" "Article"
+    "name" .Title
+    "headline" .Title
+    "url" .Permalink
+    "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00")
+    "author" $authorRef
+    "image" ($fallbackImage)
+  ) }}
+{{ end }}
+
+{{ $person := dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" "Aaron Amran Bin Amiruddin"
+  "alternateName" "Aaron Amran"
+  "url" "https://aaronamran.github.io"
+  "email" "aaronamranba@gmail.com"
+  "address" (dict
+    "@type" "PostalAddress"
+    "addressRegion" "Sarawak"
+    "addressCountry" "Malaysia"
+  )
+  "sameAs" (slice
+    "https://github.com/aaronamran"
+    "https://aaronamran.github.io"
+    "https://www.linkedin.com/in/aaronamran/"
+  )
+  "knowsAbout" (slice
+    "Vulnerability Research"
+    "Vulnerability Disclosure"
+    "Application Security"
+    "Ethical Hacking"
+    "Web Security"
+    "OSINT"
+    "Google Dorking"
+    "Offensive Security"
+    "Penetration Testing"
+    "Red Teaming"
+    "Bug Bounty"
+    "Vulnerability Disclosure Program"
+    "Responsible Disclosure"
+  )
+  "identifier" $cveIdentifiers
+  "subjectOf" $subjectOf
+}}
+<script type="application/ld+json">
+{{ $person | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{ end }}
