@@ -6,6 +6,78 @@
     .posts-col::-webkit-scrollbar-track { background: transparent; }
     .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
     a.post-row { text-decoration: none; color: inherit; cursor: pointer; }
+
+    /* ── Filter tabs (reuses cert-tab styling pattern) ── */
+    .lab-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .lab-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .lab-tab {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-faint);
+      cursor: pointer;
+      padding: 0.5rem 0.9rem 0.45rem;
+      margin-bottom: -1px;
+      letter-spacing: 0.04em;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lab-tab:hover { color: var(--text-dim); }
+
+    .lab-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .lab-search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 160px;
+      max-width: 280px;
+    }
+
+    .lab-search {
+      width: 100%;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      background: var(--bg);
+      border: 1px solid var(--border-mid);
+      color: var(--text);
+      padding: 0.4rem 0.6rem;
+      transition: border-color 0.15s;
+    }
+
+    .lab-search:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .lab-search::placeholder { color: var(--text-faint); }
+
+    .lab-empty {
+      color: var(--text-faint);
+      font-size: 0.72rem;
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .post-row.lab-hidden { display: none; }
   </style>
 
   <div class="content-grid">
@@ -14,16 +86,42 @@
       <p class="col-label" style="margin-top:1rem">Hack The Box</p>
       <p class="about-quote">Premier penetration testing labs platform. <a href="https://hackthebox.com" target="_blank" rel="noopener">[hackthebox.com]</a></p>
 
-      {{ $paginator := .Paginate .Pages 10 }}
-      {{ range $paginator.Pages }}
-      <a class="post-row" href="{{ .RelPermalink }}">
-        <div class="post-body">
-          <h2 class="post-title">{{ .Title }}</h2>
-          {{ if .Params.excerpt }}<p class="post-excerpt">{{ .Params.excerpt }}</p>{{ end }}
-          <div class="post-meta"><span class="post-prog">{{ .Params.prog }}</span></div>
+      <div class="lab-controls">
+        <div class="lab-tabs" id="labTabs">
+          <button type="button" class="lab-tab active" data-filter="all">All</button>
+          <button type="button" class="lab-tab" data-filter="machines">Machines</button>
+          <button type="button" class="lab-tab" data-filter="sherlocks">Sherlocks</button>
+          <button type="button" class="lab-tab" data-filter="prolabs">Pro Labs</button>
         </div>
-      </a>
-      {{ end }}
+        <div class="lab-search-wrap">
+          <input type="text" id="labSearch" class="lab-search" placeholder="Search keyword...">
+        </div>
+      </div>
+
+      <div id="labList">
+        {{ range .Pages }}
+        {{ $type := .Params.type }}
+        {{ if not $type }}
+          {{ if in (lower .Params.prog) "sherlock" }}
+            {{ $type = "sherlock" }}
+          {{ else }}
+            {{ $type = "machine" }}
+          {{ end }}
+        {{ end }}
+        <a class="post-row"
+           href="{{ .RelPermalink }}"
+           data-type="{{ $type }}"
+           data-search="{{ lower (printf "%s %s %s" .Title (.Params.excerpt | default "") (.Params.prog | default "")) }}">
+          <div class="post-body">
+            <h2 class="post-title">{{ .Title }}</h2>
+            {{ if .Params.excerpt }}<p class="post-excerpt">{{ .Params.excerpt }}</p>{{ end }}
+            <div class="post-meta"><span class="post-prog">{{ .Params.prog }}</span></div>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+
+      <p id="labEmpty" class="lab-empty">No writeups match your filter/search.</p>
 
       {{ if not .Pages }}
       <p style="color:var(--text-faint);font-size:0.72rem;margin-top:2rem">Writeups coming soon.</p>
@@ -38,12 +136,47 @@
         <p class="col-label">Categories</p>
         <div class="cert-badges">
           <span class="cert-tag">Machines</span>
-          <span class="cert-tag">Challenges</span>
-          <span class="cert-tag">Pro Labs</span>
           <span class="cert-tag">Sherlocks</span>
+          <span class="cert-tag">Pro Labs</span>
         </div>
       </div>
       {{ partial "pagination.html" . }}
     </aside>
   </div>
+
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('#labTabs .lab-tab');
+      var search = document.getElementById('labSearch');
+      var rows = document.querySelectorAll('#labList .post-row');
+      var emptyMsg = document.getElementById('labEmpty');
+      var activeFilter = 'all';
+
+      function applyFilters() {
+        var q = search.value.trim().toLowerCase();
+        var visibleCount = 0;
+
+        rows.forEach(function (row) {
+          var matchesType = activeFilter === 'all' || row.dataset.type === activeFilter;
+          var matchesSearch = !q || row.dataset.search.indexOf(q) !== -1;
+          var show = matchesType && matchesSearch;
+          row.classList.toggle('lab-hidden', !show);
+          if (show) visibleCount++;
+        });
+
+        emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          activeFilter = tab.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      search.addEventListener('input', applyFilters);
+    })();
+  </script>
 {{ end }}
