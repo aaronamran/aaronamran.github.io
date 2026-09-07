@@ -13,7 +13,7 @@ type: 'machines'
 <div class="writeup-date">September 2026 &middot; Machines</div>
 </div>
 </div>
-<p class="lead mb-4"> </p>
+<p class="lead mb-4">Lame is an easy Linux machine, requiring only one exploit to obtain root access. It was the first machine published on Hack The Box and was often the first machine for new users prior to its retirement.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> How many of the nmap top 1000 TCP ports are open on the remote host?</p>

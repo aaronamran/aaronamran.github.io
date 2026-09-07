@@ -57,7 +57,41 @@ type: 'machines'
 <p class="mb-2"><strong>Question 6:</strong> </p>
 <p class="mb-3"></p>
 <p class="mb-5"><strong>Answer:</strong> </p>
+<br />
 
+
+<p class="mb-2"><strong>Question 7:</strong> </p>
+<p class="mb-3"></p>
+
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+
+<p class="mb-2"><strong>Question 8:</strong> </p>
+<p class="mb-3"></p>
+
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+
+<p class="mb-2"><strong>Question 9:</strong> </p>
+<p class="mb-3"></p>
+
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+
+<p class="mb-2"><strong>Question 10:</strong> </p>
+<p class="mb-3"></p>
+
+<p class="mb-5"><strong>Answer:</strong> </p>
+<br />
+
+
+<p class="mb-2"><strong>Question 11:</strong> </p>
+<p class="mb-3"></p>
+
+<p class="mb-5"><strong>Answer:</strong> </p>
 
 
 <hr />
