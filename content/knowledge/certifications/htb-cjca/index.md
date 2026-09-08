@@ -6575,8 +6575,734 @@ category: 'Defensive Cybersecurity'
 
 <br />
 
+### 4.1 Bourne Again Shell {#ch4.1-bourne-again-shell}
+
+<p class="lead mb-4">Like a programming language, a scripting language has almost the same structure, which can be divided into: Input & Output, Arguments, Variables & Arrays, Conditional execution, Arithmetic, Loops, Comparison operators, Functions</p>
+<p class="lead mb-4">Examples of Script Execution:</p>
+
+```console
+aaronamran@htb[/htb]$ bash script.sh <optional arguments>
+
+aaronamran@htb[/htb]$ sh script.sh <optional arguments>
+
+aaronamran@htb[/htb]$ ./script.sh <optional arguments>
+```
+
+<br />
+
+### 4.2 Conditional Execution {#ch4.2-conditional-execution}
+
+<p class="lead mb-4">Allows us to control the flow of our script by reaching different conditions.</p>
+<p class="mb-4"><strong>Shebang</strong>: Is always at the top of each script and starts with <code>#!</code>. This line contains the path to the specified interpreter (<code>/bin/bash</code>) with which the script is executed. Example of Shebang to define interpreters:</p>
+
+```console
+#!/bin/bash
+
+#!/usr/bin/env python
+
+#!/usr/bin/env perl
+```
+
+<br />
+
+### 4.3 If-Else-Fi {#ch4.3-if-else-fi}
+
+<p class="mb-4"><strong>If-Else-Fi</strong>: To check different conditions. Take note of the syntax.</p>
+
+```console
+#!/bin/bash
+
+value=$1
+
+if [ $value -gt "10" ]
+then
+    echo "Given argument is greater than 10."
+elif [ $value -lt "10" ]
+then
+    echo "Given argument is less than 10."
+else
+    echo "Given argument is not a number."
+fi
+```
+
+<br />
+
+### 4.4 Arguments and Variables {#ch4.4-arguments-and-variables}
+
+<p class="mb-4"><strong>Arguments</strong>: We can always pass up to 9 arguments (<code>$0</code> - <code>$9</code>) to the script without assigning them to variables or setting corresponding requirements for these. <code>9</code> arguments because the first argument <code>$0</code> is reserved for the script. <code>${10}</code> is used because if we use <code>$10</code>, it will be interpreted as <code>$1</code> followed by a string <code>0</code>.</p>
+
+```console
+aaronamran@htb[/htb]$ ./script.sh ARG1 ARG2 ARG3 ... ARG9 ARG10
+       ASSIGNMENTS:       $0       $1   $2   $3 ...   $9  ${10}
+```
+
+<p class="mb-4"><strong>Internal Field Separator (IFS)</strong>: By default, the IFS variable is set to three whitespace characters: Space, Tab (<code>\t</code>) and Newline (<code>\n</code>). When IFS is unset or set to its default value, any sequences of spaces, tabs or newlines acts as a field delimiter. Example of IFS use cases:</p>
+
+```Bash
+line="apple,banana,cherry"
+IFS="," read -r col1 col2 col3 <<< "$line"
+echo "$col2"  # Output: banana
+```
+
+```Bash
+# Split only by newline, preserving spaces in filenames
+IFS=$'\n'
+for line in $(cat file.txt); do
+  echo "Line: $line"
+done
+```
+
+<p class="mb-4">Best practice is to keep changes local, by passing IFS inline to a command so it only affects that single execution without altering the global shell environment. If changing IFS globally within a script, save its original value first and restore it immediately after.</p>
+
+```Bash
+OLD_IFS="$IFS"
+IFS=":"
+# ... custom processing ...
+IFS="$OLD_IFS"
+```
+
+<p class="mb-4"><strong>Special Variables</strong>: Use the Internal Field Separator (IFS) to identify when an argument endds and the next begins.</p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Special Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$#</code></td>
+      <td>This variable holds the number of arguments passed to the script.</td>
+    </tr>
+    <tr>
+      <td><code>$@</code></td>
+      <td>This variable can be used to retrieve the list of command-line arguments.</td>
+    </tr>
+    <tr>
+      <td><code>$n</code></td>
+      <td>Each command-line argument can be selectively retrieved using its position. For example, the first argument is found at $1 .</td>
+    </tr>
+    <tr>
+      <td><code>$$</code></td>
+      <td>The process ID of the currently executing process.</td>
+    </tr>
+    <tr>
+      <td><code>$?</code></td>
+      <td>The exit status of the script. This variable is useful to determine a command's success. The value 0 represents successful execution, while 1 is a result of a failure.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="mb-4"><strong>Variables</strong>: There is no direct differentiation and recognition between the types of variables in Bash like strings, integers and boolean. All contents of variables are treated as string characters. Bash enables arithmetic functions depending on whether only numbers are assigned or not.</p>
+<p class="mb-4">Assigning/setting a variable:</p>
+
+```Bash
+domain=$1 # Storing the value of the first argument passed into the script into variable named domain. If domain is currently empty, Bash sees =1 and crashes with bash: =1: command not found
+
+domain=1  # Storing the number 1 into variable named domain
+```
+
+<p class="mb-4">Referencing a variable:</p>
+
+```Bash
+echo $domain  # Calling the value saved in variable named domain
+```
+
+<p class="mb-4">Variables has a strict no-space rule:</p>
+
+```Bash
+variable="value"  # Correct
+
+variable = "value"  # Wrong
+```
+
+<br />
+
+### 4.5 Arrays {#ch4.5-arrays}
+
+<p class="mb-4"><strong>Arrays</strong>: Assign several values to a single variable in Bash. Arrays are zero-indexed.</p>
+
+```Bash
+# Notice the quotes around the first three items
+domains=("www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com" www2.inlanefreight.com)
+
+echo ${domains[0]} 
+# Outputs: www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com
+
+echo ${domains[1]} 
+# Outputs: www2.inlanefreight.com
+```
+
+<p class="mb-4">Notice how double quotes (soft quotes) and single quotes (hard quotes) handle variable expansion differently:</p>
+
+```Bash
+user="alice"
+arr=("hello $user" "world")
+
+echo ${arr[0]}  # Output: hello alice
 
 
+user="alice"
+arr=('hello $user' 'world')
+
+echo ${arr[0]}  # Output: hello $user
+```
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>arr=(a b c)</code></td>
+      <td>Create an array with 3 items</td>
+    </tr>
+    <tr>
+      <td><code>${arr[0]}</code></td>
+      <td>Get the 1st item (a)</td>
+    </tr>
+    <tr>
+      <td><code>${arr[1]}</code></td>
+      <td>Get the 2nd item (b)</td>
+    </tr>
+    <tr>
+      <td><code>${arr[@]}</code></td>
+      <td>Get all items in the array</td>
+    </tr>
+    <tr>
+      <td><code>${#arr[@]}</code></td>
+      <td>Get total count of items</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### 4.6 Comparison Operators {#ch4.6-comparison-operators}
+
+<p class="mb-4"><strong>Comparison Operators</strong>: Determines how defined values will be compared. Consists of string, integer, file and boolean operators.</p>
+
+<p class="mb-4"><strong>String Operators</strong></p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>==</code></td>
+      <td>is equal to</td>
+    </tr>
+    <tr>
+      <td><code>!=</code></td>
+      <td>is not equal to</td>
+    </tr>
+    <tr>
+      <td><code>&lt;</code></td>
+      <td>is less than in ASCII alphabetical order</td>
+    </tr>
+    <tr>
+      <td><code>&gt;</code></td>
+      <td>is greater than in ASCII alphabetical order</td>
+    </tr>
+    <tr>
+      <td><code>-z</code></td>
+      <td>if the string is empty (null)</td>
+    </tr>
+    <tr>
+      <td><code>-n</code></td>
+      <td>if the string is not null</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="mb-4"><strong>Integer Operators</strong></p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-eq</code></td>
+      <td>is equal to</td>
+    </tr>
+    <tr>
+      <td><code>-ne</code></td>
+      <td>is not equal to</td>
+    </tr>
+    <tr>
+      <td><code>-lt</code></td>
+      <td>is less than</td>
+    </tr>
+    <tr>
+      <td><code>-le</code></td>
+      <td>is less than or equal to</td>
+    </tr>
+    <tr>
+      <td><code>-gt</code></td>
+      <td>is greater than</td>
+    </tr>
+    <tr>
+      <td><code>-ge</code></td>
+      <td>is greater than or equal to</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="mb-4"><strong>File Operators</strong></p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-e</code></td>
+      <td>if the file exist</td>
+    </tr>
+    <tr>
+      <td><code>-f</code></td>
+      <td>tests if it is a file</td>
+    </tr>
+    <tr>
+      <td><code>-d</code></td>
+      <td>tests if it is a directory</td>
+    </tr>
+    <tr>
+      <td><code>-L</code></td>
+      <td>tests if it is if a symbolic link</td>
+    </tr>
+    <tr>
+      <td><code>-N</code></td>
+      <td>checks if the file was modified after it was last read</td>
+    </tr>
+    <tr>
+      <td><code>-O</code></td>
+      <td>if the current user owns the file</td>
+    </tr>
+    <tr>
+      <td><code>-G</code></td>
+      <td>if the file’s group id matches the current user’s</td>
+    </tr>
+    <tr>
+      <td><code>-s</code></td>
+      <td>tests if the file has a size greater than 0</td>
+    </tr>
+    <tr>
+      <td><code>-r</code></td>
+      <td>tests if the file has read permission</td>
+    </tr>
+    <tr>
+      <td><code>-w</code></td>
+      <td>tests if the file has write permission</td>
+    </tr>
+    <tr>
+      <td><code>-x</code></td>
+      <td>tests if the file has execute permission</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="mb-4"><strong>Boolean Operators</strong>: We get a boolean value 'true' or 'false' as a result with logical operators.</p>
+
+<p class="mb-4"><strong>Logical Operators</strong>: We can define several conditions within one.</p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>!</code></td>
+      <td>logical negotation NOT</td>
+    </tr>
+    <tr>
+      <td><code>&amp;&amp;</code></td>
+      <td>logical AND</td>
+    </tr>
+    <tr>
+      <td><code>||</code></td>
+      <td>logical OR</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### 4.7 Arithmetic Operators {#ch4.7-arithmetic-operators}
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>+</code></td>
+      <td>Addition</td>
+    </tr>
+    <tr>
+      <td><code>-</code></td>
+      <td>Subtraction</td>
+    </tr>
+    <tr>
+      <td><code>*</code></td>
+      <td>Multiplication</td>
+    </tr>
+    <tr>
+      <td><code>/</code></td>
+      <td>Division</td>
+    </tr>
+    <tr>
+      <td><code>%</code></td>
+      <td>Modulus</td>
+    </tr>
+    <tr>
+      <td><code>variable++</code></td>
+      <td>Increase the value of the variable by 1</td>
+    </tr>
+    <tr>
+      <td><code>variable--</code></td>
+      <td>Decrease the value of the variable by 1</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### 4.8 Input and Output Control {#ch4.8-input-and-output-control}
+
+<p class="mb-4"><strong>Input Control</strong>: Allows a script to stop, ask us for instructions, and proceed based on our choice. This prevents scripts from running illegal, noisy or unintended actions automatically.</p>
+
+```Bash
+# Available options
+<SNIP>
+echo -e "Additional options available:"
+echo -e "\t1) Identify the corresponding network range of target domain."
+echo -e "\t2) Ping discovered hosts."
+echo -e "\t3) All checks."
+echo -e "\t*) Exit.\n"
+
+# read: pauses script execution to wait for keyboard input from the terminal
+# -p: displays a prompt string directly on the same line where we type our response
+# opt: a temporary variable 
+read -p "Select your option: " opt
+
+
+# like 
+case $opt in
+    "1") network_range ;;
+    "2") ping_host ;;
+    "3") network_range && ping_host ;;
+    "*") exit 0 ;;
+esac
+```
+
+<p class="mb-4"><strong>Output Control</strong>: Standard bash redirection (<code>&gt; file.txt</code>) sends command output straight into a file, leaving our terminal blank. For long-running scripts, this leaves us guessing whether the scripts is working or frozen. The <code>tee</code> utility splits the standard output stream into 2 paths: Displays output live on screen and writes the output to a target file.</p>
+
+```Console
+echo "Hello World" > output.txt
+# Terminal stays completely blank, file contains "Hello World"
+
+# Using tee prints the text and saves it at the exact same time:
+echo "Hello World" | tee output.txt
+
+Hello World
+
+# To append instead of overwrite, add -a:
+echo "Another line" | tee -a output.txt
+```
+
+<br />
+
+### 4.9 Flow Control - Loops {#ch4.9-flow-control-loops}
+
+<p class="mb-4"><strong>for Loops</strong>: Takes a sequence of items and processes them one by one.</p>
+
+```Bash
+#!/bin/bash
+
+# Loop through a predefined list of IP addresses
+for ip in 10.10.10.1 10.10.10.2 10.10.10.3
+do
+    echo "Pinging $ip..."
+    ping -c 1 $ip
+done
+```
+
+<p class="mb-4">A one-liner for loop uses semicolons to collapse the loop into a single line.</p>
+
+```Bash
+for ip in 10.10.10.1 10.10.10.2; do ping -c 1 $ip; done
+```
+
+<p class="mb-4"><strong>while Loops</strong>: Checks a condition before every pass. If the condition evaluates to true, the code block executes. We must manually modify the condition (like increasing a counter) to prevent an infinite loop.</p>
+
+```Bash
+#!/bin/bash
+
+counter=1
+
+# Runs AS LONG AS counter is less than or equal to 3 (-le)
+while [ $counter -le 3 ]
+do
+    echo "Attempt $counter: Checking server status..."
+    ((counter++))  # Increment counter to avoid an infinite loop
+done
+```
+
+<p class="mb-4"><strong>until Loops</strong>: Is the exact inverse of a while loop. It keeps running as long as the condition is FALSE and stops the exact moment the condition becomes true.</p>
+
+```Bash
+#!/bin/bash
+
+counter=1
+
+# Runs UNTIL counter equals 4 (-eq)
+until [ $counter -eq 4 ]
+do
+    echo "Waiting for port 80 to open... (Attempt $counter)"
+    ((counter++))
+done
+```
+
+<br />
+
+### 4.10 Flow Control - Branches {#ch4.10-flow-control-branches}
+
+<p class="mb-4"><strong>Case Statements</strong>: if-else allows us to check any boolean expression, while switch-case always compares only the variable with the exact value.</p>
+
+```Bash
+case <expression> in
+    pattern_1 ) statements ;;
+    pattern_2 ) statements ;;
+    pattern_3 ) statements ;;
+esac
+```
+
+<br />
+
+### 4.11 Functions {#ch4.11-functions}
+
+<p class="mb-4"><strong>Functions</strong>: A reusable block of code given a specific name.</p>
+
+```Bash
+# Method 1 (Explicit keyword)
+function ping_target {
+    ping -c 1 10.10.10.1
+}
+
+# Method 2 (POSIX style)
+ping_target() {
+    ping -c 1 10.10.10.1
+}
+
+# How to call a function (just type its name without brackets):
+ping_target
+```
+
+<p class="mb-4"><strong>Parameter Passing</strong>: Allows us to pass inputs to a function by typing them right after the function name, separated by spaces.</p>
+
+```Bash
+#!/bin/bash
+
+# Define function with parameters
+scan_host() {
+    echo "Target IP: $1"
+    echo "Target Port: $2"
+    nc -zv $1 $2
+}
+
+# $1 = First argument passed
+# $2 = Second argument passed
+# $@ = All arguments passed
+
+# Calling the function with 2 arguments ($1=10.10.10.1, $2=80):
+scan_host 10.10.10.1 80
+```
+
+<p class="mb-4"><strong>Global vs Local Variables</strong>: By default, every variable in Bash is global, even if created inside a function. This can lead to bugs where a function accidentally overwrites a variable used elsewhere. Use the <code>local</code> keyword to restrict a variable's scope strictly inside a function.</p>
+
+```Bash
+#!/bin/bash
+
+target="10.10.10.1"  # Global variable
+
+check_network() {
+    local target="192.168.1.1"  # Local variable (only exists inside this function)
+    echo "Inside function target is: $target"
+}
+
+check_network
+echo "Outside function target is still: $target"
+```
+
+<p class="mb-4"><strong>Exit Code (Status Code)</strong>: Every time a command or function finishes running in Linux, it sends an integer Exit Code back to the shell (from <code>0</code> to <code>255</code>). This code tells the shell whether the command succeeded or failed.</p>
+
+<table class="default-table">
+  <thead>
+    <tr>
+      <th>Return Code</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>0</code></td>
+      <td>Success</td>
+    </tr>
+    <tr>
+      <td><code>1</code></td>
+      <td>General errors</td>
+    </tr>
+    <tr>
+      <td><code>2</code></td>
+      <td>Misuse of shell builtins</td>
+    </tr>
+    <tr>
+      <td><code>126</code></td>
+      <td>Command invoked cannot execute</td>
+    </tr>
+    <tr>
+      <td><code>127</code></td>
+      <td>Command not found</td>
+    </tr>
+    <tr>
+      <td><code>128</code></td>
+      <td>Invalid argument to exit</td>
+    </tr>
+    <tr>
+      <td><code>128+n</code></td>
+      <td>Fatal error signal " <code>n</code> "</td>
+    </tr>
+    <tr>
+      <td><code>130</code></td>
+      <td>Script terminated by Control-C</td>
+    </tr>
+    <tr>
+      <td><code>255\*</code></td>
+      <td>Exit status out of range</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="mb-4">How to check exit codes using <code>$?</code>:</p>
+
+```Bash
+# Example 1: Successful command
+ls /etc
+echo $?  # Outputs: 0
+
+# Example 2: Command that fails
+ls /path/does/not/exist
+echo $?  # Outputs: 2 (or 1 depending on system)
+```
+
+<p class="mb-4"><strong>Returning Values From Functions</strong>: In traditional programming (Python, JS, C), return gives back data (like a string or object). In Bash, return ONLY gives back an exit status (0–255). To return actual data or numbers, Bash scripts use two distinct methods:</p>
+<p class="mb-4">Using <code>echo</code> & Command Substitution (Recommended for Data) to return strings, numbers, or calculated output from a function.</p>
+
+```Bash
+#!/bin/bash
+
+# Function definition
+get_gateway() {
+    # 'echo' produces the output we want to send back
+    echo "192.168.1.1"
+}
+
+# Capture the printed output into a variable using $(...)
+gateway_ip=$(get_gateway)
+
+echo "The default gateway is: $gateway_ip"
+```
+
+<p class="mb-4">Using <code>return</code> (For Success/Failure Status ONLY).</p>
+
+```Bash
+#!/bin/bash
+
+check_root() {
+    if [ "$EUID" -ne 0 ]; then
+        return 1  # FAILED: Not root
+    fi
+    return 0      # SUCCESS: Is root
+}
+
+check_root
+if [ $? -eq 0 ]; then
+    echo "Running with administrative privileges."
+else
+    echo "Error: You must run this script as root!"
+fi
+```
+
+<br />
+
+### 4.12 Debugging {#ch4.12-debugging}
+
+<p class="mb-4">Bash Debugging</strong>: Helps us trace exactly what the shell is executing step-by-step behind the scenes.</p>
+<p class="mb-4"><code>-x</code> (Xtrace / Execution Tracing): Displays every command after variable expansion (it shows the actual values substituted into variables right before execution). Every traced line starts with a <code>+</code> sign.</p>
+
+```Bash
++ '[' 0 -eq 0 ']'
++ echo -e 'You need to specify the target domain.\n'
+You need to specify the target domain.
+
++ echo -e Usage:
+Usage:
++ echo -e '\tCIDR.sh <domain>'
+    CIDR.sh <domain>
++ exit 1
+
+# Lines starting with +: What Bash is evaluating internally (the command + expanded variables).
+# Lines WITHOUT +: The actual terminal output visible to the end user.
+```
+
+<p class="mb-4"><code>-v</code> (Verbose Mode): Displays lines of code as they are read from the script file before any variables or wildcards are expanded.</p>
+<p class="mb-4"><code>-xv</code> (Combined): Shows both the raw source line (<code>-v</code>) and the expanded line ready for execution (<code>-x</code>).</p>
+<p class="mb-4">Ways to enable debugging:</p>
+
+```Bash
+# Terminal Command (One-time run): Run the entire script in debug mode without editing the file:
+bash -x CIDR.sh example.com
+
+
+# Inside the Shebang (Entire script): Enable tracing permanently inside the script header:
+#!/bin/bash -x
+
+echo "This whole script will run with xtrace active."
+
+
+# Targeted Debugging (Specific sections): Turn tracing ON and OFF for specific code blocks using set -x and set +x:
+#!/bin/bash
+
+echo "This part runs normally..."
+
+set -x  # START DEBUGGING
+netrange=$(whois 10.10.10.1 | grep "CIDR")
+set +x  # STOP DEBUGGING
+
+echo "Back to normal output..."
+```
 
 <br />
 
