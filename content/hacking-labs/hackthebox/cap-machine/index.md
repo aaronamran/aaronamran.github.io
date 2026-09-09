@@ -1,7 +1,7 @@
 ---
 title: 'Cap'
 date: '2026-09-03'
-excerpt: 'Easy - Linux'
+excerpt: 'Easy - Linux (CJCA Track)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---

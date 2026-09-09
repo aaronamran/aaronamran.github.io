@@ -59,7 +59,7 @@
       background: var(--bg);
       border: 1px solid var(--border-mid);
       color: var(--text);
-      padding: 0.4rem 0.6rem;
+      padding: 0.4rem 1.8rem 0.4rem 0.6rem;
       transition: border-color 0.15s;
     }
 
@@ -69,6 +69,26 @@
     }
 
     .lab-search::placeholder { color: var(--text-faint); }
+
+    .lab-clear {
+      position: absolute;
+      right: 0.4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.1rem 0.2rem;
+      display: none;
+    }
+
+    .lab-clear:hover { color: var(--accent); }
+
+    .lab-search-wrap.has-value .lab-clear { display: block; }
 
     .lab-empty {
       color: var(--text-faint);
@@ -93,8 +113,9 @@
           <button type="button" class="lab-tab" data-filter="sherlocks">Sherlocks</button>
           <button type="button" class="lab-tab" data-filter="prolabs">Pro Labs</button>
         </div>
-        <div class="lab-search-wrap">
+        <div class="lab-search-wrap" id="labSearchWrap">
           <input type="text" id="labSearch" class="lab-search" placeholder="Search keyword...">
+          <button type="button" class="lab-clear" id="labClear" aria-label="Clear search">&times;</button>
         </div>
       </div>
 
@@ -148,6 +169,8 @@
     (function () {
       var tabs = document.querySelectorAll('#labTabs .lab-tab');
       var search = document.getElementById('labSearch');
+      var searchWrap = document.getElementById('labSearchWrap');
+      var clearBtn = document.getElementById('labClear');
       var rows = document.querySelectorAll('#labList .post-row');
       var emptyMsg = document.getElementById('labEmpty');
       var activeFilter = 'all';
@@ -167,6 +190,10 @@
         emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
       }
 
+      function updateClearVisibility() {
+        searchWrap.classList.toggle('has-value', search.value.length > 0);
+      }
+
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
           tabs.forEach(function (t) { t.classList.remove('active'); });
@@ -176,7 +203,17 @@
         });
       });
 
-      search.addEventListener('input', applyFilters);
+      search.addEventListener('input', function () {
+        updateClearVisibility();
+        applyFilters();
+      });
+
+      clearBtn.addEventListener('click', function () {
+        search.value = '';
+        updateClearVisibility();
+        applyFilters();
+        search.focus();
+      });
     })();
   </script>
 {{ end }}
