@@ -1,7 +1,7 @@
 ---
 title: 'MetaTwo'
 date: '2026-09-09'
-excerpt: 'Easy - Linux (CJCA Track)'
+excerpt: 'Easy - Linux (CJCA Preparation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---
