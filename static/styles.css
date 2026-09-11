@@ -1080,6 +1080,83 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* ══════════════════════
+   CERT DIFFICULTY + FORMAT BADGES
+   (hardcoded hex — intentionally NOT using theme vars,
+   so these stay consistent regardless of swatch/theme)
+   ══════════════════════ */
+.cert-meta {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+}
+
+.diff-badge,
+.format-badge {
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+/* ── Difficulty ramp: calm → hardcore ──
+   Beginner = muted slate (low stakes)
+   Intermediate = blue (steady, building)
+   Advanced = amber/orange (hotter)
+   Expert = red (hardcore) */
+.diff-beginner {
+  color: #8a97a5;
+  border-color: #4a5561;
+  background: rgba(138, 151, 165, 0.08);
+}
+.diff-intermediate {
+  color: #5b9dff;
+  border-color: #5b9dff;
+  background: rgba(91, 157, 255, 0.08);
+}
+.diff-advanced {
+  color: #f0a63a;
+  border-color: #f0a63a;
+  background: rgba(240, 166, 58, 0.1);
+}
+.diff-expert {
+  color: #ff5c5c;
+  border-color: #ff5c5c;
+  background: rgba(255, 92, 92, 0.12);
+  font-weight: 700;
+}
+
+/* ── Format: practical vs MCQ ──
+   Practical = filled solid, vivid cyan — signals "this is the
+   one that matters," matches how you've talked about these
+   certs all along.
+   MCQ = flat grey outline, deliberately quiet/recessive. */
+.format-practical {
+  color: #0a1414;
+  border-color: #2dd4c4;
+  background: #2dd4c4;
+  font-weight: 700;
+}
+.format-mcq {
+  color: #6b7480;
+  border-color: #6b7480;
+  background: transparent;
+}
+
+/* Light theme overrides — same logic, adjusted for contrast on a light bg */
+[data-theme="light"] .diff-beginner     { color: #5a6472; border-color: #9aa4b0; background: rgba(90, 100, 114, 0.06); }
+[data-theme="light"] .diff-intermediate { color: #1d6fe0; border-color: #1d6fe0; background: rgba(29, 111, 224, 0.07); }
+[data-theme="light"] .diff-advanced     { color: #b5750f; border-color: #b5750f; background: rgba(181, 117, 15, 0.08); }
+[data-theme="light"] .diff-expert       { color: #d13c3c; border-color: #d13c3c; background: rgba(209, 60, 60, 0.1); }
+[data-theme="light"] .format-practical  { color: #ffffff; border-color: #0f9c8c; background: #0f9c8c; }
+[data-theme="light"] .format-mcq        { color: #7a8390; border-color: #7a8390; }
+
+
+/* ══════════════════════
    DEFAULT TABLE
    ══════════════════════ */
 .default-table {
