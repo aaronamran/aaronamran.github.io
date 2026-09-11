@@ -1,7 +1,7 @@
 ---
 title: 'Armaxis'
 date: '2026-09-10'
-excerpt: 'Very Easy'
+excerpt: 'Very Easy (CJCA Preparation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'challenges'
 ---

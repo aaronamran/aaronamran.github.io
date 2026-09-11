@@ -1,7 +1,7 @@
 ---
 title: 'Paper'
-date: '2026-09-03'
-excerpt: 'Easy - Linux'
+date: '2026-09-11'
+excerpt: 'Easy - Linux (CJCA Preparation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---
