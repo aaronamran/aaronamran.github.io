@@ -1,7 +1,7 @@
 ---
 title: 'Baby'
 date: '2026-09-11'
-excerpt: 'Easy - Linux (CJCA Preparation)'
+excerpt: 'Easy - Windows (CJCA Preparation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---
