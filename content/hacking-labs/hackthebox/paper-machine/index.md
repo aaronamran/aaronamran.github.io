@@ -13,7 +13,7 @@ type: 'machines'
 <div class="writeup-date">September 2026 &middot; Machines</div>
 </div>
 </div>
-<p class="lead mb-4"> </p>
+<p class="lead mb-4">Paper is an easy Linux machine that features an Apache server on ports 80 and 443, which are serving the HTTP and HTTPS versions of a website respectively. The website on port 80 returns a default server webpage but the HTTP response header reveals a hidden domain. This hidden domain is running a WordPress blog, whose version is vulnerable to CVE-2019-17671. This vulnerability allows us to view the confidential information stored in the draft posts of the blog, which reveal another URL leading to an employee chat system. This chat system is based on Rocketchat. Reading through the chats we find that there is a bot running which can be queried for specific information. We can exploit the bot functionality to obtain the password of a user on the system. Further host enumeration reveals that the sudo version is vulnerable to CVE-2021-3560 and can be exploited to elevate to root privileges.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> How many TCP ports are open on the remote host?</p>

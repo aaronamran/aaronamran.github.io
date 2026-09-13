@@ -121,7 +121,7 @@
       </div>
 
       <div id="labList">
-        {{ range .Pages }}
+        {{ range .Paginator.Pages }}
         {{ $type := .Params.type }}
         {{ if not $type }}
           {{ if in (lower .Params.prog) "sherlock" }}

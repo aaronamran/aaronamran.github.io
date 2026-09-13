@@ -13,7 +13,7 @@ type: 'machines'
 <div class="writeup-date">September 2026 &middot; Machines</div>
 </div>
 </div>
-<p class="lead mb-4"> </p>
+<p class="lead mb-4">MetaTwo is an easy Linux machine that features a website running Wordpress, which is using a plugin vulnerable to unauthenticated SQL injection (CVE-2022-0739). It can be exploited to reveal the password hash of the Wordpress users which can be cracked to obtain the password for the Wordpress user manager. The Wordpress version in use is vulnerable to an XXE Vulnerability in the Media Library (CVE-2021-29447), which can be exploited to obtain credentials for the FTP server. A file on the FTP server reveals the SSH credentials for user jnelson. For privilege escalation, the passpie utility on the remote host can be exploited to obtain the password for the root user.</p>
 
 <h4 class="mb-3">Tasks</h4>
 <p class="mb-2"><strong>Question 1:</strong> How many TCP ports are open on the remote host?</p>
