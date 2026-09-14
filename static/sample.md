@@ -1,5 +1,5 @@
 ---
-title: 'Lame'
+title: 'Sample'
 date: '2026-09-03'
 excerpt: 'Easy - Linux'
 prog: 'Hack The Box Machines - September 2026'
@@ -9,7 +9,7 @@ type: 'machines'
 <div class="writeup-header">
 <div class="writeup-header-text">
 <div class="writeup-org">Hack The Box</div>
-<h1 class="writeup-title">Lame</h1>
+<h1 class="writeup-title">Sample</h1>
 <div class="writeup-date">September 2026 &middot; Machines</div>
 </div>
 </div>
@@ -29,7 +29,7 @@ type: 'machines'
 <p class="mb-2"><strong>Question 2:</strong> </p>
 <p class="mb-3"></p>
 
-![Sample1](/images/sample_hackthebox_image1.png)
+
 
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
@@ -59,6 +59,7 @@ type: 'machines'
 <p class="mb-5"><strong>Answer:</strong> </p>
 <br />
 
+![Sample1](/images/sample_hackthebox_image1.png)
 
 <p class="mb-2"><strong>Question 7:</strong> </p>
 <p class="mb-3"></p>
