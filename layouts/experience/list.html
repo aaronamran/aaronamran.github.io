@@ -1,5 +1,14 @@
 {{ define "main" }}
-
+  <style>
+    .site-frame    { overflow: hidden !important; display: flex; flex-direction: column; height: calc(100vh - 2.5rem); }
+    .content-grid  { flex: 1; min-height: 0; overflow: hidden; }
+    .posts-col     { overflow-y: auto; overflow-x: hidden; min-height: 0; }
+    .sidebar       { overflow-y: auto; }
+    .posts-col::-webkit-scrollbar       { width: 5px; }
+    .posts-col::-webkit-scrollbar-track { background: transparent; }
+    .posts-col::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+  </style>
+  
   <div class="content-grid">
     <main class="posts-col exp-posts-col">
       <p class="col-label">Work Experience</p>

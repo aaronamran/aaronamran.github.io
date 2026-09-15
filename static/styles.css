@@ -620,6 +620,45 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent);
 }
 
+/* ══════════════════════
+   CERT ROW EXPAND (inline badge preview)
+   ══════════════════════ */
+.cert-expand-row td {
+  padding: 0 !important;
+  border-bottom: none;
+}
+
+.cert-expand-row.active td {
+  border-bottom: 1px solid var(--border);
+}
+
+.cert-expand-inner {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease;
+}
+
+.cert-expand-row.active .cert-expand-inner {
+  max-height: 240px;
+}
+
+.cert-expand-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+}
+
+.cert-expand-row.active .cert-expand-content {
+  padding: 1.1rem 0.75rem;
+}
+
+.cert-expand-img {
+  max-height: 190px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 /* Stats grid */
 .sb-stats {
   display: grid;
@@ -2103,5 +2142,102 @@ table.default-table td ul {
   .writeup-body img:not(.writeup-logo) {
     width: 100% !important;
     max-width: 100% !important;
+  }
+  
+  /* ── Cert table: fully exit table layout ── */
+  .cert-table,
+  .cert-table thead,
+  .cert-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .cert-table thead {
+    display: none;
+  }
+
+  .cert-table tbody tr[data-cert] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.5rem;
+    row-gap: 0.35rem;
+    width: 100%;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cert-table tbody tr[data-cert] td {
+    display: block;
+    padding: 0 !important;
+    border-bottom: none !important;
+    white-space: normal !important;
+    width: auto;
+  }
+
+  /* Unwrap the title cell so its children (link + badges)
+     become independent flex items we can reorder freely */
+  .cert-table tbody tr[data-cert] td:nth-child(3) {
+    display: contents;
+  }
+
+  /* ── Row 1: title, full width on its own line ── */
+  .cert-table tbody tr[data-cert] td:nth-child(3) > a {
+    order: 1;
+    flex: 1 0 100%;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  /* forced line break after title */
+  .cert-table tbody tr[data-cert]::before {
+    content: "";
+    order: 2;
+    flex-basis: 100%;
+  }
+
+  /* ── Row 2: badges + date together ── */
+  .cert-meta {
+    order: 3;
+    margin-left: 0;
+  }
+
+  .cert-table tbody tr[data-cert] td:nth-child(1) {
+    order: 4;
+    font-size: 0.68rem;
+    color: var(--text-faint);
+  }
+
+  /* forced line break before code/issuer */
+  .cert-table tbody tr[data-cert]::after {
+    content: "";
+    order: 5;
+    flex-basis: 100%;
+  }
+
+  /* ── Row 3: code + issuer together ── */
+  .cert-table tbody tr[data-cert] .cert-code {
+    order: 6;
+    width: auto;
+    font-size: 0.68rem;
+  }
+
+  .cert-table tbody tr[data-cert] td:nth-child(4) {
+    order: 7;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+  }
+
+  .cert-table tbody tr[data-cert] td:nth-child(4)::before {
+    content: "·";
+    margin-right: 0.4rem;
+    color: var(--text-faint);
+  }
+
+  /* Expand row stays full-width, unaffected by the flex rules above */
+  .cert-expand-row,
+  .cert-expand-row td {
+    display: block;
+    width: 100% !important;
   }
 }
