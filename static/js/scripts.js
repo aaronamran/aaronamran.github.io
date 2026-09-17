@@ -1,24 +1,20 @@
 /* ═══════════════════════════════════════════════
    scripts.js — Shared site logic
-   Palette / theme toggle + "You're all caught up" modal
+   Accent palette (fixed dark theme) + "You're all caught up" modal
    ═══════════════════════════════════════════════ */
 (function () {
 
-  /* ── Palette & theme ── */
+  /* ── Accent palette ── */
   const PALETTES = {
-    green: { dark: { accent: '#39d353', dim: 'rgba(57,211,83,0.12)'  }, light: { accent: '#1a7f37', dim: 'rgba(26,127,55,0.08)'  } },
-    cyan:  { dark: { accent: '#00D1FF', dim: 'rgba(0,209,255,0.12)'  }, light: { accent: '#0284c7', dim: 'rgba(2,132,199,0.10)'  } },
-    pink:  { dark: { accent: '#FF2E97', dim: 'rgba(255,46,151,0.14)' }, light: { accent: '#c2185b', dim: 'rgba(194,24,91,0.10)'  } },
+    green: { accent: '#39d353', dim: 'rgba(57,211,83,0.12)'  },
+    cyan:  { accent: '#00D1FF', dim: 'rgba(0,209,255,0.12)'  },
+    pink:  { accent: '#FF2E97', dim: 'rgba(255,46,151,0.14)' },
   };
 
-  const root     = document.documentElement;
-  const toggle   = document.getElementById('themeToggle');
-  const iconMoon = document.getElementById('icon-moon');
-  const iconSun  = document.getElementById('icon-sun');
+  const root = document.documentElement;
 
   function applyPalette(name) {
-    const theme  = root.dataset.theme || 'dark';
-    const tokens = (PALETTES[name] || PALETTES.green)[theme];
+    const tokens = PALETTES[name] || PALETTES.pink;
     root.style.setProperty('--accent',     tokens.accent);
     root.style.setProperty('--accent-dim', tokens.dim);
     document.querySelectorAll('.swatch').forEach(s =>
@@ -26,23 +22,15 @@
     localStorage.setItem('accent-palette', name);
   }
 
-  function applyTheme(t) {
-    root.dataset.theme = t;
-    iconMoon.style.display = t === 'dark'  ? '' : 'none';
-    iconSun.style.display  = t === 'light' ? '' : 'none';
-    localStorage.setItem('demo-theme', t);
-    applyPalette(localStorage.getItem('accent-palette') || 'pink');
+  applyPalette(localStorage.getItem('accent-palette') || 'pink');
+
+  const swatchWrap = document.getElementById('paletteSwatches');
+  if (swatchWrap) {
+    swatchWrap.addEventListener('click', e => {
+      const btn = e.target.closest('.swatch');
+      if (btn) applyPalette(btn.dataset.palette);
+    });
   }
-
-  applyTheme(localStorage.getItem('demo-theme') || 'dark');
-
-  toggle.addEventListener('click', () =>
-    applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
-
-  document.getElementById('paletteSwatches').addEventListener('click', e => {
-    const btn = e.target.closest('.swatch');
-    if (btn) applyPalette(btn.dataset.palette);
-  });
 
   /* ── Mobile nav hamburger (injected; hidden on desktop via CSS) ── */
   const topbarInner = document.querySelector('.topbar-inner');
