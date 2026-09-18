@@ -3,11 +3,12 @@ title: 'Berkeley Lab''s Exposed CR1000X Datalogger'
 date: '2026-01-20'
 excerpt: 'Public recognition via White Hats for Science program.'
 prog: 'VDP'
+org: 'LBNL'
 ---
 
 
 <div class="writeup-header">
-<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" class="writeup-logo" />
+<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Lawrence Berkeley National Laboratory (LBNL)</div>
 <h1 class="writeup-title">Berkeley Lab's Exposed CR1000X Datalogger</h1>

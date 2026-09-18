@@ -3,6 +3,7 @@ title: 'UNESCO''s Unprotected Power Supply in Ecuador'
 date: '2026-03-20'
 excerpt: 'Public recognition via the UNESCO Cybersecurity Hall of Fame.'
 prog: 'VDP'
+org: 'UNESCO'
 ---
 
 

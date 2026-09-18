@@ -3,6 +3,7 @@ title: "Second Win On World Health Organization's Vulnerability Hall of Fame"
 date: '2026-08-20'
 excerpt: 'Public recognition via the WHO Vulnerability Hall of Fame.'
 prog: 'VDP'
+org: 'WHO'
 ---
 
 

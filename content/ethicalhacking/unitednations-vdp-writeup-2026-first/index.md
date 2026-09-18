@@ -3,6 +3,7 @@ title: 'United Nations Information Security Hall of Fame Earned the Hard Way'
 date: '2026-05-20'
 excerpt: 'United Nations Information Security Hall of Fame 2026.'
 prog: 'VDP'
+org: 'UN'
 ---
 
 

@@ -3,6 +3,7 @@ title: 'Parliament of New South Wales Cyber Vulnerability'
 date: '2026-02-01'
 excerpt: 'Received formal acknowledgement from the Parliament of NSW.'
 prog: 'VDP'
+org: 'NSW Parliament'
 ---
 
 

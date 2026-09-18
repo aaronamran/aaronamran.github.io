@@ -3,11 +3,12 @@ title: "Remote Code Execution and Authentication Bypass in Bayer"
 date: '2026-06-12'
 excerpt: "Listed in Bayer's Coordinated Vulnerability Disclosure (CVD) Hall of Fame."
 prog: 'VDP'
+org: 'Bayer'
 ---
 
 
 <div class="writeup-header">
-<img src="/assets/logo/bayerlogo.webp" alt="KOMDIGI-CSIRT Logo" class="writeup-logo" />
+<img src="/assets/logo/bayerlogo.webp" alt="Bayer Logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Bayer</div>
 <h1 class="writeup-title">Remote Code Execution and Authentication Bypass in Bayer</h1>

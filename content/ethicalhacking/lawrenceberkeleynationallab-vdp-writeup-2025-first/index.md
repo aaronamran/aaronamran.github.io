@@ -3,11 +3,12 @@ title: 'Django Server Misconfigurations at Berkeley Lab'
 date: '2025-12-01'
 excerpt: 'Public recognition via White Hats for Science program.'
 prog: 'VDP'
+org: 'LBNL'
 ---
 
 
 <div class="writeup-header">
-<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" class="writeup-logo" />
+<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Lawrence Berkeley National Laboratory (LBNL)</div>
 <h1 class="writeup-title">Django Server Misconfigurations at Berkeley Lab</h1>

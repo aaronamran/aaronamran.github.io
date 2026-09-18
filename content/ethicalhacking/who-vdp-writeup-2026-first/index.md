@@ -3,6 +3,7 @@ title: "World Health Organization's WordPress Vulnerability"
 date: '2026-04-01'
 excerpt: 'Public recognition via the WHO Vulnerability Hall of Fame.'
 prog: 'VDP'
+org: 'WHO'
 ---
 
 

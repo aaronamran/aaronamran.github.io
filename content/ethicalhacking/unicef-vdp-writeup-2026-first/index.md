@@ -3,6 +3,7 @@ title: 'Unauthenticated Uploads in UNICEF''s ArcGIS FeatureServer'
 date: '2026-01-10'
 excerpt: 'Public recognition via the UNICEF Information Security Hall of Fame.'
 prog: 'VDP'
+org: 'UNICEF'
 ---
 
 

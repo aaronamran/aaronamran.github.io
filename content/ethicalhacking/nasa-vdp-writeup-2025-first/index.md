@@ -3,6 +3,7 @@ title: 'NASA''s Misconfigured Google Drive Permissions'
 date: '2025-08-01'
 excerpt: 'Received a Letter of Recommendation from NASA.'
 prog: 'VDP'
+org: 'NASA'
 ---
 
 

@@ -3,6 +3,7 @@ title: "Discovering Access Keys to Databases of Indian Institute of Science (IIS
 date: '2026-09-17'
 excerpt: "Acknowledged in IISc's Responsible Vulnerability Disclosure Programme Hall of Fame."
 prog: 'VDP'
+org: 'IISc'
 ---
 
 

@@ -18,6 +18,17 @@
     #posts-list a.post-row .post-title { color: var(--accent); }
   </style>
 
+    {{/* Build a deduped list of orgs across ALL pages (not just the current pagination page) */}}
+    {{ $orgs := slice }}
+    {{ range .Pages }}
+      {{ with .Params.org }}
+        {{ $org := . | strings.TrimSpace | lower }}
+        {{ if not (in $orgs $org) }}
+          {{ $orgs = $orgs | append $org }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
   <div class="content-grid">
     <main class="posts-col">
       <p class="about-quote" style="margin-bottom:1rem"><em>Uncovering vulnerabilities for responsible disclosures on real-world targets.</em></p>
@@ -55,7 +66,7 @@
       </div>
       <div class="sb-block sb-stats">
         <div class="stat-box"><span class="stat-num">{{ len .Pages }}</span><span class="stat-label">vulns</span></div>
-        <div class="stat-box"><span class="stat-num">12</span><span class="stat-label">orgs</span></div>
+          <div class="stat-box"><span class="stat-num">{{ len $orgs }}</span><span class="stat-label">orgs</span></div>
       </div>
       {{ partial "pagination.html" . }}
     </aside>

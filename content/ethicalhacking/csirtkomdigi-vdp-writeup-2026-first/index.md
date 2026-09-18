@@ -3,6 +3,7 @@ title: "Discovering Hard-Coded Credentials on KOMDIGI's Website"
 date: '2026-06-05'
 excerpt: 'Received a Certificate of Appreciation from KOMDIGI-CSIRT.'
 prog: 'VDP'
+org: 'ID GOV'
 ---
 
 

@@ -3,11 +3,12 @@ title: 'Berkeley Lab''s Invalid Calendar Date Leads to Denial-of-Service (DoS)'
 date: '2026-01-28'
 excerpt: 'Acknowledged by the Berkeley Lab Cybersecurity Team.'
 prog: 'VDP'
+org: 'LBNL'
 ---
 
 
 <div class="writeup-header">
-<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBL logo" class="writeup-logo" />
+<img src="/assets/logo/lawrenceberkeleynationallablogo.png" alt="LBNL logo" class="writeup-logo" />
 <div class="writeup-header-text">
 <div class="writeup-org">Lawrence Berkeley National Laboratory (LBNL)</div>
 <h1 class="writeup-title">Berkeley Lab's Invalid Calendar Date Leads to Denial-of-Service (DoS)</h1>
