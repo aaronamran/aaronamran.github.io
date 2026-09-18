@@ -1120,8 +1120,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ══════════════════════
    CERT DIFFICULTY + FORMAT BADGES
-   (hardcoded hex — intentionally NOT using theme vars,
-   so these stay consistent regardless of swatch/theme)
+   Palette-adaptive: derived from var(--accent), so beginner→expert
+   stays inside whichever of pink/cyan/green the user has active.
+   Fallback hex kept before each color-mix() for older browsers.
    ══════════════════════ */
 .cert-meta {
   display: inline-flex;
@@ -1142,42 +1143,52 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.6;
 }
 
-/* ── Difficulty ramp: calm → hardcore ──
-   Beginner = muted slate (low stakes)
-   Intermediate = blue (steady, building)
-   Advanced = amber/orange (hotter)
-   Expert = red (hardcore) */
+/* ── Beginner: neutral, palette-independent (unchanged) ── */
 .diff-beginner {
   color: #8a97a5;
   border-color: #4a5561;
   background: rgba(138, 151, 165, 0.08);
 }
+
+/* ── Intermediate: soft tint of the active accent ── */
 .diff-intermediate {
-  color: #5b9dff;
+  color: #5b9dff; /* fallback */
+  color: color-mix(in srgb, var(--accent) 60%, white 40%);
   border-color: #5b9dff;
+  border-color: color-mix(in srgb, var(--accent) 60%, white 40%);
   background: rgba(91, 157, 255, 0.08);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
+
+/* ── Advanced: the accent at full strength ── */
 .diff-advanced {
-  color: #f0a63a;
-  border-color: #f0a63a;
-  background: rgba(240, 166, 58, 0.1);
+  color: #ff2e97; /* fallback */
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(255, 46, 151, 0.1);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
+
+/* ── Expert: same hue/brightness as advanced, escalated via
+   weight + border thickness + glow rather than darkening
+   (darkening reads as *less* visible on a dark bg, backwards) ── */
 .diff-expert {
-  color: #ff5c5c;
-  border-color: #ff5c5c;
-  background: rgba(255, 92, 92, 0.12);
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
   font-weight: 700;
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 /* ── Format: practical vs MCQ ──
-   Practical = filled solid, vivid cyan — signals "this is the
-   one that matters," matches how you've talked about these
-   certs all along.
-   MCQ = flat grey outline, deliberately quiet/recessive. */
+   Practical now fills with the active accent instead of a
+   hardcoded cyan, since cyan is itself one of the three options.
+   MCQ stays fixed neutral grey — correct as-is, it's meant to
+   recede regardless of palette. */
 .format-practical {
   color: #0a1414;
-  border-color: #2dd4c4;
-  background: #2dd4c4;
+  border-color: var(--accent);
+  background: var(--accent);
   font-weight: 700;
 }
 .format-mcq {
@@ -1186,13 +1197,26 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
 }
 
-/* Light theme overrides — same logic, adjusted for contrast on a light bg */
+/* Light theme: same logic, slightly higher mix ratios so tints
+   don't wash out against a light background */
 [data-theme="light"] .diff-beginner     { color: #5a6472; border-color: #9aa4b0; background: rgba(90, 100, 114, 0.06); }
-[data-theme="light"] .diff-intermediate { color: #1d6fe0; border-color: #1d6fe0; background: rgba(29, 111, 224, 0.07); }
-[data-theme="light"] .diff-advanced     { color: #b5750f; border-color: #b5750f; background: rgba(181, 117, 15, 0.08); }
-[data-theme="light"] .diff-expert       { color: #d13c3c; border-color: #d13c3c; background: rgba(209, 60, 60, 0.1); }
-[data-theme="light"] .format-practical  { color: #ffffff; border-color: #0f9c8c; background: #0f9c8c; }
+[data-theme="light"] .diff-intermediate {
+  color: color-mix(in srgb, var(--accent) 70%, black 15%);
+  border-color: color-mix(in srgb, var(--accent) 70%, black 15%);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+[data-theme="light"] .diff-advanced {
+  color: color-mix(in srgb, var(--accent) 85%, black 10%);
+  border-color: color-mix(in srgb, var(--accent) 85%, black 10%);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+[data-theme="light"] .diff-expert {
+  border-color: color-mix(in srgb, var(--accent) 90%, black 10%);
+  box-shadow: 0 0 5px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+[data-theme="light"] .format-practical  { color: #ffffff; }
 [data-theme="light"] .format-mcq        { color: #7a8390; border-color: #7a8390; }
+
 
 
 /* ══════════════════════
