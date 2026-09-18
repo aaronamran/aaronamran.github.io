@@ -1,7 +1,7 @@
 ---
 title: 'Sample'
 date: '2026-09-03'
-excerpt: 'Easy - Linux'
+excerpt: 'Easy - Linux (CPTS Preparation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---

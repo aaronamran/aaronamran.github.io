@@ -1,7 +1,7 @@
 ---
 title: 'Return'
 date: '2026-09-14'
-excerpt: 'Easy - Windows'
+excerpt: 'Easy - Windows (AD Exploitation)'
 prog: 'Hack The Box Machines - September 2026'
 type: 'machines'
 ---
