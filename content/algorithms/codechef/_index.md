@@ -1,4 +1,0 @@
----
-title: "CodeChef"
-layout: "codechef"
----

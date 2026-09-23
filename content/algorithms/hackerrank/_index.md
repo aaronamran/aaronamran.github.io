@@ -1,4 +1,0 @@
----
-title: "HackerRank"
-layout: "hackerrank"
----
