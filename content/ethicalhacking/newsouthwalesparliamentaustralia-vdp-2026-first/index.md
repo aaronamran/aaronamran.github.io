@@ -16,7 +16,7 @@ org: 'NSW Parliament'
 </div>
 </div>
 
-<p class="lead mb-4">This post will not disclose specific details regarding the vulnerability I discovered on one of the Parliament of NSW's public-facing digital assets. You can find their <a href="https://www.parliament.nsw.gov.au/Pages/Public-Vulnerability-Disclosure-Program.aspx" target="_blank" rel="noopener noreferrer">official Public Vulnerability Disclosure Program (VDP) here</a>.</p>
+<p class="lead mb-4">This writeup will not disclose specific details regarding the vulnerability I discovered on one of the Parliament of NSW's public-facing digital assets. You can find their <a href="https://www.parliament.nsw.gov.au/Pages/Public-Vulnerability-Disclosure-Program.aspx" target="_blank" rel="noopener noreferrer">official Public Vulnerability Disclosure Program (VDP) here</a>.</p>
 
 ![NSW Parliament Australia VDP](/images/cybersec_nsw_firstemail.png)
 

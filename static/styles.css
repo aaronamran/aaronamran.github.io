@@ -1853,11 +1853,10 @@ table.default-table td ul {
   color: var(--text-secondary);
   margin-bottom: 1rem !important;
 }
-.writeup-body img {
-  width: calc(95% + 4rem) !important;
-  max-width: calc(95% + 4rem) !important;
-  margin-left: !important;
-  height: auto !important;
+.writeup-body img:not(.writeup-logo) {
+  width: auto;
+  max-width: 100%;
+  height: auto;
   display: block;
   border: 1px solid var(--border);
   margin-bottom: 1rem;
@@ -2164,8 +2163,8 @@ table.default-table td ul {
 
   /* ── Responsive images in writeup pages ── */
   .writeup-body img:not(.writeup-logo) {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 100%;
   }
   
   /* ── Cert table: fully exit table layout ── */
