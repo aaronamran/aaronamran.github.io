@@ -1,4 +1,4 @@
-﻿/* ==================== GLOBAL STYLES ==================== */
+/* ==================== GLOBAL STYLES ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -338,16 +338,17 @@ a:hover {
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.85rem;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     border-radius: 4px;
     transition: all 0.2s;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .control-btn:hover {
@@ -415,35 +416,56 @@ a:hover {
 }
 
 .terminal-header {
-    padding: 1rem 1.5rem;
+    padding: 0.85rem 1.25rem;
     background-color: var(--bg-panel);
     border-bottom: 2px solid var(--accent-red);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
 }
 
 /* Terminal Title with Logo and Badge */
 .terminal-title {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .redhat-logo {
-    height: 32px;
+    height: 28px;
     width: auto;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .os-badge {
     background: var(--accent-orange);
     color: var(--bg-terminal);
-    padding: 0.3rem 0.8rem;
+    padding: 0.25rem 0.7rem;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.terminal-name {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.terminal-name a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.terminal-name a:hover {
+    color: var(--accent-coral);
 }
 
 .terminal-title-container {
@@ -471,7 +493,8 @@ a:hover {
 .terminal-header-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
 }
 
 /* Ko-fi Icon in Terminal Header */
@@ -480,16 +503,17 @@ a:hover {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem 0.85rem;
     background-color: transparent;
     color: #FF5E5B;
     border: 1px solid #FF5E5B;
     border-radius: 4px;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
     white-space: nowrap;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .kofi-icon-link:hover {
@@ -1175,13 +1199,14 @@ a:hover {
     background: rgba(255, 102, 102, 0.1);
 }
 
-.chapter-grid {
+/* Landing page chapter grid - 2 columns layout */
+#landing-overlay .chapter-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
 
-.chapter-card {
+#landing-overlay .chapter-card {
     padding: 16px;
     background: var(--bg-dark);
     border: 2px solid var(--border-color);
@@ -1191,14 +1216,14 @@ a:hover {
     text-align: left;
 }
 
-.chapter-card:hover {
+#landing-overlay .chapter-card:hover {
     border-color: var(--text-primary);
     background: rgba(255, 102, 102, 0.05);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(255, 102, 102, 0.1);
 }
 
-.chapter-number {
+#landing-overlay .chapter-number {
     font-size: 0.75rem;
     color: var(--text-primary);
     font-weight: 600;
@@ -1207,34 +1232,34 @@ a:hover {
     letter-spacing: 1px;
 }
 
-.chapter-title {
+#landing-overlay .chapter-title {
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 6px;
 }
 
-.chapter-description {
+#landing-overlay .chapter-description {
     font-size: 0.8rem;
     color: var(--text-muted);
     line-height: 1.3;
     margin-bottom: 10px;
 }
 
-.chapter-stats {
+#landing-overlay .chapter-stats {
     display: flex;
     gap: 12px;
     font-size: 0.75rem;
     color: var(--text-muted);
 }
 
-.chapter-stat {
+#landing-overlay .chapter-stat {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.chapter-stat strong {
+#landing-overlay .chapter-stat strong {
     color: var(--text-primary);
 }
 
@@ -1260,7 +1285,283 @@ a:hover {
         padding: 16px;
     }
     
-    .chapter-grid {
+    #landing-overlay .chapter-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== NOTES MODAL ==================== */
+.notes-link {
+    color: var(--text-primary);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.notes-link:hover {
+    color: var(--accent-red);
+}
+
+.notes-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+}
+
+.notes-modal.active {
+    display: flex;
+}
+
+.notes-modal-content {
+    background-color: var(--bg-panel);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px var(--shadow);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.notes-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notes-modal-header h2 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.notes-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.notes-close-btn:hover {
+    background-color: var(--accent-red);
+    color: var(--bg-panel);
+}
+
+.notes-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+#notes-content {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+#notes-content h3 {
+    color: var(--text-primary);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#notes-content ul,
+#notes-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#notes-content li {
+    margin-bottom: 0.5rem;
+}
+
+#notes-content code {
+    background-color: var(--bg-terminal);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-coral);
+}
+
+#notes-content pre {
+    background-color: var(--bg-terminal);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+#notes-content pre code {
+    padding: 0;
+    background: none;
+}
+
+/* ============================================================================
+   CHAPTER SELECTION MODAL
+   ============================================================================ */
+
+/* Separate overlay class for chapter modal — independent from notes-modal */
+.chapter-modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+}
+
+.chapter-modal-content {
+    max-width: 96vw;
+    width: 96vw;
+    max-height: 94vh;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-chapter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Practice modal chapter grid - 6 columns layout */
+#chapter-modal .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.8rem;
+    padding: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    align-content: start;
+}
+
+#chapter-modal .chapter-card {
+    background: var(--bg-terminal);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#chapter-modal .chapter-card:hover {
+    border-color: var(--accent-coral);
+    background: rgba(238, 101, 73, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(238, 101, 73, 0.3);
+}
+
+#chapter-modal .chapter-card.current-chapter {
+    border-color: var(--accent-blue);
+    background: rgba(58, 175, 255, 0.15);
+}
+
+#chapter-modal .chapter-card.current-chapter::after {
+    content: 'CURRENT';
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    background: var(--accent-blue);
+    color: var(--bg-primary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: bold;
+}
+
+#chapter-modal .chapter-number {
+    color: var(--accent-coral);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#chapter-modal .chapter-title {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+}
+
+#chapter-modal .chapter-description {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-top: 0.3rem;
+    flex: 1;
+}
+
+/* Responsive adjustments for practice modal */
+@media (max-width: 1400px) {
+    #chapter-modal .chapter-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    #chapter-modal .chapter-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #chapter-modal .chapter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .chapter-modal-content {
+        width: 98vw;
+        max-height: 96vh;
+    }
+    
+    #chapter-modal .chapter-grid {
+        padding: 0.75rem;
     }
 }

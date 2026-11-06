@@ -306,6 +306,24 @@ dracut: *** Creating initramfs image file '/boot/initramfs-5.14.0-284.el9.x86_64
     }
 
     journalctl(args) {
+        // Options handled before the older generic simulation below
+        if (args.includes('--disk-usage')) {
+            return { stdout: 'Archived and active journals take up 96.0M in the file system.', stderr: '', exitCode: 0 };
+        }
+        const vac = args.find(a => a.startsWith('--vacuum-'));
+        if (vac) {
+            if (this.fs.currentUid !== 0) return { stdout: '', stderr: 'Failed to rotate and vacuum: Interactive authentication required.', exitCode: 1 };
+            return { stdout: 'Vacuuming done, freed 0B of archived journals from /var/log/journal/4a9d1c2e7b5f4e0f9a3c6d1e8b2f7a90.', stderr: '', exitCode: 0 };
+        }
+        if (args.includes('--flush')) {
+            return this.fs.currentUid === 0 ? { stdout: '', stderr: '', exitCode: 0 } : { stdout: '', stderr: 'Failed to flush journal: Interactive authentication required.', exitCode: 1 };
+        }
+        const bi = args.indexOf('-b');
+        if ((bi >= 0 && /^-\d+$/.test(args[bi + 1] || '')) || args.some(a => /^--boot=-\d+$/.test(a))) {
+            const persistent = !!this.fs.getNode('/var/log/journal');
+            if (!persistent) return { stdout: '', stderr: 'Specified boot ID or offset not found.', exitCode: 1 };
+            return { stdout: '-- Boot 0f3c2a9d8b7e4c61a5d2e9f1b3c4d5e6 --\nOct 30 08:12:03 rhcsa-lab kernel: Linux version 5.14.0-362.8.1.el9_3.x86_64\nOct 30 08:12:09 rhcsa-lab systemd[1]: Started OpenSSH server daemon.\nOct 30 17:45:01 rhcsa-lab systemd[1]: Reached target Shutdown.', stderr: '', exitCode: 0 };
+        }
         const flags = this.parseFlags(args, ['u', 'f', 'n', 'b', 'p', 'x', 'e']);
         
         // -u: Filter by unit

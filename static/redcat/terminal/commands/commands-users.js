@@ -324,7 +324,7 @@ class UserCommands {
             return { error: 'chage: Permission denied' };
         }
         
-        const flags = this.parseFlags(args, ['l', 'M', 'E']);
+        const flags = this.parseFlags(args, ['l', 'M', 'm', 'W', 'I', 'E']);
         const username = flags.args[0];
         
         if (!username) {
@@ -335,28 +335,65 @@ class UserCommands {
             return { error: `chage: user '${username}' does not exist` };
         }
         
-        // -l: List password expiry info
+        const user = this.fs.users[username];
+        
+        // -l: List password expiry info (using dynamic generation)
         if (flags.l) {
-            return { output: `Last password change\t\t\t\t: Dec 05, 2024\nPassword expires\t\t\t\t: never\nPassword inactive\t\t\t\t: never\nAccount expires\t\t\t\t\t: never\nMinimum number of days between password change\t\t: 0\nMaximum number of days between password change\t\t: 99999\nNumber of days of warning before password expires\t: 7` };
+            // Use datetime utility if loaded, otherwise fall back to static output
+            if (typeof generateChageOutput === 'function') {
+                return { output: generateChageOutput(user) };
+            }
+            // Fallback for compatibility
+            return { output: `Last password change\t\t\t\t: Dec 05, 2024\nPassword expires\t\t\t\t: never\nPassword inactive\t\t\t\t: never\nAccount expires\t\t\t\t\t: never\nMinimum number of days between password change\t\t: ${user.minPasswordAge || 0}\nMaximum number of days between password change\t\t: ${user.maxPasswordAge || 99999}\nNumber of days of warning before password expires\t: ${user.warnDays || 7}` };
         }
         
         // -M: Set maximum password age
-        if (flags.M) {
+        if (flags.M !== undefined) {
             const days = flags.args[1];
             if (!days) {
                 return { error: 'chage: option requires an argument -- M' };
             }
-            this.fs.users[username].maxPasswordAge = parseInt(days);
+            user.maxPasswordAge = parseInt(days);
+            return { output: '' };
+        }
+        
+        // -m: Set minimum password age
+        if (flags.m !== undefined) {
+            const days = flags.args[1];
+            if (!days) {
+                return { error: 'chage: option requires an argument -- m' };
+            }
+            user.minPasswordAge = parseInt(days);
+            return { output: '' };
+        }
+        
+        // -W: Set warning days
+        if (flags.W !== undefined) {
+            const days = flags.args[1];
+            if (!days) {
+                return { error: 'chage: option requires an argument -- W' };
+            }
+            user.warnDays = parseInt(days);
+            return { output: '' };
+        }
+        
+        // -I: Set inactive days
+        if (flags.I !== undefined) {
+            const days = flags.args[1];
+            if (!days) {
+                return { error: 'chage: option requires an argument -- I' };
+            }
+            user.passwordInactive = parseInt(days);
             return { output: '' };
         }
         
         // -E: Set account expiration date
-        if (flags.E) {
+        if (flags.E !== undefined) {
             const date = flags.args[1];
             if (!date) {
                 return { error: 'chage: option requires an argument -- E' };
             }
-            this.fs.users[username].expireDate = date;
+            user.accountExpiry = date;
             return { output: '' };
         }
         
@@ -468,6 +505,9 @@ class UserCommands {
     }
     
     last(args) {
+        if (args.includes('reboot')) {
+            return { output: 'reboot   system boot  5.14.0-362.8.1.e Mon Nov  2 09:00   still running\nreboot   system boot  5.14.0-362.8.1.e Fri Oct 30 08:12 - 17:45  (3+09:33)\nreboot   system boot  5.14.0-284.11.1.e Tue Oct 20 10:03 - 08:11 (9+22:08)\n\nwtmp begins Tue Oct 20 10:03:41 2026' };
+        }
         // Simulate last login information
         return { output: `root     pts/0        192.168.1.100    Thu Dec  5 10:15   still logged in\n${this.fs.currentUser}     pts/1        192.168.1.101    Thu Dec  5 09:30   still logged in\n\nwtmp begins Thu Dec  5 09:00:00 2024` };
     }

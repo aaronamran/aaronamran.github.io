@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Red Cat - UI Rendering Module
  * 
  * Handles all UI updates and rendering logic
@@ -25,7 +25,14 @@ const elements = {
     commandHistory: document.getElementById('command-history'),
     terminalInput: document.getElementById('terminal-input'),
     clearHistoryBtn: document.getElementById('clear-history'),
-    headerStatus: document.getElementById('header-status')
+    headerStatus: document.getElementById('header-status'),
+    
+    // Notes Modal
+    notesBtn: document.getElementById('notes-btn'),
+    notesModal: document.getElementById('notes-modal'),
+    notesModalTitle: document.getElementById('notes-modal-title'),
+    notesContent: document.getElementById('notes-content'),
+    notesCloseBtn: document.getElementById('notes-close-btn')
 };
 
 /**
@@ -148,7 +155,7 @@ function addToHistory(input) {
     
     const prompt = document.createElement('span');
     prompt.className = 'history-prompt';
-    prompt.textContent = '[student@redcat ~]$ ';
+    prompt.textContent = '[root@redcat ~]$ ';
     
     const command = document.createElement('span');
     command.className = 'history-command';

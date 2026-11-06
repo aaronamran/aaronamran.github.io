@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aaronamran</title>
-    <link rel="icon" type="image/png" href="redcat.png">
+    <link rel="icon" type="image/png" href="redcat.webp">
     <link rel="stylesheet" href="terminal/terminal.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <main class="terminal-container">
             <div class="terminal-header">
                 <div class="terminal-title">
-                    <img src="redcat.png" alt="Red Hat" class="redhat-logo">
+                    <img src="redcat.webp" alt="Red Hat" class="redhat-logo">
                     <span class="os-badge">Red Cat</span>
                 </div>
                 <div class="terminal-controls">
@@ -54,6 +54,8 @@
     </div>
 
     <!-- Load JavaScript modules -->
+    <script src="terminal/datetime.js"></script>
+    <script src="terminal/filesystem-utils.js"></script>
     <script src="terminal/filesystem.js"></script>
     
     <!-- Modular Command Modules -->
@@ -73,14 +75,40 @@
     <script src="terminal/commands/commands-containers.js"></script>
     <script src="terminal/commands/commands-editors.js"></script>
     <script src="terminal/commands/commands-advanced.js"></script>
+    <script src="terminal/commands/commands-extra.js"></script>
+    <script src="terminal/commands/commands-storage.js"></script>
+    <script src="terminal/commands/commands-services.js"></script>
+    <script src="terminal/commands/commands-selinux2.js"></script>
+    <script src="terminal/commands/commands-time.js"></script>
+    <script src="terminal/commands/commands-sched.js"></script>
+    <script src="terminal/commands/commands-units.js"></script>
+    <script src="terminal/commands/commands-net.js"></script>
+    <script src="terminal/commands/commands-pkg.js"></script>
+    <script src="terminal/commands/commands-podman.js"></script>
+    <script src="terminal/commands/commands-session.js"></script>
+    <script src="terminal/commands/commands-nfs-tune.js"></script>
+    <script src="terminal/commands/commands-util.js"></script>
+    <script src="terminal/commands/commands-apps.js"></script>
+    <script src="terminal/commands/commands-apps2.js"></script>
+    <script src="terminal/commands/commands-apps3.js"></script>
+    <script src="terminal/commands/commands-jobs.js"></script>
+    <script src="terminal/commands/commands-ctr.js"></script>
+    <script src="terminal/commands/commands-boot.js"></script>
     
     <!-- Main commands aggregator -->
     <script src="terminal/commands.js"></script>
+    <script src="terminal/persist/world.js"></script>
     <script src="terminal/vi/vi.js"></script>
+    <script src="terminal/pager/pager.js"></script>
+    <script src="terminal/vi/vi-modal.js"></script>
+    <script src="terminal/vi/vi-validator.js"></script>
     <script src="terminal/bashinterpreter/lexer.js"></script>
     <script src="terminal/bashinterpreter/parser.js"></script>
     <script src="terminal/bashinterpreter/executor.js"></script>
     <script src="terminal/bashinterpreter/interpreter.js"></script>
+    <script src="terminal/shell/shell.js"></script>
+    <script src="terminal/completion.js"></script>
     <script src="terminal/terminal.js"></script>
+    <script src="terminal/boot/boot-ui.js"></script>
 </body>
 </html>

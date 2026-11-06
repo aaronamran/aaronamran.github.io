@@ -15,8 +15,7 @@ org: 'LBNL'
 <div class="writeup-date">January 2026 &mdash; Vulnerability Disclosure Program</div>
 </div>
 </div>
-<p class="lead mb-4">As I am writing this on 22 January 2026 at 12:08 PM, I discovered something that I personally find mind-blowing for us cybersecurity folks. Curious to know what it is? That will come later at the end of this blog.</p>
-<p class="lead mb-4">For now, back to the main topic. This blog is a write-up of my successful attempt to discover my third officially valid vulnerability (and hopefully a fourth in the future) for <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science" target="_blank" referrerpolicy="noreferrer">Lawrence Berkeley National Laboratory's (LBNL) Vulnerability Disclosure Program.</a></p>
+<p class="lead mb-4">This blog is a write-up of my successful attempt to discover my third officially valid vulnerability (and hopefully a fourth in the future) for <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science" target="_blank" referrerpolicy="noreferrer">Lawrence Berkeley National Laboratory's (LBNL) Vulnerability Disclosure Program.</a></p>
 
 <div class="text-center">
 <a href="https://commons.lbl.gov/spaces/cpp/pages/197691423/White+Hats+for+Science#:~:text=2026%2D01%2D21%3A%20Thank%20you%2C%20Aaron%20Amran%E2%80%94identification%20of%20an%20exposed%20device%20contributes%20positively%20to%20science%E2%80%94your%20vigilance%20enhances%20security!" target="_blank" rel="noopener noreferrer" style="display:inline-block;">

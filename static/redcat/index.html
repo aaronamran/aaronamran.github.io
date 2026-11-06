@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aaronamran</title>
-    <link rel="icon" type="image/png" href="redcat.png">
+    <link rel="icon" type="image/png" href="redcat.webp">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div id="landing-overlay" class="landing-overlay">
         <div class="landing-content">
             <div class="landing-header">
-                <img src="redcat.png" alt="Red Cat Logo" class="landing-logo">
+                <img src="redcat.webp" alt="Red Cat Logo" class="landing-logo">
                 <h1 class="landing-title">Red Cat</h1>
                 <h3 class="landing-subtitle">A RHCSA exam practice created by <a href="https://aaronamran.github.io" target="_blank">@aaronamran</a></h3>
                 <p class="landing-subtitle">RHEL 9 EX200 Exam Preparation</p>
@@ -34,7 +34,7 @@
                         </svg>
                         <div class="btn-text">
                             <div class="btn-title">Default Practice</div>
-                            <div class="btn-description">Start from Section 1 and progress through all 15 sections sequentially</div>
+                            <div class="btn-description">Start from Section 1 and progress through all 19 sections sequentially</div>
                         </div>
                     </button>
 
@@ -48,7 +48,7 @@
                         </div>
                     </button>
 
-                    <button id="free-terminal-btn" class="practice-mode-btn">
+                    <!-- <button id="free-terminal-btn" class="practice-mode-btn">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                             <line x1="9" y1="9" x2="15" y2="9"/>
@@ -58,7 +58,7 @@
                             <div class="btn-title">Free Terminal</div>
                             <div class="btn-description">Use the Linux terminal freely without guided practice</div>
                         </div>
-                    </button>
+                    </button> -->
                 </div>
 
                 <!-- Chapter Selection (Hidden by default) -->
@@ -77,21 +77,29 @@
 
     <!-- Scripts -->
     <!-- Section Data (needed for chapter selection) -->
-    <script src="sections/section1-users-and-groups.js"></script>
-    <script src="sections/section2-permissions-and-acls.js"></script>
-    <script src="sections/section3-storage-and-filesystems.js"></script>
-    <script src="sections/section4-essential-tools.js"></script>
-    <script src="sections/section5-running-systems.js"></script>
-    <script src="sections/section6-file-systems.js"></script>
-    <script src="sections/section7-systems-maintenance.js"></script>
-    <script src="sections/section8-networking.js"></script>
-    <script src="sections/section9-containers.js"></script>
-    <script src="sections/section10-remote-resources.js"></script>
-    <script src="sections/section11-selinux.js"></script>
-    <script src="sections/section12-shell-scripting.js"></script>
-    <script src="sections/section13-task-scheduling.js"></script>
-    <script src="sections/section14-boot-grub.js"></script>
-    <script src="sections/section15-time-services.js"></script>
+    <script src="sections/section1-essential-tools.js"></script>
+    <script src="sections/section2-users-and-groups.js"></script>
+    <script src="sections/section3-permissions-and-acls.js"></script>
+    <script src="sections/section4-shell-scripting.js"></script>
+    <script src="sections/section5-storage-lvm.js"></script>
+    <script src="sections/section6-storage-filesystems.js"></script>
+    <script src="sections/section7-remote-resources.js"></script>
+    <script src="sections/section8-systemd-processes.js"></script>
+    <script src="sections/section9-system-tuning.js"></script>
+    <script src="sections/section10-networking.js"></script>
+    <script src="sections/section11-network-security.js"></script>
+    <script src="sections/section12-selinux.js"></script>
+    <script src="sections/section13-software-management.js"></script>
+    <script src="sections/section14-task-scheduling.js"></script>
+    <script src="sections/section15-boot-maintenance.js"></script>
+    <script src="sections/section16-rootless-containers.js"></script>
+    <script src="sections/section17-time-services.js"></script>
+    <script src="sections/section18-flatpak.js"></script>
+    <script src="sections/section19-root-password-reset.js"></script>
+    <script src="sections/section20-root-password-reset-bash.js"></script>
+    
+    <!-- Boot Simulator Modal for Section 19 -->
+    <script src="terminal/boot-simulator/boot-modal.js"></script>
     
     <!-- Data Loader -->
     <script src="data.js"></script>

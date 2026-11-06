@@ -5,9 +5,9 @@ class DiskCommands {
     constructor(sharedState) {
         this.fs = sharedState.fs;
         this.disks = sharedState.disks;
-        this.pvs = sharedState.pvs;
-        this.vgs = sharedState.vgs;
-        this.lvs = sharedState.lvs;
+        this._pvs = sharedState.pvs; // underscore: must not shadow the pvs() command
+        this._vgs = sharedState.vgs;
+        this._lvs = sharedState.lvs;
     }
 
     // Placeholder - commands will be moved here
@@ -56,21 +56,73 @@ tmpfs                      187392       0    187392   0% /run/user/0` };
 
     lsblk(args) {
         const flags = this.parseFlags(args, ['f', 'a']);
-        
-        return { output: `NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-sda             8:0    0   20G  0 disk
-├─sda1          8:1    0    1G  0 part /boot
-└─sda2          8:2    0   19G  0 part
-  ├─rhel-root 253:0    0   17G  0 lvm  /
-  └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-sr0            11:0    1 1024M  0 rom` };
+        const targetDevice = flags.args[0]; // e.g. "/dev/sdb" or "sdb"
+
+        // Gather LVM state so the tree reflects created PVs/LVs
+        const vgOfPv = {};   // '/dev/sdb1' -> 'vg_data'
+        const lvsOfVg = {};  // 'vg_data'   -> [{ name, size }]
+        if (this.lvmMetadata) {
+            for (const [dev, pv] of Object.entries(this.lvmMetadata.physicalVolumes)) {
+                if (pv.vg) vgOfPv[dev] = pv.vg;
+            }
+            for (const [, lv] of Object.entries(this.lvmMetadata.logicalVolumes)) {
+                if (!lvsOfVg[lv.vg]) lvsOfVg[lv.vg] = [];
+                lvsOfVg[lv.vg].push(lv);
+            }
+        }
+
+        // Build the optional LV child lines for a given partition device
+        const lvLines = (partDev, indent) => {
+            const vg = vgOfPv[partDev];
+            if (!vg || !lvsOfVg[vg]) return '';
+            return lvsOfVg[vg].map(lv => {
+                const mapperName = `${vg.replace(/_/g, '--')}-${lv.name.replace(/_/g, '--')}`;
+                return `\n${indent}└─${mapperName.padEnd(14)} 253:2    0  ${String(lv.size).padEnd(4)} 0 lvm  `;
+            }).join('');
+        };
+
+        const sdaBlock = `sda             8:0    0   20G  0 disk \n├─sda1          8:1    0    1G  0 part /boot\n└─sda2          8:2    0   19G  0 part \n  ├─rhel-root 253:0    0   17G  0 lvm  /\n  └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]`;
+        const sdbBlock = `sdb             8:16   0   10G  0 disk \n└─sdb1          8:17   0   10G  0 part ${lvLines('/dev/sdb1', '  ')}`;
+        const sdcBlock = `sdc             8:32   0    5G  0 disk \n└─sdc1          8:33   0    5G  0 part ${lvLines('/dev/sdc1', '  ')}`;
+
+        if (targetDevice) {
+            const dev = targetDevice.replace(/^\/dev\//, '');
+            if (dev === 'sda') return { output: `NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT\n${sdaBlock}` };
+            if (dev === 'sdb') return { output: `NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT\n${sdbBlock}` };
+            if (dev === 'sdc') return { output: `NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT\n${sdcBlock}` };
+            return { error: `lsblk: ${targetDevice}: not a block device` };
+        }
+
+        return { output: `NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT\n${sdaBlock}\n${sdbBlock}\n${sdcBlock}\nsr0            11:0    1 1024M  0 rom  ` };
     }
 
     blkid(args) {
-        return { output: `/dev/sda1: UUID="12345678-1234-1234-1234-123456789abc" TYPE="xfs"
-/dev/sda2: UUID="abcdef12-3456-7890-abcd-ef1234567890" TYPE="LVM2_member"
-/dev/mapper/rhel-root: UUID="fedcba98-7654-3210-fedc-ba9876543210" TYPE="xfs"
-/dev/mapper/rhel-swap: UUID="11111111-2222-3333-4444-555555555555" TYPE="swap"` };
+        const flags = this.parseFlags(args, ['p', 'o', 's']);
+        const targetDevice = flags.args[0];
+
+        // Base system devices always known
+        const knownDevices = {
+            '/dev/sda1': `UUID="12345678-1234-1234-1234-123456789abc" TYPE="xfs" PARTUUID="aabbcc01"`,
+            '/dev/sda2': `UUID="abcdef12-3456-7890-abcd-ef1234567890" TYPE="LVM2_member" PARTUUID="aabbcc02"`,
+            '/dev/mapper/rhel-root': `UUID="fedcba98-7654-3210-fedc-ba9876543210" TYPE="xfs"`,
+            '/dev/mapper/rhel-swap': `UUID="11111111-2222-3333-4444-555555555555" TYPE="swap"`
+        };
+
+        // Add PVs that have been initialized
+        if (this.lvmMetadata) {
+            for (const [dev, pv] of Object.entries(this.lvmMetadata.physicalVolumes)) {
+                knownDevices[dev] = `UUID="${pv.uuid}" TYPE="LVM2_member"`;
+            }
+        }
+
+        if (targetDevice) {
+            const line = knownDevices[targetDevice];
+            if (!line) return { output: '' }; // raw disk or unknown — blkid returns nothing
+            return { output: `${targetDevice}: ${line}` };
+        }
+
+        // No arg: show all
+        return { output: Object.entries(knownDevices).map(([d, v]) => `${d}: ${v}`).join('\n') };
     }
 
     fdisk(args) {
@@ -187,11 +239,20 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.physicalVolumes).length === 0) {
             return { output: '' };
         }
-        
-        let output = '  PV         VG     Fmt  Attr PSize  PFree \n';
-        for (const [name, pv] of Object.entries(this.lvmMetadata.physicalVolumes)) {
+
+        const flags = this.parseFlags(args, []);
+        const filterDev = flags.args[0]; // e.g. "/dev/sdb1"
+
+        let entries = Object.entries(this.lvmMetadata.physicalVolumes);
+        if (filterDev) {
+            entries = entries.filter(([name]) => name === filterDev);
+            if (entries.length === 0) return { error: `pvs: ${filterDev}: not found` };
+        }
+
+        let output = '  PV         VG     Fmt  Attr PSize   PFree  \n';
+        for (const [name, pv] of entries) {
             const vg = pv.vg || '';
-            output += `  ${name.padEnd(10)} ${vg.padEnd(6)} lvm2 a--  ${pv.size.padEnd(6)} ${pv.free}\n`;
+            output += `  ${name.padEnd(10)} ${vg.padEnd(6)} lvm2 a--  ${pv.size.padEnd(7)} ${pv.free}\n`;
         }
         return { output };
     }
@@ -200,9 +261,18 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.physicalVolumes).length === 0) {
             return { output: '' };
         }
-        
+
+        const flags = this.parseFlags(args, []);
+        const filterDev = flags.args[0]; // e.g. "/dev/sdb1"
+
+        let entries = Object.entries(this.lvmMetadata.physicalVolumes);
+        if (filterDev) {
+            entries = entries.filter(([name]) => name === filterDev);
+            if (entries.length === 0) return { error: `pvdisplay: ${filterDev}: not found` };
+        }
+
         let output = [];
-        for (const [name, pv] of Object.entries(this.lvmMetadata.physicalVolumes)) {
+        for (const [name, pv] of entries) {
             output.push(`  --- Physical volume ---
   PV Name               ${name}
   VG Name               ${pv.vg || ''}
@@ -210,11 +280,27 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
   Allocatable           yes
   PE Size               4.00 MiB
   Total PE              2559
-  Free PE               2559
-  Allocated PE          0
+  Free PE               ${pv.vg ? '0' : '2559'}
+  Allocated PE          ${pv.vg ? '2559' : '0'}
   PV UUID               ${pv.uuid}\n`);
         }
         return { output: output.join('\n') };
+    }
+
+    pvscan(args) {
+        if (!this.lvmMetadata || Object.keys(this.lvmMetadata.physicalVolumes).length === 0) {
+            return { output: '  No matching physical volumes found' };
+        }
+
+        let lines = [];
+        let totalSize = 0;
+        for (const [name, pv] of Object.entries(this.lvmMetadata.physicalVolumes)) {
+            const vgPart = pv.vg ? `VG ${pv.vg}` : 'is in no VG';
+            lines.push(`  PV ${name}   ${vgPart}   lvm2 [${pv.size} / ${pv.free} free]`);
+        }
+        const count = lines.length;
+        lines.push(`  Total: ${count} [${count * 10}.00 GiB] / in use: ${count} [${count * 10}.00 GiB] / in no VG: 0 [0   ]`);
+        return { output: lines.join('\n') };
     }
 
     vgcreate(args) {
@@ -262,10 +348,19 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.volumeGroups).length === 0) {
             return { output: '' };
         }
-        
-        let output = '  VG     #PV #LV #SN Attr   VSize  VFree \n';
-        for (const [name, vg] of Object.entries(this.lvmMetadata.volumeGroups)) {
-            output += `  ${name.padEnd(6)} ${String(vg.pvs.length).padStart(3)} ${String(vg.lvCount).padStart(3)}   0 wz--n- ${vg.size.padEnd(6)} ${vg.free}\n`;
+
+        const flags = this.parseFlags(args, []);
+        const filterVg = flags.args[0]; // e.g. "vg_data"
+
+        let entries = Object.entries(this.lvmMetadata.volumeGroups);
+        if (filterVg) {
+            entries = entries.filter(([name]) => name === filterVg);
+            if (entries.length === 0) return { error: `vgs: ${filterVg}: not found` };
+        }
+
+        let output = '  VG     #PV #LV #SN Attr   VSize   VFree  \n';
+        for (const [name, vg] of entries) {
+            output += `  ${name.padEnd(6)} ${String(vg.pvs.length).padStart(3)} ${String(vg.lvCount).padStart(3)}   0 wz--n- ${vg.size.padEnd(7)} ${vg.free}\n`;
         }
         return { output };
     }
@@ -274,15 +369,26 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.volumeGroups).length === 0) {
             return { output: '' };
         }
-        
+
+        const flags = this.parseFlags(args, []);
+        const filterVg = flags.args[0]; // e.g. "vg_data"
+
+        let entries = Object.entries(this.lvmMetadata.volumeGroups);
+        if (filterVg) {
+            entries = entries.filter(([name]) => name === filterVg);
+            if (entries.length === 0) return { error: `vgdisplay: Volume group "${filterVg}" not found` };
+        }
+
         let output = [];
-        for (const [name, vg] of Object.entries(this.lvmMetadata.volumeGroups)) {
+        for (const [name, vg] of entries) {
+            const allocPE = vg.lvCount > 0 ? 512 * vg.lvCount : 0;
+            const freePE = 2559 - allocPE;
             output.push(`  --- Volume group ---
   VG Name               ${name}
   System ID             
   Format                lvm2
   Metadata Areas        ${vg.pvs.length}
-  Metadata Sequence No  1
+  Metadata Sequence No  ${vg.lvCount + 1}
   VG Access             read/write
   VG Status             resizable
   MAX LV                0
@@ -294,11 +400,23 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
   VG Size               ${vg.size}
   PE Size               4.00 MiB
   Total PE              2559
-  Alloc PE / Size       0 / 0   
-  Free  PE / Size       2559 / ${vg.free}
+  Alloc PE / Size       ${allocPE} / ${allocPE > 0 ? vg.size : '0   '}
+  Free  PE / Size       ${freePE} / ${vg.free}
   VG UUID               ${vg.uuid}\n`);
         }
         return { output: output.join('\n') };
+    }
+
+    vgscan(args) {
+        if (!this.lvmMetadata || Object.keys(this.lvmMetadata.volumeGroups).length === 0) {
+            return { output: '  Reading volume groups from cache.\n  No volume groups found.' };
+        }
+
+        let lines = ['  Reading volume groups from cache.'];
+        for (const name of Object.keys(this.lvmMetadata.volumeGroups)) {
+            lines.push(`  Found volume group "${name}" using metadata type lvm2`);
+        }
+        return { output: lines.join('\n') };
     }
 
     lvcreate(args) {
@@ -359,10 +477,21 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.logicalVolumes).length === 0) {
             return { output: '' };
         }
-        
-        let output = '  LV     VG     Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert\n';
-        for (const [path, lv] of Object.entries(this.lvmMetadata.logicalVolumes)) {
-            output += `  ${lv.name.padEnd(6)} ${lv.vg.padEnd(6)} -wi-a----- ${lv.size}\n`;
+
+        const flags = this.parseFlags(args, []);
+        const filterArg = flags.args[0]; // e.g. "vg_data/lv_app" or "/dev/vg_data/lv_app"
+
+        let entries = Object.entries(this.lvmMetadata.logicalVolumes);
+        if (filterArg) {
+            // Normalise: strip leading /dev/ and convert to /dev/vg/lv path for comparison
+            const norm = filterArg.startsWith('/dev/') ? filterArg : `/dev/${filterArg}`;
+            entries = entries.filter(([path]) => path === norm);
+            if (entries.length === 0) return { error: `lvs: ${filterArg}: not found` };
+        }
+
+        let output = '  LV       VG       Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert\n';
+        for (const [, lv] of entries) {
+            output += `  ${lv.name.padEnd(8)} ${lv.vg.padEnd(8)} -wi-a----- ${String(lv.size).padEnd(7)}\n`;
         }
         return { output };
     }
@@ -371,16 +500,26 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
         if (!this.lvmMetadata || Object.keys(this.lvmMetadata.logicalVolumes).length === 0) {
             return { output: '' };
         }
-        
+
+        const flags = this.parseFlags(args, []);
+        const filterArg = flags.args[0]; // e.g. "vg_data/lv_app" or "/dev/vg_data/lv_app"
+
+        let entries = Object.entries(this.lvmMetadata.logicalVolumes);
+        if (filterArg) {
+            const norm = filterArg.startsWith('/dev/') ? filterArg : `/dev/${filterArg}`;
+            entries = entries.filter(([path]) => path === norm);
+            if (entries.length === 0) return { error: `lvdisplay: ${filterArg}: not found` };
+        }
+
         let output = [];
-        for (const [path, lv] of Object.entries(this.lvmMetadata.logicalVolumes)) {
+        for (const [path, lv] of entries) {
             output.push(`  --- Logical volume ---
   LV Path                ${path}
   LV Name                ${lv.name}
   VG Name                ${lv.vg}
   LV UUID                ${lv.uuid}
   LV Write Access        read/write
-  LV Creation host, time rhcsa-lab, ${new Date().toString()}
+  LV Creation host, time rhcsa-lab, ${new Date().toDateString()}
   LV Status              available
   # open                 0
   LV Size                ${lv.size}
@@ -392,6 +531,18 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
   Block device           253:2\n`);
         }
         return { output: output.join('\n') };
+    }
+
+    lvscan(args) {
+        if (!this.lvmMetadata || Object.keys(this.lvmMetadata.logicalVolumes).length === 0) {
+            return { output: '  No volume groups found' };
+        }
+
+        const lines = [];
+        for (const [path, lv] of Object.entries(this.lvmMetadata.logicalVolumes)) {
+            lines.push(`  ACTIVE            '${path}' [${lv.size}] inherit`);
+        }
+        return { output: lines.join('\n') };
     }
 
     lvextend(args) {

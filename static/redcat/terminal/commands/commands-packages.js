@@ -12,6 +12,8 @@ class PackageCommands {
     // dnf, rpm
 
     dnf(args) {
+        // -y/-q/-v and friends do not change the simulated result; drop them so they are not read as operands
+        args = args.filter(a => !['-y', '--assumeyes', '-q', '--quiet', '-v', '--verbose', '--nogpgcheck', '-4', '-6'].includes(a));
         if (args.length === 0) {
             return { error: 'dnf: no command specified' };
         }

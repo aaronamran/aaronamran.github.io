@@ -24,7 +24,7 @@ class NetworkCommands {
                 let index = 1;
                 
                 for (const [ifname, ifdata] of Object.entries(this.networkInterfaces)) {
-                    const flags = ifname === 'lo' ? '<LOOPBACK,UP,LOWER_UP>' : '<BROADCAST,MULTICAST,UP,LOWER_UP>';
+                    const flags = ifname === 'lo' ? '&lt;LOOPBACK,UP,LOWER_UP&gt;' : '&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;';
                     output.push(`${index}: ${ifname}: ${flags} mtu ${ifname === 'lo' ? '65536' : '1500'} qdisc noqueue state ${ifdata.state} group default qlen 1000`);
                     output.push(`    link/ether ${ifdata.mac} brd ff:ff:ff:ff:ff:ff`);
                     output.push(`    inet ${ifdata.ipv4} ${ifname === 'lo' ? 'scope host' : 'brd ' + this.calculateBroadcast(ifdata.ipv4) + ' scope global'} ${ifname}`);
@@ -74,7 +74,7 @@ class NetworkCommands {
             let index = 1;
             
             for (const [ifname, ifdata] of Object.entries(this.networkInterfaces)) {
-                const flags = ifname === 'lo' ? '<LOOPBACK,UP,LOWER_UP>' : '<BROADCAST,MULTICAST,UP,LOWER_UP>';
+                const flags = ifname === 'lo' ? '&lt;LOOPBACK,UP,LOWER_UP&gt;' : '&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;';
                 output.push(`${index}: ${ifname}: ${flags} mtu ${ifname === 'lo' ? '65536' : '1500'} qdisc noqueue state ${ifdata.state} mode DEFAULT group default qlen 1000`);
                 output.push(`    link/ether ${ifdata.mac} brd ff:ff:ff:ff:ff:ff`);
                 index++;

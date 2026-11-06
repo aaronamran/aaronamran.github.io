@@ -190,7 +190,7 @@ class CoreCommands {
         const info = {
             s: 'Linux',
             n: 'rhcsa-lab',
-            r: '5.14.0-362.8.1.el9_3.x86_64',
+            r: (typeof window !== 'undefined' && window.terminal && window.terminal.commands.kernelRelease) || '5.14.0-362.8.1.el9_3.x86_64',
             v: '#1 SMP PREEMPT_DYNAMIC Thu Nov 2 16:07:11 EDT 2023 (Red Hat 5.14.0-362.8.1.el9_3)',
             m: 'x86_64',
             o: 'GNU/Linux'
@@ -319,7 +319,8 @@ Red Cat Terminal - RHCSA Practice Environment (100% Coverage)
             return { stderr: 'What manual page do you want?', exitCode: 1 };
         }
         
-        const command = args[0];
+        // "man 5 passwd": the section number is accepted and ignored
+        const command = (/^[1-9][a-z]*$/.test(args[0]) && args[1]) ? args[1] : args[0];
         const manPages = {
             // ========== CORE & SHELL ==========
             ls: 'LS(1)                         User Commands                         LS(1)\n\nNAME\n       ls - list directory contents\n\nSYNOPSIS\n       ls [OPTION]... [FILE]...\n\nDESCRIPTION\n       List information about FILEs (the current directory by default).\n\nOPTIONS\n       -a, --all\n              do not ignore entries starting with .\n\n       -l     use a long listing format\n\n       -h, --human-readable\n              with -l, print sizes in human readable format (e.g., 1K 234M 2G)\n\n       -R, --recursive\n              list subdirectories recursively',
@@ -588,6 +589,12 @@ Red Cat Terminal - RHCSA Practice Environment (100% Coverage)
         };
         
         const manPage = manPages[command] || `No manual entry for ${command}`;
+        if (manPages[command]) {
+            const head = /^(\S+)\((\w+)\)/.exec(manPage);
+            const cmds = typeof window !== 'undefined' && window.terminal && window.terminal.commands;
+            const paged = cmds && cmds._tryPage && cmds._tryPage({ kind: 'man', text: manPage, title: head ? `${head[1].toLowerCase()}(${head[2]})` : command });
+            if (paged) return paged;
+        }
         return { stdout: manPage, stderr: '', exitCode: manPages[command] ? 0 : 16 };
     }
 

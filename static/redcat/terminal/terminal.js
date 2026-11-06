@@ -2,56 +2,57 @@
 
 class Terminal {
     constructor() {
-        // Check if we should restore session from sessionStorage (survives refresh, not tab close)
-        this.restoreSession();
-        
-        if (!this.fs) {
-            this.fs = new VirtualFilesystem();
-            this.commands = new RHCSACommands(this.fs);
-            this.history = [];
-        }
-        
+        this.fs = new VirtualFilesystem();
+        this.commands = new RHCSACommands(this.fs);
+        this.history = [];
+
+        // the machine survives refreshes and closed tabs: what changed since a fresh boot is kept in localStorage
+        this.world = new WorldState(this);
+        this.world.markPristine();
+
         this.historyIndex = -1;
         this.output = document.getElementById('output');
         this.input = document.getElementById('commandInput');
         this.prompt = document.getElementById('prompt');
-        
+
         // Exam mode state
         this.examMode = false;
         this.examTimeRemaining = 3 * 60 * 60; // 3 hours in seconds
         this.examTimer = null;
         this.selectedScenario = null;
-        
+
+        this.restoreSession();
         this.init();
         this.setupSessionPersistence();
+        this.resumeAfterLoad();
     }
-    
+
     init() {
         // Set up event listeners
         this.input.addEventListener('keydown', (e) => this.handleKeyDown(e));
-        
+
         document.getElementById('clearBtn').addEventListener('click', () => {
             this.clearTerminal();
         });
-        
+
         document.getElementById('resetBtn').addEventListener('click', () => {
             if (confirm('Reset filesystem? All changes will be lost.')) {
                 this.resetFilesystem();
             }
         });
-        
+
         document.getElementById('helpBtn').addEventListener('click', () => {
             this.executeCommand('help');
         });
-        
+
         // Keep terminal scrolled to bottom
         this.input.addEventListener('input', () => this.scrollToBottom());
-        
+
         // Focus input when clicking anywhere in terminal
         document.getElementById('terminal').addEventListener('click', () => {
             this.input.focus();
         });
-        
+
         // Global keyboard shortcuts for copy/paste
         document.addEventListener('keydown', (e) => {
             // Ctrl+Shift+C - Copy selected text from terminal output
@@ -68,38 +69,38 @@ class Terminal {
             }
             // Ctrl+Shift+V is handled in the input's keydown handler
         });
-        
+
         // Update prompt
         this.updatePrompt();
-        
+
         // Show welcome message if output is empty (first load)
         if (this.output.innerHTML.trim() === '' || this.output.innerHTML.includes('<!-- Welcome message will be added by JavaScript -->')) {
             this.showWelcomeMessage();
         }
-        
+
         // Scroll to bottom on page load to show input line
         // Use multiple attempts to ensure it works after all rendering is complete
         this.scrollToBottom();
         setTimeout(() => this.scrollToBottom(), 0);
         setTimeout(() => this.scrollToBottom(), 50);
         setTimeout(() => this.scrollToBottom(), 200);
-        
+
         // Also scroll on window load event (belt and suspenders)
         window.addEventListener('load', () => {
             setTimeout(() => this.scrollToBottom(), 100);
         });
     }
-    
+
     setupScenarioHandlers() {
         const modal = document.getElementById('scenarioModal');
         const cancelBtn = document.getElementById('cancelScenario');
         const scenarioBtns = document.querySelectorAll('.scenario-btn');
-        
+
         // Cancel button
         cancelBtn.addEventListener('click', () => {
             modal.classList.remove('active');
         });
-        
+
         // Scenario selection buttons
         scenarioBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -108,7 +109,7 @@ class Terminal {
                 modal.classList.remove('active');
             });
         });
-        
+
         // Close on outside click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -116,28 +117,28 @@ class Terminal {
             }
         });
     }
-    
+
     showScenarioSelection() {
         if (this.examMode) {
             this.stopExamMode();
             return;
         }
-        
+
         const modal = document.getElementById('scenarioModal');
         modal.classList.add('active');
     }
-    
+
     showWelcomeMessage() {
         // Detect mobile (portrait mode)
         const isMobile = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
-        
+
         if (isMobile) {
             // Mobile-friendly compact welcome message with mobile-proof ASCII box
-            const welcome = 
+            const welcome =
 `<div class="welcome-message"><pre class="ascii-box">
 ════════════════════════════════
-Red Cat - RHEL 9 Terminal     
-By <a href="https://aaronamran.github.io/" target="_blank" style="color: #ff6666; text-decoration: underline;">@aaronamran</a>                
+Red Cat - RHEL 9 Terminal
+By <a href="https://aaronamran.github.io/" target="_blank" style="color: #ff6666; text-decoration: underline;">@aaronamran</a>
 ════════════════════════════════
 </pre>
 Free terminal simulator
@@ -168,126 +169,64 @@ Welcome! This terminal simulates a RHEL 9 system with:
 Type 'help' for available commands
 Type 'man &lt;command&gt;' for command documentation
 
-Your session persists until you close this tab.</div>`;
+Your machine is saved in this browser and survives refreshes; use Reset to start over.</div>`;
             this.addOutput(welcome);
         }
     }
-    
+
     setupSessionPersistence() {
-        // Save session state on every command execution and periodically
-        setInterval(() => {
-            if (this.examMode) {
-                this.saveSession();
-            }
-        }, 5000); // Save every 5 seconds during exam mode
-        
-        // Detect page refresh vs tab close
+        // the machine is saved shortly after every command; these catch everything else
+        setInterval(() => { if (this.examMode) this.saveSession(); }, 5000);
+
+        window.addEventListener('pagehide', () => this.saveSession());
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') this.saveSession(); });
         window.addEventListener('beforeunload', (e) => {
+            this.saveSession();
             if (this.examMode) {
-                // Save session for refresh
-                this.saveSession();
-                // Warn user if exam is in progress
                 e.preventDefault();
-                e.returnValue = 'Exam in progress. Your session will be saved if you refresh, but lost if you close the tab.';
+                e.returnValue = 'Exam in progress. Your machine is saved, but the exam timer stops while the page is closed.';
             }
         });
-        
-        // Clear session storage when tab is actually closed (not refresh)
-        // Note: This doesn't fire on refresh, only on actual tab/window close
-        window.addEventListener('unload', () => {
-            // sessionStorage is automatically cleared when tab closes
-        });
     }
-    
+
+    sessionExtras() {
+        return { examMode: this.examMode, examTimeRemaining: this.examTimeRemaining, selectedScenario: this.selectedScenario };
+    }
+
     saveSession() {
-        const sessionState = {
-            filesystem: this.serializeFilesystem(),
-            commandsState: this.serializeCommandsState(),
-            history: this.history,
-            examMode: this.examMode,
-            examTimeRemaining: this.examTimeRemaining,
-            selectedScenario: this.selectedScenario,
-            timestamp: Date.now()
-        };
-        
-        sessionStorage.setItem('rhcsa_session', JSON.stringify(sessionState));
+        if (this.world) this.world.save(this.sessionExtras());
     }
-    
+
+    scheduleSave() {
+        if (this.world) this.world.scheduleSave(() => this.sessionExtras());
+    }
+
     restoreSession() {
-        const savedSession = sessionStorage.getItem('rhcsa_session');
-        
-        if (savedSession) {
-            try {
-                const sessionState = JSON.parse(savedSession);
-                
-                // Check if session is not too old (within 24 hours)
-                const age = Date.now() - sessionState.timestamp;
-                if (age < 24 * 60 * 60 * 1000) {
-                    this.fs = new VirtualFilesystem();
-                    this.restoreFilesystem(sessionState.filesystem);
-                    
-                    this.commands = new RHCSACommands(this.fs);
-                    this.restoreCommandsState(sessionState.commandsState);
-                    
-                    this.history = sessionState.history || [];
-                    this.examMode = sessionState.examMode || false;
-                    this.examTimeRemaining = sessionState.examTimeRemaining || 3 * 60 * 60;
-                    this.selectedScenario = sessionState.selectedScenario || null;
-                    
-                    // Resume exam timer if it was active
-                    if (this.examMode && this.selectedScenario) {
-                        setTimeout(() => this.resumeExamMode(), 100);
-                    }
-                }
-            } catch (e) {
-                console.error('Failed to restore session:', e);
-                sessionStorage.removeItem('rhcsa_session');
-            }
+        sessionStorage.removeItem('rhcsa_session');   // older versions kept the session here
+        try {
+            const record = this.world.load();
+            if (!record) return;
+            this.world.apply(record.delta);
+            const t = record.term || {};
+            this.history = Array.isArray(t.history) ? t.history : [];
+            this.examMode = t.examMode || false;
+            this.examTimeRemaining = t.examTimeRemaining || 3 * 60 * 60;
+            this.selectedScenario = t.selectedScenario || null;
+            this.restoredAt = record.savedAt;
+            if (this.commands.afterRestore) this.commands.afterRestore();
+            // Resume exam timer if it was active
+            if (this.examMode && this.selectedScenario) setTimeout(() => this.resumeExamMode(), 100);
+        } catch (e) {
+            console.error('Failed to restore the saved machine:', e);
+            this.world.clear();
+            this.fs = new VirtualFilesystem();
+            this.commands = new RHCSACommands(this.fs);
+            this.history = [];
+            this.world = new WorldState(this);
+            this.world.markPristine();
         }
     }
-    
-    serializeFilesystem() {
-        return {
-            currentPath: this.fs.currentPath,
-            currentUser: this.fs.currentUser,
-            fs: this.fs.fs,
-            users: this.fs.users,
-            groups: this.fs.groups
-        };
-    }
-    
-    restoreFilesystem(data) {
-        this.fs.currentPath = data.currentPath;
-        this.fs.currentUser = data.currentUser;
-        this.fs.fs = data.fs;
-        this.fs.users = data.users;
-        this.fs.groups = data.groups;
-    }
-    
-    serializeCommandsState() {
-        return {
-            selinuxMode: this.commands.selinuxMode,
-            hostname: this.commands.hostname,
-            installedPackages: this.commands.installedPackages,
-            services: this.commands.services,
-            networkInterfaces: this.commands.networkInterfaces,
-            processes: this.commands.processes,
-            env: this.commands.env
-        };
-    }
-    
-    restoreCommandsState(data) {
-        this.commands.selinuxMode = data.selinuxMode;
-        this.commands.hostname = data.hostname;
-        this.commands.installedPackages = data.installedPackages;
-        this.commands.services = data.services;
-        this.commands.networkInterfaces = data.networkInterfaces;
-        this.commands.processes = data.processes;
-        if (data.env) {
-            this.commands.env = data.env;
-        }
-    }
-    
+
     toggleExamMode() {
         if (!this.examMode) {
             this.showScenarioSelection();
@@ -295,7 +234,7 @@ Your session persists until you close this tab.</div>`;
             this.stopExamMode();
         }
     }
-    
+
     getExamScenarios() {
         return {
             '1': {
@@ -640,43 +579,43 @@ Your session persists until you close this tab.</div>`;
             }
         };
     }
-    
+
     startExamWithScenario(scenarioNum) {
         this.selectedScenario = scenarioNum;
         this.examMode = true;
         this.examTimeRemaining = 3 * 60 * 60; // 3 hours
-        
+
         // Load scenario into sidebar
         this.loadScenarioToSidebar(scenarioNum);
-        
+
         document.getElementById('examTimer').style.display = 'flex';
         document.getElementById('examBtn').textContent = '🛑 Stop Exam';
         document.getElementById('examBtn').classList.add('active');
-        
+
         const scenarios = this.getExamScenarios();
         const scenario = scenarios[scenarioNum];
-        
+
         this.addOutput('<div class="info"><strong>═══════════════════════════════════════</strong></div>');
         this.addOutput(`<div class="info"><strong>  RHCSA EXAM MODE STARTED</strong></div>`);
         this.addOutput(`<div class="info"><strong>  ${scenario.title}</strong></div>`);
         this.addOutput('<div class="info"><strong>  Time Limit: 3 hours</strong></div>');
         this.addOutput('<div class="info"><strong>═══════════════════════════════════════</strong></div>');
-        
+
         this.startExamTimer();
         this.saveSession();
     }
-    
+
     loadScenarioToSidebar(scenarioNum) {
         const scenarios = this.getExamScenarios();
         const scenario = scenarios[scenarioNum];
         const sidebar = document.getElementById('sidebar');
-        
+
         // Replace sidebar content with exam scenario
         sidebar.innerHTML = `
             <div class="sidebar-header">
                 <h2>RHCSA Exam</h2>
             </div>
-            
+
             <div class="objectives">
                 <div class="exam-scenario-info">
                     <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">${scenario.title}</h3>
@@ -684,7 +623,7 @@ Your session persists until you close this tab.</div>`;
                     <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4; margin-bottom: 0.5rem;">${scenario.background}</p>
                     <p style="color: var(--info-color); font-size: 0.85rem; margin-bottom: 0;"><strong>🔑 ${scenario.credentials}</strong></p>
                 </div>
-                
+
                 ${scenario.sections.map((section, idx) => `
                     <div class="objective-section">
                         <h3>${idx + 1}. ${section.name}</h3>
@@ -694,13 +633,13 @@ Your session persists until you close this tab.</div>`;
                     </div>
                 `).join('')}
             </div>
-            
+
             <div class="sidebar-footer">
                 <p>⏱️ <strong>Tip:</strong> All tasks must survive reboot. Check work carefully before completing.</p>
             </div>
         `;
     }
-    
+
     startExamMode() {
         const confirmed = confirm(
             'Start RHCSA Exam Simulation?\n\n' +
@@ -709,69 +648,69 @@ Your session persists until you close this tab.</div>`;
             'Session will be lost if you close the tab\n\n' +
             'Ready to begin?'
         );
-        
+
         if (!confirmed) return;
-        
+
         this.examMode = true;
         this.examTimeRemaining = 3 * 60 * 60; // 3 hours
-        
+
         document.getElementById('examTimer').style.display = 'block';
         document.getElementById('examBtn').textContent = '🛑 Stop Exam';
         document.getElementById('examBtn').classList.add('active');
-        
+
         this.addOutput('<div class="info"><strong>═══════════════════════════════════════</strong></div>');
         this.addOutput('<div class="info"><strong>  RHCSA EXAM MODE STARTED</strong></div>');
         this.addOutput('<div class="info"><strong>  Time Limit: 3 hours</strong></div>');
         this.addOutput('<div class="info"><strong>═══════════════════════════════════════</strong></div>');
-        
+
         this.startExamTimer();
         this.saveSession();
     }
-    
+
     resumeExamMode() {
         this.examMode = true;
-        
+
         // Restore sidebar with scenario
         if (this.selectedScenario) {
             this.loadScenarioToSidebar(this.selectedScenario);
         }
-        
+
         document.getElementById('examTimer').style.display = 'flex';
         document.getElementById('examBtn').textContent = '🛑 Stop Exam';
         document.getElementById('examBtn').classList.add('active');
-        
+
         const scenarios = this.getExamScenarios();
         const scenario = scenarios[this.selectedScenario];
-        
+
         this.addOutput('<div class="warning"><strong>EXAM SESSION RESTORED</strong></div>');
         if (scenario) {
             this.addOutput(`<div class="warning">${scenario.title}</div>`);
         }
         this.addOutput(`<div class="warning">Time remaining: ${this.formatTime(this.examTimeRemaining)}</div>`);
-        
+
         this.startExamTimer();
     }
-    
+
     startExamTimer() {
         this.updateTimerDisplay();
-        
+
         this.examTimer = setInterval(() => {
             this.examTimeRemaining--;
             this.updateTimerDisplay();
-            
+
             if (this.examTimeRemaining <= 0) {
                 this.examTimeExpired();
             }
         }, 1000);
     }
-    
+
     restoreOriginalSidebar() {
         const sidebar = document.getElementById('sidebar');
         sidebar.innerHTML = `
             <div class="sidebar-header">
                 <h2>RHCSA Objectives</h2>
             </div>
-            
+
             <div class="objectives">
                 <div class="objective-section">
                     <h3>Essential Tools</h3>
@@ -785,7 +724,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">Archive (tar, gzip)</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>User Management</h3>
                     <ul>
@@ -795,7 +734,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">sudo configuration</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>Software Management</h3>
                     <ul>
@@ -804,7 +743,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">RPM queries</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>System Operations</h3>
                     <ul>
@@ -815,7 +754,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">systemctl services</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>Storage & Filesystems</h3>
                     <ul>
@@ -826,7 +765,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">NFS & autofs</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>Networking</h3>
                     <ul>
@@ -835,7 +774,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">firewalld/firewall-cmd</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>Security</h3>
                     <ul>
@@ -845,7 +784,7 @@ Your session persists until you close this tab.</div>`;
                         <li data-progress="0">File permissions</li>
                     </ul>
                 </div>
-                
+
                 <div class="objective-section">
                     <h3>Shell Scripting</h3>
                     <ul>
@@ -855,65 +794,64 @@ Your session persists until you close this tab.</div>`;
                     </ul>
                 </div>
             </div>
-            
+
             <div class="sidebar-footer">
                 <p>💡 <strong>Tip:</strong> Commands persist in this session. Try <code>help</code> for available commands.</p>
             </div>
         `;
     }
-    
+
     stopExamMode() {
         const confirmed = confirm(
             'Stop exam mode?\n\n' +
             'Your session will be saved and you can resume later by refreshing the page.\n' +
             'To completely clear the exam, use the Reset button.'
         );
-        
+
         if (!confirmed) return;
-        
+
         if (this.examTimer) {
             clearInterval(this.examTimer);
             this.examTimer = null;
         }
-        
+
         this.examMode = false;
         this.restoreOriginalSidebar();
-        
+
         document.getElementById('examTimer').style.display = 'none';
         document.getElementById('examBtn').textContent = '🎓 Exam Mode';
         document.getElementById('examBtn').classList.remove('active');
-        
+
         this.addOutput('<div class="info"><strong>EXAM MODE PAUSED</strong></div>');
         this.addOutput('<div class="info">Refresh the page to resume your exam session.</div>');
-        
+
         this.saveSession();
     }
-    
+
     examTimeExpired() {
         clearInterval(this.examTimer);
         this.examTimer = null;
         this.examMode = false;
         this.selectedScenario = null;
-        
+
         this.restoreOriginalSidebar();
-        
+
         document.getElementById('examBtn').textContent = '🎓 Exam Mode';
         document.getElementById('examBtn').classList.remove('active');
-        
+
         this.addOutput('<div class="error"><strong>═══════════════════════════════════════</strong></div>');
         this.addOutput('<div class="error"><strong>  TIME EXPIRED!</strong></div>');
         this.addOutput('<div class="error"><strong>  RHCSA Exam Simulation Complete</strong></div>');
         this.addOutput('<div class="error"><strong>═══════════════════════════════════════</strong></div>');
         this.addOutput('<div class="info">Review your work. Use "reset" to start a new session.</div>');
-        
-        // Clear the session
-        sessionStorage.removeItem('rhcsa_session');
+
+        this.saveSession();
     }
-    
+
     updateTimerDisplay() {
         const display = document.getElementById('timerDisplay');
         display.textContent = this.formatTime(this.examTimeRemaining);
-        
+
         // Change color based on time remaining
         display.classList.remove('warning', 'critical');
         if (this.examTimeRemaining <= 30 * 60) { // Last 30 minutes
@@ -923,42 +861,70 @@ Your session persists until you close this tab.</div>`;
             display.classList.add('critical');
         }
     }
-    
+
     formatTime(seconds) {
         const hours = Math.floor(seconds / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;
         return `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
-    
+
     handleKeyDown(e) {
+        if (this.activePager) return;
+        if (this.booting) { e.preventDefault(); this.bootSkip = true; return; }
+        if (this.inputMode && this.handleInputKey(e)) return;
         if (e.key === 'Enter') {
             e.preventDefault();
-            let command = this.input.value.trim();
-            
+            const rawLine = this.input.value;
+            const continuing = !!this.contBuffer;
+            const fullText = continuing ? this.contBuffer + '\n' + rawLine : rawLine;
+
+            // Unfinished compound command, quote or here-document: ask for more input (PS2)
+            if (fullText.trim() && typeof ShellInterpreter !== 'undefined' && ShellInterpreter.isIncomplete(fullText)) {
+                this.addOutput(`<div class="command-echo"><span class="prompt">${continuing ? '> ' : this.getPromptText()}</span>${this.escapeHtml(rawLine)}</div>`);
+                this.contBuffer = fullText;
+                this.input.value = '';
+                this.prompt.textContent = '> ';
+                this.scrollToBottom();
+                return;
+            }
+
+            let command = fullText.trim();
+            let echoPrompt = continuing ? '> ' : this.getPromptText();
+            this.contBuffer = '';
+            if (continuing) this.updatePrompt();
+
             // Process history expansion before executing
-            command = this.expandHistory(command);
-            
+            if (!continuing) command = this.expandHistory(command);
+
             if (command) {
-                this.history.push(command);
+                // multi-line commands are kept in history on one line
+                let h = command;
+                if (continuing) {
+                    h = command.split('\n').reduce((acc, l, idx) => (idx === 0 ? l : acc + (/(\b(do|then|else|in)|\{|;|&&|\|\||\|)\s*$/.test(acc) ? ' ' : '; ') + l), '');
+                    if (/<<-?\s*['"]?\w/.test(command)) h = command.split('\n')[0];
+                }
+                this.history.push(h);
                 this.historyIndex = this.history.length;
                 this.commands.commandHistory = this.history;
             }
-            
+
             // Always add current prompt + command to output (even if empty command)
             if (command) {
-                this.addOutput(`<div class="command-echo"><span class="prompt">${this.getPromptText()}</span>${this.escapeHtml(command)}</div>`);
+                this.addOutput(`<div class="command-echo"><span class="prompt">${echoPrompt}</span>${this.escapeHtml(continuing ? rawLine : command)}</div>`);
             } else {
-                this.addOutput(`<div class="command-echo"><span class="prompt">${this.getPromptText()}</span></div>`);
+                this.addOutput(`<div class="command-echo"><span class="prompt">${echoPrompt}</span></div>`);
             }
-            
+
             this.input.value = '';
-            
+
             // Execute command if not empty
+            if (this.commands._jobReap) this.commands._jobReap();
             if (command) {
                 this.executeCommandOnly(command);
             }
-            
+            this.flushJobs();
+
             this.scrollToBottom();
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
@@ -978,26 +944,23 @@ Your session persists until you close this tab.</div>`;
         } else if (e.key === 'Tab') {
             e.preventDefault();
             this.handleTabCompletion();
+        } else if (e.key === 'd' && e.ctrlKey && !e.shiftKey && !this.input.value) {
+            e.preventDefault();
+            this.addOutput(`<div class="command-echo"><span class="prompt">${this.getPromptText()}</span>exit</div>`);
+            this.executeCommandOnly('exit');
+            this.flushJobs();
         } else if (e.key === 'l' && e.ctrlKey) {
             e.preventDefault();
             this.clearTerminal();
         } else if (e.key === 'z' && e.ctrlKey) {
             e.preventDefault();
-            // Ctrl+Z - Suspend current foreground process
-            const currentCommand = this.input.value.trim();
-            if (currentCommand) {
-                // Suspend the command and create a background job
-                const result = this.commands.suspendCurrentJob(currentCommand);
-                if (result && result.output) {
-                    this.addOutput(result.output);
-                }
-                this.input.value = '';
-            }
+            // Ctrl+Z at an idle prompt does nothing (it stops a foreground job, see the fgjob input mode)
         } else if (e.key === 'c' && e.ctrlKey && !e.shiftKey) {
             e.preventDefault();
             // Ctrl+C - Interrupt current command
             this.addOutput('^C');
             this.input.value = '';
+            if (this.contBuffer) { this.contBuffer = ''; this.updatePrompt(); }
         } else if (e.key === 'C' && e.ctrlKey && e.shiftKey) {
             // Ctrl+Shift+C - Copy (handled by document-level listener if text is selected)
             // If no text selected in output, copy current input value
@@ -1032,26 +995,198 @@ Your session persists until you close this tab.</div>`;
             });
         }
     }
-    
+
     executeCommand(commandLine) {
         // This is now only called by buttons (help, etc.)
         // Add the command echo first
         this.addOutput(`<div class="command-echo"><span class="prompt">${this.getPromptText()}</span>${this.escapeHtml(commandLine)}</div>`);
         this.executeCommandOnly(commandLine);
     }
-    
+
+    // ---- shell interpreter integration
+    getShell() {
+        if (!this.shell && typeof ShellInterpreter !== 'undefined') this.shell = new ShellInterpreter(this);
+        return this.shell;
+    }
+
+    printChunks(chunks) {
+        let kind = null, buf = '';
+        const out = [];
+        for (const c of chunks) {
+            if (c.k === kind) buf += c.s; else { if (kind) out.push({ k: kind, s: buf }); kind = c.k; buf = c.s; }
+        }
+        if (kind) out.push({ k: kind, s: buf });
+        for (const c of out) {
+            const text = c.s.replace(/\n$/, '');
+            if (c.k === 'o') this.addOutput(text === '' ? '<span>&nbsp;</span>' : `<span>${this.escapeStrayHtml(text)}</span>`);
+            else this.addOutput(text === '' ? '<span class="error">&nbsp;</span>' : `<span class="error">${this.escapeHtml(text)}</span>`);
+        }
+    }
+
+    // Run a line through the interpreter. Commands that need typed input (read, passwd, cat, at...)
+    // pause the line: the terminal asks, then replays the line from a snapshot with the answers.
+    runShellLine(commandLine, state) {
+        const sh = this.getShell();
+        const st = state || { queue: [], shown: 0, snap: null };
+        const mayAsk = /read|\.\/|\/\S+\.sh|bash|\bsh\b|source|\. |\bat\b|passwd|\bcat\b|crontab|batch/.test(commandLine);
+        if (!st.snap && mayAsk) st.snap = this.takeSnapshot();
+        this.pendingPager = null;
+        this.pendingBoot = null;
+        const mailBefore = this.mailSize();
+        const res = sh.runTop(commandLine, { interactive: true, inputQueue: st.queue });
+        if (sh.clearRequested) { sh.clearRequested = false; this.clearTerminal(); }
+        // skip the part of the output that was already shown before the input was requested
+        let skip = st.shown, shownNow = 0;
+        const fresh = [];
+        for (const c of res.chunks) {
+            let text = c.s;
+            if (skip > 0) { const cut = Math.min(skip, text.length); text = text.slice(cut); skip -= cut; }
+            shownNow += c.s.length;
+            if (text) fresh.push({ k: c.k, s: text });
+        }
+        this.printChunks(fresh);
+        if (res.needInput) {
+            st.shown = shownNow;
+            const info = res.needInput;
+            this.beginInput(info, (answer) => {
+                if (answer === null) { if (st.snap) this.restoreSnapshot(st.snap); this.commands.lastExitCode = 130; this.updatePrompt(); return; }
+                st.queue.push(answer);
+                if (st.snap) this.restoreSnapshot(st.snap);
+                this.runShellLine(commandLine, st);
+            });
+            return;
+        }
+        this.commands.lastExitCode = res.exitCode;
+        this.updatePrompt();
+        this.flushJobs();
+        this.openPendingPager();
+        this.scheduleSave();
+        if (this.pendingBoot) this.runQueuedBoot();
+        if (this.mailSize() > mailBefore) this.addOutput('<span>You have new mail in /var/spool/mail/' + this.fs.currentUser + '</span>');
+    }
+
+    mailSize() {
+        const n = this.fs.getNode('/var/spool/mail/' + this.fs.currentUser);
+        return n && n.content ? n.content.length : 0;
+    }
+
+    takeSnapshot() {
+        try {
+            return { fs: structuredClone(this.fs.fs), users: structuredClone(this.fs.users), groups: structuredClone(this.fs.groups), env: Object.assign({}, this.commands.env), cwd: this.fs.currentPath, user: this.fs.currentUser, uid: this.fs.currentUid, gid: this.fs.currentGid };
+        } catch (e) { return null; }
+    }
+
+    restoreSnapshot(s) {
+        this.fs.fs = s.fs; this.fs.users = s.users; this.fs.groups = s.groups;
+        for (const k of Object.keys(this.commands.env)) delete this.commands.env[k];
+        Object.assign(this.commands.env, s.env);
+        this.fs.currentPath = s.cwd; this.fs.currentUser = s.user; this.fs.currentUid = s.uid; this.fs.currentGid = s.gid;
+    }
+
+    // ---- typed input requested by a running command
+    beginInput(info, cb) {
+        this.inputMode = { info, lines: [], cb };
+        this.prompt.textContent = info.prompt || '';
+        if (info.secret) this.input.type = 'password';
+        if (info.mode === 'fgjob') {
+            // a foreground job owns the terminal until it ends (timer), Ctrl+C kills it, Ctrl+Z stops it
+            this.fgStart = Date.now();
+            if (info.ms) this.fgTimer = setTimeout(() => { if (this.inputMode && this.inputMode.info === info) { this.endInput(); cb('done'); } }, info.ms);
+        }
+        this.input.focus();
+    }
+
+    endInput() {
+        if (this.fgTimer) { clearTimeout(this.fgTimer); this.fgTimer = null; }
+        this.inputMode = null;
+        this.input.type = 'text';
+        this.updatePrompt();
+    }
+
+    handleInputKey(e) {
+        const m = this.inputMode;
+        const echo = (text) => this.addOutput('<div class="command-echo"><span class="prompt">' + this.escapeHtml(m.info.prompt || '') + '</span>' + this.escapeHtml(text) + '</div>');
+        if (m.info.mode === 'fgjob') {
+            if (e.key === 'c' && e.ctrlKey && !e.shiftKey) {
+                e.preventDefault();
+                this.addOutput('^C');
+                this.input.value = '';
+                const note = m.info.onCancel ? m.info.onCancel() : '';
+                if (typeof note === 'string' && note) this.addOutput(`<span>${this.escapeStrayHtml(note)}</span>`);
+                const cb = m.cb;
+                this.endInput();
+                cb(null);
+                return true;
+            }
+            if (e.key === 'z' && e.ctrlKey) {
+                e.preventDefault();
+                this.addOutput('^Z');
+                const el = Date.now() - (this.fgStart || Date.now());
+                const cb = m.cb;
+                this.endInput();
+                cb('STOP:' + el);
+                return true;
+            }
+            if (e.key === 'Enter') { e.preventDefault(); this.input.value = ''; this.addOutput('<span>&nbsp;</span>'); return true; }
+            return false;
+        }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const line = this.input.value;
+            this.input.value = '';
+            echo(m.info.secret ? '' : line);
+            if (m.info.mode === 'line') { const cb = m.cb; this.endInput(); cb(line); }
+            else m.lines.push(line);
+            return true;
+        }
+        if (e.key === 'd' && e.ctrlKey && m.info.onEof && !this.input.value) {
+            e.preventDefault();
+            this.input.value = '';
+            this.endInput();
+            m.info.onEof();
+            return true;
+        }
+        if (e.key === 'd' && e.ctrlKey && m.info.mode === 'eof') {
+            e.preventDefault();
+            const text = m.lines.length ? m.lines.join('\n') + '\n' : '';
+            const cb = m.cb;
+            this.endInput();
+            cb(text);
+            return true;
+        }
+        if (e.key === 'c' && e.ctrlKey && !e.shiftKey) {
+            e.preventDefault();
+            this.addOutput('^C');
+            this.input.value = '';
+            const cb = m.cb;
+            this.endInput();
+            cb(null);
+            return true;
+        }
+        return false;
+    }
+
     executeCommandOnly(commandLine) {
         // Execute without echoing (echo is done in handleKeyDown)
-        
+        if (typeof ShellInterpreter !== 'undefined' && ShellInterpreter.needsShell(commandLine)) {
+            try {
+                this.runShellLine(commandLine);
+                return;
+            } catch (err) {
+                // an interpreter bug must never lock the terminal: fall back to the simple executor
+                console.error('shell interpreter failed, using fallback:', err);
+            }
+        }
+
         // Split by command chaining operators (&&, ||, ;) but respect quotes
         const chainedCommands = this.splitByChainOperators(commandLine);
-        
+
         let lastExitCode = 0;
-        
+
         for (const { command: cmd, operator } of chainedCommands) {
             const trimmedCmd = cmd.trim();
             if (!trimmedCmd) continue;
-            
+
             // Check if we should execute based on previous exit code and operator
             if (operator === '&&' && lastExitCode !== 0) {
                 continue; // Skip if previous command failed
@@ -1059,7 +1194,7 @@ Your session persists until you close this tab.</div>`;
             if (operator === '||' && lastExitCode === 0) {
                 continue; // Skip if previous command succeeded
             }
-            
+
             // Check for clear first
             const firstWord = trimmedCmd.split(/\s+/)[0];
             if (firstWord === 'clear') {
@@ -1067,42 +1202,51 @@ Your session persists until you close this tab.</div>`;
                 lastExitCode = 0;
                 continue;
             }
-            
+
             // Check for exit
             if (firstWord === 'exit' || firstWord === 'quit') {
+                const exitArg = /^exit\s+(\d+)\s*$/.exec(trimmedCmd);
+                const leftSession = firstWord === 'exit' && this.commands.sessionExit && this.commands.sessionExit(exitArg ? parseInt(exitArg[1], 10) : undefined);
+                if (leftSession) {
+                    if (leftSession !== 'quiet') this.addOutput('<span>logout</span>');
+                    this.updatePrompt();
+                    lastExitCode = 0;
+                    continue;
+                }
                 this.addOutput('<span class="info">To exit, close this browser tab.</span>');
                 lastExitCode = 0;
                 continue;
             }
-            
+
             // Check for scenarios
             if (firstWord === 'scenarios') {
                 this.showScenarios();
                 lastExitCode = 0;
                 continue;
             }
-            
+
             // Parse redirections and pipes
             const { commands: cmdChain, error: parseError } = this.parseRedirection(trimmedCmd);
-            
+
             if (parseError) {
                 this.addOutput(`<span class="error">${this.escapeHtml(parseError)}</span>`);
                 lastExitCode = 1;
                 continue;
             }
-            
+
             // Execute command chain (handles pipes) and get exit code
             lastExitCode = this.executeCommandChain(cmdChain);
+            this.commands.lastExitCode = lastExitCode; // visible to $? in the next command of the line
         }
-        
+
         // Store last exit code for $? variable
         this.commands.lastExitCode = lastExitCode;
-        
+
         // Save session after command in exam mode
         if (this.examMode) {
             this.saveSession();
         }
-        
+
         this.scrollToBottom();
     }
 
@@ -1111,26 +1255,26 @@ Your session persists until you close this tab.</div>`;
         if (!command.includes('!')) {
             return command;
         }
-        
+
         // Expand !! (last command)
         if (command.includes('!!')) {
             const lastCmd = this.history.length > 0 ? this.history[this.history.length - 1] : '';
             command = command.replace(/!!/g, lastCmd);
         }
-        
+
         // Expand !$ (last argument of previous command)
         if (command.includes('!$')) {
             const lastCmd = this.history.length > 0 ? this.history[this.history.length - 1] : '';
             const lastArg = lastCmd.split(/\s+/).pop() || '';
             command = command.replace(/!\$/g, lastArg);
         }
-        
+
         // Expand !n (command number n from history)
         command = command.replace(/!(\d+)/g, (match, num) => {
             const index = parseInt(num) - 1;
             return (index >= 0 && index < this.history.length) ? this.history[index] : match;
         });
-        
+
         // Expand !string (most recent command starting with string)
         command = command.replace(/!([a-zA-Z][a-zA-Z0-9_-]*)/g, (match, str) => {
             for (let i = this.history.length - 1; i >= 0; i--) {
@@ -1140,10 +1284,10 @@ Your session persists until you close this tab.</div>`;
             }
             return match;
         });
-        
+
         // Expand brace expansion: {a,b,c} or {1..10}
         command = this.expandBraces(command);
-        
+
         return command;
     }
 
@@ -1160,7 +1304,7 @@ Your session persists until you close this tab.</div>`;
             }
             return result.join(' ');
         });
-        
+
         // Handle character ranges: {a..z}
         command = command.replace(/\{([a-z])\.\.([a-z])\}/g, (match, start, end) => {
             const s = start.charCodeAt(0);
@@ -1173,7 +1317,7 @@ Your session persists until you close this tab.</div>`;
             }
             return result.join(' ');
         });
-        
+
         // Handle comma-separated lists: {a,b,c}
         command = command.replace(/\{([^}]+)\}/g, (match, contents) => {
             if (contents.includes(',')) {
@@ -1181,10 +1325,10 @@ Your session persists until you close this tab.</div>`;
             }
             return match;
         });
-        
+
         return command;
     }
-    
+
     splitByChainOperators(commandLine) {
         // Split by &&, ||, and ; while respecting quotes
         const result = [];
@@ -1192,11 +1336,24 @@ Your session persists until you close this tab.</div>`;
         let inSingleQuote = false;
         let inDoubleQuote = false;
         let operator = null;
-        
+        let sub = 0;   // depth of $( ... ) substitutions, split later when they run
+
         for (let i = 0; i < commandLine.length; i++) {
             const char = commandLine[i];
             const nextChar = commandLine[i + 1];
-            
+
+            if (!inSingleQuote && char === '$' && nextChar === '(') {
+                sub++;
+                current += '$(';
+                i++;
+                continue;
+            }
+            if (sub > 0) {
+                if (char === '(') sub++;
+                else if (char === ')') sub--;
+                current += char;
+                continue;
+            }
             if (char === "'" && !inDoubleQuote) {
                 inSingleQuote = !inSingleQuote;
                 current += char;
@@ -1225,23 +1382,23 @@ Your session persists until you close this tab.</div>`;
                 current += char;
             }
         }
-        
+
         if (current.trim()) {
             result.push({ command: current, operator: operator });
         }
-        
+
         return result;
     }
-    
+
     executeCommandChain(cmdChain) {
         let stdin = '';
         let shouldUpdatePrompt = false;
         let exitCode = 0;
-        
+
         for (let i = 0; i < cmdChain.length; i++) {
             const cmdInfo = cmdChain[i];
             const { command, args, inputRedirect, outputRedirect, errorRedirect } = cmdInfo;
-            
+
             // Handle input redirection (<)
             if (inputRedirect) {
                 const file = this.commands.fs.getNode(inputRedirect);
@@ -1255,20 +1412,22 @@ Your session persists until you close this tab.</div>`;
                 }
                 stdin = file.content || '';
             }
-            
+
             // Execute command
             let result;
-            
+
             try {
-                if (typeof this.commands[command] === 'function') {
-                    result = this.commands[command].call(this.commands, args, stdin);
+                const cmdFn = this.commandMethod(command);
+                if (cmdFn) {
+                    this.commands._stdoutIsPipe = i < cmdChain.length - 1;
+                    result = cmdFn.call(this.commands, args, stdin);
                 } else {
                     result = { stdout: '', stderr: `${command}: command not found`, exitCode: 127 };
                 }
             } catch (err) {
                 result = { stdout: '', stderr: `Error executing ${command}: ${err.message}`, exitCode: 1 };
             }
-            
+
             // Normalize legacy format to new format
             if (result.output !== undefined || result.error !== undefined) {
                 result = {
@@ -1277,38 +1436,39 @@ Your session persists until you close this tab.</div>`;
                     exitCode: result.error ? 1 : 0
                 };
             }
-            
+
             // Handle special flags
             if (result.clearScreen) {
                 this.clearTerminal();
                 return;
             }
-            
+
             // Store changeDir flag for later (update prompt after output is displayed)
             if (result.changeDir) {
                 shouldUpdatePrompt = true;
             }
-            
+
             // Handle output redirection (>)
             if (outputRedirect) {
                 const { file, append } = outputRedirect;
                 const parentPath = this.commands.fs.getParentPath(file);
                 const basename = this.commands.fs.getBasename(file);
                 const parent = this.commands.fs.getNode(parentPath);
-                
+
                 if (!parent) {
                     this.addOutput(`<span class="error">bash: ${file}: No such file or directory</span>`);
                     return;
                 }
-                
+
                 if (!this.commands.fs.hasPermission(parent, 'w')) {
                     this.addOutput(`<span class="error">bash: ${file}: Permission denied</span>`);
                     return;
                 }
-                
+
                 const existingFile = this.commands.fs.getNode(file);
-                const content = append && existingFile ? (existingFile.content || '') + result.stdout : result.stdout;
-                
+                const outText = outputRedirect.mergeStderr ? result.stdout + result.stderr : result.stdout;
+                const content = append && existingFile ? (existingFile.content || '') + outText : outText;
+
                 parent.children[basename] = {
                     type: 'file',
                     permissions: '0644',
@@ -1318,31 +1478,34 @@ Your session persists until you close this tab.</div>`;
                     modified: new Date(),
                     content: content
                 };
-                
+
                 result.stdout = ''; // Don't display when redirected
+                if (outputRedirect.mergeStderr) {
+                    result.stderr = '';
+                }
             }
-            
+
             // Handle error redirection (2>)
             if (errorRedirect) {
                 const { file, append, combineOutput } = errorRedirect;
                 const parentPath = this.commands.fs.getParentPath(file);
                 const basename = this.commands.fs.getBasename(file);
                 const parent = this.commands.fs.getNode(parentPath);
-                
+
                 if (!parent) {
                     this.addOutput(`<span class="error">bash: ${file}: No such file or directory</span>`);
                     return;
                 }
-                
+
                 if (!this.commands.fs.hasPermission(parent, 'w')) {
                     this.addOutput(`<span class="error">bash: ${file}: Permission denied</span>`);
                     return;
                 }
-                
+
                 const existingFile = this.commands.fs.getNode(file);
                 let content = combineOutput ? result.stdout + result.stderr : result.stderr;
                 content = append && existingFile ? (existingFile.content || '') + content : content;
-                
+
                 parent.children[basename] = {
                     type: 'file',
                     permissions: '0644',
@@ -1352,20 +1515,20 @@ Your session persists until you close this tab.</div>`;
                     modified: new Date(),
                     content: content
                 };
-                
+
                 if (combineOutput) {
                     result.stdout = '';
                 }
                 result.stderr = ''; // Don't display when redirected
             }
-            
+
             // Display output if not redirected and not piped
             if (i === cmdChain.length - 1) {
                 if (result.stderr) {
                     this.addOutput(`<span class="error">${this.escapeHtml(result.stderr)}</span>`);
                 }
                 if (result.stdout) {
-                    this.addOutput(`<span>${result.stdout}</span>`);
+                    this.addOutput(`<span>${this.escapeStrayHtml(result.stdout)}</span>`);
                 }
                 // Store the final exit code
                 exitCode = result.exitCode || 0;
@@ -1375,20 +1538,20 @@ Your session persists until you close this tab.</div>`;
                 // Pipes continue even if intermediate commands fail
             }
         }
-        
+
         // Update prompt after all output has been displayed
         if (shouldUpdatePrompt) {
             this.updatePrompt();
         }
-        
+
         return exitCode;
     }
-    
+
     parseRedirection(commandLine) {
         // Split by pipes first
         const pipeSegments = this.splitByPipes(commandLine);
         const commands = [];
-        
+
         for (const segment of pipeSegments) {
             const cmdInfo = this.parseRedirectionSegment(segment.trim());
             if (cmdInfo.error) {
@@ -1396,19 +1559,32 @@ Your session persists until you close this tab.</div>`;
             }
             commands.push(cmdInfo);
         }
-        
+
         return { commands };
     }
-    
+
     splitByPipes(line) {
         const segments = [];
         let current = '';
         let inQuotes = false;
         let quoteChar = '';
-        
+        let sub = 0;
+
         for (let i = 0; i < line.length; i++) {
             const char = line[i];
-            
+
+            if (!(inQuotes && quoteChar === "'") && char === '$' && line[i + 1] === '(') {
+                sub++;
+                current += '$(';
+                i++;
+                continue;
+            }
+            if (sub > 0) {
+                if (char === '(') sub++;
+                else if (char === ')') sub--;
+                current += char;
+                continue;
+            }
             if ((char === '"' || char === "'") && (i === 0 || line[i-1] !== '\\')) {
                 if (!inQuotes) {
                     inQuotes = true;
@@ -1425,64 +1601,124 @@ Your session persists until you close this tab.</div>`;
                 current += char;
             }
         }
-        
+
         if (current) {
             segments.push(current);
         }
-        
+
         return segments;
     }
-    
+
     parseRedirectionSegment(segment) {
         let inputRedirect = null;
         let outputRedirect = null;
         let errorRedirect = null;
-        let cmdString = segment;
-        
-        // Parse &> (must be before >)
-        const combineMatch = segment.match(/&>\s*(\S+)/);
-        if (combineMatch) {
-            errorRedirect = { file: combineMatch[1], append: false, combineOutput: true };
-            cmdString = cmdString.replace(/&>\s*\S+/, '').trim();
-        }
-        
-        // Parse >> (must be before >)
-        const appendMatch = cmdString.match(/>>\s*(\S+)/);
-        if (appendMatch) {
-            outputRedirect = { file: appendMatch[1], append: true };
-            cmdString = cmdString.replace(/>>\s*\S+/, '').trim();
-        } else {
-            // Parse > (but not 2>)
-            const outMatch = cmdString.match(/(?<![\d])>\s*(\S+)/);
-            if (outMatch) {
-                outputRedirect = { file: outMatch[1], append: false };
-                cmdString = cmdString.replace(/(?<![\d])>\s*\S+/, '').trim();
+        let mergeStderr = false;
+        let cmdString = '';
+
+        // Quote-aware scan so that '>' / '<' inside quotes stay part of the arguments
+        let quote = null;
+        const readTarget = (from) => {
+            let j = from;
+            while (j < segment.length && segment[j] === ' ') j++;
+            let target = '';
+            let q = null;
+            for (; j < segment.length; j++) {
+                const c = segment[j];
+                if (q) {
+                    if (c === q) q = null; else target += c;
+                } else if (c === '"' || c === "'") {
+                    q = c;
+                } else if (c === ' ' || c === '>' || c === '<') {
+                    break;
+                } else {
+                    target += c;
+                }
             }
-        }
-        
-        // Parse 2>
-        const errMatch = cmdString.match(/2>\s*(\S+)/);
-        if (errMatch) {
-            if (!errorRedirect) {
-                errorRedirect = { file: errMatch[1], append: false, combineOutput: false };
+            return { target, next: j };
+        };
+
+        for (let i = 0; i < segment.length;) {
+            const c = segment[i];
+
+            if (quote) {
+                if (c === quote) quote = null;
+                cmdString += c;
+                i++;
+                continue;
             }
-            cmdString = cmdString.replace(/2>\s*\S+/, '').trim();
+            if (c === '"' || c === "'") {
+                quote = c;
+                cmdString += c;
+                i++;
+                continue;
+            }
+
+            const prev = i > 0 ? segment[i - 1] : ' ';
+
+            // 2>&1 (merge stderr into stdout)
+            if (segment.startsWith('2>&1', i)) {
+                mergeStderr = true;
+                i += 4;
+                continue;
+            }
+            // &> file / &>> file
+            if (c === '&' && segment[i + 1] === '>') {
+                const append = segment[i + 2] === '>';
+                const t = readTarget(i + (append ? 3 : 2));
+                errorRedirect = { file: t.target, append, combineOutput: true };
+                i = t.next;
+                continue;
+            }
+            // 2> file / 2>> file
+            if (c === '2' && segment[i + 1] === '>' && (prev === ' ' || i === 0)) {
+                const append = segment[i + 2] === '>';
+                const t = readTarget(i + (append ? 3 : 2));
+                errorRedirect = { file: t.target, append, combineOutput: false };
+                i = t.next;
+                continue;
+            }
+            // 1> / > / >>
+            if (c === '>' || (c === '1' && segment[i + 1] === '>' && prev === ' ')) {
+                const gt = c === '>' ? i : i + 1;
+                const append = segment[gt + 1] === '>';
+                const t = readTarget(gt + (append ? 2 : 1));
+                outputRedirect = { file: t.target, append };
+                i = t.next;
+                continue;
+            }
+            // here-doc / here-string markers are left untouched
+            if (c === '<' && segment[i + 1] === '<') {
+                while (segment[i] === '<') {
+                    cmdString += '<';
+                    i++;
+                }
+                continue;
+            }
+            // < file
+            if (c === '<') {
+                const t = readTarget(i + 1);
+                inputRedirect = t.target;
+                i = t.next;
+                continue;
+            }
+
+            cmdString += c;
+            i++;
         }
-        
-        // Parse <
-        const inMatch = cmdString.match(/<\s*(\S+)/);
-        if (inMatch) {
-            inputRedirect = inMatch[1];
-            cmdString = cmdString.replace(/<\s*\S+/, '').trim();
+
+        cmdString = cmdString.trim();
+        if (mergeStderr && outputRedirect) {
+            outputRedirect.mergeStderr = true;
         }
-        
+
         // Parse remaining command and arguments
         const parts = this.parseCommandLine(cmdString);
-        
+
         if (parts.length === 0) {
             return { error: 'bash: syntax error near unexpected token' };
         }
-        
+
         return {
             command: parts[0],
             args: parts.slice(1),
@@ -1491,50 +1727,93 @@ Your session persists until you close this tab.</div>`;
             errorRedirect
         };
     }
-    
+
     parseCommandLine(line) {
-        // Simple parsing - split by spaces, respecting quotes
+        // Split by spaces, respecting quotes. Characters that have a meaning for variable,
+        // brace or glob expansion are swapped for private markers while inside quotes so the
+        // expansion steps leave them alone (awk '{print $1}', grep '[0-9]*', "a,b" ...).
+        const SINGLE = { '$': '\u0001' };
+        const QUOTED = { '{': '\u0002', '}': '\u0003', '*': '\u0004', '?': '\u0005', '[': '\u0006', ']': '\u0007', ',': '\u000e' };
+        const restore = (s) => s
+            .replace(/\u0001/g, '$').replace(/\u0002/g, '{').replace(/\u0003/g, '}').replace(/\u0004/g, '*')
+            .replace(/\u0005/g, '?').replace(/\u0006/g, '[').replace(/\u0007/g, ']').replace(/\u000e/g, ',');
+
         const parts = [];
         let current = '';
+        let hasToken = false;
         let inQuotes = false;
         let quoteChar = '';
-        
+        let subDepth = 0;       // inside $( ... ): kept verbatim and executed later
+        let anyQuote = false;
+
+        const flush = () => {
+            if (current || hasToken) {
+                // Expand variables before adding to parts
+                const expanded = this.expandVariables(current);
+                // Unquoted command substitution results are split into words, like bash does
+                if (!anyQuote && /\$\(/.test(current) && /\s/.test(expanded.trim())) {
+                    expanded.trim().split(/\s+/).forEach(w => parts.push(w));
+                } else {
+                    parts.push(expanded);
+                }
+                current = '';
+            }
+            hasToken = false;
+            anyQuote = false;
+        };
+
         for (let i = 0; i < line.length; i++) {
             const char = line[i];
-            
+
+            // $(command substitution): copy verbatim, including spaces and quotes
+            if (subDepth > 0) {
+                current += char;
+                if (char === '(') subDepth++;
+                else if (char === ')') subDepth--;
+                continue;
+            }
+            if (char === '$' && line[i + 1] === '(' && !(inQuotes && quoteChar === "'")) {
+                current += '$(';
+                i++;
+                subDepth = 1;
+                hasToken = true;
+                continue;
+            }
+
             if ((char === '"' || char === "'") && (i === 0 || line[i-1] !== '\\')) {
+                anyQuote = true;
                 if (!inQuotes) {
                     inQuotes = true;
                     quoteChar = char;
+                    hasToken = true;
                 } else if (char === quoteChar) {
                     inQuotes = false;
                     quoteChar = '';
+                } else {
+                    current += char;
                 }
                 // Don't include quotes in the final string
             } else if (char === ' ' && !inQuotes) {
-                if (current) {
-                    // Expand variables before adding to parts
-                    parts.push(this.expandVariables(current));
-                    current = '';
-                }
+                flush();
+            } else if (inQuotes) {
+                if (quoteChar === "'" && SINGLE[char]) current += SINGLE[char];
+                else if (QUOTED[char]) current += QUOTED[char];
+                else current += char;
             } else {
                 current += char;
             }
         }
-        
-        if (current) {
-            parts.push(this.expandVariables(current));
-        }
-        
-        // Expand braces first, then globs
+        flush();
+
+        // Expand braces first, then globs, then put the protected characters back
         const braceExpanded = this.expandBraces(parts);
-        return this.expandGlobs(braceExpanded);
+        return this.expandGlobs(braceExpanded).map(restore);
     }
-    
+
     expandBraces(parts) {
         // Expand brace patterns like {a,b,c} and {1..10}
         const expanded = [];
-        
+
         for (const part of parts) {
             if (this.hasBracePattern(part)) {
                 const matches = this.expandBracePattern(part);
@@ -1543,32 +1822,32 @@ Your session persists until you close this tab.</div>`;
                 expanded.push(part);
             }
         }
-        
+
         return expanded;
     }
-    
+
     hasBracePattern(str) {
         // Check for brace expansion pattern
         return /\{[^}]+\}/.test(str);
     }
-    
+
     expandBracePattern(str) {
         // Find first brace pattern
         const match = str.match(/\{([^}]+)\}/);
         if (!match) return [str];
-        
+
         const fullPattern = match[0];
         const content = match[1];
         const prefix = str.substring(0, match.index);
         const suffix = str.substring(match.index + fullPattern.length);
-        
+
         // Check if it's a range pattern {a..z} or {1..10}
         const rangeMatch = content.match(/^(\d+|[a-z])\.\.(\d+|[a-z])$/i);
         if (rangeMatch) {
             const [, start, end] = rangeMatch;
             const items = this.generateRange(start, end);
             const results = [];
-            
+
             for (const item of items) {
                 const expanded = prefix + item + suffix;
                 // Recursively expand if there are more braces
@@ -1578,14 +1857,14 @@ Your session persists until you close this tab.</div>`;
                     results.push(expanded);
                 }
             }
-            
+
             return results;
         }
-        
+
         // Otherwise it's a list {a,b,c}
         const items = content.split(',');
         const results = [];
-        
+
         for (const item of items) {
             const expanded = prefix + item.trim() + suffix;
             // Recursively expand if there are more braces
@@ -1595,20 +1874,20 @@ Your session persists until you close this tab.</div>`;
                 results.push(expanded);
             }
         }
-        
+
         return results;
     }
-    
+
     generateRange(start, end) {
         // Generate range for numeric or alphabetic sequences
         const items = [];
-        
+
         if (/^\d+$/.test(start) && /^\d+$/.test(end)) {
             // Numeric range
             const startNum = parseInt(start);
             const endNum = parseInt(end);
             const step = startNum <= endNum ? 1 : -1;
-            
+
             for (let i = startNum; step > 0 ? i <= endNum : i >= endNum; i += step) {
                 items.push(String(i));
             }
@@ -1617,19 +1896,19 @@ Your session persists until you close this tab.</div>`;
             const startCode = start.charCodeAt(0);
             const endCode = end.charCodeAt(0);
             const step = startCode <= endCode ? 1 : -1;
-            
+
             for (let i = startCode; step > 0 ? i <= endCode : i >= endCode; i += step) {
                 items.push(String.fromCharCode(i));
             }
         }
-        
+
         return items;
     }
-    
+
     expandGlobs(parts) {
         // Expand glob patterns like *.txt, file?.txt, file[1-3].txt
         const expanded = [];
-        
+
         for (const part of parts) {
             // Check if part contains glob characters and is not quoted
             if (this.hasGlobPattern(part)) {
@@ -1644,40 +1923,40 @@ Your session persists until you close this tab.</div>`;
                 expanded.push(part);
             }
         }
-        
+
         return expanded;
     }
-    
+
     hasGlobPattern(str) {
         // Check if string contains unescaped glob characters
         return /[*?[\]]/.test(str) && !str.includes('\\*') && !str.includes('\\?');
     }
-    
+
     matchGlob(pattern) {
         // Convert glob pattern to regex and match against filesystem
         const matches = [];
-        
+
         // Determine if pattern has a path component
         const lastSlash = pattern.lastIndexOf('/');
         let dirPath = '.';
         let filePattern = pattern;
-        
+
         if (lastSlash > -1) {
             dirPath = pattern.substring(0, lastSlash) || '/';
             filePattern = pattern.substring(lastSlash + 1);
         }
-        
+
         // Resolve directory path
         const resolvedDir = this.fs.resolvePath(dirPath);
         const dirNode = this.fs.getNode(resolvedDir);
-        
+
         if (!dirNode || dirNode.type !== 'directory') {
             return [];
         }
-        
+
         // Convert glob pattern to regex
         const regex = this.globToRegex(filePattern);
-        
+
         // Match files in directory
         for (const [name, node] of Object.entries(dirNode.children || {})) {
             if (regex.test(name)) {
@@ -1685,10 +1964,10 @@ Your session persists until you close this tab.</div>`;
                 matches.push(fullPath);
             }
         }
-        
+
         return matches;
     }
-    
+
     globToRegex(pattern) {
         // Convert glob pattern to regex
         // * matches any characters except /
@@ -1696,10 +1975,10 @@ Your session persists until you close this tab.</div>`;
         // [abc] matches any character in set
         // [a-z] matches range
         let regexStr = '^';
-        
+
         for (let i = 0; i < pattern.length; i++) {
             const char = pattern[i];
-            
+
             if (char === '*') {
                 regexStr += '[^/]*';
             } else if (char === '?') {
@@ -1719,15 +1998,15 @@ Your session persists until you close this tab.</div>`;
                 regexStr += char.replace(/[.+^${}()|\\]/g, '\\$&');
             }
         }
-        
+
         regexStr += '$';
         return new RegExp(regexStr);
     }
-    
+
     expandVariables(str) {
         // Expand environment variables: $VAR or ${VAR}
         // Also handle command substitution: $(command)
-        
+
         // First, handle command substitution $(...)
         str = str.replace(/\$\(([^)]+)\)/g, (match, command) => {
             // Execute the command and capture its output
@@ -1740,7 +2019,10 @@ Your session persists until you close this tab.</div>`;
                 return '';
             }
         });
-        
+
+        // $? is the exit status of the previous command line
+        str = str.replace(/\$\?/g, () => String(this.commands.lastExitCode || 0));
+
         // Then expand variables
         str = str.replace(/\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?/g, (match, varName) => {
             if (this.commands.env && this.commands.env.hasOwnProperty(varName)) {
@@ -1748,30 +2030,31 @@ Your session persists until you close this tab.</div>`;
             }
             return ''; // Unknown variables expand to empty string
         });
-        
+
         return str;
     }
-    
+
     executeCommandForSubstitution(commandLine) {
         // Execute command for $() substitution without adding to output
         const { commands: cmdChain, error: parseError } = this.parseRedirection(commandLine);
-        
+
         if (parseError) {
             return { stdout: '', stderr: parseError, exitCode: 1 };
         }
-        
+
         // Execute the command chain silently (no output to terminal)
         let stdin = '';
         let finalResult = { stdout: '', stderr: '', exitCode: 0 };
-        
+
         for (let i = 0; i < cmdChain.length; i++) {
             const cmdInfo = cmdChain[i];
             const { command, args } = cmdInfo;
-            
+
             try {
-                if (typeof this.commands[command] === 'function') {
-                    const result = this.commands[command].call(this.commands, args, stdin);
-                    
+                const cmdFn = this.commandMethod(command);
+                if (cmdFn) {
+                    const result = cmdFn.call(this.commands, args, stdin);
+
                     // Normalize legacy format
                     if (result.output !== undefined || result.error !== undefined) {
                         finalResult = {
@@ -1782,7 +2065,7 @@ Your session persists until you close this tab.</div>`;
                     } else {
                         finalResult = result;
                     }
-                    
+
                     // For pipes, pass stdout to next command
                     if (i < cmdChain.length - 1) {
                         stdin = finalResult.stdout;
@@ -1796,20 +2079,20 @@ Your session persists until you close this tab.</div>`;
                 break;
             }
         }
-        
+
         return finalResult;
     }
-    
+
     addOutput(html) {
         const div = document.createElement('div');
         div.className = 'output-line';
         div.innerHTML = html;
         this.output.appendChild(div);
-        
+
         // Always scroll to bottom when new output is added
         this.scrollToBottom();
     }
-    
+
     clearTerminal() {
         this.output.innerHTML = '';
         // Scroll to top to simulate real terminal behavior
@@ -1823,33 +2106,36 @@ Your session persists until you close this tab.</div>`;
             output.scrollTop = 0;
         }
     }
-    
+
     resetFilesystem() {
         if (this.examMode) {
             const confirmed = confirm('Reset will end exam mode and clear all progress. Continue?');
             if (!confirmed) return;
-            
+
             if (this.examTimer) {
                 clearInterval(this.examTimer);
                 this.examTimer = null;
             }
             this.examMode = false;
             this.selectedScenario = null;
-            
+
             this.restoreOriginalSidebar();
-            
+
             document.getElementById('examTimer').style.display = 'none';
             document.getElementById('examBtn').textContent = '🎓 Exam Mode';
             document.getElementById('examBtn').classList.remove('active');
         }
-        
+
+        this.world.clear();
         this.fs = new VirtualFilesystem();
         this.commands = new RHCSACommands(this.fs);
+        this.world = new WorldState(this);
+        this.world.markPristine();
         this.history = [];
-        
+
         // Clear terminal output completely
         this.output.innerHTML = '';
-        
+
         // Show welcome message again
         const welcomeDiv = document.createElement('div');
         welcomeDiv.className = 'welcome-message';
@@ -1874,32 +2160,50 @@ Welcome! This terminal simulates a RHEL 9 system with:
 Type 'help' for available commands
 Type 'man &lt;command&gt;' for command documentation
 
-Your session persists until you close this tab.</div>`;
+Your machine is saved in this browser and survives refreshes; use Reset to start over.</div>`;
         this.output.appendChild(welcomeDiv);
-        
+
         this.addOutput('<span class="success">Filesystem reset successfully.</span>');
         this.updatePrompt();
-        
-        // Clear saved session
-        sessionStorage.removeItem('rhcsa_session');
+
+        this.saveSession();
     }
-    
+
+    // background job output and the [1]+ Done lines bash prints before a prompt
+    startJobTicker() {
+        if (this.jobTicker) return;
+        this.jobTicker = setInterval(() => { try { this.flushJobs(true); } catch (e) { /* never break the terminal */ } }, 1000);
+    }
+
+    flushJobs(outputOnly) {
+        this.startJobTicker();
+        const c = this.commands;
+        if (!c || !c._jobReap || this.inputMode) return;
+        c._jobReap();
+        const o = c._jobOutput();
+        if (o) this.addOutput(`<span>${this.escapeStrayHtml(o)}</span>`);
+        if (outputOnly) return;
+        const t = c._jobNotices();
+        if (t) this.addOutput(`<span>${this.escapeHtml(t)}</span>`);
+    }
+
     updatePrompt() {
         const promptText = this.getPromptText();
         this.prompt.textContent = promptText;
     }
-    
+
     getPromptText() {
         const user = this.fs.currentUser;
         const host = this.commands.hostname;
-        const path = this.fs.currentPath === this.fs.users[user].home 
-            ? '~' 
-            : this.fs.currentPath;
+        const cwd = this.fs.currentPath;
+        const path = cwd === this.fs.users[user].home
+            ? '~'
+            : (cwd === '/' ? '/' : cwd.split('/').filter(Boolean).pop());
         const symbol = user === 'root' ? '#' : '$';
-        
+
         return `[${user}@${host} ${path}]${symbol} `;
     }
-    
+
     scrollToBottom() {
         const terminal = document.getElementById('terminal');
         // Use requestAnimationFrame to ensure DOM has updated
@@ -1907,24 +2211,88 @@ Your session persists until you close this tab.</div>`;
             terminal.scrollTop = terminal.scrollHeight;
         });
     }
-    
+
+    // Look up the method implementing a command. 'env' and 'hostname' are state
+    // properties on the command object, so their implementations live under other names.
+    commandMethod(command) {
+        // VAR=value (assignment) and VAR=value command args (one-off environment)
+        const asg = /^([A-Za-z_][A-Za-z0-9_]*)=([\s\S]*)$/.exec(command);
+        if (asg) {
+            return (args, stdin) => {
+                const env = this.commands.env;
+                if (!args.length) {
+                    env[asg[1]] = asg[2];
+                    return { stdout: '', stderr: '', exitCode: 0 };
+                }
+                const had = Object.prototype.hasOwnProperty.call(env, asg[1]);
+                const prev = env[asg[1]];
+                env[asg[1]] = asg[2];
+                const inner = this.commandMethod(args[0]);
+                let res;
+                try {
+                    res = inner ? inner.call(this.commands, args.slice(1), stdin) : { stdout: '', stderr: `${args[0]}: command not found`, exitCode: 127 };
+                } finally {
+                    if (had) env[asg[1]] = prev; else delete env[asg[1]];
+                }
+                return res;
+            };
+        }
+        if ((command === 'bash' || command === 'sh') && this.getShell()) {
+            return (args, stdin) => this.getShell().bashCommand(command, args, stdin);
+        }
+        const aliases = { env: 'envCmd', hostname: 'hostnameCmd' };
+        const fn = this.commands[aliases[command] || command];
+        if (typeof fn !== 'function') return null;
+        // programs that need a package (or only exist inside a container) are 'command not found' when it is missing
+        if (command.charAt(0) !== '_' && this.commands._cmdGate) {
+            const g = this.commands._cmdGate(command);
+            if (g === false) return null;
+            if (typeof g === 'function') return g;
+        }
+        return fn;
+    }
+
+    // Command output is inserted as HTML. Commands only emit <span> markup themselves,
+    // so everything else (file contents, <placeholder> help text, & ) must be escaped.
+    escapeStrayHtml(text) {
+        return String(text)
+            .replace(/&(?!(?:#\d+|[a-zA-Z]+);)/g, '&amp;')
+            .replace(/<(?!\/?span\b)/g, '&lt;');
+    }
+
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-    
+
     handleTabCompletion() {
+        if (this.inputMode) return;
+        if (!this.completion && typeof CompletionEngine !== 'undefined') this.completion = new CompletionEngine(this);
+        if (this.completion) {
+            let r = null;
+            try { r = this.completion.run(this.input.value, this.input.selectionStart === null || this.input.selectionStart === undefined ? this.input.value.length : this.input.selectionStart); } catch (err) { console.error('tab completion failed:', err); }
+            if (r) {
+                if (r.value !== null && r.value !== undefined) { this.input.value = r.value; try { this.input.setSelectionRange(r.cursor, r.cursor); } catch (e) { /* not focusable */ } }
+                if (r.list || r.message) {
+                    this.addOutput(`<div class="command-echo"><span class="prompt">${this.prompt.textContent}</span>${this.escapeHtml(this.input.value)}</div>`);
+                    this.addOutput(`<span>${this.escapeHtml(r.list || r.message)}</span>`);
+                    this.scrollToBottom();
+                }
+                return;
+            }
+        }
         const input = this.input.value;
         const parts = input.split(' ');
         const lastPart = parts[parts.length - 1];
-        
+
         // Simple command completion (first word)
         if (parts.length === 1) {
             const availableCommands = Object.keys(this.commands)
-                .filter(key => typeof this.commands[key] === 'function')
+                .filter(key => typeof this.commands[key] === 'function' && !key.startsWith('_'))
+                .filter(key => !this.commands._cmdGate || this.commands._cmdGate(key) !== false)
                 .filter(cmd => cmd.startsWith(lastPart));
-            
+
             if (availableCommands.length === 1) {
                 this.input.value = availableCommands[0] + ' ';
             } else if (availableCommands.length > 1) {
@@ -1932,11 +2300,11 @@ Your session persists until you close this tab.</div>`;
                 this.addOutput(`<span class="info">${availableCommands.join('  ')}</span>`);
             }
         }
-        
+
         // Path completion (simplified)
         // TODO: Implement full path completion
     }
-    
+
     showScenarios() {
         const scenarios = `
 <div class="info">
@@ -1985,12 +2353,12 @@ Your session persists until you close this tab.</div>`;
 Try these scenarios to practice RHCSA skills!
 Type 'help' to see all available commands.
 </div>`;
-        
+
         this.addOutput(scenarios);
     }
-    
+
     // ===== EDITOR SUPPORT =====
-    
+
     openEditor(editorType, filename, content = '') {
         // Hide terminal input
         const inputLine = document.querySelector('.input-line');
@@ -1998,7 +2366,7 @@ Type 'help' to see all available commands.
             this.savedInputLine = inputLine.style.display;
             inputLine.style.display = 'none';
         }
-        
+
         // Initialize editor
         if (editorType === 'vi' || editorType === 'vim') {
             if (typeof ViEditor === 'undefined') {
@@ -2016,20 +2384,52 @@ Type 'help' to see all available commands.
             this.activeEditor.open(filename, content);
         }
     }
-    
+
+    // ===== PAGER SUPPORT (less, more, man) =====
+
+    // called by a command while a line runs; the pager opens once the whole line has finished
+    queuePager(spec) {
+        if (typeof Pager === 'undefined') return false;
+        this.pendingPager = spec;
+        return true;
+    }
+
+    openPendingPager() {
+        const spec = this.pendingPager;
+        this.pendingPager = null;
+        if (!spec) return;
+        this.input.blur();
+        this.activePager = new Pager(this);
+        this.activePager.open(spec);
+    }
+
+    restoreFromPager(leftBehind) {
+        this.activePager = null;
+        if (leftBehind) this.addOutput(`<span>${this.escapeStrayHtml(leftBehind)}</span>`);
+        this.input.focus();
+        this.updatePrompt();
+        this.scrollToBottom();
+        this.scheduleSave();
+    }
+
     restoreFromEditor() {
         // Restore terminal input
         const inputLine = document.querySelector('.input-line');
         if (inputLine && this.savedInputLine !== undefined) {
             inputLine.style.display = this.savedInputLine;
         }
-        
+
         this.activeEditor = null;
         this.input.focus();
-        
+
         // Clear output and show prompt
         this.output.innerHTML = '';
         this.updatePrompt();
+        if (this.afterEditor) {
+            const cb = this.afterEditor;
+            this.afterEditor = null;
+            try { cb(); } catch (e) { console.error(e); }
+        }
     }
 }
 

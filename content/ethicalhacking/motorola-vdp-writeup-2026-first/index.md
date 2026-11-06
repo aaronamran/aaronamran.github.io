@@ -16,7 +16,7 @@ org: 'Motorola'
 </div>
 </div>
 
-<p class="lead mb-4">I could have written a detailed blog post explaining exactly how I found this vulnerability, but I am lazy. You will understand why as you read on. Motorola Solutions hosts an <a href="https://www.motorolasolutions.com/en_us/about/security-vulnerability.html" target="_blank" rel="noopener noreferrer">official Responsible Vulnerability Disclosure Program here</a>.</p>
+<p class="lead mb-4">Motorola Solutions hosts an <a href="https://www.motorolasolutions.com/en_us/about/security-vulnerability.html" target="_blank" rel="noopener noreferrer">official Responsible Vulnerability Disclosure Program here</a>.</p>
 
 <div class="text-center">
 <a href="https://www.motorolasolutions.com/en_us/about/security-vulnerability/hall-of-fame.html#:~:text=Aaron%20Amran%20Bin%20Amiruddin%20(%40aaronamran)" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
@@ -36,7 +36,7 @@ org: 'Motorola'
 
 <p class="lead mb-4">After that, everything went completely quiet. I didn't receive any further emails or updates. Because of the radio silence, I assumed my vulnerability hadn't been accepted, so I never bothered to check Motorola's Security Hall of Fame to see if my name would ever appear.</p>
 
-<p class="lead mb-4">Then, out of nowhere on the evening of 19 May 2026, I stumbled upon Raunak Gupta's celebratory LinkedIn post about his name being listed in Motorola's Hall of Fame. As I glanced at it, my eyes immediately caught a name that looked remarkably familiar. Wait a minute... it was actually me! I had no idea I was listed in the 2026 Hall of Fame. Had Raunak not shared his achievement on LinkedIn, and had it not popped up on my feed, I would still be completely in the dark. Fate works in mysterious ways.</p>
+<p class="lead mb-4">Then, out of nowhere on the evening of 19 May 2026, I stumbled upon Raunak Gupta's celebratory LinkedIn post about his name being listed in Motorola's Hall of Fame. As I glanced at it, my eyes immediately caught a name that looked remarkably familiar. It happened to be my name and I had no idea I was listed in the 2026 Hall of Fame. Had Raunak not shared his achievement on LinkedIn, and had it not popped up on my feed, I would still be completely in the dark. Fate works in mysterious ways.</p>
 
 <div class="text-center">
 <a href="https://www.linkedin.com/posts/raunak-gupta-772408255_motorola-solutions-hall-of-fame-check-it-share-7462198428454793216-DU_t?utm_source=share&utm_medium=member_desktop&rcm=ACoAACst-FMBpVNOybTXkpx4s-C2bfoDFQZx9mM" target="_blank" rel="noopener noreferrer" style="display:inline-block;">

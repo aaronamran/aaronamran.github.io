@@ -9,7 +9,7 @@ class FileCommands {
     // ===== FILE LISTING AND DIRECTORY OPERATIONS =====
 
     ls(args) {
-        const flags = this.parseFlags(args, ['l', 'a', 'h', 'R', 'Z']);
+        const flags = this.parseFlags(args, ['l', 'a', 'h', 'R', 'Z', 'd']);
         const path = flags.args[0] || this.fs.currentPath;
         
         const node = this.fs.getNode(path);
@@ -17,7 +17,19 @@ class FileCommands {
             return { error: `ls: cannot access '${path}': No such file or directory` };
         }
         
+        // -d flag: list directory itself, not contents
+        if (flags.d && node.type === 'directory') {
+            if (flags.l) {
+                return { output: this.formatLongListing(this.fs.getBasename(path), node, flags.Z, flags.h) };
+            } else {
+                return { output: this.fs.getBasename(path) };
+            }
+        }
+        
         if (node.type !== 'directory') {
+            if (flags.l) {
+                return { output: this.formatLongListing(this.fs.getBasename(path), node, flags.Z, flags.h) };
+            }
             return { output: this.fs.getBasename(path) };
         }
         
@@ -30,13 +42,13 @@ class FileCommands {
         if (flags.l) {
             // Long listing format
             if (flags.a) {
-                output.push(this.formatLongListing('.', node, flags.Z));
-                output.push(this.formatLongListing('..', node, flags.Z));
+                output.push(this.formatLongListing('.', node, flags.Z, flags.h));
+                output.push(this.formatLongListing('..', node, flags.Z, flags.h));
             }
             
             for (const [name, child] of Object.entries(node.children || {})) {
                 if (!flags.a && name.startsWith('.')) continue;
-                output.push(this.formatLongListing(name, child, flags.Z));
+                output.push(this.formatLongListing(name, child, flags.Z, flags.h));
             }
         } else {
             // Simple listing
@@ -56,23 +68,45 @@ class FileCommands {
         return { output: output.join('\n') };
     }
     
-    formatLongListing(name, node, showSelinux = false) {
+    formatHumanReadableSize(bytes) {
+        if (bytes === 0) return '0';
+        if (bytes < 1024) return bytes.toString();
+        
+        const units = ['K', 'M', 'G', 'T', 'P'];
+        let size = bytes;
+        let unitIndex = -1;
+        
+        while (size >= 1024 && unitIndex < units.length - 1) {
+            size /= 1024;
+            unitIndex++;
+        }
+        
+        // Format with one decimal place if less than 10, otherwise no decimal
+        if (size < 10) {
+            return size.toFixed(1) + units[unitIndex];
+        } else {
+            return Math.round(size) + units[unitIndex];
+        }
+    }
+    
+    formatLongListing(name, node, showSelinux = false, humanReadable = false) {
         let type = '-';
         if (node.type === 'directory') type = 'd';
         else if (node.type === 'symlink') type = 'l';
         
         // For symlinks, always show rwxrwxrwx (777) permissions
         const perms = (node.type === 'symlink') ? 'rwxrwxrwx' : this.formatPermissions(node.permissions);
-        const links = 1;
+        const links = node.type === 'directory' ? 2 + Object.values(node.children || {}).filter(c => c.type === 'directory').length : (node.nlink || 1);
         const size = node.size || 0;
+        const sizeStr = humanReadable ? this.formatHumanReadableSize(size) : String(size);
         const date = this.formatDate(node.modified);
         
         let displayName = name;
         if (node.type === 'directory') {
             displayName = `<span class="file-directory">${name}</span>`;
         } else if (node.type === 'symlink') {
-            // Use node.target (not linkTarget) for the symlink destination
-            const target = node.target || 'unknown';
+            // Use node.linkTarget for the symlink destination
+            const target = node.linkTarget || 'unknown';
             displayName = `<span class="file-symlink">${name}</span> -> ${target}`;
         }
         
@@ -83,23 +117,31 @@ class FileCommands {
             selinuxContext = `${ctx.user}:${ctx.role}:${ctx.type}:${ctx.level} `;
         }
         
-        return `${type}${perms} ${links} ${node.owner.padEnd(8)} ${node.group.padEnd(8)} ${selinuxContext}${String(size).padStart(8)} ${date} ${displayName}`;
+        const hasAcl = node.acl && !Array.isArray(node.acl) && (Object.keys(node.acl.users).length > 0 || Object.keys(node.acl.groups).length > 0 || node.acl.def);
+        return `${type}${perms}${hasAcl ? '+' : ''} ${links} ${node.owner.padEnd(8)} ${node.group.padEnd(8)} ${selinuxContext}${sizeStr.padStart(8)} ${date} ${displayName}`;
     }
     
     formatPermissions(perms) {
-        const octal = perms.slice(1);
+        const special = perms.length >= 4 ? parseInt(perms[perms.length - 4], 10) || 0 : 0;
+        const octal = perms.slice(-3);
         let result = '';
-        
-        for (const digit of octal) {
-            const num = parseInt(digit);
+
+        for (let i = 0; i < 3; i++) {
+            const num = parseInt(octal[i], 10);
             result += (num & 4 ? 'r' : '-');
             result += (num & 2 ? 'w' : '-');
-            result += (num & 1 ? 'x' : '-');
+            let x = (num & 1) ? 'x' : '-';
+            // setuid (4) on owner, setgid (2) on group, sticky (1) on others
+            const bit = [4, 2, 1][i];
+            if (special & bit) {
+                x = (num & 1) ? (i === 2 ? 't' : 's') : (i === 2 ? 'T' : 'S');
+            }
+            result += x;
         }
-        
+
         return result;
     }
-    
+
     formatDate(date) {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const month = months[date.getMonth()];
@@ -538,6 +580,23 @@ class FileCommands {
 
     // ===== COMPRESSION AND ARCHIVING =====
 
+    // Calculate total size of directory recursively
+    calculateDirectorySize(node) {
+        if (!node) return 0;
+        
+        if (node.type !== 'directory') {
+            return node.size || 0;
+        }
+        
+        let totalSize = node.size || 4096; // Directory inode itself
+        
+        for (const child of Object.values(node.children || {})) {
+            totalSize += this.calculateDirectorySize(child);
+        }
+        
+        return totalSize;
+    }
+
     tar(args, stdin = '') {
         const flags = this.parseFlags(args, ['c', 'x', 't', 'z', 'j', 'v', 'f']);
         
@@ -554,6 +613,32 @@ class FileCommands {
             if (files.length === 0) {
                 return { stderr: 'tar: Cowardly refusing to create an empty archive', exitCode: 1 };
             }
+            
+            // Calculate realistic archive size based on source files
+            let totalSize = 0;
+            const fileList = [];
+            
+            for (const filePath of files) {
+                const node = this.fs.getNode(filePath);
+                if (node) {
+                    const fileSize = this.calculateDirectorySize(node);
+                    totalSize += fileSize;
+                    fileList.push(filePath);
+                }
+            }
+            
+            // Add tar header overhead (512 bytes per file/directory)
+            totalSize += fileList.length * 512;
+            
+            // Apply compression ratio
+            let compressionRatio = 1.0;  // No compression
+            if (flags.z) {
+                compressionRatio = 0.35;  // gzip typically 65% reduction
+            } else if (flags.j) {
+                compressionRatio = 0.25;  // bzip2 typically 75% reduction
+            }
+            
+            const archiveSize = Math.floor(totalSize * compressionRatio);
             
             let output = `tar: Creating archive '${archiveName}'`;
             if (flags.z) output += ' (gzip compressed)';
@@ -575,7 +660,7 @@ class FileCommands {
                     permissions: '0644',
                     owner: this.fs.currentUser,
                     group: this.fs.currentUser,
-                    size: 1024,
+                    size: archiveSize,  // Use calculated realistic size
                     modified: new Date(),
                     content: `[Simulated tar archive containing: ${files.join(', ')}]`
                 };

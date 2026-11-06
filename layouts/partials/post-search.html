@@ -1,0 +1,114 @@
+{{/*
+  Search bar for paginated post lists (#posts-list).
+  Every page in the section is rendered; rows outside the current pagination
+  page start hidden (.ps-out). With an empty query only the current page shows;
+  with a query, all pages are searched and the sidebar pagination is hidden.
+  Rows need data-inpage ("1"/"0") and data-search attributes.
+  Usage: {{ partial "post-search.html" . }}
+*/}}
+<style>
+  .ps-wrap {
+    position: relative;
+    max-width: 280px;
+    margin: 0 0 1rem;
+  }
+
+  .ps-input {
+    width: 100%;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    background: var(--bg);
+    border: 1px solid var(--border-mid);
+    color: var(--text);
+    padding: 0.4rem 1.8rem 0.4rem 0.6rem;
+    transition: border-color 0.15s;
+  }
+
+  .ps-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .ps-input::placeholder { color: var(--text-faint); }
+
+  .ps-clear {
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.1rem 0.2rem;
+    display: none;
+  }
+
+  .ps-clear:hover { color: var(--accent); }
+
+  .ps-wrap.has-value .ps-clear { display: block; }
+
+  .ps-empty {
+    color: var(--text-faint);
+    font-size: 0.72rem;
+    margin-top: 2rem;
+    display: none;
+  }
+
+  #posts-list a.post-row.ps-out,
+  #posts-list a.post-row.ps-hidden { display: none; }
+</style>
+
+<div class="ps-wrap" id="psWrap">
+  <input type="text" id="psInput" class="ps-input" placeholder="Search keyword..." autocomplete="off">
+  <button type="button" class="ps-clear" id="psClear" aria-label="Clear search">&times;</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var search = document.getElementById('psInput');
+    var searchWrap = document.getElementById('psWrap');
+    var clearBtn = document.getElementById('psClear');
+    var list = document.getElementById('posts-list');
+    if (!search || !list) return;
+
+    var rows = list.querySelectorAll('.post-row');
+    var pagination = document.querySelector('.sb-pagination');
+    var emptyMsg = document.createElement('p');
+    emptyMsg.className = 'ps-empty';
+    emptyMsg.textContent = 'No writeups match your search.';
+    list.parentNode.insertBefore(emptyMsg, list.nextSibling);
+
+    function applySearch() {
+      var q = search.value.trim().toLowerCase();
+      var visibleCount = 0;
+
+      rows.forEach(function (row) {
+        // Searching spans all pages; otherwise fall back to normal pagination
+        var inPage = row.dataset.inpage === '1';
+        var show = q ? row.dataset.search.indexOf(q) !== -1 : inPage;
+        row.classList.remove('ps-out');
+        row.classList.toggle('ps-hidden', !show);
+        if (show) visibleCount++;
+      });
+
+      if (pagination) pagination.style.display = q ? 'none' : '';
+      emptyMsg.style.display = q && visibleCount === 0 ? 'block' : 'none';
+      searchWrap.classList.toggle('has-value', search.value.length > 0);
+    }
+
+    search.addEventListener('input', applySearch);
+
+    clearBtn.addEventListener('click', function () {
+      search.value = '';
+      applySearch();
+      search.focus();
+    });
+
+    // Re-apply if the browser restored a previous query (back/forward cache)
+    if (search.value) applySearch();
+  });
+</script>

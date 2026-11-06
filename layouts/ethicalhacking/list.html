@@ -33,9 +33,15 @@
     <main class="posts-col">
       <p class="about-quote" style="margin-bottom:1rem"><em>Uncovering vulnerabilities for responsible disclosures on real-world targets.</em></p>
       {{ $paginator := .Paginate .Pages 10 }}
+      {{ $start := mul (sub $paginator.PageNumber 1) $paginator.PagerSize }}
+      {{ $end := add $start $paginator.PagerSize }}
+      {{ partial "post-search.html" . }}
       <div id="posts-list">
-        {{ range $paginator.Pages }}
-        <a class="post-row" href="{{ .RelPermalink }}">
+        {{ range $i, $p := .Pages }}
+        {{ $inPage := and (ge $i $start) (lt $i $end) }}
+        <a class="post-row{{ if not $inPage }} ps-out{{ end }}" href="{{ .RelPermalink }}"
+           data-inpage="{{ if $inPage }}1{{ else }}0{{ end }}"
+           data-search="{{ lower (printf "%s %s %s" .Title (.Params.excerpt | default "") (.Params.prog | default "")) }}">
           <div class="post-date">
             <span class="pd-day">{{ .Date.Format "Jan" }}</span>
             <span class="pd-mon">{{ .Date.Year }}</span>
@@ -61,7 +67,7 @@
           <span class="cert-tag">UNICEF</span>
           <span class="cert-tag">NSW Parliament</span>
           <span class="cert-tag">Motorola Solutions</span>
-          <span class="cert-tag">+ 6 More</span>
+          <span class="cert-tag">and More</span>
         </div>
       </div>
       <div class="sb-block sb-stats">

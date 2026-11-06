@@ -13,7 +13,7 @@ function getTotalCerts() {
   ];
   return panels.reduce((sum, id) => {
     const el = document.getElementById(id);
-    return sum + (el ? el.querySelectorAll('tbody tr').length : 0);
+    return sum + (el ? el.querySelectorAll('tbody tr[data-cert]').length : 0);
   }, 0);
 }
 

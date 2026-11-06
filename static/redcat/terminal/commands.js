@@ -87,6 +87,7 @@ class RHCSACommands {
         this.scriptArgs = ['bash']; // Default: $0 is shell name, empty args
         
         // Aggregate all command modules
+        this._modules = [];
         this._initializeModularCommands();
     }
     
@@ -112,8 +113,11 @@ class RHCSACommands {
             parent: this  // Pass parent reference for dynamic access
         };
         
+        this._shared = sharedState;   // read by the tab-completion engine
+
         // Helper function to copy only methods (not properties) from module to this
         const copyMethods = (module) => {
+            this._modules.push(module);   // kept so the whole simulated machine can be saved and restored
             Object.getOwnPropertyNames(Object.getPrototypeOf(module)).forEach(name => {
                 if (name !== 'constructor' && typeof module[name] === 'function') {
                     this[name] = module[name].bind(module);
@@ -188,6 +192,118 @@ class RHCSACommands {
                 const advancedCommands = new AdvancedCommands(sharedState);
                 copyMethods(advancedCommands);
             }
+            if (typeof ExtraCommands !== 'undefined') {
+                // Loaded last on purpose: corrected versions of users/groups, ls, mkdir, LVM, firewall-cmd...
+                const extraCommands = new ExtraCommands(sharedState);
+                copyMethods(extraCommands);
+            }
+            if (typeof StorageCommands !== 'undefined') {
+                // Partitions, filesystems, mounts, swap: one shared model (needs ExtraCommands for LVM state)
+                const storageCommands = new StorageCommands(sharedState);
+                copyMethods(storageCommands);
+            }
+            if (typeof ServiceCommands !== 'undefined') {
+                // Service table <-> process table: systemctl, ps, top, kill, pstree...
+                const serviceCommands = new ServiceCommands(sharedState);
+                copyMethods(serviceCommands);
+                serviceCommands.installHooks(this);
+            }
+            if (typeof SELinuxEngine !== 'undefined') {
+                // File contexts, booleans, ports, audit log, ausearch/audit2allow/sealert, curl vs httpd
+                const seEngine = new SELinuxEngine(sharedState);
+                copyMethods(seEngine);
+                seEngine.installHooks(this);
+            }
+            if (typeof TimeCommands !== 'undefined') {
+                // Clock model: date, timedatectl, hwclock, chronyc makestep
+                const timeCommands = new TimeCommands(sharedState);
+                copyMethods(timeCommands);
+                timeCommands.installHooks(this);
+            }
+            if (typeof SchedulerCommands !== 'undefined') {
+                // crontab/crond, at/atd, anacron, mail: jobs really run on the simulated clock
+                const schedCommands = new SchedulerCommands(sharedState);
+                copyMethods(schedCommands);
+            }
+            if (typeof UnitCommands !== 'undefined') {
+                // custom .service/.timer units, systemd-analyze, systemd-run
+                const unitCommands = new UnitCommands(sharedState);
+                copyMethods(unitCommands);
+                unitCommands.installHooks(this);
+            }
+            if (typeof NetEngine !== 'undefined') {
+                // NetworkManager profiles <-> devices <-> ip/route <-> resolv.conf <-> DNS/hosts lookups
+                const netEngine = new NetEngine(sharedState);
+                copyMethods(netEngine);
+                netEngine.installHooks(this);
+            }
+            if (typeof PackageEngine !== 'undefined') {
+                // package catalog, repos from /etc/yum.repos.d, dnf/yum/rpm transactions that create the package files
+                const pkgEngine = new PackageEngine(sharedState);
+                copyMethods(pkgEngine);
+            }
+            if (typeof PodmanEngine !== 'undefined') {
+                // podman images/containers/volumes, generate systemd, rootless user services, loginctl, skopeo
+                const podmanEngine = new PodmanEngine(sharedState);
+                copyMethods(podmanEngine);
+                podmanEngine.installHooks(this);
+            }
+            if (typeof SessionEngine !== 'undefined') {
+                // su/sudo with sudoers + password prompts, su - sessions, interactive passwd, chpasswd
+                const sessionEngine = new SessionEngine(sharedState);
+                copyMethods(sessionEngine);
+                sessionEngine.installHooks(this);
+            }
+            if (typeof NfsEngine !== 'undefined') {
+                // /etc/exports -> exportfs/showmount/mount.nfs checks, autofs maps that mount on first access
+                const nfsEngine = new NfsEngine(sharedState);
+                copyMethods(nfsEngine);
+                nfsEngine.installHooks(this);
+            }
+            if (typeof TuneEngine !== 'undefined') {
+                // sysctl keys in /proc/sys, tuned profiles that change them, nice/renice
+                const tuneEngine = new TuneEngine(sharedState);
+                copyMethods(tuneEngine);
+            }
+            if (typeof UtilEngine !== 'undefined') {
+                // md5sum/sha*sum, base64, expr, timeout, realpath, mktemp, nl, tac, od, xxd, ...
+                const utilEngine = new UtilEngine(sharedState);
+                copyMethods(utilEngine);
+            }
+            if (typeof AppEngine !== 'undefined') {
+                // programs that come from packages (tree, nc, nmap, tcpdump, ssh-keygen, createrepo_c ...): they exist while the package is installed
+                const appEngine = new AppEngine(sharedState);
+                copyMethods(appEngine);
+                appEngine.installHooks(this);
+            }
+            if (typeof AppEngine2 !== 'undefined') {
+                // git, jq, bc, openssl, python3/perl one-liners, httpd/nginx config checks, mariadb client, make/gcc, tmux/screen
+                const appEngine2 = new AppEngine2(sharedState);
+                copyMethods(appEngine2);
+            }
+            if (typeof AppEngine3 !== 'undefined') {
+                // python3/perl one-liners, httpd/nginx config checks, mariadb client, make/gcc, tmux/screen
+                const appEngine3 = new AppEngine3(sharedState);
+                copyMethods(appEngine3);
+            }
+            if (typeof JobEngine !== 'undefined') {
+                // cmd & , jobs, fg, bg, wait, disown, nohup, kill %n, foreground sleep with Ctrl+C / Ctrl+Z
+                const jobEngine = new JobEngine(sharedState);
+                copyMethods(jobEngine);
+                jobEngine.installHooks(this);
+            }
+            if (typeof BootEngine !== 'undefined') {
+                // reboot/poweroff/shutdown: runtime state is rebuilt from what is on disk, bad fstab -> emergency mode
+                const bootEngine = new BootEngine(sharedState);
+                copyMethods(bootEngine);
+                bootEngine.installHooks(this);
+            }
+            if (typeof ContainerEngine !== 'undefined') {
+                // container root filesystems, users, packages and interactive shells (podman run -it / exec -it)
+                const ctrEngine = new ContainerEngine(sharedState);
+                copyMethods(ctrEngine);
+                ctrEngine.installHooks(this);
+            }
             
             console.log('✅ Red Cat: All command modules loaded successfully');
         } catch (err) {
@@ -195,6 +311,14 @@ class RHCSACommands {
         }
     }
     
+    // called after a saved machine has been loaded into a fresh page
+    afterRestore() {
+        const j = this._shared && this._shared.jobEngine;
+        if (j && j.endSession) j.endSession(false);
+        const b = this._shared && this._shared.boot;
+        if (b) { b.scheduled = null; }
+    }
+
     // Helper method for variable expansion (used by commands)
     expandVariables(str) {
         return str.replace(/\$\{?([A-Za-z_?@*#0-9][A-Za-z0-9_]*)\}?/g, (match, varName) => {

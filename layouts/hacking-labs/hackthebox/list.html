@@ -97,6 +97,7 @@
       display: none;
     }
 
+    .post-row.lab-out,
     .post-row.lab-hidden { display: none; }
   </style>
 
@@ -120,8 +121,11 @@
         </div>
       </div>
 
+      {{ $start := mul (sub .Paginator.PageNumber 1) .Paginator.PagerSize }}
+      {{ $end := add $start .Paginator.PagerSize }}
       <div id="labList">
-        {{ range .Paginator.Pages }}
+        {{ range $i, $p := .Pages }}
+        {{ $inPage := and (ge $i $start) (lt $i $end) }}
         {{ $type := .Params.type }}
         {{ if not $type }}
           {{ if in (lower .Params.prog) "sherlock" }}
@@ -130,8 +134,9 @@
             {{ $type = "machine" }}
           {{ end }}
         {{ end }}
-        <a class="post-row"
+        <a class="post-row{{ if not $inPage }} lab-out{{ end }}"
            href="{{ .RelPermalink }}"
+           data-inpage="{{ if $inPage }}1{{ else }}0{{ end }}"
            data-type="{{ $type }}"
            data-search="{{ lower (printf "%s %s %s" .Title (.Params.excerpt | default "") (.Params.prog | default "")) }}">
           <div class="post-body">
@@ -174,20 +179,25 @@
       var clearBtn = document.getElementById('labClear');
       var rows = document.querySelectorAll('#labList .post-row');
       var emptyMsg = document.getElementById('labEmpty');
+      var pagination = document.querySelector('.sb-pagination');
       var activeFilter = 'all';
 
       function applyFilters() {
         var q = search.value.trim().toLowerCase();
+        // Filtering or searching spans all pages; otherwise fall back to normal pagination
+        var filtering = q || activeFilter !== 'all';
         var visibleCount = 0;
 
         rows.forEach(function (row) {
           var matchesType = activeFilter === 'all' || row.dataset.type === activeFilter;
           var matchesSearch = !q || row.dataset.search.indexOf(q) !== -1;
-          var show = matchesType && matchesSearch;
+          var show = filtering ? matchesType && matchesSearch : row.dataset.inpage === '1';
+          row.classList.remove('lab-out');
           row.classList.toggle('lab-hidden', !show);
           if (show) visibleCount++;
         });
 
+        if (pagination) pagination.style.display = filtering ? 'none' : '';
         emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
       }
 

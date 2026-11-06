@@ -1,0 +1,126 @@
+ls /
+ls -la /etc | head -3
+cat /etc/os-release
+dnf install -y tree nmap-ncat telnet nmap tcpdump strace git jq bc make gcc tmux screen perl httpd nginx mariadb-server createrepo_c dos2unix iotop >/dev/null
+tree -L 1 /root
+tree -d -L 2 /etc | tail -3
+nc -zv localhost 22
+git init /tmp/g1
+cd /tmp/g1
+git config user.name A
+git config user.email a@b.c
+echo hi > f
+git add f
+git commit -m x
+git log --oneline
+git status
+git diff HEAD
+git branch -a
+git show
+git tag v1
+git tag
+cd /root
+echo '{"a":[1,2,{"b":3}]}' | jq '.a[2].b'
+echo '{"a":[1,2,{"b":3}]}' | jq -c '.a | length'
+echo '[3,1,2]' | jq 'sort'
+echo '{"x":"y"}' | jq -r 'to_entries[] | "\(.key)=\(.value)"'
+echo "scale=4; 22/7" | bc
+echo 'obase=16; 255' | bc
+openssl rand -base64 8
+openssl genrsa -out /tmp/k.pem 2048
+openssl rsa -in /tmp/k.pem -pubout
+python3 -c "print(sum(range(10)))"
+python3 -c "import json; print(json.dumps({'a': 1}))"
+python3 -c "print(1/0)"
+python3 -c "x = [1,2,3]; print(x[5])"
+perl -v | head -2
+tmux new -d -s a
+tmux ls
+tmux kill-server
+screen -ls
+sleep 30 &
+jobs
+fg
+^C
+jobs
+sleep 40 &
+kill %1
+jobs
+wait
+nohup sleep 5 &
+jobs -l
+ps aux | head -3
+md5sum /etc/hostname
+sha256sum /etc/passwd | cut -c1-20
+base64 /etc/hostname
+expr 4 \* 5
+timeout 2 sleep 10; echo $?
+realpath /usr/bin/../lib
+mktemp -d
+nl /etc/hostname
+tac /etc/hostname
+od -c /etc/hostname
+xxd /etc/hostname
+hexdump -C /etc/hostname
+strings /etc/hostname
+ldd /bin/ls
+cmp /etc/hostname /etc/hostname
+comm /etc/hostname /etc/hostname
+fold -w 5 /etc/hostname
+split -l 1 /etc/hosts /tmp/sp_
+ls /tmp | head -3
+install -d /tmp/instd
+rmdir /tmp/instd
+nproc
+arch
+tty
+lastlog | head -3
+factor 97
+watch -n1 echo hi
+^C
+dnf remove -y tree
+tree
+ssh-keygen -q -t rsa -N "" -f /tmp/id1
+ssh-keygen -lf /tmp/id1.pub
+createrepo_c /tmp
+mpstat | head -3
+fuser -v 22/tcp
+tcpdump -c 1 -i eth0 icmp
+strace -c true
+lspci | head -2
+lsusb | head -1
+lsscsi
+httpd -t
+nginx -t
+apachectl configtest
+mysql -e "select 1"
+systemctl start mariadb
+mysql -e "create database t1"
+mysql -e "show databases"
+podman run -it --rm ubi9 bash
+dnf install -y tree
+tree -L 1 /
+cat /etc/redhat-release
+ip a
+dnf install -y iproute
+ip a | head -5
+exit
+podman images
+podman ps -a
+podman run -d --name c1 ubi9 sleep infinity
+podman exec -it c1 bash
+ls /
+exit
+podman cp /etc/hostname c1:/tmp/h
+podman exec c1 cat /tmp/h
+podman stop c1
+podman rm c1
+man ls | head -2
+su - student -c id
+sudo -l
+passwd -S root
+sysctl vm.swappiness
+tuned-adm active
+nmcli con show
+ip route
+dig localhost

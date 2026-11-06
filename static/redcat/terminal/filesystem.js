@@ -1,4 +1,4 @@
-﻿// Virtual Filesystem for RHCSA Practice Terminal
+// Virtual Filesystem for RHCSA Practice Terminal
 // Simulates a Linux filesystem with directories, files, permissions, and ownership
 // Consolidated from modular architecture into single non-ES6 file for browser compatibility
 
@@ -2221,9 +2221,33 @@ class VirtualFilesystem {
         
         // User database (simulated /etc/passwd)
         this.users = {
-            'root': { uid: 0, gid: 0, home: '/root', shell: '/bin/bash', password: 'x' },
-            'aaron': { uid: 1000, gid: 1000, home: '/home/aaron', shell: '/bin/bash', password: 'x' },
-            'student': { uid: 1001, gid: 1001, home: '/home/student', shell: '/bin/bash', password: 'x' }
+            'root': { 
+                uid: 0, gid: 0, home: '/root', shell: '/bin/bash', password: 'x',
+                lastPasswordChange: '2026-03-30',
+                minPasswordAge: 0,
+                maxPasswordAge: 99999,
+                warnDays: 7,
+                passwordInactive: -1,
+                accountExpiry: null
+            },
+            'aaron': { 
+                uid: 1000, gid: 1000, home: '/home/aaron', shell: '/bin/bash', password: 'x',
+                lastPasswordChange: '2026-03-30',
+                minPasswordAge: 0,
+                maxPasswordAge: 99999,
+                warnDays: 7,
+                passwordInactive: -1,
+                accountExpiry: null
+            },
+            'student': { 
+                uid: 1001, gid: 1001, home: '/home/student', shell: '/bin/bash', password: 'x',
+                lastPasswordChange: '2026-03-30',
+                minPasswordAge: 0,
+                maxPasswordAge: 99999,
+                warnDays: 7,
+                passwordInactive: -1,
+                accountExpiry: null
+            }
         };
         
         // Group database (simulated /etc/group)

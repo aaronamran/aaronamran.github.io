@@ -123,6 +123,45 @@ function setupEventListeners() {
     
     // Clear terminal history
     elements.clearHistoryBtn.addEventListener('click', clearTerminalHistory);
+    
+    // Notes modal
+    elements.notesBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openNotesModal();
+    });
+    elements.notesCloseBtn.addEventListener('click', closeNotesModal);
+    elements.notesModal.addEventListener('click', (e) => {
+        if (e.target === elements.notesModal) {
+            closeNotesModal();
+        }
+    });
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && elements.notesModal.classList.contains('active')) {
+            closeNotesModal();
+        }
+    });
+}
+
+// ==================== NOTES MODAL ====================
+
+/**
+ * Open the notes modal for the current section
+ */
+function openNotesModal() {
+    const sectionId = appState.currentSectionId;
+    const notes = getSectionNotes(sectionId);
+    
+    elements.notesModalTitle.textContent = `Notes: ${notes.title}`;
+    elements.notesContent.innerHTML = notes.content;
+    elements.notesModal.classList.add('active');
+}
+
+/**
+ * Close the notes modal
+ */
+function closeNotesModal() {
+    elements.notesModal.classList.remove('active');
 }
 
 // ==================== SECTION MANAGEMENT ====================
@@ -145,6 +184,16 @@ function loadSection(sectionId) {
     
     // Update current section ID
     appState.currentSectionId = sectionId;
+    
+    // Reset simulated user state for this section (isolate state per section)
+    if (typeof resetSimulatedUsersForSection === 'function') {
+        resetSimulatedUsersForSection(sectionId);
+    }
+    
+    // Reset filesystem state for this section (isolate state per section)
+    if (typeof resetFileSystemStateForSection === 'function') {
+        resetFileSystemStateForSection(sectionId);
+    }
     
     // Clear command history for new section
     appState.commandHistory = [];
@@ -255,25 +304,47 @@ function handleSubmit() {
         return;
     }
     
-    // Check if this is a help command (-h flag)
+    // Special handler for 'vi' command in Section 4 (Shell Scripting)
+    if (appState.currentSectionId === 4 && handleViCommandSection4(input, task)) {
+        return;
+    }
+
+    // Special handler for Section 19 Boot Simulator (Root Password Reset)
+    if (appState.currentSectionId === 19 && handleBootSimulatorSection19(input, task)) {
+        return;
+    }
+
+    // Special handler for Section 20 Boot Simulator (Root Password Reset - Bash Method)
+    if (appState.currentSectionId === 20 && handleBootSimulatorSection20(input, task)) {
+        return;
+    }
+
+    // Validate command (strip grep if present)
+    // Some tasks expect the pipe itself (e.g. 'ps aux | grep httpd'), so try the full line first
+    let validationResult = validateCommand(input, task.expected);
+    if (!validationResult.valid && grepParsed) {
+        validationResult = validateCommand(grepParsed.command, task.expected);
+    }
+
+    // The answer wins over a pre-check: a pre-check such as a bare 'umask' or 'hostnamectl'
+    // must not swallow 'umask 0027' or 'hostnamectl set-hostname ...'
+    if (validationResult.valid) {
+        handleCorrectAnswer(task, input, grepParsed);
+        return;
+    }
+
+    // Help shortcut (command -h / --help). Only after the answer check, because
+    // legitimate answers such as 'df -h' or 'free -h' look the same.
     if (handleHelpCommand(input, task, grepParsed)) {
         return;
     }
-    
+
     // Check for allowed pre-checks on Implementation tasks
     if (handlePreCheckCommand(input, task, grepParsed)) {
         return;
     }
-    
-    // Validate command (strip grep if present)
-    const commandToValidate = grepParsed ? grepParsed.command : input;
-    const validationResult = validateCommand(commandToValidate, task.expected);
-    
-    if (validationResult.valid) {
-        handleCorrectAnswer(task, input, grepParsed);
-    } else {
-        handleIncorrectAnswer(validationResult);
-    }
+
+    handleIncorrectAnswer(validationResult);
 }
 
 /**
@@ -427,8 +498,9 @@ function handleHelpCommand(input, task, grepParsed) {
     const commandToCheck = grepParsed ? grepParsed.command : input;
     const tokens = commandToCheck.trim().split(/\s+/);
     
-    // Check if this is a help command format (command -h or command --help)
-    if (tokens.length !== 2 || (tokens[1] !== '-h' && tokens[1] !== '--help')) {
+    // Check if this is a help command format (command -h, command --help, or command --longhelp)
+    const validHelpFlags = ['-h', '--help', '--longhelp'];
+    if (tokens.length !== 2 || !validHelpFlags.includes(tokens[1])) {
         return false;
     }
     
@@ -449,11 +521,351 @@ function handleHelpCommand(input, task, grepParsed) {
         if (altHelpText) {
             addResultToHistory(`'${commandName}' does not support ${helpFlag}. Try '${commandName} ${altFlag}' instead.`, 'info');
         } else {
+            if (helpFlag === '-h') {
+                return false;   // -h is just a normal flag for this command (df -h, free -h...)
+            }
             addResultToHistory(`Help not available for '${commandName}'`, 'info');
         }
     }
     
     return true;
+}
+
+// ==================== SECTION 19: BOOT SIMULATOR ====================
+
+// (section 20 handler is defined further below)
+/**
+ * @param {string} input - User input
+ * @param {object} task  - Current task
+ * @returns {boolean} - True if handled
+ */
+function handleBootSimulatorSection19(input, task) {
+    // If the current task is a bootModal task (tasks 2-8), intercept all terminal input
+    if (task.bootModal) {
+        const tokens  = input.trim().split(/\s+/);
+        const command = tokens[0];
+        const isReboot = command === 'reboot' ||
+                         (command === 'systemctl' && tokens.includes('reboot'));
+        if (isReboot) {
+            addResultToHistory('Relaunching boot simulator...', 'info');
+            openBootSimulator();
+        } else {
+            addResultToHistory(
+                'This task is completed inside the Boot Simulator. Type \'reboot\' to open it.',
+                'info'
+            );
+        }
+        return true;
+    }
+
+    // Task 1: triggersBootModal — validate reboot then open simulator
+    if (!task.triggersBootModal) return false;
+
+    const tokens  = input.trim().split(/\s+/);
+    const command = tokens[0];
+    const isReboot = command === 'reboot' ||
+                     (command === 'systemctl' && tokens.includes('reboot'));
+    if (!isReboot) return false;
+
+    const validationResult = validateCommand(input, task.expected);
+    if (!validationResult.valid) return false;
+
+    handleCorrectAnswer(task, input, null);
+    openBootSimulator();
+    return true;
+}
+
+/**
+ * Create and open the BootSimulator modal for Section 19
+ */
+function openBootSimulator() {
+    if (typeof BootSimulator === 'undefined') {
+        addResultToHistory('Boot simulator not available.', 'error');
+        return;
+    }
+    const questionSetIndex = getQuestionSetForSection(appState.currentSectionId);
+    const section          = getSectionById(appState.currentSectionId, questionSetIndex);
+    const bootTasks        = section.tasks.filter(t => t.bootModal === true);
+    const completedIds     = appState.sectionProgress[appState.currentSectionId].completedTasks;
+
+    const simulator = new BootSimulator({
+        tasks:            bootTasks,
+        completedTaskIds: completedIds,
+        onTaskComplete:   (taskId, explanation) => completeBootModalTask(taskId, explanation),
+        onAllComplete:    () => { if (elements.terminalInput) elements.terminalInput.focus(); }
+    });
+    simulator.open();
+}
+
+/**
+ * Mark a boot-simulator task complete, updating score and UI
+ * @param {number} taskId      - The task id completed inside the boot modal
+ * @param {string} explanation - The task explanation
+ */
+function completeBootModalTask(taskId, explanation) {
+    const questionSetIndex = getQuestionSetForSection(appState.currentSectionId);
+    const section          = getSectionById(appState.currentSectionId, questionSetIndex);
+
+    // Skip if already completed
+    if (appState.sectionProgress[section.id].completedTasks.includes(taskId)) return;
+
+    const task = section.tasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    // Award points
+    appState.sectionProgress[section.id].score += task.points;
+    appState.sectionProgress[section.id].completedTasks.push(taskId);
+    appState.totalScore += task.points;
+
+    // Advance currentTaskIndex to the next non-completed task
+    const nextIdx = section.tasks.findIndex(
+        t => !appState.sectionProgress[section.id].completedTasks.includes(t.id)
+    );
+    appState.currentTaskIndex = nextIdx >= 0 ? nextIdx : section.tasks.length;
+
+    updateTaskList(section);
+    updateSectionUI(section);
+
+    // Handle section completion
+    if (appState.currentTaskIndex >= section.tasks.length) {
+        if (!appState.completedSections.includes(section.id)) {
+            appState.completedSections.push(section.id);
+        }
+        updateCurrentTask(section);
+        updateNavigationButtons();
+    }
+
+    saveProgress();
+}
+
+// ==================== SECTION 20: BOOT SIMULATOR (BASH METHOD) ====================
+
+/**
+ * Handle reboot / boot-modal tasks in Section 20 (Root Password Reset — Bash Method)
+ */
+function handleBootSimulatorSection20(input, task) {
+    if (task.bootModal) {
+        const tokens  = input.trim().split(/\s+/);
+        const command = tokens[0];
+        const isReboot = command === 'reboot' ||
+                         (command === 'systemctl' && tokens.includes('reboot'));
+        if (isReboot) {
+            addResultToHistory('Relaunching boot simulator...', 'info');
+            openBootSimulatorSection20();
+        } else {
+            addResultToHistory(
+                'This task is completed inside the Boot Simulator. Type \'reboot\' to open it.',
+                'info'
+            );
+        }
+        return true;
+    }
+
+    if (!task.triggersBootModal) return false;
+
+    const tokens  = input.trim().split(/\s+/);
+    const command = tokens[0];
+    const isReboot = command === 'reboot' ||
+                     (command === 'systemctl' && tokens.includes('reboot'));
+    if (!isReboot) return false;
+
+    const validationResult = validateCommand(input, task.expected);
+    if (!validationResult.valid) return false;
+
+    handleCorrectAnswer(task, input, null);
+    openBootSimulatorSection20();
+    return true;
+}
+
+/**
+ * Create and open the BootSimulator modal for Section 20 (init=/bin/bash method)
+ */
+function openBootSimulatorSection20() {
+    if (typeof BootSimulator === 'undefined') {
+        addResultToHistory('Boot simulator not available.', 'error');
+        return;
+    }
+    const questionSetIndex = getQuestionSetForSection(appState.currentSectionId);
+    const section          = getSectionById(appState.currentSectionId, questionSetIndex);
+    const bootTasks        = section.tasks.filter(t => t.bootModal === true);
+    const completedIds     = appState.sectionProgress[appState.currentSectionId].completedTasks;
+
+    const simulator = new BootSimulator({
+        tasks:            bootTasks,
+        completedTaskIds: completedIds,
+        onTaskComplete:   (taskId, explanation) => completeBootModalTask(taskId, explanation),
+        onAllComplete:    () => { if (elements.terminalInput) elements.terminalInput.focus(); },
+
+        // Section 20 — RHEL 10 init=/bin/bash config
+        appendCommand:   'init=/bin/bash',
+        initialPrompt:   'bash-5.2# ',
+        grubVersion:     '2.12',
+        grubTitle:       'Red Hat Enterprise Linux (6.12.0-55.29.1.el10_0.x86_64) 10.0 (Coughlan)',
+        grubRescue:      'Red Hat Enterprise Linux (0-rescue-...) 10.0 (Coughlan)',
+        grubEditorLines: [
+            'load_video',
+            'set gfxpayload=keep',
+            'insmod gzio',
+            'insmod part_gpt',
+            'insmod xfs',
+            "set root='hd0,gpt2'",
+            "search --no-floppy --label --set=root 'boot'",
+            "echo 'Loading Red Hat Enterprise Linux...'",
+            'linux   ($root)/vmlinuz-6.12.0-55.29.1.el10_0.x86_64 root=/dev/mapper/rhel-root ro crashkernel=1G-4G:192M,4G-64G:256M,64G-:512M resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet',
+            'initrd ($root)/initramfs-6.12.0-55.29.1.el10_0.x86_64.img $tuned_initrd'
+        ],
+        bootMessages: [
+            '[    0.000000] Linux version 6.12.0-55.29.1.el10_0.x86_64',
+            '[    0.123456] Command line: BOOT_IMAGE=... init=/bin/bash',
+            '[    1.482345] EXT4-fs: mounted filesystem',
+            '[    2.001234] Run /bin/bash as init process',
+            '',
+        ],
+        shellIntro: [''],
+        chrootTaskId: null   // no chroot in this method
+    });
+    simulator.open();
+}
+
+/**
+ * Handle vi command in Section 4 (Shell Scripting)
+ * Opens modal editor instead of normal validation
+ * @param {string} input - User input
+ * @param {object} task - Current task
+ * @returns {boolean} - True if this was a vi command that was handled
+ */
+function handleViCommandSection4(input, task) {
+    const parsed = parseCommand(input);
+    
+    // Check if this is a vi or vim command
+    if (parsed.command !== 'vi' && parsed.command !== 'vim') {
+        return false;
+    }
+    
+    // Check if filename is provided
+    if (parsed.values.length === 0) {
+        addResultToHistory('vim: Missing filename\nUsage: vim <filename>', 'error');
+        return true;
+    }
+    
+    const filename = parsed.values[0];
+    
+    // Open modal editor
+    if (typeof ViModal !== 'undefined') {
+        // Create a mock filesystem object for the modal
+        const mockFs = {
+            resolvePath: (path) => {
+                // Just return the path as-is for Section 4
+                // Users work in their current directory
+                if (!path.startsWith('/')) {
+                    return `/${path}`;
+                }
+                return path;
+            },
+            getNode: (path) => {
+                // Check if file exists in our virtual state
+                const fsState = getFileSystemState();
+                if (fsState[path]) {
+                    return {
+                        type: 'file',
+                        content: fsState[path].content || '',
+                        permissions: fsState[path].mode || 'rw-r--r--',
+                        owner: fsState[path].owner || 'root',
+                        group: fsState[path].group || 'root'
+                    };
+                }
+                // Return current directory
+                if (path === '/' || path === '.') {
+                    return {
+                        type: 'directory',
+                        children: {}
+                    };
+                }
+                return null;
+            },
+            checkPermission: () => true // Always allow in practice mode
+        };
+        
+        // Create a mock terminal object
+        const mockTerminal = {
+            addOutput: (text) => {
+                addResultToHistory(text, 'info');
+            },
+            restoreFromEditor: (shouldValidate = false) => {
+                // Only validate if the modal was closed with "Save & Exit"
+                if (shouldValidate) {
+                    const fullPath = mockFs.resolvePath(filename);
+                    const fileNode = mockFs.getNode(fullPath);
+                    
+                    if (fileNode && fileNode.content) {
+                        // Check if this task has script validation requirements
+                        const scriptValidation = findScriptValidationInTask(task, fullPath);
+                        
+                        if (scriptValidation) {
+                            // Validate the script content
+                            const validationResult = validateScript(fullPath, mockFs, scriptValidation);
+                            
+                            if (validationResult.valid) {
+                                handleCorrectAnswer(task, input, null);
+                            } else {
+                                addResultToHistory(validationResult.message, 'error');
+                            }
+                        } else {
+                            // If we can't find validation requirements for a vi task, something is wrong
+                            addResultToHistory(`Error: No validation requirements found for ${filename}. Please report this issue.`, 'error');
+                        }
+                    } else {
+                        addResultToHistory('No script content found. Please write your script and click "Save & Exit".', 'error');
+                    }
+                }
+                
+                elements.terminalInput.focus();
+            }
+        };
+        
+        const fullPath = mockFs.resolvePath(filename);
+        const existingContent = mockFs.getNode(fullPath)?.content || '';
+        
+        const modal = new ViModal(mockTerminal, mockFs);
+        modal.open(fullPath, existingContent);
+        
+        return true;
+    }
+    
+    // Fallback if modal not available
+    addResultToHistory('vim: Editor not available', 'error');
+    return true;
+}
+
+/**
+ * Find script validation requirements in task
+ * @param {object} task - Current task
+ * @param {string} filepath - Script file path
+ * @returns {object|null} - Validation requirements or null
+ */
+function findScriptValidationInTask(task, filepath) {
+    if (!task.expected || !Array.isArray(task.expected)) {
+        return null;
+    }
+    
+    // Normalize filepath for comparison (remove leading slash if present)
+    const normalizedPath = filepath.startsWith('/') ? filepath.substring(1) : filepath;
+    
+    for (const expected of task.expected) {
+        if (expected.command === 'vi' || expected.command === 'vim') {
+            // Check if this expected command matches the filepath
+            if (expected.requiredValues) {
+                for (const reqValue of expected.requiredValues) {
+                    const normalizedReqValue = reqValue.startsWith('/') ? reqValue.substring(1) : reqValue;
+                    if (normalizedReqValue === normalizedPath) {
+                        return expected.scriptValidation || null;
+                    }
+                }
+            }
+        }
+    }
+    
+    return null;
 }
 
 /**
@@ -468,14 +880,20 @@ function handlePreCheckCommand(input, task, grepParsed) {
         return false;
     }
     
-    const commandToValidate = grepParsed ? grepParsed.command : input;
-    const preCheckResult = validateCommand(commandToValidate, task.allowedPreChecks);
+    let preCheckResult = validateCommand(input, task.allowedPreChecks);
+    if (!preCheckResult.valid && grepParsed) {
+        preCheckResult = validateCommand(grepParsed.command, task.allowedPreChecks);
+    }
     
     if (!preCheckResult.valid) {
         return false;
     }
     
-    // This is a valid pre-check - show output but don't complete task
+    // This is a valid pre-check - update state if needed (before showing output)
+    updateSimulatedUserState(input);
+    updateFileSystemStateFromCommand(input);
+    
+    // Show output
     const preCheckOutput = generatePreCheckOutput(task, input, grepParsed);
     
     if (preCheckOutput) {
@@ -492,6 +910,12 @@ function handlePreCheckCommand(input, task, grepParsed) {
  * @param {object} grepParsed - Parsed grep info
  */
 function handleCorrectAnswer(task, input, grepParsed) {
+    // Update simulated user state if this is a chage command
+    updateSimulatedUserState(input);
+    
+    // Update filesystem state if this is a chmod/chown/chgrp/setfacl command
+    updateFileSystemStateFromCommand(input);
+    
     // Generate and show simulated output for audit tasks
     const simulatedOutput = generateSimulatedOutput(task, input, grepParsed);
     
@@ -526,6 +950,141 @@ function handleCorrectAnswer(task, input, grepParsed) {
 }
 
 /**
+ * Update simulated user state based on command
+ * @param {string} input - User's input command
+ */
+function updateSimulatedUserState(input) {
+    // Parse chage commands to update user state
+    const chageMatch = input.match(/chage\s+(.+)/);
+    if (!chageMatch) return;
+    
+    const args = chageMatch[1].trim().split(/\s+/);
+    let username = null;
+    let updates = {};
+    
+    // Parse arguments
+    for (let i = 0; i < args.length; i++) {
+        const arg = args[i];
+        if (arg === '-M' || arg === '--maxdays') {
+            updates.maxPasswordAge = parseInt(args[i + 1]);
+            i++;
+        } else if (arg === '-m' || arg === '--mindays') {
+            updates.minPasswordAge = parseInt(args[i + 1]);
+            i++;
+        } else if (arg === '-W' || arg === '--warndays') {
+            updates.warnDays = parseInt(args[i + 1]);
+            i++;
+        } else if (arg === '-I' || arg === '--inactive') {
+            updates.passwordInactive = parseInt(args[i + 1]);
+            i++;
+        } else if (arg === '-E' || arg === '--expiredate') {
+            updates.accountExpiry = args[i + 1];
+            i++;
+        } else if (!arg.startsWith('-')) {
+            username = arg;
+        }
+    }
+    
+    // Apply updates to current section's user state
+    if (username && typeof getSimulatedUsers === 'function') {
+        const simulatedUsers = getSimulatedUsers();
+        if (simulatedUsers[username]) {
+            Object.assign(simulatedUsers[username], updates);
+            console.log(`📝 Updated simulated user state for ${username} (Section ${appState.currentSectionId}):`, updates);
+        }
+    }
+}
+
+/**
+ * Update filesystem state based on command
+ * @param {string} input - User's input command
+ */
+function updateFileSystemStateFromCommand(input) {
+    if (typeof updateFileSystemState !== 'function') return;
+    
+    const tokens = input.trim().split(/\s+/);
+    const command = tokens[0];
+    
+    // Parse chmod commands
+    if (command === 'chmod') {
+        const modeIdx = tokens.findIndex(t => !t.startsWith('-') && t !== 'chmod');
+        if (modeIdx !== -1) {
+            const mode = tokens[modeIdx];
+            const path = tokens[modeIdx + 1];
+            if (path) {
+                // Normalize octal mode (755 -> 0755)
+                const normalizedMode = mode.match(/^\d{3}$/) ? '0' + mode : mode;
+                updateFileSystemState(path, { mode: normalizedMode });
+            }
+        }
+    }
+    
+    // Parse chown commands
+    else if (command === 'chown') {
+        // Identify path by leading '/', owner/group by not starting with '/' or '-'
+        const pathIdx = tokens.findIndex((t, i) => i > 0 && t.startsWith('/'));
+        const ownerIdx = tokens.findIndex((t, i) => i > 0 && !t.startsWith('-') && !t.startsWith('/'));
+        if (pathIdx !== -1 && ownerIdx !== -1) {
+            const path = tokens[pathIdx];
+            const ownerGroup = tokens[ownerIdx];
+            const updates = {};
+            if (ownerGroup.includes(':')) {
+                const [owner, group] = ownerGroup.split(':');
+                if (owner) updates.owner = owner;
+                if (group) updates.group = group;
+            } else {
+                updates.owner = ownerGroup;
+            }
+            if (Object.keys(updates).length > 0) {
+                updateFileSystemState(path, updates);
+            }
+        }
+    }
+    
+    // Parse chgrp commands
+    else if (command === 'chgrp') {
+        const groupIdx = tokens.findIndex(t => !t.startsWith('-') && t !== 'chgrp');
+        if (groupIdx !== -1) {
+            const group = tokens[groupIdx];
+            const path = tokens[groupIdx + 1];
+            if (path && group) {
+                updateFileSystemState(path, { group: group });
+            }
+        }
+    }
+    
+    // Parse setfacl commands
+    else if (command === 'setfacl') {
+        const mIdx = tokens.indexOf('-m');
+        const xIdx = tokens.indexOf('-x');
+        const pathIdx = tokens.length - 1;
+        const path = tokens[pathIdx];
+        
+        if (path && (mIdx !== -1 || xIdx !== -1)) {
+            const aclIdx = mIdx !== -1 ? mIdx + 1 : xIdx + 1;
+            const aclSpec = tokens[aclIdx];
+            
+            if (aclSpec) {
+                const fsState = getFileSystemState();
+                if (fsState && fsState[path]) {
+                    if (!fsState[path].acls) fsState[path].acls = [];
+                    
+                    if (mIdx !== -1) {
+                        // Add/modify ACL
+                        fsState[path].acls.push(aclSpec);
+                        console.log(`📝 Added ACL ${aclSpec} to ${path} (Section ${appState.currentSectionId})`);
+                    } else {
+                        // Remove ACL
+                        fsState[path].acls = fsState[path].acls.filter(a => !a.startsWith(aclSpec.split(':')[0]));
+                        console.log(`📝 Removed ACL ${aclSpec} from ${path} (Section ${appState.currentSectionId})`);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * Handle incorrect answer
  * @param {object} validationResult - Validation result with error message
  */
@@ -554,14 +1113,21 @@ function showHint() {
     const expected = Array.isArray(task.expected) ? task.expected[0] : task.expected;
     
     // Build hint message
-    let hintMessage = `Hint: Use the ${expected.command} command`;
-    
-    if (expected.requiredFlags && expected.requiredFlags.length > 0) {
-        hintMessage += ` with flags: ${expected.requiredFlags.join(', ')}`;
-    }
-    
-    if (expected.requiredValues && expected.requiredValues.length > 0) {
-        hintMessage += `. Required values: ${expected.requiredValues.join(', ')}`;
+    let hintMessage;
+    if (task.hint) {
+        hintMessage = `Hint: ${task.hint}`;
+    } else if (expected.match) {
+        hintMessage = 'Hint: Type the line itself, exactly as it would appear in the file or script.';
+    } else {
+        hintMessage = `Hint: Use the ${expected.command} command`;
+        
+        if (expected.requiredFlags && expected.requiredFlags.length > 0) {
+            hintMessage += ` with flags: ${expected.requiredFlags.join(', ')}`;
+        }
+        
+        if (expected.requiredValues && expected.requiredValues.length > 0) {
+            hintMessage += `. Required values: ${expected.requiredValues.join(', ')}`;
+        }
     }
     
     // Find last history entry and replace error with hint

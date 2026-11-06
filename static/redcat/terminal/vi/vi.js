@@ -851,6 +851,11 @@ class ViEditor {
         }
         
         const fileContent = this.content.join('\n');
+        const cmds = this.terminal && this.terminal.commands;
+        if (cmds && cmds._roPath && cmds._roPath(this.filename)) {
+            this.setMessage("E212: Can't open file for writing");
+            return;
+        }
         
         // Get parent directory and filename
         const parentPath = this.fs.getParentPath(this.filename);

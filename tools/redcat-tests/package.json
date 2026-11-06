@@ -1,0 +1,7 @@
+{
+  "name": "redcat-tests",
+  "private": true,
+  "description": "Regression tests for static/redcat (answer validation, terminal smoke battery, tab completion)",
+  "scripts": { "test": "node run.js" },
+  "devDependencies": { "jsdom": "^24.1.3" }
+}
